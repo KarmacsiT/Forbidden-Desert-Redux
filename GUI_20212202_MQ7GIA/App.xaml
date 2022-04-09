@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:GUI_20212202_MQ7GIA"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="Steamwreck">./Font/Steamwreck-07pd.ttf#Steamwreck</FontFamily>
     </Application.Resources>
 </Application>

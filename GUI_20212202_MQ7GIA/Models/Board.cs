@@ -15,7 +15,6 @@ namespace GUI_20212202_MQ7GIA.Models
         LaunchPadTile LaunchPadTile;
         List<StormCard> DiscardedStormCards;
         List<ItemCard> DiscardedItemCards;
-
     }
 
     public class LaunchPadTile : ITile

@@ -7,8 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Font\Steamwreck-07pd.ttf" />
+    <None Remove="ImageAssets\menu.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Logic\" />
     <Folder Include="UI\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Font\Steamwreck-07pd.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ImageAssets\Menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
