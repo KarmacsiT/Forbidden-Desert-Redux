@@ -6,4 +6,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Logic\" />
+    <Folder Include="UI\" />
+  </ItemGroup>
+
 </Project>
