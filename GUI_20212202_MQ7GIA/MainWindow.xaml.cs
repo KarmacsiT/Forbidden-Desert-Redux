@@ -24,5 +24,16 @@ namespace GUI_20212202_MQ7GIA
         {
             InitializeComponent();
         }
+
+        private void ExitClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void CreditsClick(object sender, RoutedEventArgs e)
+        {
+            string message = $"Made by:{Environment.NewLine}\tKarmacsi Tamás{Environment.NewLine}\tCsábi Lizett{Environment.NewLine}\tKun Attila";
+            MessageBox.Show(message);
+        }
     }
 }
