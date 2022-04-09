@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace GUI_20212202_MQ7GIA.Models
 {
-    public interface IItem // To be continued
+    public class Storm
     {
-        //This is a Gadget which you can use anytime (jetpack)
-        string Name { get; set; }
-        void Ability(); 
+        public int X { get; set; }
+        public int Y { get; set; }
     }
 }

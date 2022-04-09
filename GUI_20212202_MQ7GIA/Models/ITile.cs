@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace GUI_20212202_MQ7GIA.Models
 {
-    public interface IItem // To be continued
+    public interface ITile
     {
-        //This is a Gadget which you can use anytime (jetpack)
-        string Name { get; set; }
-        void Ability(); 
+        int X { get; set; }
+        int Y { get; set; }
+        bool IsDiscovered { get; set; }
     }
 }
