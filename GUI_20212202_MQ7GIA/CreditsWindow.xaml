@@ -37,10 +37,10 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Label Content="Karmacsi Tamás" FontFamily="Steamwreck" FontSize="50"/>
-            <Label Content="Csábi Lizett" FontFamily="Steamwreck" FontSize="50"/>
-            <Label Content="Kun Attila" FontFamily="Steamwreck" FontSize="50"/>
+            <Label Content="Karmacsi Tamás" FontFamily="{StaticResource Steamwreck}" FontSize="50"/>
+            <Label Content="Csábi Lizett" FontFamily="{StaticResource Steamwreck}" FontSize="50"/>
+            <Label Content="Kun Attila" FontFamily="{StaticResource Steamwreck}" FontSize="50"/>
         </StackPanel>
-        <Button Style="{StaticResource TransparentStyle}" Grid.Row="2" Grid.Column="2" Content="Go back" FontFamily="Steamwreck" FontSize="50" Width="200" Height="60" Click="ClickGoBack" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+        <Button Style="{StaticResource TransparentStyle}" Grid.Row="2" Grid.Column="2" Content="Go back" FontFamily="{StaticResource Steamwreck}" FontSize="50" Width="200" Height="60" Click="ClickGoBack" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
     </Grid>
 </Window>
