@@ -22,6 +22,8 @@ namespace GUI_20212202_MQ7GIA
         public BoardWindow()
         {
             InitializeComponent();
+            //Logic logic = new Logic();
+            //display.SetupModel(logic);
         }
     }
 }

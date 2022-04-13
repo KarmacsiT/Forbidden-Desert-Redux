@@ -4,9 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_20212202_MQ7GIA"
+        xmlns:renderer="clr-namespace:GUI_20212202_MQ7GIA.UI.Renderer"
         mc:Ignorable="d"
-        Title="BoardWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="BoardWindow" Height="1080" Width="1920" ResizeMode="NoResize" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None">
+    <Grid Background="White">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="1200" Height="800" Background="Orange">
+            <renderer:Display x:Name="display" />
+        </Grid>
     </Grid>
 </Window>
