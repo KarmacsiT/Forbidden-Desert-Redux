@@ -9,10 +9,12 @@ namespace GUI_20212202_MQ7GIA.Models
     public enum ShelterVariations { Empty, Friendly, FriendlyQuest, FriendlyWater, Hostile }
     public class Board
     {
-        TunnelTile[] TunnelTiles;
-        AirShipClueTile[] AirShipClueTiles;
-        OasisMirageTile[] OasisMirageTiles;
-        LaunchPadTile LaunchPadTile;
+        public TunnelTile[] TunnelTiles { get; set; } // 2 tiles
+        public AirShipClueTile[] AirShipClueTiles { get; set; } // 8 tiles
+        public OasisMirageTile[] OasisMirageTiles { get; set; } // 3 tiles
+        public LaunchPadTile LaunchPadTile { get; set; } // 1 tiles
+        public ShelterTile[] ShelterTiles { get; set; } //10 tiles
+        public Storm storm { get; set; }
     }
 
     public class LaunchPadTile : ITile

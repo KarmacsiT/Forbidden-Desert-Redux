@@ -8,10 +8,10 @@ namespace GUI_20212202_MQ7GIA.Models
 {
     public class Deck
     {
-        List<ItemCard> AvailableItemCards { get; set; }
-        List<ItemCard> DiscardedItemCards { get; set; }
-        List<StormCard> AvailableStormCards { get; set; }
-        List<StormCard> DiscardedStormCards { get; set; }
+        public List<ItemCard> AvailableItemCards { get; set; }
+        public List<ItemCard> DiscardedItemCards { get; set; }
+        public List<StormCard> AvailableStormCards { get; set; }
+        public List<StormCard> DiscardedStormCards { get; set; }
     }
     public class ItemCard
     {
