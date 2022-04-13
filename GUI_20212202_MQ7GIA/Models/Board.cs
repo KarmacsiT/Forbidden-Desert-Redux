@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUI_20212202_MQ7GIA.Models
 {
-    public enum ShelterVariations { Empty, Friendly, FriendlyQuest, FriendlyWater, Hostile }
+    public enum ShelterVariations { Empty, FriendlyQuest, FriendlyWater, Hostile }
     public class Board
     {
         public TunnelTile[] TunnelTiles { get; set; } // 2 tiles
@@ -52,7 +52,7 @@ namespace GUI_20212202_MQ7GIA.Models
         public int X { get; set; }
         public int Y { get; set; }
         public bool IsDiscovered { get; set; }
-        public ShelterVariations ShelterType { get; }
+        public ShelterVariations ShelterType { get; set; }
     }
 
 }
