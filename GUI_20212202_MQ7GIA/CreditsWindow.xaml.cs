@@ -10,30 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace GUI_20212202_MQ7GIA
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CreditsWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CreditsWindow : Window
     {
-        public MainWindow()
+        public CreditsWindow()
         {
             InitializeComponent();
         }
 
-        private void ExitClick(object sender, RoutedEventArgs e)
+        private void ClickGoBack(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
-
-        private void CreditsClick(object sender, RoutedEventArgs e)
-        {
-            CreditsWindow cw = new CreditsWindow();
-            cw.ShowDialog();
+            this.DialogResult = true;
         }
     }
 }

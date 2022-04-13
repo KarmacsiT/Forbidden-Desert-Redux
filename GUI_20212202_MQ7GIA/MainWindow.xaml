@@ -5,8 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_20212202_MQ7GIA"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Main Menu" Height="1080" Width="1920" ResizeMode="NoResize" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None">
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/ImageAssets/Menu.png"/>
+    </Window.Background>
+    <Window.Resources>
+        <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
+        <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#8f3e2f"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2.4*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Button Style="{StaticResource TransparentStyle}" Grid.Column="1" Grid.Row="1" Content="Start Game" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="350" Height="105" FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black"/>
+        <Button Style="{StaticResource TransparentStyle}" Grid.Column="1" Grid.Row="2" Content="Continue Game" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="350" Height="105" FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <Button Style="{StaticResource TransparentStyle}" Grid.Column="1" Grid.Row="3" Content="Options" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="350" Height="105" FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <Button Style="{StaticResource TransparentStyle}" Grid.Column="1" Grid.Row="4" Content="Credits" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="350" Height="105" FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Click="CreditsClick"/>
+        <Button Style="{StaticResource TransparentStyle}" Grid.Column="1" Grid.Row="5" Content="Exit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="350" Height="105" FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Click="ExitClick"/>
     </Grid>
 </Window>
