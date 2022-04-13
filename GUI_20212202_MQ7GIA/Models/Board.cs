@@ -29,6 +29,7 @@ namespace GUI_20212202_MQ7GIA.Models
         public int X { get; set; }
         public int Y { get; set; }
         public bool IsDiscovered { get; set; }
+        public bool IsDried { get; set; }
     }
 
     public class AirShipClueTile : ITile
@@ -36,6 +37,8 @@ namespace GUI_20212202_MQ7GIA.Models
         public int X { get; set; }
         public int Y { get; set; }
         public bool IsDiscovered { get; set; }
+        public char Direction { get; set; }
+        public string PartName { get; set; }
     }
 
     public class TunnelTile : ITile
