@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Font\Steamwreck-07pd.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

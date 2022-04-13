@@ -8,9 +8,9 @@ namespace GUI_20212202_MQ7GIA.Models
 {
     public class ShipParts
     {
-        int X { get; set; }
-        int Y { get; set; }
-        string Name { get; set; }
-        bool IsPickedUp { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public string Name { get; set; }
+        public bool IsPickedUp { get; set; }
     }
 }
