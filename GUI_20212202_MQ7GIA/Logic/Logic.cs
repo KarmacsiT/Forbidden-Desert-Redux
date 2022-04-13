@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GUI_20212202_MQ7GIA.Logic
-{
+{     
     public class Logic
     {
         Board board;
@@ -15,9 +15,9 @@ namespace GUI_20212202_MQ7GIA.Logic
         Player player;
         ShipParts[] shipParts;
 
+        Random random = new Random();
         public Logic()
         {
-            Random random = new Random();
             board = new Board
             {
                 TunnelTiles = new TunnelTile[3], // Okay, we have 3 tunnel tiles, not 2
@@ -42,16 +42,20 @@ namespace GUI_20212202_MQ7GIA.Logic
                 board.AirShipClueTiles[i].Y = -1;
             }
             //AirShipClueTile generation
+            bool[,] isTaken = new bool[5, 5];
             foreach (AirShipClueTile tile in board.AirShipClueTiles)
             {
-                int X = random.Next(0, 4);
-                int Y = random.Next(0, 4);
+                int X = random.Next(0, 5);
+                int Y = random.Next(0, 5);
                 //Avoid number generation for 2 and check if card is already generated
-                while (X != 2 && Y != 2 && (board.AirShipClueTiles.Any(coord => coord.X == X) && board.AirShipClueTiles.Any(coord => coord.Y == Y)))
+                while (!(X != 2 && Y != 2 && (board.AirShipClueTiles.Any(coord => coord.X == X) && board.AirShipClueTiles.Any(coord => coord.Y == Y)))) // good case in the brackets
                 {
-                    X = random.Next(0, 4);
-                    Y = random.Next(0, 4);
+                    X = random.Next(0, 5);
+                    Y = random.Next(0, 5);
                 }
+                tile.X = X;
+                tile.Y = Y;
+                isTaken[X, Y] = true;
                 //Put direction
                 if (cardCounter % 2 == 0)
                 {
@@ -67,6 +71,90 @@ namespace GUI_20212202_MQ7GIA.Logic
                 else tile.PartName = shipParts[3].Name;
                 cardCounter++;
             }
+            cardCounter = 0;
+            foreach (ShipParts part in shipParts)
+            {
+                part.X = board.AirShipClueTiles[cardCounter].X;
+                part.Y = board.AirShipClueTiles[cardCounter+1].Y;
+                cardCounter += 2;
+            }
+
+            // LaunchPadTile 
+            board.LaunchPadTile.X = CoordinateGiver(isTaken)[0];
+            board.LaunchPadTile.Y = CoordinateGiver(isTaken)[1];
+
+            // TunnelTiles && OasisMirageTiles
+            bool dry = false;
+            for (int i = 0; i < 3; i++)
+            {
+                board.TunnelTiles[i].X = CoordinateGiver(isTaken)[0];
+                board.TunnelTiles[i].Y = CoordinateGiver(isTaken)[1];
+
+                board.OasisMirageTiles[i].X = CoordinateGiver(isTaken)[0];
+                board.OasisMirageTiles[i].Y = CoordinateGiver(isTaken)[1];
+                
+                if(dry == false)
+                {
+                    int chance = random.Next(0, 3);
+                    if(chance == 0)
+                    {
+                        board.OasisMirageTiles[i].IsDried = true;
+                    }
+                    dry = true;
+                }
+                else
+                {
+                    board.OasisMirageTiles[i].IsDried = false;
+                }
+            }
+            // ShelterTiles
+            foreach (ShelterTile tile in board.ShelterTiles)
+            {
+                for (int x = 0; x < isTaken.GetLength(0); x++)
+                {
+                    for (int y = 0; y < isTaken.GetLength(1); y++)
+                    {
+                        if(isTaken[x,y] is false)
+                        {
+                            tile.X = x;
+                            tile.Y = y;
+                        }
+                    }
+                }
+                int chance = random.Next(0, 101);
+                if(chance <= 50)
+                {
+                    tile.ShelterType = ShelterVariations.Empty;
+                }
+                else if (chance > 50 && chance <= 65)
+                {
+                    tile.ShelterType = ShelterVariations.FriendlyWater;
+                }
+                else if (chance > 65 && chance <= 80)
+                {
+                    tile.ShelterType = ShelterVariations.FriendlyQuest;
+                }
+                else
+                {
+                    tile.ShelterType = ShelterVariations.Hostile;
+                }
+            }
+
+        }
+        private int[] CoordinateGiver(bool[,] isTaken)
+        {
+            int[] result = new int[2];   // 0--X , 1 ---Y
+            int x = random.Next(0, 5);
+            int y = random.Next(0, 5);
+            while (!(x != 2 && y != 2 && isTaken[x, y] is not false))  // good case in the brackets
+            {
+                x = random.Next(0, 5);
+                y = random.Next(0, 5);
+            }            
+            isTaken[x, y] = true;
+            result[0] = x;
+            result[1] = y;
+            return result;
         }
     }
 }
