@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUI_20212202_MQ7GIA.Models
 {
-    public interface IShipParts
+    public class ShipParts
     {
         int X { get; set; }
         int Y { get; set; }
