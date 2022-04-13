@@ -13,7 +13,16 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border>
-                            <Grid Background="Coral">
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Coral"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
@@ -37,9 +46,9 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Label Content="Karmacsi Tamás" FontFamily="{StaticResource Steamwreck}" FontSize="50"/>
-            <Label Content="Csábi Lizett" FontFamily="{StaticResource Steamwreck}" FontSize="50"/>
-            <Label Content="Kun Attila" FontFamily="{StaticResource Steamwreck}" FontSize="50"/>
+            <Label Content="Karmacsi Tamás" FontFamily="{StaticResource Steamwreck}" FontSize="50" HorizontalAlignment="Center"/>
+            <Label Content="Csábi Lizett" FontFamily="{StaticResource Steamwreck}" FontSize="50" HorizontalAlignment="Center"/>
+            <Label Content="Kun Attila" FontFamily="{StaticResource Steamwreck}" FontSize="50" HorizontalAlignment="Center"/>
         </StackPanel>
         <Button Style="{StaticResource TransparentStyle}" Grid.Row="2" Grid.Column="2" Content="Go back" FontFamily="{StaticResource Steamwreck}" FontSize="50" Width="200" Height="60" Click="ClickGoBack" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
     </Grid>

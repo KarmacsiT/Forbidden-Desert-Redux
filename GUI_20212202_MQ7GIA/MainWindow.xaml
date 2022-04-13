@@ -20,7 +20,7 @@
                                 <Style TargetType="{x:Type Border}">
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#8f3e2f"/>
+                                            <Setter Property="Background" Value="Coral"/>
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
