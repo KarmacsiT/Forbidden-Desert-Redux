@@ -9,7 +9,7 @@ namespace GUI_20212202_MQ7GIA.Logic
 {
     public class GameLogic
     {
-        Board board;
+        public Board board { get; set; }
         Deck deck;
         GameStatus status;
         Player player;
@@ -35,20 +35,24 @@ namespace GUI_20212202_MQ7GIA.Logic
             shipParts[2] = new ShipParts { Name = "Compass" };
             shipParts[3] = new ShipParts { Name = "Propeller" };
             int cardCounter = 0;
+
             //We need this to avoid card generation conflicts when X = 0 and Y = 0
             for (int i = 0; i < 8; i++)
             {
+                board.AirShipClueTiles[i] = new AirShipClueTile();
                 board.AirShipClueTiles[i].X = -1;
                 board.AirShipClueTiles[i].Y = -1;
             }
             //AirShipClueTile generation
             bool[,] isTaken = new bool[5, 5];
+
             foreach (AirShipClueTile tile in board.AirShipClueTiles)
             {
                 int X = random.Next(0, 5);
                 int Y = random.Next(0, 5);
+
                 //Avoid number generation for 2 and check if card is already generated
-                while (!(X != 2 && Y != 2 && (board.AirShipClueTiles.Any(coord => coord.X == X) && board.AirShipClueTiles.Any(coord => coord.Y == Y)))) // good case in the brackets
+                while (X is 2 && Y is 2 || isTaken[X, Y])
                 {
                     X = random.Next(0, 5);
                     Y = random.Next(0, 5);
@@ -72,6 +76,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 cardCounter++;
             }
             cardCounter = 0;
+
             foreach (ShipParts part in shipParts)
             {
                 part.X = board.AirShipClueTiles[cardCounter].X;
@@ -80,16 +85,20 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
 
             // LaunchPadTile 
+            board.LaunchPadTile = new LaunchPadTile();
             board.LaunchPadTile.X = CoordinateGiver(isTaken)[0];
             board.LaunchPadTile.Y = CoordinateGiver(isTaken)[1];
 
             // TunnelTiles && OasisMirageTiles
             bool dry = false;
+
             for (int i = 0; i < 3; i++)
             {
+                board.TunnelTiles[i] = new TunnelTile();
                 board.TunnelTiles[i].X = CoordinateGiver(isTaken)[0];
                 board.TunnelTiles[i].Y = CoordinateGiver(isTaken)[1];
 
+                board.OasisMirageTiles[i] = new OasisMirageTile();
                 board.OasisMirageTiles[i].X = CoordinateGiver(isTaken)[0];
                 board.OasisMirageTiles[i].Y = CoordinateGiver(isTaken)[1];
 
@@ -107,7 +116,13 @@ namespace GUI_20212202_MQ7GIA.Logic
                     board.OasisMirageTiles[i].IsDried = false;
                 }
             }
+
             // ShelterTiles
+            for (int i = 0; i < board.ShelterTiles.Length; i++)
+            {
+                board.ShelterTiles[i] = new ShelterTile();
+            }
+
             foreach (ShelterTile tile in board.ShelterTiles)
             {
                 for (int x = 0; x < isTaken.GetLength(0); x++)
@@ -141,12 +156,13 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
 
         }
+
         private int[] CoordinateGiver(bool[,] isTaken)
         {
             int[] result = new int[2];   // 0--X , 1 ---Y
             int x = random.Next(0, 5);
             int y = random.Next(0, 5);
-            while (!(x != 2 && y != 2 && isTaken[x, y] is not false))  // good case in the brackets
+            while (x is 2 && y is 2 && isTaken[x, y] is not false)  //The coordinate can't be the coordinate of the storm start coordinate which is [2,2] or taken
             {
                 x = random.Next(0, 5);
                 y = random.Next(0, 5);
