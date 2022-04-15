@@ -14,6 +14,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         GameStatus status;
         Player player;
         ShipParts[] shipParts;
+        public string[,] Names { get; set; }
 
         Random random = new Random();
         public GameLogic()
@@ -45,6 +46,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             //AirShipClueTile generation
             bool[,] isTaken = new bool[5, 5];
+            Names = new string[5, 5];
 
             foreach (AirShipClueTile tile in board.AirShipClueTiles)
             {
@@ -60,6 +62,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 tile.X = X;
                 tile.Y = Y;
                 isTaken[X, Y] = true;
+                Names[X, Y] = "AirShipClueTile";
                 //Put direction
                 if (cardCounter % 2 == 0)
                 {
@@ -81,6 +84,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             {
                 part.X = board.AirShipClueTiles[cardCounter].X;
                 part.Y = board.AirShipClueTiles[cardCounter + 1].Y;
+                Names[part.X, part.Y] = board.AirShipClueTiles[cardCounter].PartName;
                 cardCounter += 2;
             }
 
@@ -88,6 +92,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             board.LaunchPadTile = new LaunchPadTile();
             board.LaunchPadTile.X = CoordinateGiver(isTaken)[0];
             board.LaunchPadTile.Y = CoordinateGiver(isTaken)[1];
+            Names[board.LaunchPadTile.X, board.LaunchPadTile.Y] = "LaunchPadTile";
 
             // TunnelTiles && OasisMirageTiles
             bool dry = false;
@@ -97,6 +102,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 board.TunnelTiles[i] = new TunnelTile();
                 board.TunnelTiles[i].X = CoordinateGiver(isTaken)[0];
                 board.TunnelTiles[i].Y = CoordinateGiver(isTaken)[1];
+                Names[board.TunnelTiles[i].X, board.TunnelTiles[i].Y] = "TunnelTile";
 
                 board.OasisMirageTiles[i] = new OasisMirageTile();
                 board.OasisMirageTiles[i].X = CoordinateGiver(isTaken)[0];
@@ -115,6 +121,12 @@ namespace GUI_20212202_MQ7GIA.Logic
                 {
                     board.OasisMirageTiles[i].IsDried = false;
                 }
+
+                if (board.OasisMirageTiles[i].IsDried == false)
+                {
+                    Names[board.OasisMirageTiles[i].X, board.OasisMirageTiles[i].Y] = "Oasis";
+                }
+                else Names[board.OasisMirageTiles[i].X, board.OasisMirageTiles[i].Y] = "Mirage";
             }
 
             // ShelterTiles
@@ -140,18 +152,22 @@ namespace GUI_20212202_MQ7GIA.Logic
                 if (chance <= 50)
                 {
                     tile.ShelterType = ShelterVariations.Empty;
+                    Names[tile.X, tile.Y] = "EmptyShelter";
                 }
                 else if (chance > 50 && chance <= 65)
                 {
                     tile.ShelterType = ShelterVariations.FriendlyWater;
+                    Names[tile.X, tile.Y] = "FriendlyWater";
                 }
                 else if (chance > 65 && chance <= 80)
                 {
                     tile.ShelterType = ShelterVariations.FriendlyQuest;
+                    Names[tile.X, tile.Y] = "FriendlyQuest";
                 }
                 else
                 {
                     tile.ShelterType = ShelterVariations.Hostile;
+                    Names[tile.X, tile.Y] = "Hostile";
                 }
             }
 
