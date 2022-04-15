@@ -38,15 +38,69 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                 {
                     SolidColorBrush solidColorBrush = new SolidColorBrush();
 
-                    if (x == logic.board.storm.X && y == logic.board.storm.Y) //Storm Render
+                    switch (logic.TileNames[x,y])
                     {
-                        drawingContext.DrawRectangle(Brushes.Coral, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                        case "Storm":
+                            {
+                                drawingContext.DrawRectangle(Brushes.Coral, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                            }
+                            break;
+                        case "AirShipClueTile":
+                            {
+                                drawingContext.DrawRectangle(Brushes.Green, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                            }
+                            break;
+                        case "LaunchPadTile":
+                            {
+                                drawingContext.DrawRectangle(Brushes.Black, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                            }
+                            break;
+                        case "TunnelTile":
+                            {
+                                drawingContext.DrawRectangle(Brushes.Brown, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                            }
+                            break;
+                        case "Mirage":
+                            {
+                                drawingContext.DrawRectangle(Brushes.Gray, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                            }
+                            break;
+                        case "Oasis":
+                            {
+                                drawingContext.DrawRectangle(Brushes.Blue, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                            }
+                            break;
+                        case "EmptyShelter":
+                            {
+                                drawingContext.DrawRectangle(Brushes.Red, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                            }
+                            break;
+                        case "FriendlyWater":
+                            {
+                                drawingContext.DrawRectangle(Brushes.Purple, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                            }
+                            break;
+                        case "FriendlyQuest":
+                            {
+                                drawingContext.DrawRectangle(Brushes.Pink, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                            }
+                            break;
+                        default:
+                            {
+                                drawingContext.DrawRectangle(Brushes.Yellow, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                            }
+                            break;
                     }
 
-                    else
-                    {
-                        drawingContext.DrawRectangle(Brushes.Yellow, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
-                    }
+                    //if (x == logic.board.storm.X && y == logic.board.storm.Y) //Storm Render
+                    //{
+                    //    drawingContext.DrawRectangle(Brushes.Coral, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                    //}
+
+                    //else
+                    //{
+                    //    drawingContext.DrawRectangle(Brushes.Yellow, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                    //}
 
                 }
             }
