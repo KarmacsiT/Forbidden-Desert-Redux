@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GUI_20212202_MQ7GIA.Logic
-{     
-    public class Logic
+{
+    public class GameLogic
     {
         Board board;
         Deck deck;
@@ -16,7 +16,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         ShipParts[] shipParts;
 
         Random random = new Random();
-        public Logic()
+        public GameLogic()
         {
             board = new Board
             {
@@ -66,8 +66,8 @@ namespace GUI_20212202_MQ7GIA.Logic
                     tile.Direction = 'Y';
                 }
                 if (cardCounter < 2) tile.PartName = shipParts[0].Name;
-                else if (cardCounter<4) tile.PartName = shipParts[1].Name;
-                else if (cardCounter<6) tile.PartName = shipParts[2].Name;
+                else if (cardCounter < 4) tile.PartName = shipParts[1].Name;
+                else if (cardCounter < 6) tile.PartName = shipParts[2].Name;
                 else tile.PartName = shipParts[3].Name;
                 cardCounter++;
             }
@@ -75,7 +75,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             foreach (ShipParts part in shipParts)
             {
                 part.X = board.AirShipClueTiles[cardCounter].X;
-                part.Y = board.AirShipClueTiles[cardCounter+1].Y;
+                part.Y = board.AirShipClueTiles[cardCounter + 1].Y;
                 cardCounter += 2;
             }
 
@@ -92,11 +92,11 @@ namespace GUI_20212202_MQ7GIA.Logic
 
                 board.OasisMirageTiles[i].X = CoordinateGiver(isTaken)[0];
                 board.OasisMirageTiles[i].Y = CoordinateGiver(isTaken)[1];
-                
-                if(dry == false)
+
+                if (dry == false)
                 {
                     int chance = random.Next(0, 3);
-                    if(chance == 0)
+                    if (chance == 0)
                     {
                         board.OasisMirageTiles[i].IsDried = true;
                     }
@@ -114,7 +114,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 {
                     for (int y = 0; y < isTaken.GetLength(1); y++)
                     {
-                        if(isTaken[x,y] is false)
+                        if (isTaken[x, y] is false)
                         {
                             tile.X = x;
                             tile.Y = y;
@@ -122,7 +122,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                     }
                 }
                 int chance = random.Next(0, 101);
-                if(chance <= 50)
+                if (chance <= 50)
                 {
                     tile.ShelterType = ShelterVariations.Empty;
                 }
@@ -150,7 +150,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             {
                 x = random.Next(0, 5);
                 y = random.Next(0, 5);
-            }            
+            }
             isTaken[x, y] = true;
             result[0] = x;
             result[1] = y;
