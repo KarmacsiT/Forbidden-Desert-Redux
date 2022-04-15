@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace GUI_20212202_MQ7GIA.Models
 {
-    public enum ShelterVariations { Empty, Friendly, FriendlyQuest, FriendlyWater, Hostile }
+    public enum ShelterVariations { Empty, FriendlyQuest, FriendlyWater, Hostile }
     public class Board
     {
-        TunnelTile[] TunnelTiles;
-        AirShipClueTile[] AirShipClueTiles;
-        OasisMirageTile[] OasisMirageTiles;
-        LaunchPadTile LaunchPadTile;
-        List<StormCard> DiscardedStormCards;
-        List<ItemCard> DiscardedItemCards;
+        public TunnelTile[] TunnelTiles { get; set; } // 2 tiles
+        public AirShipClueTile[] AirShipClueTiles { get; set; } // 8 tiles
+        public OasisMirageTile[] OasisMirageTiles { get; set; } // 3 tiles
+        public LaunchPadTile LaunchPadTile { get; set; } // 1 tiles
+        public ShelterTile[] ShelterTiles { get; set; } //10 tiles
+        public Storm storm { get; set; }
     }
 
     public class LaunchPadTile : ITile
@@ -29,6 +29,7 @@ namespace GUI_20212202_MQ7GIA.Models
         public int X { get; set; }
         public int Y { get; set; }
         public bool IsDiscovered { get; set; }
+        public bool IsDried { get; set; }
     }
 
     public class AirShipClueTile : ITile
@@ -36,6 +37,8 @@ namespace GUI_20212202_MQ7GIA.Models
         public int X { get; set; }
         public int Y { get; set; }
         public bool IsDiscovered { get; set; }
+        public char Direction { get; set; }
+        public string PartName { get; set; }
     }
 
     public class TunnelTile : ITile
@@ -49,7 +52,7 @@ namespace GUI_20212202_MQ7GIA.Models
         public int X { get; set; }
         public int Y { get; set; }
         public bool IsDiscovered { get; set; }
-        public ShelterVariations ShelterType { get; }
+        public ShelterVariations ShelterType { get; set; }
     }
 
 }
