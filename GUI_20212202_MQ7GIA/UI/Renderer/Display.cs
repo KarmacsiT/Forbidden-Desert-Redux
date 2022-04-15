@@ -36,61 +36,61 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
 
                 for (int y = 0; y < 5; y++)
                 {
-                    SolidColorBrush solidColorBrush = new SolidColorBrush();
-
+                    SolidColorBrush brush;
                     switch (logic.TileNames[x,y])
                     {
                         case "Storm":
                             {
-                                drawingContext.DrawRectangle(Brushes.Coral, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                                brush = Brushes.Coral;
                             }
                             break;
                         case "AirShipClueTile":
                             {
-                                drawingContext.DrawRectangle(Brushes.Green, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                                brush = Brushes.Green;
                             }
                             break;
                         case "LaunchPadTile":
                             {
-                                drawingContext.DrawRectangle(Brushes.Black, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                                brush = Brushes.Black;
                             }
                             break;
                         case "TunnelTile":
                             {
-                                drawingContext.DrawRectangle(Brushes.Brown, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                                brush = Brushes.Brown;
                             }
                             break;
                         case "Mirage":
                             {
-                                drawingContext.DrawRectangle(Brushes.Gray, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                                brush = Brushes.Gray;
                             }
                             break;
                         case "Oasis":
                             {
-                                drawingContext.DrawRectangle(Brushes.Blue, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                                brush = Brushes.Blue;
                             }
                             break;
                         case "EmptyShelter":
                             {
-                                drawingContext.DrawRectangle(Brushes.Red, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                                brush = Brushes.Red;
                             }
                             break;
                         case "FriendlyWater":
                             {
-                                drawingContext.DrawRectangle(Brushes.Purple, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                                brush = Brushes.Purple;
                             }
                             break;
                         case "FriendlyQuest":
                             {
-                                drawingContext.DrawRectangle(Brushes.Pink, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                                brush = Brushes.Pink;
                             }
                             break;
                         default:
                             {
-                                drawingContext.DrawRectangle(Brushes.Yellow, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                                brush = Brushes.Yellow;
                             }
                             break;
                     }
+                    drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
 
                     //if (x == logic.board.storm.X && y == logic.board.storm.Y) //Storm Render
                     //{
