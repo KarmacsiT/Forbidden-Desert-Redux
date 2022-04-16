@@ -39,10 +39,10 @@ namespace GUI_20212202_MQ7GIA.Logic
             isTaken[board.storm.X, board.storm.Y] = true;
 
             shipParts = new ShipParts[4];
-            shipParts[0] = new ShipParts { Name = "Crystal" };
-            shipParts[1] = new ShipParts { Name = "Engine" };
-            shipParts[2] = new ShipParts { Name = "Compass" };
-            shipParts[3] = new ShipParts { Name = "Propeller" };
+            shipParts[0] = new ShipParts { Name = "Crystal"};
+            shipParts[1] = new ShipParts { Name = "Engine"};
+            shipParts[2] = new ShipParts { Name = "Compass"};
+            shipParts[3] = new ShipParts { Name = "Propeller"};
             int cardCounter = 0;
 
             //We need this to avoid card generation conflicts when X = 0 and Y = 0
@@ -196,7 +196,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             board.SandTiles.Add(new SandTile { X = 1, Y = 1 });
             board.SandTiles.Add(new SandTile { X = 3, Y = 1 });
             board.SandTiles.Add(new SandTile { X = 0, Y = 2 });
-            board.SandTiles.Add(new SandTile { X = 4, Y = 2 }); // For some reason this is faulty???
+            board.SandTiles.Add(new SandTile { X = 4, Y = 2 }); 
             board.SandTiles.Add(new SandTile { X = 1, Y = 3 });
             board.SandTiles.Add(new SandTile { X = 3, Y = 3 });
             board.SandTiles.Add(new SandTile { X = 2, Y = 4 });
@@ -224,7 +224,10 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             return false;
         }
-
+        public bool PartPickedChecker(int X, int Y)
+        {
+            return shipParts.Where(x => x.Name == PartTiles[X, Y]).Select(x => x.IsPickedUp).SingleOrDefault();
+        }
         private int[] CoordinateGiver(bool[,] isTaken)
         {
             int[] result = new int[2];   // 0--X , 1 ---Y

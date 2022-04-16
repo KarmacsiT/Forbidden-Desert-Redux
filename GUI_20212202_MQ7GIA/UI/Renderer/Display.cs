@@ -29,7 +29,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         {
             get
             {
-                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets", "Sand.png"), UriKind.RelativeOrAbsolute))); //REPLACE THIS WITH PROPER SAND ASSET!!!
+                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets", "Sand.jpg"), UriKind.RelativeOrAbsolute))); //REPLACE THIS WITH PROPER SAND ASSET!!!
             }
         }
 
@@ -37,7 +37,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         {
             get
             {
-                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets", "DoubleSand.png"), UriKind.RelativeOrAbsolute))); //REPLACE THIS WITH PROPER DOUBLE SAND ASSET!!!
+                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets", "DoubleSand.jpg"), UriKind.RelativeOrAbsolute))); //REPLACE THIS WITH PROPER DOUBLE SAND ASSET!!!
             }
         }
 

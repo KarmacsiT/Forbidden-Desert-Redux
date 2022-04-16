@@ -24,12 +24,15 @@ namespace GUI_20212202_MQ7GIA
         {
             InitializeComponent();
             display.SetupModel(logic);
+            partsCollected.SetupModel(logic);
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             display.Resize(new Size(boardDisplay.ActualWidth, boardDisplay.ActualHeight));
             display.InvalidateVisual();
+            partsCollected.Resize(new Size(partsCollectedDisplay.ActualWidth, partsCollectedDisplay.ActualHeight));
+            partsCollected.InvalidateVisual();
         }
 
         private void Pause(object sender, RoutedEventArgs e)
