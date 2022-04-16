@@ -45,7 +45,7 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="1" Grid.Column="1">
+        <StackPanel Grid.RowSpan="2" Grid.Column="1" Grid.Row="1">
             <Button Style="{StaticResource TransparentStyle}" Grid.Column="1" Grid.Row="1" Content="Continue Game" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="350" Height="105" FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Continue"/>
             <Button Style="{StaticResource TransparentStyle}" Grid.Column="1" Grid.Row="2" Content="Save" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="350" Height="105" FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
             <Button Style="{StaticResource TransparentStyle}" Grid.Column="1" Grid.Row="3" Content="Options" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="350" Height="105" FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
