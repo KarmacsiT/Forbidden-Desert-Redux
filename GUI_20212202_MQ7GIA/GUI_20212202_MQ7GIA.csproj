@@ -11,7 +11,14 @@
     <None Remove="imageassets\Credits.png" />
     <None Remove="ImageAssets\menu.png" />
     <None Remove="imageassets\PauseMenu.png" />
+    <None Remove="imageassets\placeholder.png" />
     <None Remove="imageassets\Sand_test.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="imageassets\placeholder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
