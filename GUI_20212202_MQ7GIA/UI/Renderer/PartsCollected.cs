@@ -29,8 +29,8 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         {
             base.OnRender(drawingContext);
 
-            double tileWidth = 80;
-            double tileHeight = 80;
+            double tileWidth = 50;
+            double tileHeight = 50;
 
             for (int x = 0; x < 5; x++)
             {
@@ -63,7 +63,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                                 {
                                     brush = Brushes.Gray;
                                 }
-                                if (brush != null) drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(90, 0, tileWidth, tileHeight));
+                                if (brush != null) drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(60, 0, tileWidth, tileHeight));
                             }
                             break;
                         case "Compass":
@@ -76,7 +76,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                                 {
                                     brush = Brushes.Maroon;
                                 }
-                                if (brush != null) drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(180, 0, tileWidth, tileHeight));
+                                if (brush != null) drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(120, 0, tileWidth, tileHeight));
                             }
                             break;
                         case "Propeller":
@@ -89,7 +89,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                                 {
                                     brush = Brushes.DarkGreen;
                                 }
-                                if (brush != null) drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(270, 0, tileWidth, tileHeight));
+                                if (brush != null) drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(180, 0, tileWidth, tileHeight));
                             }
                             break;
                         default:
