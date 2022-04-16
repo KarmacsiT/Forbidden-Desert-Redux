@@ -20,10 +20,9 @@ namespace GUI_20212202_MQ7GIA
     /// </summary>
     public partial class BoardWindow : Window
     {
-        public BoardWindow()
+        public BoardWindow(GameLogic logic)
         {
             InitializeComponent();
-            GameLogic logic = new GameLogic();
             display.SetupModel(logic);
         }
 
@@ -31,6 +30,16 @@ namespace GUI_20212202_MQ7GIA
         {
             display.Resize(new Size(boardDisplay.ActualWidth, boardDisplay.ActualHeight));
             display.InvalidateVisual();
+        }
+
+        private void Pause(object sender, RoutedEventArgs e)
+        {
+            PauseWindow pauseWindow = new PauseWindow();
+            pauseWindow.ShowDialog();
+            if (pauseWindow.DialogResult == true)
+            {
+                this.Close();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using GUI_20212202_MQ7GIA.Logic;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,8 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
 
         private static void StartGameSequence()
         {
-            new BoardWindow().ShowDialog();
+            GameLogic logic = new GameLogic();
+            new BoardWindow(logic).ShowDialog();
         }
 
         public MainWindowViewModel()

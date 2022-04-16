@@ -10,6 +10,7 @@
     <None Remove="Font\Steamwreck-07pd.ttf" />
     <None Remove="imageassets\Credits.png" />
     <None Remove="ImageAssets\menu.png" />
+    <None Remove="imageassets\PauseMenu.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +26,9 @@
     </Resource>
     <Resource Include="ImageAssets\Menu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="imageassets\PauseMenu.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 

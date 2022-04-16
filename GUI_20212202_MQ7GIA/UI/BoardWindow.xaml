@@ -11,5 +11,6 @@
         <Grid x:Name="boardDisplay" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1200" Height="800" Background="Orange">
             <renderer:Display x:Name="display" />
         </Grid>
+        <Button Content="Pause" HorizontalAlignment="Right" Height="44" VerticalAlignment="Bottom" Width="86" Click="Pause"/>
     </Grid>
 </Window>
