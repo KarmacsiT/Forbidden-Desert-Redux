@@ -14,6 +14,7 @@ namespace GUI_20212202_MQ7GIA.Models
         public OasisMirageTile[] OasisMirageTiles { get; set; } // 3 tiles
         public LaunchPadTile LaunchPadTile { get; set; } // 1 tiles
         public ShelterTile[] ShelterTiles { get; set; } //10 tiles
+        public List<SandTile> SandTiles { get; set; } //8 tiles initially but can be 24+24 in the end
         public Storm storm { get; set; }
     }
 
@@ -53,6 +54,12 @@ namespace GUI_20212202_MQ7GIA.Models
         public int Y { get; set; }
         public bool IsDiscovered { get; set; }
         public ShelterVariations ShelterType { get; set; }
+    }
+    public class SandTile
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public bool DoubleSand { get; set; } //this marks if the card has two sand cards
     }
 
 }

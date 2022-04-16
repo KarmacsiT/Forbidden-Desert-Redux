@@ -30,6 +30,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 LaunchPadTile = new LaunchPadTile(),
                 OasisMirageTiles = new OasisMirageTile[3],
                 ShelterTiles = new ShelterTile[9],
+                SandTiles = new List<SandTile>(),
                 storm = new Storm()
             };
             board.storm.X = 2;
@@ -190,6 +191,38 @@ namespace GUI_20212202_MQ7GIA.Logic
                     x++;
                 }
             }
+            //SandTiles (These are fixed at the beginning)
+            board.SandTiles.Add(new SandTile { X = 2, Y = 0 });
+            board.SandTiles.Add(new SandTile { X = 1, Y = 1 });
+            board.SandTiles.Add(new SandTile { X = 3, Y = 1 });
+            board.SandTiles.Add(new SandTile { X = 0, Y = 2 });
+            board.SandTiles.Add(new SandTile { X = 4, Y = 2 }); // For some reason this is faulty???
+            board.SandTiles.Add(new SandTile { X = 1, Y = 3 });
+            board.SandTiles.Add(new SandTile { X = 3, Y = 3 });
+            board.SandTiles.Add(new SandTile { X = 2, Y = 4 });
+        }
+        public bool SandTileChecker(int x, int y)
+        {
+            foreach (var tile in board.SandTiles)
+            {
+                if (tile.X == x && tile.Y == y)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool DoubleSandChecker(int x, int y)
+        {
+            foreach (var tile in board.SandTiles)
+            {
+                if (tile.X == x && tile.Y == y && tile.DoubleSand == true)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private int[] CoordinateGiver(bool[,] isTaken)
