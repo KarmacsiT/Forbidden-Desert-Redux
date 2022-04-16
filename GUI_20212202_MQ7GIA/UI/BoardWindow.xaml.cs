@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI_20212202_MQ7GIA.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,8 +23,14 @@ namespace GUI_20212202_MQ7GIA
         public BoardWindow()
         {
             InitializeComponent();
-            //Logic logic = new Logic();
-            //display.SetupModel(logic);
+            GameLogic logic = new GameLogic();
+            display.SetupModel(logic);
+        }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            display.Resize(new Size(boardDisplay.ActualWidth, boardDisplay.ActualHeight));
+            display.InvalidateVisual();
         }
     }
 }
