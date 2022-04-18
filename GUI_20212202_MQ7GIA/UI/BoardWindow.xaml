@@ -7,9 +7,39 @@
         xmlns:renderer="clr-namespace:GUI_20212202_MQ7GIA.UI.Renderer"
         mc:Ignorable="d"
         Title="BoardWindow" Height="1080" Width="1920" ResizeMode="NoResize" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" Loaded="WindowLoaded">
+    <Window.Resources>
+        <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
+        <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Coral"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid Background="White">
-        <Grid x:Name="boardDisplay" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1200" Height="800" Background="Orange">
+        <Grid x:Name="boardDisplay" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800" Height="600" Background="Orange">
             <renderer:Display x:Name="display" />
         </Grid>
+        <Grid x:Name="partsCollectedDisplay" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="50" Background="Orange" Margin="50,70,0,0">
+            <renderer:PartsCollected x:Name="partsCollected" />
+        </Grid>
+        <Button Content="Pause" HorizontalAlignment="Right" Height="44" VerticalAlignment="Bottom" Width="86" Click="Pause"/>
+        <Label Content="Collected items:" HorizontalAlignment="Left" Margin="50,19,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="30"/>
     </Grid>
 </Window>

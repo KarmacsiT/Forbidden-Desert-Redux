@@ -15,6 +15,7 @@ namespace GUI_20212202_MQ7GIA.Models
         public LaunchPadTile LaunchPadTile { get; set; } // 1 tiles
         public ShelterTile[] ShelterTiles { get; set; } //10 tiles
         public Storm storm { get; set; }
+        public int[,] SandTiles { get; set; }
     }
 
     public class LaunchPadTile : ITile

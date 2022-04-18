@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using GUI_20212202_MQ7GIA.Logic;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace GUI_20212202_MQ7GIA.UI.Renderer
 {
@@ -22,6 +24,21 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         public void Resize(Size size)
         {
             this.size = size;
+        }
+        public Brush SandBrush
+        {
+            get
+            {
+                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets", "placeholder.png"), UriKind.RelativeOrAbsolute))); //REPLACE THIS WITH PROPER SAND ASSET!!!
+            }
+        }
+
+        public Brush DoubleSandBrush
+        {
+            get
+            {
+                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets", "placeholder.png"), UriKind.RelativeOrAbsolute))); //REPLACE THIS WITH PROPER DOUBLE SAND ASSET!!!
+            }
         }
 
         protected override void OnRender(DrawingContext drawingContext)
@@ -90,7 +107,15 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                             }
                             break;
                     }
-                    drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
+                    drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
+                    if (logic.SandTileChecker(x,y))
+                    {
+                        drawingContext.DrawRectangle(SandBrush, new Pen(Brushes.Black, 1), new Rect(x*tileWidth, y * tileHeight, tileWidth, tileHeight));
+                    }
+                    if (logic.DoubleSandChecker(x, y))
+                    {
+                        drawingContext.DrawRectangle(DoubleSandBrush, new Pen(Brushes.Black, 1), new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
+                    }
 
                     //if (x == logic.board.storm.X && y == logic.board.storm.Y) //Storm Render
                     //{

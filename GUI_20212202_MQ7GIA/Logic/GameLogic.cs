@@ -30,6 +30,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 LaunchPadTile = new LaunchPadTile(),
                 OasisMirageTiles = new OasisMirageTile[3],
                 ShelterTiles = new ShelterTile[9],
+                SandTiles = new int[5,5],
                 storm = new Storm()
             };
             board.storm.X = 2;
@@ -38,10 +39,10 @@ namespace GUI_20212202_MQ7GIA.Logic
             isTaken[board.storm.X, board.storm.Y] = true;
 
             shipParts = new ShipParts[4];
-            shipParts[0] = new ShipParts { Name = "Crystal" };
-            shipParts[1] = new ShipParts { Name = "Engine" };
-            shipParts[2] = new ShipParts { Name = "Compass" };
-            shipParts[3] = new ShipParts { Name = "Propeller" };
+            shipParts[0] = new ShipParts { Name = "Crystal"};
+            shipParts[1] = new ShipParts { Name = "Engine"};
+            shipParts[2] = new ShipParts { Name = "Compass"};
+            shipParts[3] = new ShipParts { Name = "Propeller"};
             int cardCounter = 0;
 
             //We need this to avoid card generation conflicts when X = 0 and Y = 0
@@ -190,8 +191,49 @@ namespace GUI_20212202_MQ7GIA.Logic
                     x++;
                 }
             }
+            //SandTiles (These are fixed at the beginning)
+            board.SandTiles[2, 0] += 1;
+            board.SandTiles[1, 1] += 1;
+            board.SandTiles[3, 1] += 1;
+            board.SandTiles[0, 2] += 1;
+            board.SandTiles[4, 2] += 1;
+            board.SandTiles[1, 3] += 1;
+            board.SandTiles[3, 3] += 1;
+            board.SandTiles[2, 4] += 1;
+        }
+        public bool SandTileChecker(int X, int Y)
+        {
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    if (x == X && y == Y && board.SandTiles[x,y] > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
+        public bool DoubleSandChecker(int X, int Y)
+        {
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    if (x == X && y == Y && board.SandTiles[x, y] > 1)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        public bool PartPickedChecker(int X, int Y)
+        {
+            return shipParts.Where(x => x.Name == PartTiles[X, Y]).Select(x => x.IsPickedUp).SingleOrDefault();
+        }
         private int[] CoordinateGiver(bool[,] isTaken)
         {
             int[] result = new int[2];   // 0--X , 1 ---Y
