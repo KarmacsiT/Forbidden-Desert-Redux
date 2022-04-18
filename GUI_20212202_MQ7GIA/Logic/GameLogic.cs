@@ -265,10 +265,84 @@ namespace GUI_20212202_MQ7GIA.Logic
                         board.SandTiles[board.storm.X, board.storm.Y] += 1;
                         if(x>0)
                         {
+                            string tempname = TileNames[board.storm.X + 1, board.storm.Y];
+                            TileNames[board.storm.X + 1, board.storm.Y] = "Storm";
+                            TileNames[board.storm.X, board.storm.Y] = tempname;
+
+                            switch (tempname)
+                            {
+                                case "AirShipClueTile":
+                                    {
+                                        board.AirShipClueTiles.First(x => x.X == board.storm.X + 1 && x.Y == board.storm.Y).X = board.storm.X;
+                                    }
+                                    break;
+                                case "LaunchPadTile":
+                                    {
+                                        board.LaunchPadTile.X = board.storm.X;
+                                    }
+                                    break;
+                                case "TunnelTile":
+                                    {
+                                        board.TunnelTiles.First(x => x.X == board.storm.X + 1 && x.Y == board.storm.Y).X = board.storm.X;
+                                    }
+                                    break;
+                                case "Mirage":
+                                    {
+                                        board.OasisMirageTiles.First(x => x.X == board.storm.X + 1 && x.Y == board.storm.Y).X = board.storm.X;
+                                    }
+                                    break;
+                                case "Oasis":
+                                    {
+                                        board.OasisMirageTiles.First(x => x.X == board.storm.X + 1 && x.Y == board.storm.Y).X = board.storm.X;
+                                    }
+                                    break;
+                                default:      //Shelters left
+                                    {
+                                        board.ShelterTiles.First(x => x.X == board.storm.X + 1 && x.Y == board.storm.Y).X = board.storm.X;
+                                    }
+                                    break;
+                            }
                             board.storm.X += 1;
                         }
                         else
                         {
+                            string tempname = TileNames[board.storm.X - 1, board.storm.Y];
+                            TileNames[board.storm.X - 1, board.storm.Y] = "Storm";
+                            TileNames[board.storm.X, board.storm.Y] = tempname;
+
+                            switch (tempname)
+                            {
+                                case "AirShipClueTile":
+                                    {
+                                        board.AirShipClueTiles.First(x => x.X == board.storm.X - 1 && x.Y == board.storm.Y).X = board.storm.X;
+                                    }
+                                    break;
+                                case "LaunchPadTile":
+                                    {
+                                        board.LaunchPadTile.X = board.storm.X;
+                                    }
+                                    break;
+                                case "TunnelTile":
+                                    {
+                                        board.TunnelTiles.First(x => x.X == board.storm.X - 1 && x.Y == board.storm.Y).X = board.storm.X;
+                                    }
+                                    break;
+                                case "Mirage":
+                                    {
+                                        board.OasisMirageTiles.First(x => x.X == board.storm.X - 1 && x.Y == board.storm.Y).X = board.storm.X;
+                                    }
+                                    break;
+                                case "Oasis":
+                                    {
+                                        board.OasisMirageTiles.First(x => x.X == board.storm.X - 1 && x.Y == board.storm.Y).X = board.storm.X;
+                                    }
+                                    break;
+                                default:      //Shelters left
+                                    {
+                                        board.ShelterTiles.First(x => x.X == board.storm.X - 1 && x.Y == board.storm.Y).X = board.storm.X;
+                                    }
+                                    break;
+                            }
                             board.storm.X -= 1;
                         }
                     }
@@ -287,10 +361,84 @@ namespace GUI_20212202_MQ7GIA.Logic
                         board.SandTiles[board.storm.X, board.storm.Y] += 1;
                         if (y > 0)
                         {
+                            string tempname = TileNames[board.storm.X, board.storm.Y + 1];
+                            TileNames[board.storm.X, board.storm.Y + 1] = "Storm";
+                            TileNames[board.storm.X, board.storm.Y] = tempname;
+
+                            switch (tempname)
+                            {
+                                case "AirShipClueTile":
+                                    {
+                                        board.AirShipClueTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y + 1).Y = board.storm.Y;
+                                    }
+                                    break;
+                                case "LaunchPadTile":
+                                    {
+                                        board.LaunchPadTile.Y = board.storm.Y;
+                                    }
+                                    break;
+                                case "TunnelTile":
+                                    {
+                                        board.TunnelTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y + 1).Y = board.storm.Y;
+                                    }
+                                    break;
+                                case "Mirage":
+                                    {
+                                        board.OasisMirageTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y + 1).Y = board.storm.Y;
+                                    }
+                                    break;
+                                case "Oasis":
+                                    {
+                                        board.OasisMirageTiles.First(x => x.X == board.storm.X&& x.Y == board.storm.Y + 1).Y = board.storm.Y;
+                                    }
+                                    break;
+                                default:      //Shelters left
+                                    {
+                                        board.ShelterTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y + 1).Y = board.storm.Y;
+                                    }
+                                    break;
+                            }
                             board.storm.Y += 1;
                         }
                         else
                         {
+                            string tempname = TileNames[board.storm.X, board.storm.Y - 1];
+                            TileNames[board.storm.X, board.storm.Y - 1] = "Storm";
+                            TileNames[board.storm.X, board.storm.Y] = tempname;
+
+                            switch (tempname)
+                            {
+                                case "AirShipClueTile":
+                                    {
+                                        board.AirShipClueTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y - 1).Y = board.storm.Y;
+                                    }
+                                    break;
+                                case "LaunchPadTile":
+                                    {
+                                        board.LaunchPadTile.Y = board.storm.Y;
+                                    }
+                                    break;
+                                case "TunnelTile":
+                                    {
+                                        board.TunnelTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y - 1).Y = board.storm.Y;
+                                    }
+                                    break;
+                                case "Mirage":
+                                    {
+                                        board.OasisMirageTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y - 1).Y = board.storm.Y;
+                                    }
+                                    break;
+                                case "Oasis":
+                                    {
+                                        board.OasisMirageTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y - 1).Y = board.storm.Y;
+                                    }
+                                    break;
+                                default:      //Shelters left
+                                    {
+                                        board.ShelterTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y - 1).Y = board.storm.Y;
+                                    }
+                                    break;
+                            }
                             board.storm.Y -= 1;
                         }
                     }

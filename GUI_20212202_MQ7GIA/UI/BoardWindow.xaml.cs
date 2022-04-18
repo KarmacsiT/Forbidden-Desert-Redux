@@ -44,5 +44,10 @@ namespace GUI_20212202_MQ7GIA
                 this.Close();
             }
         }
+        private void StormMove(object sender, RoutedEventArgs e)  //only for testing
+        {
+            display.MoveTheStorm(0, 1);
+            display.InvalidateVisual();
+        }
     }
 }

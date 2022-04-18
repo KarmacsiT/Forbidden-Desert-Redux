@@ -130,6 +130,10 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                 }
             }
         }
+        public void MoveTheStorm(int x, int y)
+        {
+            logic.MoveStorm(x, y);
+        }
 
     }
 }
