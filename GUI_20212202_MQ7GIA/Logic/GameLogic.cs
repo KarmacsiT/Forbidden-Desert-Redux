@@ -10,10 +10,10 @@ namespace GUI_20212202_MQ7GIA.Logic
     public class GameLogic
     {
         public Board board { get; set; }
-        Deck deck;
-        GameStatus status;
-        Player player;
-        ShipParts[] shipParts;
+        public Deck Deck { get; set; }
+        public GameStatus Status { get; set; }
+        public List<Player> Players { get; set; }
+        public ShipParts[] shipParts { get; set; }
         public string[,] TileNames { get; set; }
         public string[,] PartTiles { get; set; }
 
@@ -249,6 +249,120 @@ namespace GUI_20212202_MQ7GIA.Logic
             result[0] = x;
             result[1] = y;
             return result;
+        }
+        public void MoveStorm(int x, int y)
+        {
+            if(x != 0)
+            {
+                for (int i = 0; i < Math.Abs(x); i++)
+                {
+                    if (board.storm.X + 1 == 5 || board.storm.X - 1 == -1)
+                    {
+                        //nothing happens, this is the case when the storm is on the edge
+                    }
+                    else
+                    {
+                        board.SandTiles[board.storm.X, board.storm.Y] += 1;
+                        if(x>0)
+                        {
+                            board.storm.X += 1;
+                        }
+                        else
+                        {
+                            board.storm.X -= 1;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < Math.Abs(y); i++)
+                {
+                    if (board.storm.Y + 1 == 5 || board.storm.Y - 1 == -1)
+                    {
+                        //nothing happens, this is the case when the storm is on the edge
+                    }
+                    else
+                    {
+                        board.SandTiles[board.storm.X, board.storm.Y] += 1;
+                        if (y > 0)
+                        {
+                            board.storm.Y += 1;
+                        }
+                        else
+                        {
+                            board.storm.Y -= 1;
+                        }
+                    }
+                }
+            }           
+        }
+        private Player PlayerInit(string playerName, int turnOrder, int rolenum)  //This time, roles are not random
+        {
+            Player newPlayer = new Player()
+            {
+                X = board.LaunchPadTile.X,
+                Y = board.LaunchPadTile.Y,
+                NumberOfActions = 4,
+                ActionDescription = "ActionDescriptionLongString",    //needs to be finished
+                Cards = new List<ItemCard>(),
+                PlayerName = playerName,
+                TurnOrder = turnOrder,               
+            };
+            switch (rolenum)     //Abilitylist not finished
+            {
+                case 0:
+                    {
+                        newPlayer.PlayerRoleName = RoleName.Archeologist;
+                        newPlayer.WaterLevel = 3;
+                        newPlayer.AbilityDescription = "You can remove 2 Sand markers from any single tile for 1 action";
+                        //newPlayer.AbilityList
+                    }
+                    break;
+                case 1:
+                    {
+                        newPlayer.PlayerRoleName = RoleName.Climber;
+                        newPlayer.WaterLevel = 3;
+                        newPlayer.AbilityDescription = "You can move to blocked tiles (tiles with 2 or more Sand markers on them). You may also take one other player with you whenever you move. Pawns on the your tile are never buried and can leave the tile containing you even if there are 2 or more Sand markers on it";
+                        //newPlayer.AbilityList
+                    }
+                    break;
+                case 2:
+                    {
+                        newPlayer.PlayerRoleName = RoleName.Explorer;
+                        newPlayer.WaterLevel = 4;
+                        newPlayer.AbilityDescription = "You can move, remove sand, and may use Dune Blasters diagonally";
+                        //newPlayer.AbilityList
+                    }
+                    break;
+                case 3:
+                    {
+                        newPlayer.PlayerRoleName = RoleName.Meteorologist;
+                        newPlayer.WaterLevel = 4;
+                        newPlayer.AbilityDescription = "You may spend actions to draw fewer Storm cards (1 card per action) at the end of your turn. You may also choose to spend 1 action to look at the top Storm cards, equal to the Storm level, and may place one at the bottom of the deck.";
+                        //newPlayer.AbilityList
+                    }
+                    break;
+                case 4:
+                    {
+                        newPlayer.PlayerRoleName = RoleName.Navigator;
+                        newPlayer.WaterLevel = 4;
+                        newPlayer.AbilityDescription = "You may move another player up to 3 unblocked tiles per action, including tunnels. You can move the Explorer diagonally and can move the Climber through blocked tiles. When moved in this way, the Climber can also use his power to take along 1 other player-including you!";
+                        //newPlayer.AbilityList
+                    }
+                    break;
+                case 5:
+                    {
+                        newPlayer.PlayerRoleName = RoleName.WaterCarrier;
+                        newPlayer.WaterLevel = 5;
+                        newPlayer.AbilityDescription = "You can take 2 water from already excavated wells for 1 action. You may also give water to players on adjacent tiles for free at any time.";
+                        //newPlayer.AbilityList
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return newPlayer;
         }
     }
 }
