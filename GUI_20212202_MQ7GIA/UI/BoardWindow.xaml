@@ -33,7 +33,7 @@
         </Style>
     </Window.Resources>
     <Grid Background="White">
-        <Grid x:Name="boardDisplay" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800" Height="600" Background="Orange">
+        <Grid x:Name="boardDisplay" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="600" Background="Orange">
             <renderer:Display x:Name="display" />
         </Grid>
         <Grid x:Name="partsCollectedDisplay" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="50" Background="Orange" Margin="50,70,0,0">

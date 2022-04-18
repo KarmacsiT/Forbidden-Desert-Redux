@@ -9,6 +9,7 @@ using System.Windows.Media;
 using GUI_20212202_MQ7GIA.Logic;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Windows.Controls;
 
 namespace GUI_20212202_MQ7GIA.UI.Renderer
 {
@@ -17,6 +18,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         // Models
         GameLogic logic;
         Size size;
+
         public void SetupModel(GameLogic logic)
         {
             this.logic = logic;
@@ -29,7 +31,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         {
             get
             {
-                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets", "placeholder.png"), UriKind.RelativeOrAbsolute))); //REPLACE THIS WITH PROPER SAND ASSET!!!
+                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Sand", "sand.png"), UriKind.RelativeOrAbsolute)));
             }
         }
 
@@ -37,7 +39,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         {
             get
             {
-                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets", "placeholder.png"), UriKind.RelativeOrAbsolute))); //REPLACE THIS WITH PROPER DOUBLE SAND ASSET!!!
+                return new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Sand", "blocked.png"), UriKind.RelativeOrAbsolute)));
             }
         }
 
@@ -53,64 +55,64 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
 
                 for (int y = 0; y < 5; y++)
                 {
-                    SolidColorBrush brush;
-                    switch (logic.TileNames[x,y])
+                    ImageBrush brush;
+                    switch (logic.TileNames[x, y])
                     {
                         case "Storm":
                             {
-                                brush = Brushes.Coral;
+                                brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "storm.gif"), UriKind.RelativeOrAbsolute)));
                             }
                             break;
                         case "AirShipClueTile":
                             {
-                                brush = Brushes.Green;
+                                brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Tile Backside.png"), UriKind.RelativeOrAbsolute)));
                             }
                             break;
                         case "LaunchPadTile":
                             {
-                                brush = Brushes.Black;
+                                brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Tile Backside.png"), UriKind.RelativeOrAbsolute)));
                             }
                             break;
                         case "TunnelTile":
                             {
-                                brush = Brushes.Brown;
+                                brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Tile Backside.png"), UriKind.RelativeOrAbsolute)));
                             }
                             break;
                         case "Mirage":
                             {
-                                brush = Brushes.Gray;
+                                brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Tile Backside.png"), UriKind.RelativeOrAbsolute)));
                             }
                             break;
                         case "Oasis":
                             {
-                                brush = Brushes.Blue;
+                                brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Tile Backside.png"), UriKind.RelativeOrAbsolute)));
                             }
                             break;
                         case "EmptyShelter":
                             {
-                                brush = Brushes.Red;
+                                brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Tile Backside.png"), UriKind.RelativeOrAbsolute)));
                             }
                             break;
                         case "FriendlyWater":
                             {
-                                brush = Brushes.Purple;
+                                brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Tile Backside.png"), UriKind.RelativeOrAbsolute)));
                             }
                             break;
                         case "FriendlyQuest":
                             {
-                                brush = Brushes.Pink;
+                                brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Tile Backside.png"), UriKind.RelativeOrAbsolute)));
                             }
                             break;
                         default:
                             {
-                                brush = Brushes.Yellow;
+                                brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Tile Backside.png"), UriKind.RelativeOrAbsolute)));
                             }
                             break;
                     }
                     drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
-                    if (logic.SandTileChecker(x,y))
+                    if (logic.SandTileChecker(x, y))
                     {
-                        drawingContext.DrawRectangle(SandBrush, new Pen(Brushes.Black, 1), new Rect(x*tileWidth, y * tileHeight, tileWidth, tileHeight));
+                        drawingContext.DrawRectangle(SandBrush, new Pen(Brushes.Black, 1), new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
                     }
                     if (logic.DoubleSandChecker(x, y))
                     {

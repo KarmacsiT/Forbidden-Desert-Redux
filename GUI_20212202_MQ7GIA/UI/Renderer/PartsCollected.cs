@@ -37,68 +37,71 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
 
                 for (int y = 0; y < 5; y++)
                 {
-                    SolidColorBrush brush = null;
+                    ImageBrush imageAsset = null;
                     switch (logic.PartTiles[x, y])
                     {
                         case "Crystal":
                             {
-                                if (logic.PartPickedChecker(x,y))
+                                if (logic.PartPickedChecker(x, y))
                                 {
-                                    brush = Brushes.LightBlue;
+                                    imageAsset = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Parts", "Crystal_Collected.png"), UriKind.RelativeOrAbsolute)));
                                 }
                                 else
                                 {
-                                    brush = Brushes.DarkBlue;
+                                    imageAsset = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Parts", "Crystal_unacquired.png"), UriKind.RelativeOrAbsolute)));
                                 }
-                                if (brush != null) drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(0, 0, tileWidth, tileHeight));
+                                if (imageAsset != null) drawingContext.DrawRectangle(imageAsset, new Pen(Brushes.Black, 1), new Rect(0, 0, tileWidth, tileHeight));
                             }
                             break;
+
                         case "Engine":
                             {
                                 if (logic.PartPickedChecker(x, y))
                                 {
-                                    brush = Brushes.LightGray;
+                                    imageAsset = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Parts", "Engine_Collected.png"), UriKind.RelativeOrAbsolute)));
                                 }
                                 else
                                 {
-                                    brush = Brushes.Gray;
+                                    imageAsset = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Parts", "Engine_unacquired.png"), UriKind.RelativeOrAbsolute)));
                                 }
-                                if (brush != null) drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(60, 0, tileWidth, tileHeight));
+                                if (imageAsset != null) drawingContext.DrawRectangle(imageAsset, new Pen(Brushes.Black, 1), new Rect(60, 0, tileWidth, tileHeight));
                             }
                             break;
+
                         case "Compass":
                             {
                                 if (logic.PartPickedChecker(x, y))
                                 {
-                                    brush = Brushes.Red;
+                                    imageAsset = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Parts", "Compass_Collected.png"), UriKind.RelativeOrAbsolute)));
                                 }
                                 else
                                 {
-                                    brush = Brushes.Maroon;
+                                    imageAsset = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Parts", "Compass_unacquired.png"), UriKind.RelativeOrAbsolute)));
                                 }
-                                if (brush != null) drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(120, 0, tileWidth, tileHeight));
+                                if (imageAsset != null) drawingContext.DrawRectangle(imageAsset, new Pen(Brushes.Black, 1), new Rect(120, 0, tileWidth, tileHeight));
                             }
                             break;
+
                         case "Propeller":
                             {
                                 if (logic.PartPickedChecker(x, y))
                                 {
-                                    brush = Brushes.Green;
+                                    imageAsset = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Parts", "Propeller_Collected.png"), UriKind.RelativeOrAbsolute)));
                                 }
                                 else
                                 {
-                                    brush = Brushes.DarkGreen;
+                                    imageAsset = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Parts", "Propeller_Unaquired.png"), UriKind.RelativeOrAbsolute)));
                                 }
-                                if (brush != null) drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(180, 0, tileWidth, tileHeight));
+                                if (imageAsset != null) drawingContext.DrawRectangle(imageAsset, new Pen(Brushes.Black, 1), new Rect(180, 0, tileWidth, tileHeight));
                             }
                             break;
                         default:
                             {
                             }
                             break;
-                   
+
                     }
-                    
+
                 }
             }
         }
