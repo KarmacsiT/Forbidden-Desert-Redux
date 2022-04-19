@@ -87,17 +87,11 @@ namespace GUI_20212202_MQ7GIA.Logic
                 else tile.PartName = shipParts[3].Name;
                 cardCounter++;
             }
-            cardCounter = 0;
 
             PartTiles = new string[5, 5];
 
-            foreach (ShipParts part in shipParts)
-            {
-                part.X = board.AirShipClueTiles[cardCounter].X;
-                part.Y = board.AirShipClueTiles[cardCounter + 1].Y;
-                PartTiles[part.X, part.Y] = board.AirShipClueTiles[cardCounter].PartName;
-                cardCounter += 2;
-            }
+            // function, since every time the storm moves, it has to be called
+            PartTileCoordinateGiver();
 
             // LaunchPadTile 
             int[] coordinates = CoordinateGiver(isTaken);
@@ -250,6 +244,17 @@ namespace GUI_20212202_MQ7GIA.Logic
             result[1] = y;
             return result;
         }
+        private void PartTileCoordinateGiver()
+        {
+            int cardCounter = 0;
+            foreach (ShipParts part in shipParts)
+            {
+                part.X = board.AirShipClueTiles[cardCounter].X;
+                part.Y = board.AirShipClueTiles[cardCounter + 1].Y;
+                PartTiles[part.X, part.Y] = board.AirShipClueTiles[cardCounter].PartName;
+                cardCounter += 2;
+            }
+        }
         public void MoveStorm(int x, int y)
         {
             if(x != 0)
@@ -303,6 +308,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                             }
                             board.storm.X += 1;
+                            board.SandTiles[board.storm.X, board.storm.Y] = 0;
                         }
                         else
                         {
@@ -344,7 +350,9 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                             }
                             board.storm.X -= 1;
+                            board.SandTiles[board.storm.X, board.storm.Y] = 0;
                         }
+                        PartTileCoordinateGiver();
                     }
                 }
             }
@@ -399,6 +407,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                             }
                             board.storm.Y += 1;
+                            board.SandTiles[board.storm.X, board.storm.Y] = 0;
                         }
                         else
                         {
@@ -440,7 +449,9 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                             }
                             board.storm.Y -= 1;
+                            board.SandTiles[board.storm.X, board.storm.Y] = 0;
                         }
+                        PartTileCoordinateGiver();
                     }
                 }
             }           
