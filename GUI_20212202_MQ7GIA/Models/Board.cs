@@ -12,13 +12,21 @@ namespace GUI_20212202_MQ7GIA.Models
         public TunnelTile[] TunnelTiles { get; set; } // 2 tiles
         public AirShipClueTile[] AirShipClueTiles { get; set; } // 8 tiles
         public OasisMirageTile[] OasisMirageTiles { get; set; } // 3 tiles
-        public LaunchPadTile LaunchPadTile { get; set; } // 1 tiles
-        public ShelterTile[] ShelterTiles { get; set; } //10 tiles
+        public LaunchPadTile LaunchPadTile { get; set; } // 1 tile
+        public CrashStartTile CrashStartTile { get; set; } //1 tile
+        public ShelterTile[] ShelterTiles { get; set; } //9 tiles
         public Storm storm { get; set; }
         public int[,] SandTiles { get; set; }
     }
 
     public class LaunchPadTile : ITile
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public bool IsDiscovered { get; set; }
+    }
+
+    public class CrashStartTile : ITile
     {
         public int X { get; set; }
         public int Y { get; set; }

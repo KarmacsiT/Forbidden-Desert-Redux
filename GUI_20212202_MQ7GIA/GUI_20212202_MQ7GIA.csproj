@@ -7,6 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="imageassets\Storm Cards\Gadget Cards\**" />
+    <Compile Remove="imageassets\Storm Cards\Parts\**" />
+    <Compile Remove="imageassets\Storm Cards\Pieces\**" />
+    <Compile Remove="imageassets\Storm Cards\Sand\**" />
+    <EmbeddedResource Remove="imageassets\Storm Cards\Gadget Cards\**" />
+    <EmbeddedResource Remove="imageassets\Storm Cards\Parts\**" />
+    <EmbeddedResource Remove="imageassets\Storm Cards\Pieces\**" />
+    <EmbeddedResource Remove="imageassets\Storm Cards\Sand\**" />
+    <None Remove="imageassets\Storm Cards\Gadget Cards\**" />
+    <None Remove="imageassets\Storm Cards\Parts\**" />
+    <None Remove="imageassets\Storm Cards\Pieces\**" />
+    <None Remove="imageassets\Storm Cards\Sand\**" />
+    <Page Remove="imageassets\Storm Cards\Gadget Cards\**" />
+    <Page Remove="imageassets\Storm Cards\Parts\**" />
+    <Page Remove="imageassets\Storm Cards\Pieces\**" />
+    <Page Remove="imageassets\Storm Cards\Sand\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Font\Steamwreck-07pd.ttf" />
     <None Remove="imageassets\Charachter Cards\Archeologist.png" />
     <None Remove="imageassets\Charachter Cards\Archeologist_0.png" />
@@ -80,31 +99,6 @@
     <None Remove="imageassets\Sand\blocked.png" />
     <None Remove="imageassets\Sand\sand.png" />
     <None Remove="imageassets\Sand_test.jpg" />
-    <None Remove="imageassets\Storm Cards\Gadget Cards\Dune Blaster.png" />
-    <None Remove="imageassets\Storm Cards\Gadget Cards\Gadget Backside.png" />
-    <None Remove="imageassets\Storm Cards\Gadget Cards\Jet Pack.png" />
-    <None Remove="imageassets\Storm Cards\Gadget Cards\Secret Water Reserve.png" />
-    <None Remove="imageassets\Storm Cards\Gadget Cards\Solar Shield.png" />
-    <None Remove="imageassets\Storm Cards\Gadget Cards\Storm Tracker.png" />
-    <None Remove="imageassets\Storm Cards\Gadget Cards\Terrascope.png" />
-    <None Remove="imageassets\Storm Cards\Gadget Cards\Time Throttle.png" />
-    <None Remove="imageassets\Storm Cards\Parts\Compass_Collected.png" />
-    <None Remove="imageassets\Storm Cards\Parts\Compass_unacquired.png" />
-    <None Remove="imageassets\Storm Cards\Parts\Crystal_Collected.png" />
-    <None Remove="imageassets\Storm Cards\Parts\Crystal_unacquired.png" />
-    <None Remove="imageassets\Storm Cards\Parts\Engine_Collected.png" />
-    <None Remove="imageassets\Storm Cards\Parts\Engine_unacquired.png" />
-    <None Remove="imageassets\Storm Cards\Parts\Propeller_Collected.png" />
-    <None Remove="imageassets\Storm Cards\Parts\Propeller_Unaquired.png" />
-    <None Remove="imageassets\Storm Cards\Parts\Ship.png" />
-    <None Remove="imageassets\Storm Cards\Pieces\black_piece.png" />
-    <None Remove="imageassets\Storm Cards\Pieces\blue_piece.png" />
-    <None Remove="imageassets\Storm Cards\Pieces\green_piece.png" />
-    <None Remove="imageassets\Storm Cards\Pieces\red_piece.png" />
-    <None Remove="imageassets\Storm Cards\Pieces\white_piece.png" />
-    <None Remove="imageassets\Storm Cards\Pieces\yellow_piece.png" />
-    <None Remove="imageassets\Storm Cards\Sand\blocked.png" />
-    <None Remove="imageassets\Storm Cards\Sand\sand.png" />
     <None Remove="imageassets\Storm Cards\Storm 1Down.png" />
     <None Remove="imageassets\Storm Cards\Storm 1Left.png" />
     <None Remove="imageassets\Storm Cards\Storm 1Right.png" />
@@ -378,81 +372,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="imageassets\Sand\sand.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Gadget Cards\Dune Blaster.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Gadget Cards\Gadget Backside.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Gadget Cards\Jet Pack.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Gadget Cards\Secret Water Reserve.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Gadget Cards\Solar Shield.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Gadget Cards\Storm Tracker.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Gadget Cards\Terrascope.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Gadget Cards\Time Throttle.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Parts\Compass_Collected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Parts\Compass_unacquired.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Parts\Crystal_Collected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Parts\Crystal_unacquired.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Parts\Engine_Collected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Parts\Engine_unacquired.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Parts\Propeller_Collected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Parts\Propeller_Unaquired.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Parts\Ship.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Pieces\black_piece.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Pieces\blue_piece.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Pieces\green_piece.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Pieces\red_piece.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Pieces\white_piece.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Pieces\yellow_piece.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Sand\blocked.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Sand\sand.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="imageassets\Storm Cards\Storm 1Down.png">
