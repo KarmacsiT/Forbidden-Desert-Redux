@@ -15,13 +15,31 @@ namespace GUI_20212202_MQ7GIA.Models
     }
     public class ItemCard
     {
+        public ItemCard(string name, bool isDiscarded, bool inPlayerHand)
+        {
+            Name = name;
+            IsDiscarded = isDiscarded;
+            InPlayerHand = inPlayerHand;
+        }
+
+        public string Name { get; set; }
         public bool IsDiscarded { get; set; }
-        public string Description { get; set; }
-        public Action Ability { get; set; }
+        public bool InPlayerHand { get; set; }
+        //public string Description { get; set; } dont think it is necessary given that the UI will show its description 
+        //public Action Ability { get; set; }
     }
 
     public class StormCard
     {
+        public StormCard(string name, bool isDiscarded, int xMove, int yMove)
+        {
+            Name = name;
+            IsDiscarded = isDiscarded;
+            XMove = xMove;
+            YMove = yMove;
+        }
+
+        public string Name { get; set; }
         public bool IsDiscarded { get; set; }
         public int XMove { get; set; } // Where the storm brings the storm in X direction (-1 or 1)
         public int YMove { get; set; } // Where the storm brings the storm in Y direction (-1 or 1)

@@ -30,7 +30,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 LaunchPadTile = new LaunchPadTile(),
                 OasisMirageTiles = new OasisMirageTile[3],
                 ShelterTiles = new ShelterTile[9],
-                SandTiles = new int[5,5],
+                SandTiles = new int[5, 5],
                 storm = new Storm()
             };
             board.storm.X = 2;
@@ -39,10 +39,10 @@ namespace GUI_20212202_MQ7GIA.Logic
             isTaken[board.storm.X, board.storm.Y] = true;
 
             shipParts = new ShipParts[4];
-            shipParts[0] = new ShipParts { Name = "Crystal"};
-            shipParts[1] = new ShipParts { Name = "Engine"};
-            shipParts[2] = new ShipParts { Name = "Compass"};
-            shipParts[3] = new ShipParts { Name = "Propeller"};
+            shipParts[0] = new ShipParts { Name = "Crystal" };
+            shipParts[1] = new ShipParts { Name = "Engine" };
+            shipParts[2] = new ShipParts { Name = "Compass" };
+            shipParts[3] = new ShipParts { Name = "Propeller" };
             int cardCounter = 0;
 
             //We need this to avoid card generation conflicts when X = 0 and Y = 0
@@ -106,6 +106,14 @@ namespace GUI_20212202_MQ7GIA.Logic
             board.LaunchPadTile.Y = coordinates[1];
             isTaken[board.LaunchPadTile.X, board.LaunchPadTile.Y] = true;
             TileNames[board.LaunchPadTile.X, board.LaunchPadTile.Y] = "LaunchPadTile";
+
+            // CrashStartTile 
+            coordinates = CoordinateGiver(isTaken);
+            board.LaunchPadTile = new LaunchPadTile();
+            board.LaunchPadTile.X = coordinates[0];
+            board.LaunchPadTile.Y = coordinates[1];
+            isTaken[board.LaunchPadTile.X, board.LaunchPadTile.Y] = true;
+            TileNames[board.LaunchPadTile.X, board.LaunchPadTile.Y] = "CrashStartTile";
 
             // TunnelTiles && OasisMirageTiles
 
@@ -207,7 +215,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             {
                 for (int y = 0; y < 5; y++)
                 {
-                    if (x == X && y == Y && board.SandTiles[x,y] > 0)
+                    if (x == X && y == Y && board.SandTiles[x, y] > 0)
                     {
                         return true;
                     }
@@ -252,7 +260,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         }
         public void MoveStorm(int x, int y)
         {
-            if(x != 0)
+            if (x != 0)
             {
                 for (int i = 0; i < Math.Abs(x); i++)
                 {
@@ -263,7 +271,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                     else
                     {
                         board.SandTiles[board.storm.X, board.storm.Y] += 1;
-                        if(x>0)
+                        if (x > 0)
                         {
                             string tempname = TileNames[board.storm.X + 1, board.storm.Y];
                             TileNames[board.storm.X + 1, board.storm.Y] = "Storm";
@@ -389,7 +397,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                                 case "Oasis":
                                     {
-                                        board.OasisMirageTiles.First(x => x.X == board.storm.X&& x.Y == board.storm.Y + 1).Y = board.storm.Y;
+                                        board.OasisMirageTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y + 1).Y = board.storm.Y;
                                     }
                                     break;
                                 default:      //Shelters left
@@ -443,7 +451,90 @@ namespace GUI_20212202_MQ7GIA.Logic
                         }
                     }
                 }
-            }           
+            }
+        }
+
+        private Deck DeckGeneration()
+        {
+            Random rng = new Random();
+            Deck GameDeck = new Deck();
+
+            ItemCard duneBlaster = new ItemCard("Dune Blaster", false, false);
+            ItemCard jetPack = new ItemCard("Jet Pack", false, false);
+            ItemCard secretWaterReserve = new ItemCard("Secret Water Reserve", false, false);
+            ItemCard solarShield = new ItemCard("Solar Shield", false, false);
+            ItemCard stormTracker = new ItemCard("Storm Tracker", false, false);
+            ItemCard terraScope = new ItemCard("Terrascope", false, false);
+            ItemCard timeThrottle = new ItemCard("Time Throttle", false, false);
+
+            StormCard oneDown = new StormCard("oneDown", false, 0, -1);
+            StormCard oneLeft = new StormCard("oneLeft", false, -1, 0);
+            StormCard oneRight = new StormCard("oneRight", false, 1, 0);
+            StormCard oneUp = new StormCard("oneUp", false, 0, 1);
+
+            StormCard twoDown = new StormCard("twoDown", false, 0, -2);
+            StormCard twoLeft = new StormCard("twoLeft", false, -2, 0);
+            StormCard twoRight = new StormCard("twoRight", false, 2, 0);
+            StormCard twoUp = new StormCard("twoUp", false, 0, 2);
+
+            StormCard threeDown = new StormCard("threeDown", false, 0, -3);
+            StormCard threeLeft = new StormCard("threeLeft", false, -3, 0);
+            StormCard threeRight = new StormCard("threeRight", false, 3, 0);
+            StormCard threeUp = new StormCard("threeUp", false, 0, 3);
+
+            for (int i = 0; i < 3; i++)
+            {
+                GameDeck.AvailableItemCards.Add(duneBlaster);
+                GameDeck.AvailableItemCards.Add(jetPack);
+
+                GameDeck.AvailableStormCards.Add(oneDown);
+                GameDeck.AvailableStormCards.Add(oneUp);
+                GameDeck.AvailableStormCards.Add(oneLeft);
+                GameDeck.AvailableStormCards.Add(oneRight);
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
+                GameDeck.AvailableItemCards.Add(solarShield);
+                GameDeck.AvailableItemCards.Add(terraScope);
+
+                GameDeck.AvailableStormCards.Add(twoDown);
+                GameDeck.AvailableStormCards.Add(twoUp);
+                GameDeck.AvailableStormCards.Add(twoLeft);
+                GameDeck.AvailableStormCards.Add(twoRight);
+            }
+
+            GameDeck.AvailableItemCards.Add(secretWaterReserve);
+            GameDeck.AvailableItemCards.Add(stormTracker);
+            GameDeck.AvailableItemCards.Add(timeThrottle);
+
+            GameDeck.AvailableStormCards.Add(threeDown);
+            GameDeck.AvailableStormCards.Add(threeUp);
+            GameDeck.AvailableStormCards.Add(threeLeft);
+            GameDeck.AvailableStormCards.Add(threeRight);
+
+
+            int n = GameDeck.AvailableItemCards.Count;
+            while (n > 1) //Shuffling ItemCards
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                ItemCard itemCardValue = GameDeck.AvailableItemCards[k];
+                GameDeck.AvailableItemCards[k] = GameDeck.AvailableItemCards[n];
+                GameDeck.AvailableItemCards[n] = itemCardValue;
+            }
+
+            n = GameDeck.AvailableStormCards.Count;
+            while (n > 1) //Shuffling StormCards
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                StormCard stormCardValue = GameDeck.AvailableStormCards[k];
+                GameDeck.AvailableStormCards[k] = GameDeck.AvailableStormCards[n];
+                GameDeck.AvailableStormCards[n] = stormCardValue;
+            }
+
+            return GameDeck;
         }
         private Player PlayerInit(string playerName, int turnOrder, int rolenum)  //This time, roles are not random
         {
@@ -455,7 +546,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 ActionDescription = "ActionDescriptionLongString",    //needs to be finished
                 Cards = new List<ItemCard>(),
                 PlayerName = playerName,
-                TurnOrder = turnOrder,               
+                TurnOrder = turnOrder,
             };
             switch (rolenum)     //Abilitylist not finished
             {
@@ -510,6 +601,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 default:
                     break;
             }
+
             return newPlayer;
         }
     }
