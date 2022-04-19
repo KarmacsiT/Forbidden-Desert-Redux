@@ -103,11 +103,11 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             // CrashStartTile 
             coordinates = CoordinateGiver(isTaken);
-            board.LaunchPadTile = new LaunchPadTile();
-            board.LaunchPadTile.X = coordinates[0];
-            board.LaunchPadTile.Y = coordinates[1];
-            isTaken[board.LaunchPadTile.X, board.LaunchPadTile.Y] = true;
-            TileNames[board.LaunchPadTile.X, board.LaunchPadTile.Y] = "CrashStartTile";
+            board.CrashStartTile = new CrashStartTile();
+            board.CrashStartTile.X = coordinates[0];
+            board.CrashStartTile.Y = coordinates[1];
+            isTaken[board.CrashStartTile.X, board.CrashStartTile.Y] = true;
+            TileNames[board.CrashStartTile.X, board.CrashStartTile.Y] = "CrashStartTile";
 
             // TunnelTiles && OasisMirageTiles
 
