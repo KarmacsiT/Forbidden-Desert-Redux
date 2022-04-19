@@ -393,6 +393,11 @@ namespace GUI_20212202_MQ7GIA.Logic
                                         board.LaunchPadTile.Y = board.storm.Y;
                                     }
                                     break;
+                                case "CrashStartTile":
+                                    {
+                                        board.CrashStartTile.Y = board.LaunchPadTile.Y = board.storm.Y;
+                                    }
+                                    break;
                                 case "TunnelTile":
                                     {
                                         board.TunnelTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y + 1).Y = board.storm.Y;
@@ -408,6 +413,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                                         board.OasisMirageTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y + 1).Y = board.storm.Y;
                                     }
                                     break;
+
                                 default:      //Shelters left
                                     {
                                         board.ShelterTiles.First(x => x.X == board.storm.X && x.Y == board.storm.Y + 1).Y = board.storm.Y;
@@ -433,6 +439,11 @@ namespace GUI_20212202_MQ7GIA.Logic
                                 case "LaunchPadTile":
                                     {
                                         board.LaunchPadTile.Y = board.storm.Y;
+                                    }
+                                    break;
+                                case "CrashStartTile":
+                                    {
+                                        board.CrashStartTile.Y = board.LaunchPadTile.Y = board.storm.Y;
                                     }
                                     break;
                                 case "TunnelTile":
@@ -547,8 +558,11 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             return GameDeck;
         }
-        private Player PlayerInit(string playerName, int turnOrder, int rolenum)  //This time, roles are not random
+        private Player PlayerInit(string playerName, int turnOrder, List<Player> players)  //Roles are random now, needs testing tho
         {
+            Random rng = new Random();
+            int roleNumber = 0;
+
             Player newPlayer = new Player()
             {
                 X = board.LaunchPadTile.X,
@@ -559,7 +573,13 @@ namespace GUI_20212202_MQ7GIA.Logic
                 PlayerName = playerName,
                 TurnOrder = turnOrder,
             };
-            switch (rolenum)     //Abilitylist not finished
+
+            while (players.Any(x => (int)x.PlayerRoleName == roleNumber))
+            {
+                roleNumber = rng.Next(0, 6);
+            }
+
+            switch (roleNumber)     //Abilitylist not finished
             {
                 case 0:
                     {
@@ -615,5 +635,6 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             return newPlayer;
         }
+
     }
 }

@@ -179,9 +179,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
 
 
                     //Piece draw for when only one player is standing on the starting tile or any tile
-                    drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", "white_piece.png"), UriKind.RelativeOrAbsolute)), new Rect(startX * tileWidth + 43, startY * tileHeight + 25, tileWidth / 3.5, tileHeight / 2));
-
-                    InvalidateVisual();
+                    //drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", "white_piece.png"), UriKind.RelativeOrAbsolute)), new Rect(startX * tileWidth + 43, startY * tileHeight + 25, tileWidth / 3.5, tileHeight / 2));
 
                     //Piece draw when two players are on the same tile
                     //drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", "black_piece.png"), UriKind.RelativeOrAbsolute)), new Rect(startX * tileWidth + 10, startY * tileHeight + 25, tileWidth / 3.5, tileHeight / 2));
@@ -190,11 +188,11 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
 
 
                     //Piece draw when three players are on the same tile
-                    //drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", "black_piece.png"), UriKind.RelativeOrAbsolute)), new Rect(startX * tileWidth + 10, startY * tileHeight + 5, tileWidth / 3.5, tileHeight / 2));
+                    drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", "black_piece.png"), UriKind.RelativeOrAbsolute)), new Rect(startX * tileWidth + 10, startY * tileHeight + 5, tileWidth / 3.5, tileHeight / 2));
 
-                    //drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", "yellow_piece.png"), UriKind.RelativeOrAbsolute)), new Rect(startX * tileWidth + 75, startY * tileHeight + 5, tileWidth / 3.5, tileHeight / 2));
+                    drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", "yellow_piece.png"), UriKind.RelativeOrAbsolute)), new Rect(startX * tileWidth + 75, startY * tileHeight + 5, tileWidth / 3.5, tileHeight / 2));
 
-                    //drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", "red_piece.png"), UriKind.RelativeOrAbsolute)), new Rect(startX * tileWidth + 43, startY * tileHeight + 50, tileWidth / 3.5, tileHeight / 2));
+                    drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", "red_piece.png"), UriKind.RelativeOrAbsolute)), new Rect(startX * tileWidth + 43, startY * tileHeight + 50, tileWidth / 3.5, tileHeight / 2));
 
                     //if (x == logic.board.storm.X && y == logic.board.storm.Y) //Storm Render
                     //{
