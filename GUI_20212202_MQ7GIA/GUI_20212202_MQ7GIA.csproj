@@ -8,15 +8,655 @@
 
   <ItemGroup>
     <None Remove="Font\Steamwreck-07pd.ttf" />
+    <None Remove="imageassets\Charachter Cards\Archeologist.png" />
+    <None Remove="imageassets\Charachter Cards\Archeologist_0.png" />
+    <None Remove="imageassets\Charachter Cards\Archeologist_1.png" />
+    <None Remove="imageassets\Charachter Cards\Archeologist_2.png" />
+    <None Remove="imageassets\Charachter Cards\Archeologist_3.png" />
+    <None Remove="imageassets\Charachter Cards\Archeologist_dead.png" />
+    <None Remove="imageassets\Charachter Cards\Character backside.png" />
+    <None Remove="imageassets\Charachter Cards\Climber.png" />
+    <None Remove="imageassets\Charachter Cards\Climber_0.png" />
+    <None Remove="imageassets\Charachter Cards\Climber_1.png" />
+    <None Remove="imageassets\Charachter Cards\Climber_2.png" />
+    <None Remove="imageassets\Charachter Cards\Climber_3.png" />
+    <None Remove="imageassets\Charachter Cards\Climber_dead.png" />
+    <None Remove="imageassets\Charachter Cards\Explorer.png" />
+    <None Remove="imageassets\Charachter Cards\Explorer_0.png" />
+    <None Remove="imageassets\Charachter Cards\Explorer_1.png" />
+    <None Remove="imageassets\Charachter Cards\Explorer_2.png" />
+    <None Remove="imageassets\Charachter Cards\Explorer_3.png" />
+    <None Remove="imageassets\Charachter Cards\Explorer_4.png" />
+    <None Remove="imageassets\Charachter Cards\Explorer_dead.png" />
+    <None Remove="imageassets\Charachter Cards\Meteorologist.png" />
+    <None Remove="imageassets\Charachter Cards\Meteorologist_0.png" />
+    <None Remove="imageassets\Charachter Cards\Meteorologist_1.png" />
+    <None Remove="imageassets\Charachter Cards\Meteorologist_2.png" />
+    <None Remove="imageassets\Charachter Cards\Meteorologist_3.png" />
+    <None Remove="imageassets\Charachter Cards\Meteorologist_4.png" />
+    <None Remove="imageassets\Charachter Cards\Meteorologist_dead.png" />
+    <None Remove="imageassets\Charachter Cards\Navigator.png" />
+    <None Remove="imageassets\Charachter Cards\Navigator_0.png" />
+    <None Remove="imageassets\Charachter Cards\Navigator_1.png" />
+    <None Remove="imageassets\Charachter Cards\Navigator_2.png" />
+    <None Remove="imageassets\Charachter Cards\Navigator_3.png" />
+    <None Remove="imageassets\Charachter Cards\Navigator_4.png" />
+    <None Remove="imageassets\Charachter Cards\Navigator_dead.png" />
+    <None Remove="imageassets\Charachter Cards\Water Carrier.png" />
+    <None Remove="imageassets\Charachter Cards\Water Carrier_0.png" />
+    <None Remove="imageassets\Charachter Cards\Water Carrier_1.png" />
+    <None Remove="imageassets\Charachter Cards\Water Carrier_2.png" />
+    <None Remove="imageassets\Charachter Cards\Water Carrier_3.png" />
+    <None Remove="imageassets\Charachter Cards\Water Carrier_4.png" />
+    <None Remove="imageassets\Charachter Cards\Water Carrier_5.png" />
+    <None Remove="imageassets\Charachter Cards\Water Carrier_dead.png" />
     <None Remove="imageassets\Credits.png" />
+    <None Remove="imageassets\Gadget Cards\Dune Blaster.png" />
+    <None Remove="imageassets\Gadget Cards\Gadget Backside.png" />
+    <None Remove="imageassets\Gadget Cards\Jet Pack.png" />
+    <None Remove="imageassets\Gadget Cards\Secret Water Reserve.png" />
+    <None Remove="imageassets\Gadget Cards\Solar Shield.png" />
+    <None Remove="imageassets\Gadget Cards\Storm Tracker.png" />
+    <None Remove="imageassets\Gadget Cards\Terrascope.png" />
+    <None Remove="imageassets\Gadget Cards\Time Throttle.png" />
     <None Remove="ImageAssets\menu.png" />
+    <None Remove="imageassets\Parts\Compass_Collected.png" />
+    <None Remove="imageassets\Parts\Compass_unacquired.png" />
+    <None Remove="imageassets\Parts\Crystal_Collected.png" />
+    <None Remove="imageassets\Parts\Crystal_unacquired.png" />
+    <None Remove="imageassets\Parts\Engine_Collected.png" />
+    <None Remove="imageassets\Parts\Engine_unacquired.png" />
+    <None Remove="imageassets\Parts\Propeller_Collected.png" />
+    <None Remove="imageassets\Parts\Propeller_Unaquired.png" />
+    <None Remove="imageassets\Parts\Ship.png" />
     <None Remove="imageassets\PauseMenu.png" />
+    <None Remove="imageassets\Pieces\black_piece.png" />
+    <None Remove="imageassets\Pieces\blue_piece.png" />
+    <None Remove="imageassets\Pieces\green_piece.png" />
+    <None Remove="imageassets\Pieces\red_piece.png" />
+    <None Remove="imageassets\Pieces\white_piece.png" />
+    <None Remove="imageassets\Pieces\yellow_piece.png" />
     <None Remove="imageassets\placeholder.png" />
+    <None Remove="imageassets\Sand\blocked.png" />
+    <None Remove="imageassets\Sand\sand.png" />
     <None Remove="imageassets\Sand_test.jpg" />
+    <None Remove="imageassets\Storm Cards\Gadget Cards\Dune Blaster.png" />
+    <None Remove="imageassets\Storm Cards\Gadget Cards\Gadget Backside.png" />
+    <None Remove="imageassets\Storm Cards\Gadget Cards\Jet Pack.png" />
+    <None Remove="imageassets\Storm Cards\Gadget Cards\Secret Water Reserve.png" />
+    <None Remove="imageassets\Storm Cards\Gadget Cards\Solar Shield.png" />
+    <None Remove="imageassets\Storm Cards\Gadget Cards\Storm Tracker.png" />
+    <None Remove="imageassets\Storm Cards\Gadget Cards\Terrascope.png" />
+    <None Remove="imageassets\Storm Cards\Gadget Cards\Time Throttle.png" />
+    <None Remove="imageassets\Storm Cards\Parts\Compass_Collected.png" />
+    <None Remove="imageassets\Storm Cards\Parts\Compass_unacquired.png" />
+    <None Remove="imageassets\Storm Cards\Parts\Crystal_Collected.png" />
+    <None Remove="imageassets\Storm Cards\Parts\Crystal_unacquired.png" />
+    <None Remove="imageassets\Storm Cards\Parts\Engine_Collected.png" />
+    <None Remove="imageassets\Storm Cards\Parts\Engine_unacquired.png" />
+    <None Remove="imageassets\Storm Cards\Parts\Propeller_Collected.png" />
+    <None Remove="imageassets\Storm Cards\Parts\Propeller_Unaquired.png" />
+    <None Remove="imageassets\Storm Cards\Parts\Ship.png" />
+    <None Remove="imageassets\Storm Cards\Pieces\black_piece.png" />
+    <None Remove="imageassets\Storm Cards\Pieces\blue_piece.png" />
+    <None Remove="imageassets\Storm Cards\Pieces\green_piece.png" />
+    <None Remove="imageassets\Storm Cards\Pieces\red_piece.png" />
+    <None Remove="imageassets\Storm Cards\Pieces\white_piece.png" />
+    <None Remove="imageassets\Storm Cards\Pieces\yellow_piece.png" />
+    <None Remove="imageassets\Storm Cards\Sand\blocked.png" />
+    <None Remove="imageassets\Storm Cards\Sand\sand.png" />
+    <None Remove="imageassets\Storm Cards\Storm 1Down.png" />
+    <None Remove="imageassets\Storm Cards\Storm 1Left.png" />
+    <None Remove="imageassets\Storm Cards\Storm 1Right.png" />
+    <None Remove="imageassets\Storm Cards\Storm 1Up.png" />
+    <None Remove="imageassets\Storm Cards\Storm 2Down.png" />
+    <None Remove="imageassets\Storm Cards\Storm 2Left.png" />
+    <None Remove="imageassets\Storm Cards\Storm 2Right.png" />
+    <None Remove="imageassets\Storm Cards\Storm 2Up.png" />
+    <None Remove="imageassets\Storm Cards\Storm 3Down.png" />
+    <None Remove="imageassets\Storm Cards\Storm 3Left.png" />
+    <None Remove="imageassets\Storm Cards\Storm 3Right.png" />
+    <None Remove="imageassets\Storm Cards\Storm 3Up.png" />
+    <None Remove="imageassets\Storm Cards\Storm Card Backside.png" />
+    <None Remove="imageassets\Storm Cards\Storm Picks Up.png" />
+    <None Remove="imageassets\Storm Cards\Sun Beats Down.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_1.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_10.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_11.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_12.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_13.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_2.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_3.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_4.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_5.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_6.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_7.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_8.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_2player_9.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_1.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_10.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_11.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_12.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_13.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_14.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_2.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_3.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_4.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_5.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_6.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_7.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_8.png" />
+    <None Remove="imageassets\Storm Meter\kep_42_angol_3player_9.png" />
+    <None Remove="imageassets\Storm Meter\Storm Meter.png" />
+    <None Remove="imageassets\Tiles\Compass Clue Tile Column.png" />
+    <None Remove="imageassets\Tiles\Compass Clue Tile Row.png" />
+    <None Remove="imageassets\Tiles\Crash Tile.png" />
+    <None Remove="imageassets\Tiles\Crystal Clue Tile Column.png" />
+    <None Remove="imageassets\Tiles\Crystal Clue Tile Row.png" />
+    <None Remove="imageassets\Tiles\Engine Clue Tile Column.png" />
+    <None Remove="imageassets\Tiles\Engine Clue Tile Row.png" />
+    <None Remove="imageassets\Tiles\Launchpad Tile.png" />
+    <None Remove="imageassets\Tiles\Mirage.png" />
+    <None Remove="imageassets\Tiles\Oasis Tile.png" />
+    <None Remove="imageassets\Tiles\Oasis.png" />
+    <None Remove="imageassets\Tiles\Propeller Clue Tile  Row.png" />
+    <None Remove="imageassets\Tiles\Propeller Clue Tile Column.png" />
+    <None Remove="imageassets\Tiles\Shelter_1.png" />
+    <None Remove="imageassets\Tiles\Shelter_2.png" />
+    <None Remove="imageassets\Tiles\Shelter_3.png" />
+    <None Remove="imageassets\Tiles\Shelter_4.png" />
+    <None Remove="imageassets\Tiles\Shelter_5.png" />
+    <None Remove="imageassets\Tiles\Shelter_6.png" />
+    <None Remove="imageassets\Tiles\Shelter_7.png" />
+    <None Remove="imageassets\Tiles\Shelter_8.png" />
+    <None Remove="imageassets\Tiles\Shelter_9.png" />
+    <None Remove="imageassets\Tiles\storm.gif" />
+    <None Remove="imageassets\Tiles\Tile Backside.png" />
+    <None Remove="imageassets\Tiles\Tunnel.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="imageassets\Charachter Cards\Archeologist.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Archeologist_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Archeologist_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Archeologist_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Archeologist_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Archeologist_dead.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Character backside.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Climber.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Climber_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Climber_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Climber_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Climber_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Climber_dead.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Explorer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Explorer_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Explorer_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Explorer_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Explorer_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Explorer_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Explorer_dead.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Meteorologist.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Meteorologist_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Meteorologist_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Meteorologist_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Meteorologist_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Meteorologist_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Meteorologist_dead.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Navigator.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Navigator_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Navigator_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Navigator_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Navigator_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Navigator_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Navigator_dead.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Water Carrier.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Water Carrier_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Water Carrier_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Water Carrier_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Water Carrier_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Water Carrier_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Water Carrier_5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\Water Carrier_dead.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Gadget Cards\Dune Blaster.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Gadget Cards\Gadget Backside.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Gadget Cards\Jet Pack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Gadget Cards\Secret Water Reserve.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Gadget Cards\Solar Shield.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Gadget Cards\Storm Tracker.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Gadget Cards\Terrascope.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Gadget Cards\Time Throttle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Parts\Compass_Collected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Parts\Compass_unacquired.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Parts\Crystal_Collected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Parts\Crystal_unacquired.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Parts\Engine_Collected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Parts\Engine_unacquired.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Parts\Propeller_Collected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Parts\Propeller_Unaquired.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Parts\Ship.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Pieces\black_piece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Pieces\blue_piece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Pieces\green_piece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Pieces\red_piece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Pieces\white_piece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Pieces\yellow_piece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="imageassets\placeholder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Sand\blocked.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Sand\sand.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Gadget Cards\Dune Blaster.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Gadget Cards\Gadget Backside.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Gadget Cards\Jet Pack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Gadget Cards\Secret Water Reserve.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Gadget Cards\Solar Shield.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Gadget Cards\Storm Tracker.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Gadget Cards\Terrascope.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Gadget Cards\Time Throttle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Parts\Compass_Collected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Parts\Compass_unacquired.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Parts\Crystal_Collected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Parts\Crystal_unacquired.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Parts\Engine_Collected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Parts\Engine_unacquired.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Parts\Propeller_Collected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Parts\Propeller_Unaquired.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Parts\Ship.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Pieces\black_piece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Pieces\blue_piece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Pieces\green_piece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Pieces\red_piece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Pieces\white_piece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Pieces\yellow_piece.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Sand\blocked.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Sand\sand.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm 1Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm 1Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm 1Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm 1Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm 2Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm 2Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm 2Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm 2Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm 3Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm 3Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm 3Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm 3Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm Card Backside.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Storm Picks Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\Sun Beats Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_2player_9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\kep_42_angol_3player_9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\Storm Meter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Compass Clue Tile Column.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Compass Clue Tile Row.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Crash Tile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Crystal Clue Tile Column.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Crystal Clue Tile Row.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Engine Clue Tile Column.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Engine Clue Tile Row.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Launchpad Tile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Mirage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Oasis Tile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Oasis.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Propeller Clue Tile  Row.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Propeller Clue Tile Column.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Shelter_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Shelter_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Shelter_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Shelter_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Shelter_5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Shelter_6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Shelter_7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Shelter_8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Shelter_9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\storm.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Tile Backside.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Tiles\Tunnel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
