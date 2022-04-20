@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/GUI_20212202_MQ7GIA/Sounds/CHIMES.WAV
+/GUI_20212202_MQ7GIA/Sounds/hymn2aurora_test.mp3

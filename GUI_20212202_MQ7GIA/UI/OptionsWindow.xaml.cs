@@ -1,4 +1,5 @@
 ﻿using GUI_20212202_MQ7GIA.Logic;
+using GUI_20212202_MQ7GIA.UI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,30 +17,21 @@ using System.Windows.Shapes;
 namespace GUI_20212202_MQ7GIA
 {
     /// <summary>
-    /// Interaction logic for PauseWindow.xaml
+    /// Interaction logic for OptionsWindow.xaml
     /// </summary>
-    public partial class PauseWindow : Window
+    public partial class OptionsWindow : Window
     {
-        public Sound Sound { get; set; }
-        public PauseWindow(Sound sound)
+        public OptionsWindow(Sound sound)
         {
             InitializeComponent();
-            Sound = sound;
+            OptionsWindowViewModel vm = new OptionsWindowViewModel();
+            vm.SetupSound(sound);
+            DataContext = vm;
         }
 
-        private void Continue(object sender, RoutedEventArgs e)
+        private void Close(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-        private void Exit(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = true;
-        }
-
-        private void Options(object sender, RoutedEventArgs e)
-        {
-            OptionsWindow window = new OptionsWindow(Sound);
-            window.ShowDialog();
         }
     }
 }

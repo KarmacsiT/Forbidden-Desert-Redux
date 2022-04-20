@@ -14,15 +14,16 @@ namespace GUI_20212202_MQ7GIA.Logic
         public GameStatus Status { get; set; }
         public List<Player> Players { get; set; }
         public ShipParts[] shipParts { get; set; }
+        public Sound Sound { get; set; }
         public string[,] TileNames { get; set; }
         public string[,] PartTiles { get; set; }
 
         Random random = new Random();
-        public GameLogic()
+        public GameLogic(Sound sound)
         {
             bool[,] isTaken = new bool[5, 5];
             TileNames = new string[5, 5];
-
+            Sound = sound;
             board = new Board
             {
                 TunnelTiles = new TunnelTile[3], // Okay, we have 3 tunnel tiles, not 2
@@ -267,6 +268,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         {
             if (x != 0)
             {
+                Sound.PlaySound("CHIMES.WAV");
                 for (int i = 0; i < Math.Abs(x); i++)
                 {
                     if (board.storm.X + 1 == 5 || board.storm.X - 1 == -1)
@@ -320,6 +322,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                         }
                         else
                         {
+                            Sound.PlaySound("CHIMES.WAV");
                             string tempname = TileNames[board.storm.X - 1, board.storm.Y];
                             TileNames[board.storm.X - 1, board.storm.Y] = "Storm";
                             TileNames[board.storm.X, board.storm.Y] = tempname;
@@ -366,6 +369,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             else
             {
+                Sound.PlaySound("CHIMES.WAV");
                 for (int i = 0; i < Math.Abs(y); i++)
                 {
                     if (board.storm.Y + 1 == 5 || board.storm.Y - 1 == -1)
@@ -428,7 +432,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             string tempname = TileNames[board.storm.X, board.storm.Y - 1];
                             TileNames[board.storm.X, board.storm.Y - 1] = "Storm";
                             TileNames[board.storm.X, board.storm.Y] = tempname;
-
+                            Sound.PlaySound("CHIMES.WAV");
                             switch (tempname)
                             {
                                 case "AirShipClueTile":

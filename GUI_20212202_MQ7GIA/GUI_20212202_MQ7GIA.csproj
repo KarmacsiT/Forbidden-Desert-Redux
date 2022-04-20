@@ -167,6 +167,8 @@
     <None Remove="imageassets\Tiles\storm.gif" />
     <None Remove="imageassets\Tiles\Tile Backside.png" />
     <None Remove="imageassets\Tiles\Tunnel.png" />
+    <None Remove="Sounds\CHIMES.WAV" />
+    <None Remove="Sounds\hymn2aurora_test.mp3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -576,6 +578,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="imageassets\Tiles\Tunnel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\CHIMES.WAV">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\hymn2aurora_test.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
