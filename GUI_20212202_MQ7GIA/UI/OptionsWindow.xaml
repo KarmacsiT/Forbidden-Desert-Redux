@@ -58,7 +58,7 @@
                     <ScaleTransform ScaleY="2" ScaleX ="2"/>
                 </Slider.LayoutTransform>
             </Slider>
-            <Slider Width="120" Maximum="1" Value="{Binding Sound.SoundVolume}">
+            <Slider Width="120" Maximum="1" Value="{Binding Sound.SoundVolume}" PreviewMouseUp="ChangeVolume">
                 <Slider.LayoutTransform>
                     <ScaleTransform ScaleY="2" ScaleX ="2"/>
                 </Slider.LayoutTransform>

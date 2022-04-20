@@ -14,8 +14,6 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
 {
     public class OptionsWindowViewModel : ObservableRecipient
     {
-        public RelayCommand ChangeMusicVolume { get; set; }
-        public RelayCommand ChangeSoundVolume { get; set; }
         public Sound Sound { get; set; }
 
         public bool IsInDesignMode
@@ -34,7 +32,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         {
             if (!IsInDesignMode)
             {
-                //We need this because otherwise the Designer Mode would give us errors
+                //We need this otherwise we would get an error in designer
             }
         }
     }

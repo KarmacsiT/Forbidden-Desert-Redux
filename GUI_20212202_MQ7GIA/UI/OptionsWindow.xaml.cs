@@ -21,10 +21,12 @@ namespace GUI_20212202_MQ7GIA
     /// </summary>
     public partial class OptionsWindow : Window
     {
+        private Sound Sound{get;set;}
         public OptionsWindow(Sound sound)
         {
             InitializeComponent();
             OptionsWindowViewModel vm = new OptionsWindowViewModel();
+            Sound = sound;
             vm.SetupSound(sound);
             DataContext = vm;
         }
@@ -33,5 +35,10 @@ namespace GUI_20212202_MQ7GIA
         {
             this.Close();
         }
+        private void ChangeVolume(object sender, RoutedEventArgs e)
+        {
+            Sound.PlaySound("Chimes.wav");
+        }
+        
     }
 }
