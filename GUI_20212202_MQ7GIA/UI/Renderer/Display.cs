@@ -18,6 +18,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         // Models
         GameLogic logic;
         Size size;
+        MediaPlayer player = new MediaPlayer();
 
         public void SetupModel(GameLogic logic)
         {
@@ -90,6 +91,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         {
             base.OnRender(drawingContext);
 
+            
             double tileWidth = size.Width / 5;
             double tileHeight = size.Height / 5;
 
@@ -101,11 +103,11 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                     ImageBrush brush;
                     switch (logic.TileNames[x, y])
                     {
-                        case "Storm":
-                            {
-                                brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "storm.gif"), UriKind.RelativeOrAbsolute)));
-                            }
-                            break;
+                        //case "Storm":
+                        //    {
+                        //        brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "storm.gif"), UriKind.RelativeOrAbsolute)));
+                        //    }
+                        //    break;
                         case "AirShipClueTile":
                             {
                                 brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Tile Backside.png"), UriKind.RelativeOrAbsolute)));
@@ -163,7 +165,13 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                     {
                         drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
                     }
-
+                    if(x == logic.board.storm.X && y == logic.board.storm.Y)
+                    {
+                        //player.Open(new Uri("A:\\4\\Programming 4\\game project\\GUI_20212202_MQ7GIA\\imageassets\\Tiles\\storm.gif"));
+                        player.Open(new Uri(Path.Combine("ImageAssets/Tiles", "storm.gif"), UriKind.RelativeOrAbsolute));
+                        player.Play();
+                        drawingContext.DrawVideo(player, new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
+                    }
 
                     if (logic.SandTileChecker(x, y))
                     {
@@ -206,7 +214,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
 
                 }
             }
-        }
+        }       
         public void MoveTheStorm(int x, int y)
         {
             logic.MoveStorm(x, y);

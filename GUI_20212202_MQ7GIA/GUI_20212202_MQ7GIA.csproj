@@ -569,9 +569,9 @@
     <Content Include="imageassets\Tiles\Shelter_9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="imageassets\Tiles\storm.gif">
+    <EmbeddedResource Include="imageassets\Tiles\storm.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <Content Include="imageassets\Tiles\Tile Backside.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
