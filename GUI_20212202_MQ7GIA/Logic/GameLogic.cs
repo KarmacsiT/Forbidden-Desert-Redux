@@ -562,7 +562,7 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             return GameDeck;
         }
-        private Player PlayerInit(string playerName, int turnOrder, List<Player> players)  //Roles are random now, needs testing tho
+        public Player PlayerInit(string playerName, int turnOrder, List<Player> players)  //Roles are random now, needs testing tho
         {
             Random rng = new Random();
             int roleNumber = 0;

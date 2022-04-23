@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_20212202_MQ7GIA.UI"
         mc:Ignorable="d"
-        Title="GameSetupWindow" Height="450" Width="800" WindowStyle="None">
+        Title="GameSetupWindow" Height="450" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowStyle="None">
     <Window.Resources>
         <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
         <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
@@ -32,30 +32,74 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <Label Grid.Column="0" Grid.Row="1" Content="Number of Players:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="109" Width="267"/>
-        <Button Style="{StaticResource TransparentStyle}" Content="2 Player" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="109" Width="180" />
-        <Button Style="{StaticResource TransparentStyle}" Content="3 Player" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="109" Width="180" />
-        <Label Content="Difficulty:" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center" Width="247" Height="34"/>
-        <Button Style="{StaticResource TransparentStyle}" Content="Novice" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="266" Height="23"/>
-        <Button Style="{StaticResource TransparentStyle}" Content="Normal" Grid.Column="1" Grid.Row="4"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="266" Height="23"/>
-        <Button Style="{StaticResource TransparentStyle}" Content="Elit" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Center" Margin="0,10,0,0"  VerticalAlignment="Top" Width="266" Height="23" Grid.RowSpan="2"/>
-        <Button Style="{StaticResource TransparentStyle}" Content="Legendary" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Width="266" Height="23"/>
-        <Button Style="{StaticResource TransparentStyle}" Content="Start Game" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" Width="200" Height="44"/>
+
+
+        <TabControl>
+            <TabItem Header="2 Player Mode">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Player 1 Name:" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="TwoPlayerModePlayerOneTextBox" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15" />
+                    <Label Content="Player 2 Name:" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="TwoPlayerModePlayerTwoTextBox" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
+                    <Label Content="Difficulty:" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <ComboBox Grid.Row="4" Grid.Column="1" Margin="15,15,15,15">
+                        <ComboBoxItem>Novice</ComboBoxItem>
+                        <ComboBoxItem>Normal</ComboBoxItem>
+                        <ComboBoxItem>Elite</ComboBoxItem>
+                        <ComboBoxItem>Legendary</ComboBoxItem>
+                    </ComboBox>
+                    <Button Content="Back" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0" Click="TwoPlayerBackButtonClick"/>
+                    <Button Content="Game on!" Grid.Row="7" Grid.Column="1" Margin="15,10,15,10" Click="TwoPlayerStartButtonClick"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="3 Player Mode">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Player 1 Name:" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="ThreePlayerModePlayerOneTextBox" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
+                    <Label Content="Player 2 Name:"  Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="ThreePlayerModePlayerTwoTextBox" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
+                    <Label Content="Player 3 Name:" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="ThreePlayerModePlayerThreeTextBox" Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
+                    <Label Content="Difficulty:" Grid.Row="5" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <ComboBox Grid.Row="5" Grid.Column="1" Margin="15,15,15,15">
+                        <ComboBoxItem>Novice</ComboBoxItem>
+                        <ComboBoxItem>Normal</ComboBoxItem>
+                        <ComboBoxItem>Elite</ComboBoxItem>
+                        <ComboBoxItem>Legendary</ComboBoxItem>
+                    </ComboBox>
+                    <Button Content="Back" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0" Click="ThreePlayerBackButtonClick"/>
+                    <Button Content="Game on!" Grid.Row="7" Grid.Column="1" Margin="15,10,15,10" Click="ThreePlayerStartButtonClick"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

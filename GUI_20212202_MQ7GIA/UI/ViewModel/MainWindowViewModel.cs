@@ -18,6 +18,8 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         private static void StartGameSequence()
         {
             GameLogic logic = new GameLogic(Sound);
+            GameSetupWindow gameSetup = new GameSetupWindow();
+            gameSetup.ShowDialog();
             new BoardWindow(logic, Sound).ShowDialog();
         }
         private void OptionsWindow(Sound sound)

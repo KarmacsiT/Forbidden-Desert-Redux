@@ -18,6 +18,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         // Models
         GameLogic logic;
         Size size;
+        GameSetupWindow setupWindow;
         MediaPlayer player = new MediaPlayer();
 
         public void SetupModel(GameLogic logic)
@@ -91,7 +92,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         {
             base.OnRender(drawingContext);
 
-            
+
             double tileWidth = size.Width / 5;
             double tileHeight = size.Height / 5;
 
@@ -165,7 +166,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                     {
                         drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
                     }
-                    if(x == logic.board.storm.X && y == logic.board.storm.Y)
+                    if (x == logic.board.storm.X && y == logic.board.storm.Y)
                     {
                         //player.Open(new Uri("A:\\4\\Programming 4\\game project\\GUI_20212202_MQ7GIA\\imageassets\\Tiles\\storm.gif"));
                         player.Open(new Uri(Path.Combine("ImageAssets/Tiles", "storm.gif"), UriKind.RelativeOrAbsolute));
@@ -181,6 +182,23 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                     {
                         drawingContext.DrawRectangle(DoubleSandBrush, new Pen(Brushes.Black, 1), new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
                     }
+
+                    List<Player> players = new List<Player>();
+
+                    if (setupWindow.PlayerThreeName is "")
+                    {
+                        players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, players));
+                        players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, players));
+                    }
+
+                    else
+                    {
+                        players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, players));
+                        players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, players));
+                        players.Add(logic.PlayerInit(setupWindow.PlayerThreeName, 3, players));
+                    }
+
+                    //Create some logic that matches the role to the piece color
 
                     int startX = logic.board.CrashStartTile.X;
                     int startY = logic.board.CrashStartTile.Y;
@@ -214,7 +232,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
 
                 }
             }
-        }       
+        }
         public void MoveTheStorm(int x, int y)
         {
             logic.MoveStorm(x, y);
