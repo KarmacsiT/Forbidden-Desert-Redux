@@ -12,7 +12,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public Board board { get; set; }
         public Deck Deck { get; set; }
         public GameStatus Status { get; set; }
-        public List<Player> Players { get; set; }
+       // public List<Player> Players { get; set; }   we may not need this, since in the display we store them, and here so far it was not needed
         public ShipParts[] shipParts { get; set; }
         public Sound Sound { get; set; }
         public string[,] TileNames { get; set; }
@@ -637,6 +637,24 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             return newPlayer;
         }
+        public bool MovePlayer(int newX, int newY, List<Player> players) // returns true if the player moves ---> so render only rerenders in this case
+        {
+            if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions != 0 && newX > -1 && newY > -1 && newX < 6 && newY < 6)
+            {
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = newX;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = newY;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().TurnOrder = 6;   //trick
+                players.Where(p => p.TurnOrder == 2).FirstOrDefault().TurnOrder -= 1;
+                if (players.Count == 3)
+                {
+                    players.Where(p => p.TurnOrder == 3).FirstOrDefault().TurnOrder -= 1;
+                }
+                players.Where(p => p.TurnOrder == 6).FirstOrDefault().TurnOrder = players.Count;      // either 2 or 3
 
+                return true;
+            }
+            return false;
+        }
     }
 }
