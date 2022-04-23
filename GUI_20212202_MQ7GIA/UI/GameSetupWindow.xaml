@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_20212202_MQ7GIA.UI"
         mc:Ignorable="d"
-        Title="GameSetupWindow" Height="450" Width="800" HorizontalAlignment="Center" VerticalAlignment="Center" WindowStyle="None">
+        Title="GameSetupWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Resources>
         <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
         <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
@@ -56,7 +56,7 @@
                     <Label Content="Player 2 Name:" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                     <TextBox x:Name="TwoPlayerModePlayerTwoTextBox" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
                     <Label Content="Difficulty:" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <ComboBox Grid.Row="4" Grid.Column="1" Margin="15,15,15,15">
+                    <ComboBox x:Name="DiffLevel"  Grid.Row="4" Grid.Column="1" Margin="15,15,15,15">
                         <ComboBoxItem>Novice</ComboBoxItem>
                         <ComboBoxItem>Normal</ComboBoxItem>
                         <ComboBoxItem>Elite</ComboBoxItem>

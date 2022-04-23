@@ -13,14 +13,13 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
     {
         public RelayCommand StartGame { get; set; }
         public RelayCommand OpenOptions { get; set; }
-        public static Sound Sound { get; set; }
+        public Sound Sound { get; set; }
 
-        private static void StartGameSequence()
+        private void StartGameSequence()
         {
             GameLogic logic = new GameLogic(Sound);
-            GameSetupWindow gameSetup = new GameSetupWindow();
+            GameSetupWindow gameSetup = new GameSetupWindow(logic,Sound);
             gameSetup.ShowDialog();
-            new BoardWindow(logic, Sound).ShowDialog();
         }
         private void OptionsWindow(Sound sound)
         {

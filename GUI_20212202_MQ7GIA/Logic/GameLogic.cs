@@ -17,6 +17,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public Sound Sound { get; set; }
         public string[,] TileNames { get; set; }
         public string[,] PartTiles { get; set; }
+        public string DifficultyLevel { get; set; }
 
         Random random = new Random();
         public GameLogic(Sound sound)
@@ -268,7 +269,6 @@ namespace GUI_20212202_MQ7GIA.Logic
         {
             if (x != 0)
             {
-                Sound.PlaySound("CHIMES.WAV");
                 for (int i = 0; i < Math.Abs(x); i++)
                 {
                     if (board.storm.X + 1 == 5 || board.storm.X - 1 == -1)
@@ -322,7 +322,6 @@ namespace GUI_20212202_MQ7GIA.Logic
                         }
                         else
                         {
-                            Sound.PlaySound("CHIMES.WAV");
                             string tempname = TileNames[board.storm.X - 1, board.storm.Y];
                             TileNames[board.storm.X - 1, board.storm.Y] = "Storm";
                             TileNames[board.storm.X, board.storm.Y] = tempname;
@@ -432,7 +431,6 @@ namespace GUI_20212202_MQ7GIA.Logic
                             string tempname = TileNames[board.storm.X, board.storm.Y - 1];
                             TileNames[board.storm.X, board.storm.Y - 1] = "Storm";
                             TileNames[board.storm.X, board.storm.Y] = tempname;
-                            Sound.PlaySound("CHIMES.WAV");
                             switch (tempname)
                             {
                                 case "AirShipClueTile":
@@ -565,12 +563,12 @@ namespace GUI_20212202_MQ7GIA.Logic
         public Player PlayerInit(string playerName, int turnOrder, List<Player> players)  //Roles are random now, needs testing tho
         {
             Random rng = new Random();
-            int roleNumber = 0;
+            int roleNumber = rng.Next(0, 6); // Do we always need an archeologist? (roleNumber 0)
 
             Player newPlayer = new Player()
             {
-                X = board.LaunchPadTile.X,
-                Y = board.LaunchPadTile.Y,
+                X = board.CrashStartTile.X,
+                Y = board.CrashStartTile.Y, //The launchpad tile would be the finishing tile, so we need the CrashStartTile as starting position
                 NumberOfActions = 4,
                 ActionDescription = "ActionDescriptionLongString",    //needs to be finished
                 Cards = new List<ItemCard>(),

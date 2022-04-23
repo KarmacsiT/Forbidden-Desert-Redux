@@ -1,4 +1,5 @@
 ﻿using GUI_20212202_MQ7GIA.Logic;
+using GUI_20212202_MQ7GIA.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,11 @@ namespace GUI_20212202_MQ7GIA
     public partial class BoardWindow : Window
     {
         public Sound Sound { get; set; }
-        public BoardWindow(GameLogic logic, Sound sound)
+        public BoardWindow(GameLogic logic, Sound sound, GameSetupWindow setupWindow)
         {
             InitializeComponent();
-            display.SetupModel(logic);
+            display.SetupLogic(logic);
+            display.SetupGameSetup(setupWindow);
             Sound = sound;
             partsCollected.SetupModel(logic);
         }
