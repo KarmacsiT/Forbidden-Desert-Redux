@@ -296,5 +296,9 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             }
             return invalidate;
         }
+        public void EndTurn()
+        {
+            logic.Endturn(players);
+        }
     }
 }

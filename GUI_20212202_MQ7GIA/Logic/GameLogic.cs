@@ -661,6 +661,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         }
         public void Endturn(List<Player> players)
         {
+            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions = 4;
             players.Where(p => p.TurnOrder == 1).FirstOrDefault().TurnOrder = 6;   //trick
             players.Where(p => p.TurnOrder == 2).FirstOrDefault().TurnOrder -= 1;
             if (players.Count == 3)

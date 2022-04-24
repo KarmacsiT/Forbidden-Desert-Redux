@@ -95,5 +95,11 @@ namespace GUI_20212202_MQ7GIA
                 display.InvalidateVisual();
             }
         }
+
+        private void EndTurn(object sender, RoutedEventArgs e)
+        {
+            display.EndTurn();
+            // draw cards, (and move storm, ...) 
+        }
     }
 }

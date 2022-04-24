@@ -40,6 +40,7 @@
             <renderer:PartsCollected x:Name="partsCollected" />
         </Grid>
         <Button Content="Pause" HorizontalAlignment="Right" Height="44" VerticalAlignment="Bottom" Width="86" Click="Pause"/>
+        <Button Content="End Turn" HorizontalAlignment="Right" Height="44" VerticalAlignment="Center" Width="86" Click="EndTurn"/>
         <Label Content="Collected items:" HorizontalAlignment="Left" Margin="50,19,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="30"/>
         <Grid x:Name="CurrentPlayerCardsDisplay" Margin="735,932,734,0">
             <renderer:CurrentPlayerCards x:Name="currentPlayerCards"/>
