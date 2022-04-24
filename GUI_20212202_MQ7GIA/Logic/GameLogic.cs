@@ -649,7 +649,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             else
             {
-                if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions != 0 && newX > -1 && newY > -1 && newX < 6 && newY < 6)
+                if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions != 0 && newX > -1 && newY > -1 && newX < 5 && newY < 5)
                 {
                     players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = newX;
                     players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = newY;
@@ -662,13 +662,26 @@ namespace GUI_20212202_MQ7GIA.Logic
         public void Endturn(List<Player> players)
         {
             players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions = 4;
-            players.Where(p => p.TurnOrder == 1).FirstOrDefault().TurnOrder = 6;   //trick
+            players.Where(p => p.TurnOrder == 1).FirstOrDefault().TurnOrder = 6;   // We are using maxsearch-like pattern we are copying 1 to 6 then later on 6 to 3, because the other players will have 2 or 1.
             players.Where(p => p.TurnOrder == 2).FirstOrDefault().TurnOrder -= 1;
             if (players.Count == 3)
             {
                 players.Where(p => p.TurnOrder == 3).FirstOrDefault().TurnOrder -= 1;
             }
             players.Where(p => p.TurnOrder == 6).FirstOrDefault().TurnOrder = players.Count;      // either 2 or 3
+        }
+        public bool Excavate(List<Player> players) // We need bool because of invalidatevisual
+        {
+            int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
+            int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
+            bool sand = SandTileChecker(x,y);
+            if (sand && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0) //if we are on a sand tile and we can do an action
+            {
+                board.SandTiles[x,y] -= 1; //we excavate the sand
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                return true; 
+            }
+            return false;
         }
     }
 }

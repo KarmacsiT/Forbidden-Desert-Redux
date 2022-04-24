@@ -56,7 +56,7 @@
                     <Label Content="Player 2 Name:" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                     <TextBox x:Name="TwoPlayerModePlayerTwoTextBox" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
                     <Label Content="Difficulty:" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <ComboBox x:Name="DiffLevel"  Grid.Row="4" Grid.Column="1" Margin="15,15,15,15">
+                    <ComboBox x:Name="TwoPlayerDiffLevel"  Grid.Row="4" Grid.Column="1" Margin="15,15,15,15">
                         <ComboBoxItem>Novice</ComboBoxItem>
                         <ComboBoxItem>Normal</ComboBoxItem>
                         <ComboBoxItem>Elite</ComboBoxItem>
@@ -90,7 +90,7 @@
                     <Label Content="Player 3 Name:" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
                     <TextBox x:Name="ThreePlayerModePlayerThreeTextBox" Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
                     <Label Content="Difficulty:" Grid.Row="5" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <ComboBox Grid.Row="5" Grid.Column="1" Margin="15,15,15,15">
+                    <ComboBox x:Name="ThreePlayerDiffLevel" Grid.Row="5" Grid.Column="1" Margin="15,15,15,15">
                         <ComboBoxItem>Novice</ComboBoxItem>
                         <ComboBoxItem>Normal</ComboBoxItem>
                         <ComboBoxItem>Elite</ComboBoxItem>

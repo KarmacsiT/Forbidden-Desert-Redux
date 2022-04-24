@@ -40,11 +40,11 @@ namespace GUI_20212202_MQ7GIA.UI
 
         private void TwoPlayerStartButtonClick(object sender, RoutedEventArgs e) //Needs additional checking whether difficulty was inputed
         {
-            if (TwoPlayerModePlayerOneTextBox.Text is not "" && TwoPlayerModePlayerTwoTextBox.Text is not "" && DiffLevel.Text is not "")
+            if (TwoPlayerModePlayerOneTextBox.Text is not "" && TwoPlayerModePlayerTwoTextBox.Text is not "" && TwoPlayerDiffLevel.Text is not "")
             {
                 PlayerOneName = TwoPlayerModePlayerOneTextBox.Text;
                 PlayerTwoName = TwoPlayerModePlayerTwoTextBox.Text;
-                Logic.DifficultyLevel = DiffLevel.Text;
+                Logic.DifficultyLevel = TwoPlayerDiffLevel.Text;
                 this.Close();
                 BoardWindow board = new BoardWindow(Logic, Sound, this);
                 board.Show();
@@ -67,12 +67,12 @@ namespace GUI_20212202_MQ7GIA.UI
 
         private void ThreePlayerStartButtonClick(object sender, RoutedEventArgs e) //Needs additional checking whether difficulty was inputed
         {
-            if (ThreePlayerModePlayerOneTextBox.Text is not "" && ThreePlayerModePlayerTwoTextBox.Text is not "" && ThreePlayerModePlayerThreeTextBox.Text is not "" && DiffLevel.Text is not "")
+            if (ThreePlayerModePlayerOneTextBox.Text is not "" && ThreePlayerModePlayerTwoTextBox.Text is not "" && ThreePlayerModePlayerThreeTextBox.Text is not "" && ThreePlayerDiffLevel.Text is not "")
             {
                 PlayerOneName = ThreePlayerModePlayerOneTextBox.Text;
                 PlayerTwoName = ThreePlayerModePlayerTwoTextBox.Text;
                 PlayerThreeName = ThreePlayerModePlayerThreeTextBox.Text;
-                Logic.DifficultyLevel = DiffLevel.Text;
+                Logic.DifficultyLevel = ThreePlayerDiffLevel.Text;
                 this.Close();
                 BoardWindow board = new BoardWindow(Logic, Sound, this);
                 board.Show();

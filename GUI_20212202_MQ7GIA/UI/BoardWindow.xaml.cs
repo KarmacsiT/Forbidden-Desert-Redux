@@ -89,11 +89,20 @@ namespace GUI_20212202_MQ7GIA
             {
                 invalidate = display.MoveThePlayer(1, 0);
             }
+            else if (e.Key == Key.E) // E
+            {
+                invalidate = display.Excavate();
+            }
 
             if(invalidate == true)
             {
                 display.InvalidateVisual();
             }
+        }
+
+        private void ExcavateClick(object sender, KeyEventArgs e)
+        {
+
         }
 
         private void EndTurn(object sender, RoutedEventArgs e)

@@ -300,5 +300,9 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         {
             logic.Endturn(players);
         }
+        public bool Excavate()
+        {
+            return logic.Excavate(players);
+        }
     }
 }
