@@ -53,5 +53,47 @@ namespace GUI_20212202_MQ7GIA
             display.MoveTheStorm(0, 1);
             display.InvalidateVisual();
         }
+
+        private void KeyBoardUsed(object sender, KeyEventArgs e)
+        {
+            bool invalidate = false;
+            if (e.Key == Key.NumPad7)    // left and up
+            {
+                invalidate = display.MoveThePlayer(-1, -1);
+            }       
+            else if (e.Key == Key.NumPad9)    // right and up
+            {
+                invalidate = display.MoveThePlayer(1, -1);
+            }
+            else if (e.Key == Key.NumPad1)    // left and down
+            {
+                invalidate = display.MoveThePlayer(-1, 1);
+            }
+            else if (e.Key == Key.NumPad3)    // right and down
+            {
+                invalidate = display.MoveThePlayer(1, 1);
+            }
+            else if (e.Key == Key.Up || e.Key == Key.NumPad8)      // up
+            {
+                invalidate = display.MoveThePlayer(0, -1);
+            }
+            else if (e.Key == Key.Left || e.Key == Key.NumPad4)     // left
+            {
+                invalidate = display.MoveThePlayer(-1, 0);
+            }
+            else if (e.Key == Key.Down || e.Key == Key.NumPad2)      // down
+            {
+                invalidate = display.MoveThePlayer(0, 1);
+            }
+            else if (e.Key == Key.Right || e.Key == Key.NumPad6)    // right
+            {
+                invalidate = display.MoveThePlayer(1, 0);
+            }
+
+            if(invalidate == true)
+            {
+                display.InvalidateVisual();
+            }
+        }
     }
 }

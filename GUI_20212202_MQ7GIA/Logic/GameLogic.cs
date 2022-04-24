@@ -639,22 +639,35 @@ namespace GUI_20212202_MQ7GIA.Logic
         }
         public bool MovePlayer(int newX, int newY, List<Player> players) // returns true if the player moves ---> so render only rerenders in this case
         {
-            if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions != 0 && newX > -1 && newY > -1 && newX < 6 && newY < 6)
+            if(board.storm.X == newX && board.storm.Y == newY)
             {
-                players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = newX;
-                players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = newY;
-                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                players.Where(p => p.TurnOrder == 1).FirstOrDefault().TurnOrder = 6;   //trick
-                players.Where(p => p.TurnOrder == 2).FirstOrDefault().TurnOrder -= 1;
-                if (players.Count == 3)
-                {
-                    players.Where(p => p.TurnOrder == 3).FirstOrDefault().TurnOrder -= 1;
-                }
-                players.Where(p => p.TurnOrder == 6).FirstOrDefault().TurnOrder = players.Count;      // either 2 or 3
-
-                return true;
+                return false;
             }
-            return false;
+            if(DoubleSandChecker(newX, newY) && players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName != RoleName.Climber)
+            {
+                return false;
+            }
+            else
+            {
+                if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions != 0 && newX > -1 && newY > -1 && newX < 6 && newY < 6)
+                {
+                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = newX;
+                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = newY;
+                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                    return true;
+                }
+                return false;
+            }          
+        }
+        public void Endturn(List<Player> players)
+        {
+            players.Where(p => p.TurnOrder == 1).FirstOrDefault().TurnOrder = 6;   //trick
+            players.Where(p => p.TurnOrder == 2).FirstOrDefault().TurnOrder -= 1;
+            if (players.Count == 3)
+            {
+                players.Where(p => p.TurnOrder == 3).FirstOrDefault().TurnOrder -= 1;
+            }
+            players.Where(p => p.TurnOrder == 6).FirstOrDefault().TurnOrder = players.Count;      // either 2 or 3
         }
     }
 }

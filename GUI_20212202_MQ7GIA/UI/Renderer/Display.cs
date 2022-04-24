@@ -280,6 +280,21 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         {
             logic.MoveStorm(x, y);
         }
-
+        public bool MoveThePlayer(int x, int y)
+        {
+            bool invalidate = false;
+            if (x != 0 && y != 0)  //diagonal movement
+            {
+                if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName == RoleName.Explorer)
+                {
+                    invalidate = logic.MovePlayer(players.Where(p => p.TurnOrder == 1).FirstOrDefault().X + x, players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y + y, players);
+                }
+            }
+            else
+            {
+                invalidate = logic.MovePlayer(players.Where(p => p.TurnOrder == 1).FirstOrDefault().X + x, players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y + y, players);
+            }
+            return invalidate;
+        }
     }
 }
