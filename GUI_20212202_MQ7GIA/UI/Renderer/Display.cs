@@ -300,9 +300,14 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         {
             logic.Endturn(players);
         }
+        public bool RemoveSand()
+        {
+            return logic.RemoveSand(players);
+        }
         public bool Excavate()
         {
-            return logic.Excavate(players);
+            //implement it!!!
+            return true;
         }
     }
 }

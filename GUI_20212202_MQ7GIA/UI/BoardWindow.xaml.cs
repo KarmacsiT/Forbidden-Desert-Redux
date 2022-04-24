@@ -89,9 +89,13 @@ namespace GUI_20212202_MQ7GIA
             {
                 invalidate = display.MoveThePlayer(1, 0);
             }
-            else if (e.Key == Key.E) // E
+            else if (e.Key == Key.R) // R
             {
-                invalidate = display.Excavate();
+                invalidate = display.RemoveSand();
+            }
+            else if(e.Key == Key.E)
+            {
+                //implement Excavate (flip the card!!)
             }
 
             if(invalidate == true)

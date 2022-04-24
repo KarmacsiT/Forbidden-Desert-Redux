@@ -670,7 +670,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             players.Where(p => p.TurnOrder == 6).FirstOrDefault().TurnOrder = players.Count;      // either 2 or 3
         }
-        public bool Excavate(List<Player> players) // We need bool because of invalidatevisual
+        public bool RemoveSand(List<Player> players) // We need bool because of invalidatevisual
         {
             int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
             int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
@@ -681,6 +681,11 @@ namespace GUI_20212202_MQ7GIA.Logic
                 players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
                 return true; 
             }
+            return false;
+        }
+        public bool Excavate(List<Player> players)
+        {
+            //implement Excavate (flip the card!!)
             return false;
         }
     }
