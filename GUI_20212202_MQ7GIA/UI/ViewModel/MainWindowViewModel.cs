@@ -14,6 +14,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         public RelayCommand StartGame { get; set; }
         public RelayCommand OpenOptions { get; set; }
         public Sound Sound { get; set; }
+        public int NumberOfActions { get; set; }
 
         private void StartGameSequence()
         {
