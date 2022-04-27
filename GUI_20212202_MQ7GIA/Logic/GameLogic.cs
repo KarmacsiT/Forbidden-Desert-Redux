@@ -649,14 +649,17 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             else
             {
-                if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions != 0 && newX > -1 && newY > -1 && newX < 5 && newY < 5)
+                if (newX > -1 && newY > -1 && newX < 5 && newY < 5)
                 {
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = newX;
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = newY;
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                    return true;
+                    if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions != 0)
+                    {
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = newX;
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = newY;
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        return "validMove";
+                    }
+                    return "outOfActions";
                 }
-
                 return "invalidMove";
             }
         }
