@@ -12,7 +12,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public Board board { get; set; }
         public Deck Deck { get; set; }
         public GameStatus Status { get; set; }
-       // public List<Player> Players { get; set; }   we may not need this, since in the display we store them, and here so far it was not needed
+        // public List<Player> Players { get; set; }   we may not need this, since in the display we store them, and here so far it was not needed
         public ShipParts[] shipParts { get; set; }
         public Sound Sound { get; set; }
         public string[,] TileNames { get; set; }
@@ -639,11 +639,11 @@ namespace GUI_20212202_MQ7GIA.Logic
         }
         public string MovePlayer(int newX, int newY, List<Player> players) // returns true if the player moves ---> so render only rerenders in this case
         {
-            if(board.storm.X == newX && board.storm.Y == newY)
+            if (board.storm.X == newX && board.storm.Y == newY)
             {
                 return "invalidMove";
             }
-            if(DoubleSandChecker(newX, newY) && players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName != RoleName.Climber)
+            if (DoubleSandChecker(newX, newY) && players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName != RoleName.Climber)
             {
                 return "blocked";
             }
@@ -660,6 +660,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                     }
                     return "outOfActions";
                 }
+
                 return "invalidMove";
             }
         }
@@ -678,12 +679,12 @@ namespace GUI_20212202_MQ7GIA.Logic
         {
             int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
             int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
-            bool sand = SandTileChecker(x,y);
+            bool sand = SandTileChecker(x, y);
             if (sand && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0) //if we are on a sand tile and we can do an action
             {
-                board.SandTiles[x,y] -= 1; //we excavate the sand
+                board.SandTiles[x, y] -= 1; //we excavate the sand
                 players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                return true; 
+                return true;
             }
             return false;
         }

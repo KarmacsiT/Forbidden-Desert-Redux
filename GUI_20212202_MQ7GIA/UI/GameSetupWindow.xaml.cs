@@ -56,7 +56,7 @@ namespace GUI_20212202_MQ7GIA.UI
             }
             else
             {
-                MessageBox.Show("Difficulty level can't be blank");
+                MessageBox.Show("Please choose a difficulty level in order to start a game!");
             }
         }
 
@@ -76,7 +76,7 @@ namespace GUI_20212202_MQ7GIA.UI
                 this.Close();
                 BoardWindow board = new BoardWindow(Logic, Sound, this);
                 board.Show();
-                
+
             }
             else if (ThreePlayerModePlayerOneTextBox.Text is "" || ThreePlayerModePlayerTwoTextBox.Text is "" || ThreePlayerModePlayerThreeTextBox.Text is "")
             {
@@ -85,7 +85,7 @@ namespace GUI_20212202_MQ7GIA.UI
             }
             else
             {
-                MessageBox.Show("Difficulty level can't be blank");
+                MessageBox.Show("Please choose a difficulty level in order to start a game!");
                 return;
             }
         }
