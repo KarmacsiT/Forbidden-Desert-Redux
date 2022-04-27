@@ -691,6 +691,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             bool sand = SandTileChecker(x, y);
             string typeOfCard = TileNames[x, y];
             int pos = -1;
+            //We need to implement already discovered checking in order to not waste player action
             if (sand == false)
             {
                 switch (typeOfCard)
