@@ -637,15 +637,15 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             return newPlayer;
         }
-        public bool MovePlayer(int newX, int newY, List<Player> players) // returns true if the player moves ---> so render only rerenders in this case
+        public string MovePlayer(int newX, int newY, List<Player> players) // returns true if the player moves ---> so render only rerenders in this case
         {
             if(board.storm.X == newX && board.storm.Y == newY)
             {
-                return false;
+                return "invalidMove";
             }
             if(DoubleSandChecker(newX, newY) && players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName != RoleName.Climber)
             {
-                return false;
+                return "blocked";
             }
             else
             {
