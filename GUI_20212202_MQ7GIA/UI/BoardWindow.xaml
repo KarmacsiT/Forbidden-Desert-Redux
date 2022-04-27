@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_20212202_MQ7GIA"
         xmlns:renderer="clr-namespace:GUI_20212202_MQ7GIA.UI.Renderer"
+        xmlns:vm="clr-namespace:GUI_20212202_MQ7GIA.UI.ViewModel"
         mc:Ignorable="d"
         Title="BoardWindow" Height="1080" Width="1920" ResizeMode="NoResize" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" Loaded="WindowLoaded" MouseDoubleClick="StormMove" KeyDown="KeyBoardUsed">
     <Window.Resources>
@@ -39,11 +40,13 @@
         <Grid x:Name="partsCollectedDisplay" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="50" Background="Orange" Margin="50,70,0,0">
             <renderer:PartsCollected x:Name="partsCollected" />
         </Grid>
-        <Button Content="Pause" HorizontalAlignment="Right" Height="44" VerticalAlignment="Bottom" Width="86" Click="Pause"/>
-        <Button Content="End Turn" HorizontalAlignment="Right" Height="44" VerticalAlignment="Center" Width="86" Click="EndTurn"/>
+        <Button Content="Pause" HorizontalAlignment="Right" Height="44" VerticalAlignment="Bottom" Width="86" Click="Pause" FontFamily="{StaticResource Steamwreck}" FontSize="24" Margin="0,0,10,10"/>
+        <Button Content="End Turn" HorizontalAlignment="Right" Height="44" VerticalAlignment="Center" Width="86" Click="EndTurn" FontFamily="{StaticResource Steamwreck}" FontSize="24"/>
         <Label Content="Collected items:" HorizontalAlignment="Left" Margin="50,19,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="30"/>
         <Grid x:Name="CurrentPlayerCardsDisplay" Margin="735,932,734,0">
             <renderer:CurrentPlayerCards x:Name="currentPlayerCards"/>
         </Grid>
+        <Label Content="Remaining turns:" HorizontalAlignment="Right" Margin="1783,668,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="30"/>
+        <Label Content="{Binding TurnsCounter, UpdateSourceTrigger=Default}" HorizontalAlignment="Right" Margin="1836,715,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="{StaticResource Steamwreck}"/>
     </Grid>
 </Window>

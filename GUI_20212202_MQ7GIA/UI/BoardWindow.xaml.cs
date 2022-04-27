@@ -1,5 +1,6 @@
 ﻿using GUI_20212202_MQ7GIA.Logic;
 using GUI_20212202_MQ7GIA.UI;
+using GUI_20212202_MQ7GIA.UI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,9 @@ namespace GUI_20212202_MQ7GIA
             display.SetupGameSetup(setupWindow);
             Sound = sound;
             partsCollected.SetupModel(logic);
+            BoardWindowViewModel boardWindowViewModel = new BoardWindowViewModel(display);
+            DataContext = boardWindowViewModel;
+
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
@@ -95,7 +99,7 @@ namespace GUI_20212202_MQ7GIA
             }
             else if(e.Key == Key.E)
             {
-                //implement Excavate (flip the card!!)
+                invalidate = display.Excavate();
             }
 
             if(invalidate == true)
