@@ -470,11 +470,39 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         }
         public bool RemoveSand()
         {
-            return logic.RemoveSand(players);
+            bool invalidate = false;
+            string validationMessage = logic.RemoveSand(players);
+            if (validationMessage == "validMove")
+            {
+                invalidate = true;
+            }
+            else if (validationMessage == "outOfActions")
+            {
+                MessageBox.Show("Hint: You can't remove the sand because you are out of actions.");
+            }
+            else if (validationMessage == "notSand")
+            {
+                MessageBox.Show("Hint: This is not a sand tile.");
+            }
+            return invalidate;
         }
         public bool Excavate()
         {
-            return logic.Excavate(players);
+            bool invalidate = false;
+            string validationMessage = logic.Excavate(players);
+            if (validationMessage == "validMove")
+            {
+                invalidate = true;
+            }
+            else if (validationMessage == "outOfActions")
+            {
+                MessageBox.Show("Hint: You can't excavate because you are out of actions.");
+            }
+            else if (validationMessage == "alreadyDiscovered")
+            {
+                MessageBox.Show("Hint: You've already discovered the tile.");
+            }
+            return invalidate;
         }
     }
 }

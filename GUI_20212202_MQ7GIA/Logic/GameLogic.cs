@@ -651,16 +651,16 @@ namespace GUI_20212202_MQ7GIA.Logic
             {
                 if (newX > -1 && newY > -1 && newX < 5 && newY < 5)
                 {
-                    if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions != 0)
+                    if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0) // >0, because if the # of moves is < 0, you can move
                     {
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = newX;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = newY;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
                         return "validMove";
                     }
-                    return "outOfActions";
+                    else return "outOfActions";
                 }
-                return "invalidMove";
+                else return "invalidMove";
             }
         }
         public void Endturn(List<Player> players)
@@ -674,7 +674,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             players.Where(p => p.TurnOrder == 6).FirstOrDefault().TurnOrder = players.Count;      // either 2 or 3
         }
-        public bool RemoveSand(List<Player> players) // We need bool because of invalidatevisual
+        public string RemoveSand(List<Player> players) // We need bool because of invalidatevisual
         {
             int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
             int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
@@ -683,11 +683,15 @@ namespace GUI_20212202_MQ7GIA.Logic
             {
                 board.SandTiles[x, y] -= 1; //we excavate the sand
                 players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                return true;
+                return "validMove";
             }
-            return false;
+            else if (!sand)
+            {
+                return "notSand";
+            }
+            else return "outOfActions";
         }
-        public bool Excavate(List<Player> players)
+        public string Excavate(List<Player> players)
         {
             //implement Excavate (flip the card!!)
             int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
@@ -695,8 +699,9 @@ namespace GUI_20212202_MQ7GIA.Logic
             bool sand = SandTileChecker(x, y);
             string typeOfCard = TileNames[x, y];
             int pos = -1;
+            bool cardDiscovered = IsCardDiscovered(typeOfCard, x, y);
             //We need to implement already discovered checking in order to not waste player action
-            if (sand == false)
+            if (sand == false && cardDiscovered == false && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
             {
                 switch (typeOfCard)
                 {
@@ -704,55 +709,138 @@ namespace GUI_20212202_MQ7GIA.Logic
                         pos = CardFinder(board.AirShipClueTiles, x, y);
                         board.AirShipClueTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                        return true;
+                        return "validMove";
                     case "LaunchPadTile":
                         board.LaunchPadTile.IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                        return true;
+                        return "validMove";
                     case "CrashStartTile":
                         board.CrashStartTile.IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                        return true;
+                        return "validMove";
                     case "TunnelTile":
                         pos = CardFinder(board.TunnelTiles, x, y);
                         board.TunnelTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                        return true;
+                        return "validMove";
                     case "Mirage":
                         pos = CardFinder(board.OasisMirageTiles, x, y);
                         board.OasisMirageTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                        return true;
+                        return "validMove";
                     case "Oasis":
                         pos = CardFinder(board.OasisMirageTiles, x, y);
                         board.OasisMirageTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                        return true;
+                        return "validMove";
                     case "EmptyShelter":
                         pos = CardFinder(board.ShelterTiles, x, y);
                         board.ShelterTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                        return true;
+                        return "validMove";
                     case "FriendlyWater":
                         pos = CardFinder(board.ShelterTiles, x, y);
                         board.ShelterTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                        return true;
+                        return "validMove";
                     case "FriendlyQuest":
                         pos = CardFinder(board.ShelterTiles, x, y);
                         board.ShelterTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                        return true;
+                        return "validMove";
                     case "Hostile":
                         pos = CardFinder(board.ShelterTiles, x, y);
                         board.ShelterTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                        return true;
+                        return "validMove";
                     default:
                         break;
                 }
             }
-            return false;
+            else if (cardDiscovered == true)
+            {
+                return "alreadyDiscovered";
+            }
+            return "outOfActions";
+        }
+        private bool IsCardDiscovered(string typeOfCard, int x, int y)
+        {
+            int pos = -1;
+            bool isDiscovered = false;
+            switch (typeOfCard)
+            {
+                case "AirShipClueTile":
+                    pos = CardFinder(board.AirShipClueTiles, x, y);
+                    if (board.AirShipClueTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "LaunchPadTile":
+                    if (board.LaunchPadTile.IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "CrashStartTile":
+                    if (board.CrashStartTile.IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "TunnelTile":
+                    pos = CardFinder(board.TunnelTiles, x, y);
+                    if (board.TunnelTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "Mirage":
+                    pos = CardFinder(board.OasisMirageTiles, x, y);
+                    if (board.OasisMirageTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "Oasis":
+                    pos = CardFinder(board.OasisMirageTiles, x, y);
+                    if (board.OasisMirageTiles[pos].IsDiscovered==true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "EmptyShelter":
+                    pos = CardFinder(board.ShelterTiles, x, y);
+                    if (board.ShelterTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "FriendlyWater":
+                    pos = CardFinder(board.ShelterTiles, x, y);
+                    if (board.ShelterTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "FriendlyQuest":
+                    pos = CardFinder(board.ShelterTiles, x, y);
+                    if (board.ShelterTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "Hostile":
+                    pos = CardFinder(board.ShelterTiles, x, y);
+                    if (board.ShelterTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return isDiscovered;
         }
         public int CardFinder (ITile[] cards,int x, int y) //here Linq doesn't work because we have to return the index of where we found the card in the given card's list
         {
