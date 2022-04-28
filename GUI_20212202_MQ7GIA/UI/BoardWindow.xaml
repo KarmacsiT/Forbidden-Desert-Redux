@@ -8,6 +8,9 @@
         xmlns:vm="clr-namespace:GUI_20212202_MQ7GIA.UI.ViewModel"
         mc:Ignorable="d"
         Title="BoardWindow" Height="1080" Width="1920" ResizeMode="NoResize" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" Loaded="WindowLoaded" MouseDoubleClick="StormMove" KeyDown="KeyBoardUsed">
+    <Window.DataContext>
+        <vm:BoardWindowViewModel></vm:BoardWindowViewModel>
+    </Window.DataContext>
     <Window.Resources>
         <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
         <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
@@ -47,6 +50,6 @@
             <renderer:CurrentPlayerCards x:Name="currentPlayerCards"/>
         </Grid>
         <Label Content="Remaining turns:" HorizontalAlignment="Right" Margin="1783,668,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="30"/>
-        <Label Content="{Binding TurnsCounter, UpdateSourceTrigger=Default}" HorizontalAlignment="Right" Margin="1836,715,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="{StaticResource Steamwreck}"/>
+        <Label Content="{Binding TurnsCounter, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="1836,715,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="{StaticResource Steamwreck}"/>
     </Grid>
 </Window>

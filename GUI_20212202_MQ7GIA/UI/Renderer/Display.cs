@@ -13,7 +13,7 @@ using System.Windows.Controls;
 
 namespace GUI_20212202_MQ7GIA.UI.Renderer
 {
-    public class Display : FrameworkElement
+    public class Display : FrameworkElement, IDisplay
     {
         // Models
         GameLogic logic;
@@ -31,6 +31,21 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             player.Open(new Uri(Path.Combine("ImageAssets/Tiles", "storm.gif"), UriKind.RelativeOrAbsolute));
             player.Play();
             player.MediaEnded += LoopGif;
+        }
+        public int TurnsCounter
+        {
+            get
+            {
+                if (players.Count == 0)
+                {
+                    return 4;
+                }
+                else return players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions; 
+            }
+            set
+            {
+                TurnsCounter = value;
+            }
         }
         public void Resize(Size size)
         {

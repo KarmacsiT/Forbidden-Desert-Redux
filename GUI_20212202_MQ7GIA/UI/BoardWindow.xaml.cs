@@ -73,8 +73,6 @@ namespace GUI_20212202_MQ7GIA
             display.SetupLogic(logic, players, colors);
             Sound = sound;
             partsCollected.SetupModel(logic, players);
-            BoardWindowViewModel boardWindowViewModel = new BoardWindowViewModel(display);
-            DataContext = boardWindowViewModel;
 
         }
 
