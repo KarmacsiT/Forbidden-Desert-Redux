@@ -17,9 +17,11 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         // Models
         GameLogic logic;
         Size size;
-        public void SetupModel(GameLogic logic)
+        List<Player> players;
+        public void SetupModel(GameLogic logic, List<Player> players)
         {
             this.logic = logic;
+            this.players = players;
         }
         public void Resize(Size size)
         {
@@ -104,6 +106,28 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
 
                 }
             }
+        }
+        public bool ItemPickUp()
+        {
+            bool invalidate = false;
+            string validationMessage = logic.ItemPickUp(players);
+            if (validationMessage == "validMove")
+            {
+                invalidate = true;
+            }
+            else if (validationMessage == "outOfActions")
+            {
+                MessageBox.Show("Hint: You can't pick the item up because you are out of actions.");
+            }
+            else if (validationMessage == "notAnItem")
+            {
+                MessageBox.Show("Hint: There is no item to pick up from this tile.");
+            }
+            else if (validationMessage == "alreadyPickedUp")
+            {
+                MessageBox.Show("Hint: You've already picked up the item.");
+            }
+            return invalidate;
         }
     }
 }

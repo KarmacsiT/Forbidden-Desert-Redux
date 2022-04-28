@@ -693,14 +693,12 @@ namespace GUI_20212202_MQ7GIA.Logic
         }
         public string Excavate(List<Player> players)
         {
-            //implement Excavate (flip the card!!)
             int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
             int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
             bool sand = SandTileChecker(x, y);
             string typeOfCard = TileNames[x, y];
             int pos = -1;
             bool cardDiscovered = IsCardDiscovered(typeOfCard, x, y);
-            //We need to implement already discovered checking in order to not waste player action
             if (sand == false && cardDiscovered == false && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
             {
                 switch (typeOfCard)
@@ -852,6 +850,32 @@ namespace GUI_20212202_MQ7GIA.Logic
                 }
             }
             return 0; // -1 or lower values would break the program, also the next thing is that this should always return a value in the for loop since if we caught a certain card, it certainly exists
+        }
+        public string ItemPickUp(List<Player> players)
+        {
+            int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
+            int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
+            bool sand = SandTileChecker(x, y);
+            string typeOfItem = PartTiles[x, y];
+            bool isPickedUp = false;
+            if (typeOfItem == "Crystal" || typeOfItem == "Compass" || typeOfItem == "Engine" || typeOfItem == "Propeller")
+            {
+                isPickedUp = PartPickedChecker(x, y);
+                if (sand == false && isPickedUp == false && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
+                {
+                    shipParts.Where(x => x.Name == typeOfItem).FirstOrDefault().IsPickedUp = true;
+                    return "validMove";
+                }
+                else if (isPickedUp == true)
+                {
+                    return "alreadyPickedUp";
+                }
+                return "outOfActions";
+            }
+            else
+            {
+                return "notAnItem";
+            }
         }
     }
 }
