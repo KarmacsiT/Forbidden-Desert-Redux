@@ -60,7 +60,9 @@
             <Label Content="{Binding FirstNumActions}" FontSize="36" FontFamily="{StaticResource Steamwreck}"/>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-            
         </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{Binding FirstColor}" Width="300" Height="100">
+            <Label Content="{Binding FirstPlayerName}" FontFamily="{StaticResource Steamwreck}" FontSize="30"></Label>
+        </Grid>
     </Grid>
 </Window>

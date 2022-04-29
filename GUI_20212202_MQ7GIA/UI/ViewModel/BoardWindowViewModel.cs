@@ -21,6 +21,26 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
         }
+        //ConsoleColor firstcolor;
+        //public ConsoleColor FirstColor
+        //{
+        //    get { return firstcolor; }
+        //    set
+        //    {
+        //        firstcolor = value;
+        //        OnPropertyChanged("FirstColor");
+        //    }
+        //}
+        string firstcolor;
+        public string FirstColor
+        {
+            get { return firstcolor; }
+            set
+            {
+                firstcolor = value;
+                OnPropertyChanged("FirstColor");
+            }
+        }
         int firstNumActions;
         public int FirstNumActions
         {
@@ -29,6 +49,16 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             { 
                 firstNumActions = value;
                 OnPropertyChanged("FirstNumActions");
+            }
+        }
+        string firstPlayerName;
+        public string FirstPlayerName
+        {
+            get { return firstPlayerName; }
+            set
+            {
+                firstPlayerName = value;
+                OnPropertyChanged("FirstPlayerName");
             }
         }
         int secondNumActions;
@@ -58,10 +88,52 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         public void SetPlayers(List<Player> players)
         {
             FirstNumActions = players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions;
+            FirstColor = PlayerColorGiver(players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName);
+            FirstPlayerName = players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerName;
             SecondNumActions = players.Where(p => p.TurnOrder == 2).FirstOrDefault().NumberOfActions;
             if (players.Count == 3)
             {
                 ThirdNumActions = players.Where(p => p.TurnOrder == 3).FirstOrDefault().NumberOfActions;
+            }
+        }
+        //private ConsoleColor PlayerColorGiver(RoleName roleName)
+        //{
+        //    switch (roleName)
+        //    {
+        //        case RoleName.Archeologist:
+        //            return ConsoleColor.Red;
+        //        case RoleName.Climber:
+        //            return ConsoleColor.Gray;
+        //        case RoleName.Explorer:
+        //            return ConsoleColor.Green;
+        //        case RoleName.Meteorologist:
+        //            return ConsoleColor.White;
+        //        case RoleName.Navigator:
+        //            return ConsoleColor.Yellow;
+        //        case RoleName.WaterCarrier:
+        //            return ConsoleColor.Blue;
+        //        default:
+        //            return ConsoleColor.Magenta;      // this should never happen
+        //    }
+        //}
+        private string PlayerColorGiver(RoleName roleName)
+        {
+            switch (roleName)
+            {
+                case RoleName.Archeologist:
+                    return "Red";
+                case RoleName.Climber:
+                    return "Gray";
+                case RoleName.Explorer:
+                    return "Green";
+                case RoleName.Meteorologist:
+                    return "White";
+                case RoleName.Navigator:
+                    return "Yellow";
+                case RoleName.WaterCarrier:
+                    return "Blue";
+                default:
+                    return "Magenta";      // this should never happen
             }
         }
     }
