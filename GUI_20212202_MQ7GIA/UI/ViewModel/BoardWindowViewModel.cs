@@ -20,17 +20,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
-        }
-        //ConsoleColor firstcolor;
-        //public ConsoleColor FirstColor
-        //{
-        //    get { return firstcolor; }
-        //    set
-        //    {
-        //        firstcolor = value;
-        //        OnPropertyChanged("FirstColor");
-        //    }
-        //}
+        }       
         string firstcolor;
         public string FirstColor
         {
@@ -95,27 +85,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             {
                 ThirdNumActions = players.Where(p => p.TurnOrder == 3).FirstOrDefault().NumberOfActions;
             }
-        }
-        //private ConsoleColor PlayerColorGiver(RoleName roleName)
-        //{
-        //    switch (roleName)
-        //    {
-        //        case RoleName.Archeologist:
-        //            return ConsoleColor.Red;
-        //        case RoleName.Climber:
-        //            return ConsoleColor.Gray;
-        //        case RoleName.Explorer:
-        //            return ConsoleColor.Green;
-        //        case RoleName.Meteorologist:
-        //            return ConsoleColor.White;
-        //        case RoleName.Navigator:
-        //            return ConsoleColor.Yellow;
-        //        case RoleName.WaterCarrier:
-        //            return ConsoleColor.Blue;
-        //        default:
-        //            return ConsoleColor.Magenta;      // this should never happen
-        //    }
-        //}
+        }      
         private string PlayerColorGiver(RoleName roleName)
         {
             switch (roleName)
