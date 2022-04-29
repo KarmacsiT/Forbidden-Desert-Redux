@@ -10,6 +10,7 @@ using GUI_20212202_MQ7GIA.Logic;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Controls;
+using Microsoft.Toolkit.Mvvm.Messaging;
 
 namespace GUI_20212202_MQ7GIA.UI.Renderer
 {
@@ -18,63 +19,19 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         // Models
         GameLogic logic;
         Size size;
-        GameSetupWindow setupWindow;
         MediaPlayer player = new MediaPlayer();
         public List<Player> players = new List<Player>();
         List<string> colors = new List<string>();
 
-        public void SetupLogic(GameLogic logic)
+        public void SetupLogic(GameLogic logic, List<Player> players, List<string> colors)
         {
             this.logic = logic;
+            this.players = players;
+            this.colors = colors;
             //Storm playing and looping
             player.Open(new Uri(Path.Combine("ImageAssets/Tiles", "storm.gif"), UriKind.RelativeOrAbsolute));
             player.Play();
             player.MediaEnded += LoopGif;
-        }
-        public void SetupGameSetup(GameSetupWindow setupWindow)
-        {
-            this.setupWindow = setupWindow;
-            //playerGeneration
-            if (setupWindow.PlayerThreeName is null && players.Count == 0)
-            {
-                players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, players));
-                players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, players));
-            }
-
-            else if (players.Count == 0)
-            {
-                players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, players));
-                players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, players));
-                players.Add(logic.PlayerInit(setupWindow.PlayerThreeName, 3, players));
-            }
-
-            //Create some logic that matches the role to the piece color
-
-            foreach (Player player in players)
-            {
-                switch (player.PlayerRoleName)
-                {
-                    case RoleName.Archeologist:
-                        colors.Add("red_piece.png");
-                        break;
-                    case RoleName.Climber:
-                        colors.Add("black_piece.png");
-                        break;
-                    case RoleName.Explorer:
-                        colors.Add("green_piece.png");
-                        break;
-                    case RoleName.Meteorologist:
-                        colors.Add("white_piece.png");
-                        break;
-                    case RoleName.Navigator:
-                        colors.Add("yellow_piece.png");
-                        break;
-                    case RoleName.WaterCarrier:
-                        colors.Add("blue_piece.png");
-                        break;
-                    default: break;
-                }
-            }
         }
         public void Resize(Size size)
         {
@@ -173,44 +130,44 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                                     case "Crystal":
                                         if (logic.board.AirShipClueTiles[pos].Direction == 'X')
                                         {
-                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Crystal Clue Tile Row.png"), UriKind.RelativeOrAbsolute)));
+                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Crystal Clue Tile Column.png"), UriKind.RelativeOrAbsolute)));
                                         }
                                         else
                                         {
-                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Crystal Clue Tile Column.png"), UriKind.RelativeOrAbsolute)));
+                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Crystal Clue Tile Row.png"), UriKind.RelativeOrAbsolute)));
                                         }
                                         discovered = true;
                                         break;
                                     case "Engine":
                                         if (logic.board.AirShipClueTiles[pos].Direction == 'X')
                                         {
-                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Engine Clue Tile Row.png"), UriKind.RelativeOrAbsolute)));
+                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Engine Clue Tile Column.png"), UriKind.RelativeOrAbsolute)));
                                         }
                                         else
                                         {
-                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Engine Clue Tile Column.png"), UriKind.RelativeOrAbsolute)));
+                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Engine Clue Tile Row.png"), UriKind.RelativeOrAbsolute)));
                                         }
                                         discovered = true;
                                         break;
                                     case "Compass":
                                         if (logic.board.AirShipClueTiles[pos].Direction == 'X')
                                         {
-                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Compass Clue Tile Row.png"), UriKind.RelativeOrAbsolute)));
+                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Compass Clue Tile Column.png"), UriKind.RelativeOrAbsolute)));
                                         }
                                         else
                                         {
-                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Compass Clue Tile Column.png"), UriKind.RelativeOrAbsolute)));
+                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Compass Clue Tile Row.png"), UriKind.RelativeOrAbsolute)));
                                         }
                                         discovered = true;
                                         break;
                                     case "Propeller":
                                         if (logic.board.AirShipClueTiles[pos].Direction == 'X')
                                         {
-                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Propeller Clue Tile  Row.png"), UriKind.RelativeOrAbsolute)));
+                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Propeller Clue Tile Column.png"), UriKind.RelativeOrAbsolute)));
                                         }
                                         else
                                         {
-                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Propeller Clue Tile Column.png"), UriKind.RelativeOrAbsolute)));
+                                            brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Propeller Clue Tile  Row.png"), UriKind.RelativeOrAbsolute)));
                                         }
                                         discovered = true;
                                         break;
@@ -411,6 +368,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                     //}
                     discovered = false;
                 }
+                
             }
         }
         public void MoveTheStorm(int x, int y)
@@ -470,11 +428,39 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         }
         public bool RemoveSand()
         {
-            return logic.RemoveSand(players);
+            bool invalidate = false;
+            string validationMessage = logic.RemoveSand(players);
+            if (validationMessage == "validMove")
+            {
+                invalidate = true;
+            }
+            else if (validationMessage == "outOfActions")
+            {
+                MessageBox.Show("Hint: You can't remove the sand because you are out of actions.");
+            }
+            else if (validationMessage == "notSand")
+            {
+                MessageBox.Show("Hint: This is not a sand tile.");
+            }
+            return invalidate;
         }
         public bool Excavate()
         {
-            return logic.Excavate(players);
+            bool invalidate = false;
+            string validationMessage = logic.Excavate(players);
+            if (validationMessage == "validMove")
+            {
+                invalidate = true;
+            }
+            else if (validationMessage == "outOfActions")
+            {
+                MessageBox.Show("Hint: You can't excavate because you are out of actions.");
+            }
+            else if (validationMessage == "alreadyDiscovered")
+            {
+                MessageBox.Show("Hint: You've already discovered the tile.");
+            }
+            return invalidate;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using GUI_20212202_MQ7GIA.Logic;
+using GUI_20212202_MQ7GIA.Models;
 using GUI_20212202_MQ7GIA.UI;
 using GUI_20212202_MQ7GIA.UI.ViewModel;
 using System;
@@ -23,16 +24,58 @@ namespace GUI_20212202_MQ7GIA
     public partial class BoardWindow : Window
     {
         public Sound Sound { get; set; }
+        List<Player> players = new List<Player>();
+        List<string> colors = new List<string>();
+        BoardWindowViewModel boardWindowViewModel;
         public BoardWindow(GameLogic logic, Sound sound, GameSetupWindow setupWindow)
         {
             InitializeComponent();
-            display.SetupLogic(logic);
-            display.SetupGameSetup(setupWindow);
-            Sound = sound;
-            partsCollected.SetupModel(logic);
-            BoardWindowViewModel boardWindowViewModel = new BoardWindowViewModel(display);
-            DataContext = boardWindowViewModel;
+            //playerGeneration
+            if (setupWindow.PlayerThreeName is null && players.Count == 0)
+            {
+                players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, players));
+                players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, players));
+            }
 
+            else if (players.Count == 0)
+            {
+                players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, players));
+                players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, players));
+                players.Add(logic.PlayerInit(setupWindow.PlayerThreeName, 3, players));
+            }
+
+            //Create some logic that matches the role to the piece color
+
+            foreach (Player player in players)
+            {
+                switch (player.PlayerRoleName)
+                {
+                    case RoleName.Archeologist:
+                        colors.Add("red_piece.png");
+                        break;
+                    case RoleName.Climber:
+                        colors.Add("black_piece.png");
+                        break;
+                    case RoleName.Explorer:
+                        colors.Add("green_piece.png");
+                        break;
+                    case RoleName.Meteorologist:
+                        colors.Add("white_piece.png");
+                        break;
+                    case RoleName.Navigator:
+                        colors.Add("yellow_piece.png");
+                        break;
+                    case RoleName.WaterCarrier:
+                        colors.Add("blue_piece.png");
+                        break;
+                    default: break;
+                }
+            }
+            display.SetupLogic(logic, players, colors);
+            Sound = sound;
+            partsCollected.SetupModel(logic, players);
+            boardWindowViewModel = new BoardWindowViewModel(players);
+            this.DataContext = boardWindowViewModel;
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
@@ -61,6 +104,7 @@ namespace GUI_20212202_MQ7GIA
         private void KeyBoardUsed(object sender, KeyEventArgs e)
         {
             bool invalidate = false;
+            bool partInvalidate = false;
             if (e.Key == Key.NumPad7)    // left and up
             {
                 invalidate = display.MoveThePlayer(-1, -1);
@@ -101,10 +145,20 @@ namespace GUI_20212202_MQ7GIA
             {
                 invalidate = display.Excavate();
             }
+            else if(e.Key == Key.P)
+            {
+                partInvalidate = partsCollected.ItemPickUp();
+            }
 
             if(invalidate == true)
             {
+                UpdateBoardViewModel();
                 display.InvalidateVisual();
+            }
+            if (partInvalidate)
+            {
+                UpdateBoardViewModel();
+                partsCollected.InvalidateVisual();
             }
         }
 
@@ -116,7 +170,12 @@ namespace GUI_20212202_MQ7GIA
         private void EndTurn(object sender, RoutedEventArgs e)
         {
             display.EndTurn();
+            UpdateBoardViewModel();
             // draw cards, (and move storm, ...) 
+        }
+        private void UpdateBoardViewModel()
+        {
+            boardWindowViewModel.SetPlayers(players);
         }
     }
 }
