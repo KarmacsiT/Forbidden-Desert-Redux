@@ -1,6 +1,7 @@
 ﻿using GUI_20212202_MQ7GIA.UI.Renderer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -21,6 +22,7 @@ namespace GUI_20212202_MQ7GIA
             Ioc.Default.ConfigureServices(
                 new ServiceCollection()
                     .AddSingleton<IDisplay, Display>()
+                    .AddSingleton<IMessenger>(WeakReferenceMessenger.Default)
                     .BuildServiceProvider()
                 );
         }

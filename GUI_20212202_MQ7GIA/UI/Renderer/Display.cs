@@ -32,6 +32,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             player.Play();
             player.MediaEnded += LoopGif;
         }
+        private int turnsCounter;
         public int TurnsCounter
         {
             get
@@ -40,7 +41,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                 {
                     return 4;
                 }
-                else return players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions; 
+                else return turnsCounter; 
             }
             set
             {
@@ -382,7 +383,9 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                     //}
                     discovered = false;
                 }
+                
             }
+            turnsCounter = players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions;
         }
         public void MoveTheStorm(int x, int y)
         {

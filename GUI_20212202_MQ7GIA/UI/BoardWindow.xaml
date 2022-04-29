@@ -50,6 +50,6 @@
             <renderer:CurrentPlayerCards x:Name="currentPlayerCards"/>
         </Grid>
         <Label Content="Remaining turns:" HorizontalAlignment="Right" Margin="1783,668,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="30"/>
-        <Label Content="{Binding TurnsCounter, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="1836,715,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="{StaticResource Steamwreck}"/>
+        <Label Content="{Binding TurnsCounter}" HorizontalAlignment="Right" Margin="1836,715,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="{StaticResource Steamwreck}"/>
     </Grid>
 </Window>

@@ -15,16 +15,9 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
     public class BoardWindowViewModel : ObservableRecipient
     {
         public IDisplay Display { get; set; }
-        private int turnsCounter;
         public int TurnsCounter
         {
-            get { return turnsCounter; }
-            set
-            {
-                turnsCounter = Display.TurnsCounter;
-                OnPropertyChanged(nameof(TurnsCounter));
-                //For some reason this value doesn't change
-            }
+            get { return Display.TurnsCounter; }
         }
 
         public static bool IsInDesignMode
@@ -42,6 +35,10 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         public BoardWindowViewModel(IDisplay display)
         {
             Display = display;
+            Messenger.Register<BoardWindowViewModel, string, string>(this, "DisplayInfo", (recipient, msg) =>
+            {
+                OnPropertyChanged("TurnsCounter");
+            });
         }
     }
 }
