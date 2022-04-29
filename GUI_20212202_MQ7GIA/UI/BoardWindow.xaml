@@ -8,9 +8,6 @@
         xmlns:vm="clr-namespace:GUI_20212202_MQ7GIA.UI.ViewModel"
         mc:Ignorable="d"
         Title="BoardWindow" Height="1080" Width="1920" ResizeMode="NoResize" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" Loaded="WindowLoaded" MouseDoubleClick="StormMove" KeyDown="KeyBoardUsed">
-    <Window.DataContext>
-        <vm:BoardWindowViewModel></vm:BoardWindowViewModel>
-    </Window.DataContext>
     <Window.Resources>
         <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
         <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
@@ -37,19 +34,33 @@
         </Style>
     </Window.Resources>
     <Grid Background="White">
-        <Grid x:Name="boardDisplay" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="600" Background="Orange">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="8*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid x:Name="boardDisplay" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="600" Background="Orange" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <renderer:Display x:Name="display" />
         </Grid>
-        <Grid x:Name="partsCollectedDisplay" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="50" Background="Orange" Margin="50,70,0,0">
+        <Grid x:Name="partsCollectedDisplay" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="50" Background="Orange" Margin="50,70,0,0" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <renderer:PartsCollected x:Name="partsCollected" />
         </Grid>
-        <Button Content="Pause" HorizontalAlignment="Right" Height="44" VerticalAlignment="Bottom" Width="86" Click="Pause" FontFamily="{StaticResource Steamwreck}" FontSize="24" Margin="0,0,10,10"/>
-        <Button Content="End Turn" HorizontalAlignment="Right" Height="44" VerticalAlignment="Center" Width="86" Click="EndTurn" FontFamily="{StaticResource Steamwreck}" FontSize="24"/>
-        <Label Content="Collected items:" HorizontalAlignment="Left" Margin="50,19,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="30"/>
-        <Grid x:Name="CurrentPlayerCardsDisplay" Margin="735,932,734,0">
+        <Button Grid.Column="2" Content="Pause" HorizontalAlignment="Right" Height="44" VerticalAlignment="Bottom" Width="86" Click="Pause" FontFamily="{StaticResource Steamwreck}" FontSize="24" Margin="0,0,10,10" Grid.RowSpan="2"/>
+        <Button Grid.Column="2" Content="End Turn" HorizontalAlignment="Right" Height="44" VerticalAlignment="Center" Width="86" Click="EndTurn" FontFamily="{StaticResource Steamwreck}" FontSize="24" Grid.RowSpan="2"/>
+        <Label Content="Collected items:" HorizontalAlignment="Left" Margin="50,19,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="30" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+        <Grid x:Name="CurrentPlayerCardsDisplay" Margin="735,932,734,0" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <renderer:CurrentPlayerCards x:Name="currentPlayerCards"/>
         </Grid>
-        <Label Content="Remaining turns:" HorizontalAlignment="Right" Margin="1783,668,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="30"/>
-        <Label Content="{Binding TurnsCounter}" HorizontalAlignment="Right" Margin="1836,715,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="{StaticResource Steamwreck}"/>
+        <StackPanel Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Label Content="Remaining turns:" FontFamily="{StaticResource Steamwreck}" FontSize="30" />
+            <Label Content="{Binding FirstNumActions}" FontSize="36" FontFamily="{StaticResource Steamwreck}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            
+        </StackPanel>
     </Grid>
 </Window>

@@ -26,6 +26,7 @@ namespace GUI_20212202_MQ7GIA
         public Sound Sound { get; set; }
         List<Player> players = new List<Player>();
         List<string> colors = new List<string>();
+        BoardWindowViewModel boardWindowViewModel;
         public BoardWindow(GameLogic logic, Sound sound, GameSetupWindow setupWindow)
         {
             InitializeComponent();
@@ -73,7 +74,8 @@ namespace GUI_20212202_MQ7GIA
             display.SetupLogic(logic, players, colors);
             Sound = sound;
             partsCollected.SetupModel(logic, players);
-
+            boardWindowViewModel = new BoardWindowViewModel(players);
+            this.DataContext = boardWindowViewModel;
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
@@ -150,10 +152,12 @@ namespace GUI_20212202_MQ7GIA
 
             if(invalidate == true)
             {
+                UpdateBoardViewModel();
                 display.InvalidateVisual();
             }
             if (partInvalidate)
             {
+                UpdateBoardViewModel();
                 partsCollected.InvalidateVisual();
             }
         }
@@ -166,7 +170,12 @@ namespace GUI_20212202_MQ7GIA
         private void EndTurn(object sender, RoutedEventArgs e)
         {
             display.EndTurn();
+            UpdateBoardViewModel();
             // draw cards, (and move storm, ...) 
+        }
+        private void UpdateBoardViewModel()
+        {
+            boardWindowViewModel.SetPlayers(players);
         }
     }
 }

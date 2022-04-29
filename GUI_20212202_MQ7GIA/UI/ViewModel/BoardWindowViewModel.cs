@@ -1,4 +1,5 @@
 ﻿using GUI_20212202_MQ7GIA.Logic;
+using GUI_20212202_MQ7GIA.Models;
 using GUI_20212202_MQ7GIA.UI.Renderer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.DependencyInjection;
@@ -12,33 +13,56 @@ using System.Windows;
 
 namespace GUI_20212202_MQ7GIA.UI.ViewModel
 {
-    public class BoardWindowViewModel : ObservableRecipient
-    {
-        public IDisplay Display { get; set; }
-        public int TurnsCounter
+    public class BoardWindowViewModel : INotifyPropertyChanged
+    {       
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string property)
         {
-            get { return Display.TurnsCounter; }
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
         }
-
-        public static bool IsInDesignMode
+        int firstNumActions;
+        public int FirstNumActions
         {
-            get
-            {
-                var prop = DesignerProperties.IsInDesignModeProperty;
-                return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
+            get { return firstNumActions; }
+            set 
+            { 
+                firstNumActions = value;
+                OnPropertyChanged("FirstNumActions");
             }
         }
-
-        public BoardWindowViewModel() : this(IsInDesignMode ? null : Ioc.Default.GetService<IDisplay>())
+        int secondNumActions;
+        public int SecondNumActions
         {
-        }
-        public BoardWindowViewModel(IDisplay display)
-        {
-            Display = display;
-            Messenger.Register<BoardWindowViewModel, string, string>(this, "DisplayInfo", (recipient, msg) =>
+            get { return secondNumActions; }
+            set
             {
-                OnPropertyChanged("TurnsCounter");
-            });
+                secondNumActions = value;
+                OnPropertyChanged("SecondNumActions");
+            }
+        }
+        int thirdNumActions;
+        public int ThirdNumActions
+        {
+            get { return thirdNumActions; }
+            set
+            {
+                thirdNumActions = value;
+                OnPropertyChanged("ThirdNumActions");
+            }
+        }
+        public BoardWindowViewModel(List<Player> players)
+        {
+            SetPlayers(players);
+        }
+        public void SetPlayers(List<Player> players)
+        {
+            FirstNumActions = players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions;
+            SecondNumActions = players.Where(p => p.TurnOrder == 2).FirstOrDefault().NumberOfActions;
+            if (players.Count == 3)
+            {
+                ThirdNumActions = players.Where(p => p.TurnOrder == 3).FirstOrDefault().NumberOfActions;
+            }
         }
     }
 }

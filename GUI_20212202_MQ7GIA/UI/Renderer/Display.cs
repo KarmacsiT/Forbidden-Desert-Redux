@@ -10,10 +10,11 @@ using GUI_20212202_MQ7GIA.Logic;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Controls;
+using Microsoft.Toolkit.Mvvm.Messaging;
 
 namespace GUI_20212202_MQ7GIA.UI.Renderer
 {
-    public class Display : FrameworkElement, IDisplay
+    public class Display : FrameworkElement
     {
         // Models
         GameLogic logic;
@@ -31,22 +32,6 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             player.Open(new Uri(Path.Combine("ImageAssets/Tiles", "storm.gif"), UriKind.RelativeOrAbsolute));
             player.Play();
             player.MediaEnded += LoopGif;
-        }
-        private int turnsCounter;
-        public int TurnsCounter
-        {
-            get
-            {
-                if (players.Count == 0)
-                {
-                    return 4;
-                }
-                else return turnsCounter; 
-            }
-            set
-            {
-                TurnsCounter = value;
-            }
         }
         public void Resize(Size size)
         {
@@ -385,7 +370,6 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                 }
                 
             }
-            turnsCounter = players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions;
         }
         public void MoveTheStorm(int x, int y)
         {
