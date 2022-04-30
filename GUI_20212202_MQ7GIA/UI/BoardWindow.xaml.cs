@@ -176,6 +176,7 @@ namespace GUI_20212202_MQ7GIA
         private void UpdateBoardViewModel()
         {
             boardWindowViewModel.SetPlayers(players);
+
         }
     }
 }
