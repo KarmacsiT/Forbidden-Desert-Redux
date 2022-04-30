@@ -51,26 +51,6 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 OnPropertyChanged("FirstPlayerName");
             }
         }
-        int secondNumActions;
-        public int SecondNumActions
-        {
-            get { return secondNumActions; }
-            set
-            {
-                secondNumActions = value;
-                OnPropertyChanged("SecondNumActions");
-            }
-        }
-        int thirdNumActions;
-        public int ThirdNumActions
-        {
-            get { return thirdNumActions; }
-            set
-            {
-                thirdNumActions = value;
-                OnPropertyChanged("ThirdNumActions");
-            }
-        }
         public BoardWindowViewModel(List<Player> players)
         {
             SetPlayers(players);
@@ -80,10 +60,9 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             FirstNumActions = players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions;
             FirstColor = PlayerColorGiver(players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName);
             FirstPlayerName = players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerName;
-            SecondNumActions = players.Where(p => p.TurnOrder == 2).FirstOrDefault().NumberOfActions;
             if (players.Count == 3)
             {
-                ThirdNumActions = players.Where(p => p.TurnOrder == 3).FirstOrDefault().NumberOfActions;
+                //third player's stuff
             }
         }      
         private string PlayerColorGiver(RoleName roleName)
