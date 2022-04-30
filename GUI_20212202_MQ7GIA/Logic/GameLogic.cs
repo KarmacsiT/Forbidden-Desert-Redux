@@ -18,6 +18,8 @@ namespace GUI_20212202_MQ7GIA.Logic
         public string[,] TileNames { get; set; }
         public string[,] PartTiles { get; set; }
         public string DifficultyLevel { get; set; }
+        public int NumberOfPlayers { get; set; } // this is a very efficient way to store the # of players, because there are cases when we don't want the entire object (eg. Storm Meter)
+        public double StormProgress { get; set; }
 
         Random random = new Random();
         public GameLogic(Sound sound)
@@ -265,9 +267,9 @@ namespace GUI_20212202_MQ7GIA.Logic
                 cardCounter += 2;
             }
         }
-        public void MoveStorm(int x, int y)
+        public bool MoveStorm(int x, int y)
         {
-            if (x != 0)
+            if (x != 0 && StormProgress < 0.93)
             {
                 for (int i = 0; i < Math.Abs(x); i++)
                 {
@@ -319,6 +321,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             }
                             board.storm.X += 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
+                            StormProgress += 1.0 / 15.0;
                         }
                         else
                         {
@@ -361,14 +364,20 @@ namespace GUI_20212202_MQ7GIA.Logic
                             }
                             board.storm.X -= 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
+                            StormProgress += 1.0 / 15.0;
                         }
                         PartTileCoordinateGiver();
+
                     }
                 }
+                if (StormProgress >= 0.93)
+                {
+                    return false;
+                }
+                return true;
             }
-            else
+            else if (StormProgress < 0.93)
             {
-                Sound.PlaySound("CHIMES.WAV");
                 for (int i = 0; i < Math.Abs(y); i++)
                 {
                     if (board.storm.Y + 1 == 5 || board.storm.Y - 1 == -1)
@@ -425,6 +434,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             }
                             board.storm.Y += 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
+                            StormProgress += 1.0 / 15.0;
                         }
                         else
                         {
@@ -471,10 +481,20 @@ namespace GUI_20212202_MQ7GIA.Logic
                             }
                             board.storm.Y -= 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
+                            StormProgress += 1.0 / 15.0;
                         }
                         PartTileCoordinateGiver();
                     }
                 }
+                if (StormProgress >= 0.93)
+                {
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

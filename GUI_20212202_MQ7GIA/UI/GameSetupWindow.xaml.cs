@@ -45,6 +45,20 @@ namespace GUI_20212202_MQ7GIA.UI
                 PlayerOneName = TwoPlayerModePlayerOneTextBox.Text;
                 PlayerTwoName = TwoPlayerModePlayerTwoTextBox.Text;
                 Logic.DifficultyLevel = TwoPlayerDiffLevel.Text;
+                Logic.NumberOfPlayers = 2;
+                Logic.StormProgress += 1.0/15.0;
+                if (Logic.DifficultyLevel == "Normal")
+                {
+                    Logic.StormProgress += 1.0 / 15.0;
+                }
+                else if (Logic.DifficultyLevel == "Elite")
+                {
+                    Logic.StormProgress += 2.0 / 15.0;
+                }
+                else if (Logic.DifficultyLevel == "Legendary")
+                {
+                    Logic.StormProgress += 3.0 / 15.0;
+                }
                 this.Close();
                 BoardWindow board = new BoardWindow(Logic, Sound, this);
                 board.Show();
@@ -73,6 +87,19 @@ namespace GUI_20212202_MQ7GIA.UI
                 PlayerTwoName = ThreePlayerModePlayerTwoTextBox.Text;
                 PlayerThreeName = ThreePlayerModePlayerThreeTextBox.Text;
                 Logic.DifficultyLevel = ThreePlayerDiffLevel.Text;
+                Logic.NumberOfPlayers = 3;
+                if (Logic.DifficultyLevel == "Normal")
+                {
+                    Logic.StormProgress += 1.0 / 15.0;
+                }
+                else if (Logic.DifficultyLevel == "Elite")
+                {
+                    Logic.StormProgress += 2.0 / 15.0;
+                }
+                else if (Logic.DifficultyLevel == "Legendary")
+                {
+                    Logic.StormProgress += 3.0 / 15.0;
+                }
                 this.Close();
                 BoardWindow board = new BoardWindow(Logic, Sound, this);
                 board.Show();

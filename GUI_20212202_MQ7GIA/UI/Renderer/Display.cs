@@ -371,9 +371,16 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                 
             }
         }
-        public void MoveTheStorm(int x, int y)
+        public bool MoveTheStorm(int x, int y)
         {
-            logic.MoveStorm(x, y);
+            if (logic.MoveStorm(x, y) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public bool MoveThePlayer(int x, int y)
         {
