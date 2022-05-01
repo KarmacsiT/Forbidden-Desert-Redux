@@ -74,6 +74,7 @@ namespace GUI_20212202_MQ7GIA
             display.SetupLogic(logic, players, colors);
             Sound = sound;
             partsCollected.SetupModel(logic, players);
+            stormMeter.SetupModel(logic);
             boardWindowViewModel = new BoardWindowViewModel(players);
             this.DataContext = boardWindowViewModel;
         }
@@ -97,8 +98,18 @@ namespace GUI_20212202_MQ7GIA
         }
         private void StormMove(object sender, RoutedEventArgs e)  //only for testing
         {
-            display.MoveTheStorm(0, 1);
-            display.InvalidateVisual();
+            if (display.MoveTheStorm(0, 1))
+            {
+                display.InvalidateVisual();
+                stormMeter.InvalidateVisual();
+            }
+            else
+            {
+                //implement some proper game over screen
+                stormMeter.InvalidateVisual();
+                MessageBox.Show("The game has ended because the storm is too severe");
+            }
+
         }
 
         private void KeyBoardUsed(object sender, KeyEventArgs e)

@@ -114,6 +114,9 @@
     <None Remove="imageassets\Storm Cards\Storm Card Backside.png" />
     <None Remove="imageassets\Storm Cards\Storm Picks Up.png" />
     <None Remove="imageassets\Storm Cards\Sun Beats Down.png" />
+    <None Remove="imageassets\Storm Meter\indicator.png" />
+    <None Remove="imageassets\Storm Meter\indicator_2_player.png" />
+    <None Remove="imageassets\Storm Meter\indicator_3_player.png" />
     <None Remove="imageassets\Storm Meter\kep_42_angol_2player_1.png" />
     <None Remove="imageassets\Storm Meter\kep_42_angol_2player_10.png" />
     <None Remove="imageassets\Storm Meter\kep_42_angol_2player_11.png" />
@@ -417,6 +420,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="imageassets\Storm Cards\Sun Beats Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\indicator_2_player.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Meter\indicator_3_player.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="imageassets\Storm Meter\kep_42_angol_2player_1.png">

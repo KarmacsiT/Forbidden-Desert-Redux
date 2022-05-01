@@ -46,6 +46,9 @@
         <Grid x:Name="boardDisplay" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="600" Background="Orange" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <renderer:Display x:Name="display" />
         </Grid>
+        <Grid x:Name="stormMeterDisplay" HorizontalAlignment="Right" VerticalAlignment="Top" Width="300" Height="116.617" Background="Orange" Margin="0,50,50,0" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <renderer:StormMeter x:Name="stormMeter" />
+        </Grid>
         <Grid x:Name="partsCollectedDisplay" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="50" Background="Orange" Margin="50,70,0,0" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <renderer:PartsCollected x:Name="partsCollected" />
         </Grid>
