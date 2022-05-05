@@ -580,6 +580,17 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             return GameDeck;
         }
+
+        public bool GameWon(List<Player> players)
+        {
+            //Defining condition for the winning. If all players are on the launchpad tile which is discovered and you have all the shipparts then the game is won.
+            if (players.All(x=> x.X == board.LaunchPadTile.X) && players.All(x => x.Y == board.LaunchPadTile.Y) && board.LaunchPadTile.IsDiscovered == true && shipParts.All(x=>x.IsPickedUp == true) == true)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public Player PlayerInit(string playerName, int turnOrder, List<Player> players)  //Roles are random now, needs testing tho
         {
             Random rng = new Random();
@@ -778,6 +789,10 @@ namespace GUI_20212202_MQ7GIA.Logic
             else if (cardDiscovered == true)
             {
                 return "alreadyDiscovered";
+            }
+            else if (sand == true)
+            {
+                return "sandTile";
             }
             return "outOfActions";
         }

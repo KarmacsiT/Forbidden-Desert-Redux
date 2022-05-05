@@ -99,6 +99,7 @@
     <None Remove="imageassets\Sand\blocked.png" />
     <None Remove="imageassets\Sand\sand.png" />
     <None Remove="imageassets\Sand_test.jpg" />
+    <None Remove="imageassets\skull.png" />
     <None Remove="imageassets\Storm Cards\Storm 1Down.png" />
     <None Remove="imageassets\Storm Cards\Storm 1Left.png" />
     <None Remove="imageassets\Storm Cards\Storm 1Right.png" />
@@ -170,6 +171,7 @@
     <None Remove="imageassets\Tiles\storm.gif" />
     <None Remove="imageassets\Tiles\Tile Backside.png" />
     <None Remove="imageassets\Tiles\Tunnel.png" />
+    <None Remove="imageassets\trophy.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -375,6 +377,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="imageassets\Sand\sand.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\skull.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\trophy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="imageassets\Storm Cards\Storm 1Down.png">
