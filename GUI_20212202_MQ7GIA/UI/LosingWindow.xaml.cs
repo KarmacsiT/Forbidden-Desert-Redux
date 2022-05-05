@@ -30,7 +30,7 @@ namespace GUI_20212202_MQ7GIA
         private void Exit(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-            Sound.playMusic("Scarface - Bolivia Theme.mp3");
+            Sound.PlayMusic("Scarface - Bolivia Theme.mp3");
         }
     }
 }

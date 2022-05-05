@@ -28,7 +28,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         {
             
         }
-        public void playMusic(string filename)
+        public void PlayMusic(string filename)
         {
             this.filename = filename;
             music.Open(new Uri(Path.Combine("Sounds",filename), UriKind.RelativeOrAbsolute)); //music can be anything just choose it

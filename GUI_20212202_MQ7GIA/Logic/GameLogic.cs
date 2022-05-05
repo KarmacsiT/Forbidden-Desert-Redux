@@ -64,8 +64,8 @@ namespace GUI_20212202_MQ7GIA.Logic
                 int X = random.Next(0, 5);
                 int Y = random.Next(0, 5);
 
-                //Avoid number generation for 2 and check if card is already generated
-                while (isTaken[X, Y])
+                //Avoid number generation for 2 and check if card is already generated (and also avoid generation when the x and ys are the same
+                while (isTaken[X, Y] || IsItDuplicate(X,Y,board.AirShipClueTiles))
                 {
                     X = random.Next(0, 5);
                     Y = random.Next(0, 5);
@@ -206,6 +206,17 @@ namespace GUI_20212202_MQ7GIA.Logic
             board.SandTiles[1, 3] += 1;
             board.SandTiles[3, 3] += 1;
             board.SandTiles[2, 4] += 1;
+        }
+        public bool IsItDuplicate(int X, int Y,AirShipClueTile[] tiles)
+        {
+            for (int i = 0; i < tiles.Length; i+=2)
+            {
+                if (tiles[i].X == X && tiles[i+1].Y == Y)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         public bool SandTileChecker(int X, int Y)
         {
