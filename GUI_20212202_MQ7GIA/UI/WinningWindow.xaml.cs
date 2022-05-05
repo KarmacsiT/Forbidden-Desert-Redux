@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI_20212202_MQ7GIA.Logic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +20,18 @@ namespace GUI_20212202_MQ7GIA
     /// </summary>
     public partial class WinningWindow : Window
     {
-        public WinningWindow()
+        public Sound Sound { get; set; }
+        public WinningWindow(Sound sound)
         {
             InitializeComponent();
+            Sound = sound;
+            Sound.PlaySound("zapsplat_multimedia_game_sound_win_complete_game_congratulations_harp_glissando_with_fanfare_and_fireworks_79053.mp3");
         }
 
         private void Exit(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
+            Sound.playMusic("Scarface - Bolivia Theme.mp3");
         }
     }
 }

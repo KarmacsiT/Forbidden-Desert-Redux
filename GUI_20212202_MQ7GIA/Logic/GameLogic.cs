@@ -322,6 +322,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             board.storm.X += 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
                             StormProgress += 1.0 / 15.0;
+                            Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
                         else
                         {
@@ -365,6 +366,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             board.storm.X -= 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
                             StormProgress += 1.0 / 15.0;
+                            Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
                         PartTileCoordinateGiver();
 
@@ -435,6 +437,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             board.storm.Y += 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
                             StormProgress += 1.0 / 15.0;
+                            Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
                         else
                         {
@@ -482,6 +485,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             board.storm.Y -= 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
                             StormProgress += 1.0 / 15.0;
+                            Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
                         PartTileCoordinateGiver();
                     }
@@ -687,6 +691,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = newX;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = newY;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("game_monopoly_game_metal_playing_piece_drop_onto_playing_board.mp3");
                         return "validMove";
                     }
                     else return "outOfActions";
@@ -714,6 +719,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             {
                 board.SandTiles[x, y] -= 1; //we excavate the sand
                 players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                Sound.PlaySound("441824__jjdg__shovel-digging-sound.mp3");
                 return "validMove";
             }
             else if (!sand)
@@ -738,49 +744,59 @@ namespace GUI_20212202_MQ7GIA.Logic
                         pos = CardFinder(board.AirShipClueTiles, x, y);
                         board.AirShipClueTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     case "LaunchPadTile":
                         board.LaunchPadTile.IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     case "CrashStartTile":
                         board.CrashStartTile.IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     case "TunnelTile":
                         pos = CardFinder(board.TunnelTiles, x, y);
                         board.TunnelTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     case "Mirage":
                         pos = CardFinder(board.OasisMirageTiles, x, y);
                         board.OasisMirageTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     case "Oasis":
                         pos = CardFinder(board.OasisMirageTiles, x, y);
                         board.OasisMirageTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     case "EmptyShelter":
                         pos = CardFinder(board.ShelterTiles, x, y);
                         board.ShelterTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     case "FriendlyWater":
                         pos = CardFinder(board.ShelterTiles, x, y);
                         board.ShelterTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     case "FriendlyQuest":
                         pos = CardFinder(board.ShelterTiles, x, y);
                         board.ShelterTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     case "Hostile":
                         pos = CardFinder(board.ShelterTiles, x, y);
                         board.ShelterTiles[pos].IsDiscovered = true;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     default:
                         break;
@@ -899,6 +915,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 if (sand == false && isPickedUp == false && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
                 {
                     shipParts.Where(x => x.Name == typeOfItem).FirstOrDefault().IsPickedUp = true;
+                    Sound.PlaySound("422709__niamhd00145229__inspect-item.wav");
                     return "validMove";
                 }
                 else if (isPickedUp == true)

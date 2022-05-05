@@ -49,7 +49,7 @@ namespace GUI_20212202_MQ7GIA.UI
                 Logic.StormProgress += 1.0/15.0;
                 if (Logic.DifficultyLevel == "Normal")
                 {
-                    Logic.StormProgress += 1.0 / 15.0;
+                    Logic.StormProgress += 11.0 / 15.0;
                 }
                 else if (Logic.DifficultyLevel == "Elite")
                 {
@@ -60,6 +60,7 @@ namespace GUI_20212202_MQ7GIA.UI
                     Logic.StormProgress += 3.0 / 15.0;
                 }
                 this.Close();
+                Sound.stopMusic();
                 BoardWindow board = new BoardWindow(Logic, Sound, this);
                 board.Show();
             }

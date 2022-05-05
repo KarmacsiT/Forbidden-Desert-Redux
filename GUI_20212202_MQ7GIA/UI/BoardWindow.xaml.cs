@@ -107,7 +107,7 @@ namespace GUI_20212202_MQ7GIA
             {
                 //implement some proper game over screen
                 stormMeter.InvalidateVisual();
-                LosingWindow window = new LosingWindow();
+                LosingWindow window = new LosingWindow(Sound);
                 window.ShowDialog();
                 if (window.DialogResult == true)
                 {
@@ -187,7 +187,7 @@ namespace GUI_20212202_MQ7GIA
             }
             if (gameWon)
             {
-                WinningWindow window = new WinningWindow();
+                WinningWindow window = new WinningWindow(Sound);
                 window.ShowDialog();
                 if (window.DialogResult == true)
                 {
@@ -204,6 +204,7 @@ namespace GUI_20212202_MQ7GIA
         private void EndTurn(object sender, RoutedEventArgs e)
         {
             display.EndTurn();
+            Sound.PlaySound("411749__natty23__bell-ding.wav");
             UpdateBoardViewModel();
             // draw cards, (and move storm, ...) 
         }
