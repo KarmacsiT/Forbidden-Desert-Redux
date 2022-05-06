@@ -60,6 +60,7 @@ namespace GUI_20212202_MQ7GIA.UI
                     Logic.StormProgress += 3.0 / 15.0;
                 }
                 this.Close();
+                Sound.stopMusic();
                 BoardWindow board = new BoardWindow(Logic, Sound, this);
                 board.Show();
             }
@@ -101,6 +102,7 @@ namespace GUI_20212202_MQ7GIA.UI
                     Logic.StormProgress += 3.0 / 15.0;
                 }
                 this.Close();
+                Sound.stopMusic();
                 BoardWindow board = new BoardWindow(Logic, Sound, this);
                 board.Show();
 

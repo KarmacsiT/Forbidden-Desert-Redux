@@ -451,6 +451,11 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             }
             return invalidate;
         }
+        public bool GameWon()
+        {
+            if (logic.GameWon(players) == true) { return true; }
+            else return false;
+        }
         public bool Excavate()
         {
             bool invalidate = false;
@@ -466,6 +471,10 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             else if (validationMessage == "alreadyDiscovered")
             {
                 MessageBox.Show("Hint: You've already discovered the tile.");
+            }
+            else if (validationMessage == "sandTile")
+            {
+                MessageBox.Show("Hint: You have to remove the sand first.");
             }
             return invalidate;
         }

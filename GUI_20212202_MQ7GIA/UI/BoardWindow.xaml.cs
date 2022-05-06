@@ -107,7 +107,12 @@ namespace GUI_20212202_MQ7GIA
             {
                 //implement some proper game over screen
                 stormMeter.InvalidateVisual();
-                MessageBox.Show("The game has ended because the storm is too severe");
+                LosingWindow window = new LosingWindow(Sound);
+                window.ShowDialog();
+                if (window.DialogResult == true)
+                {
+                    this.Close();
+                }
             }
 
         }
@@ -116,37 +121,46 @@ namespace GUI_20212202_MQ7GIA
         {
             bool invalidate = false;
             bool partInvalidate = false;
+            bool gameWon = false;
             if (e.Key == Key.NumPad7)    // left and up
             {
                 invalidate = display.MoveThePlayer(-1, -1);
+                gameWon = display.GameWon();
             }       
             else if (e.Key == Key.NumPad9)    // right and up
             {
                 invalidate = display.MoveThePlayer(1, -1);
+                gameWon = display.GameWon();
             }
             else if (e.Key == Key.NumPad1)    // left and down
             {
                 invalidate = display.MoveThePlayer(-1, 1);
+                gameWon = display.GameWon();
             }
             else if (e.Key == Key.NumPad3)    // right and down
             {
                 invalidate = display.MoveThePlayer(1, 1);
+                gameWon = display.GameWon();
             }
             else if (e.Key == Key.Up || e.Key == Key.NumPad8)      // up
             {
                 invalidate = display.MoveThePlayer(0, -1);
+                gameWon = display.GameWon();
             }
             else if (e.Key == Key.Left || e.Key == Key.NumPad4)     // left
             {
                 invalidate = display.MoveThePlayer(-1, 0);
+                gameWon = display.GameWon();
             }
             else if (e.Key == Key.Down || e.Key == Key.NumPad2)      // down
             {
                 invalidate = display.MoveThePlayer(0, 1);
+                gameWon = display.GameWon();
             }
             else if (e.Key == Key.Right || e.Key == Key.NumPad6)    // right
             {
                 invalidate = display.MoveThePlayer(1, 0);
+                gameWon = display.GameWon();
             }
             else if (e.Key == Key.R) // R
             {
@@ -171,6 +185,15 @@ namespace GUI_20212202_MQ7GIA
                 UpdateBoardViewModel();
                 partsCollected.InvalidateVisual();
             }
+            if (gameWon)
+            {
+                WinningWindow window = new WinningWindow(Sound);
+                window.ShowDialog();
+                if (window.DialogResult == true)
+                {
+                    this.Close();
+                }
+            }
         }
 
         private void ExcavateClick(object sender, KeyEventArgs e)
@@ -181,7 +204,9 @@ namespace GUI_20212202_MQ7GIA
         private void EndTurn(object sender, RoutedEventArgs e)
         {
             display.EndTurn();
+            Sound.PlaySound("411749__natty23__bell-ding.wav");
             UpdateBoardViewModel();
+            MessageBox.Show($"{boardWindowViewModel.FirstPlayerName} you're up!");
             // draw cards, (and move storm, ...) 
         }
         private void UpdateBoardViewModel()

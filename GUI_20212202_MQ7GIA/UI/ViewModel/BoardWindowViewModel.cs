@@ -80,7 +80,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 case RoleName.Navigator:
                     return "Yellow";
                 case RoleName.WaterCarrier:
-                    return "Blue";
+                    return "LightBlue";
                 default:
                     return "Magenta";      // this should never happen
             }
