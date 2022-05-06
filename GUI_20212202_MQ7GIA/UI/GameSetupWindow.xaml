@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_20212202_MQ7GIA.UI"
         mc:Ignorable="d"
-        Title="GameSetupWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="GameSetupWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True">
     <Window.Resources>
         <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
         <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">

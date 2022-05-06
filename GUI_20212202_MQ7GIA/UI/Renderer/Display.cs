@@ -478,5 +478,38 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             }
             return invalidate;
         }
+        public bool WaterCarrierRefill()
+        {
+            string validationMessage = logic.WaterCarrierRefill(players);
+            if (validationMessage == "validMove")
+            {
+                return true;
+            }
+            else if (validationMessage == "notWaterCarrier")
+            {
+                MessageBox.Show("Hint: You're not a Water Carrier.");
+            }
+            else if (validationMessage == "outOfActions")
+            {
+                MessageBox.Show("Hint: You can't refill water because you're out of actions.");
+            }
+            else if (validationMessage == "sandTile")
+            {
+                MessageBox.Show("Hint: You have to remove the sand first.");
+            }
+            else if (validationMessage == "notDiscovered")
+            {
+                MessageBox.Show("Hint: You're not in the reach of the well.");
+            }
+            else if (validationMessage == "maxWater")
+            {
+                MessageBox.Show("Hint: Your water level is max.");
+            }
+            else if (validationMessage == "notInReach")
+            {
+                MessageBox.Show("Hint: You're not in the reach of the well.");
+            }
+            return false;
+        }
     }
 }

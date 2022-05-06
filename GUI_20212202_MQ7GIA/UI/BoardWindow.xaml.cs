@@ -27,6 +27,7 @@ namespace GUI_20212202_MQ7GIA
         List<Player> players = new List<Player>();
         List<string> colors = new List<string>();
         BoardWindowViewModel boardWindowViewModel;
+        WaterSharingWindowViewModel waterSharingWindowVM;
         public BoardWindow(GameLogic logic, Sound sound, GameSetupWindow setupWindow)
         {
             InitializeComponent();
@@ -73,8 +74,11 @@ namespace GUI_20212202_MQ7GIA
             }
             display.SetupLogic(logic, players, colors);
             Sound = sound;
+            
             partsCollected.SetupModel(logic, players);
             stormMeter.SetupModel(logic);
+            waterSharingWindowVM = new WaterSharingWindowViewModel();
+            waterSharingWindowVM.SetupLogic(logic, players,this);
             boardWindowViewModel = new BoardWindowViewModel(players);
             this.DataContext = boardWindowViewModel;
         }
@@ -174,8 +178,25 @@ namespace GUI_20212202_MQ7GIA
             {
                 partInvalidate = partsCollected.ItemPickUp();
             }
+            else if (e.Key == Key.S)
+            {
+                //implement waterSharing
+                waterSharingWindowVM.RefreshPlayers(players); //Because in the VM the first element is deleted
+                waterSharingWindowVM.ShowWindow();
+            }
+            else if(e.Key == Key.W)
+            {
+                //implement DisplayWaterLevel
+                WaterLevelWindow waterLevelWindow = new WaterLevelWindow(players.Where(x=>x.TurnOrder == 1).SingleOrDefault());
+                waterLevelWindow.Show();
+            }
+            else if(e.Key == Key.C)
+            {
+                // Refill
+                invalidate = display.WaterCarrierRefill();
+            }
 
-            if(invalidate == true)
+            if (invalidate == true)
             {
                 UpdateBoardViewModel();
                 display.InvalidateVisual();
@@ -200,7 +221,10 @@ namespace GUI_20212202_MQ7GIA
         {
 
         }
-
+        public void CatchException(Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
         private void EndTurn(object sender, RoutedEventArgs e)
         {
             display.EndTurn();
