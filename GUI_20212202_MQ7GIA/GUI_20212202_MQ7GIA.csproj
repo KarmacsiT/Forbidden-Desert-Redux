@@ -47,6 +47,7 @@
     <None Remove="imageassets\Charachter Cards\Explorer_3.png" />
     <None Remove="imageassets\Charachter Cards\Explorer_4.png" />
     <None Remove="imageassets\Charachter Cards\Explorer_dead.png" />
+    <None Remove="imageassets\Charachter Cards\indicator.png" />
     <None Remove="imageassets\Charachter Cards\Meteorologist.png" />
     <None Remove="imageassets\Charachter Cards\Meteorologist_0.png" />
     <None Remove="imageassets\Charachter Cards\Meteorologist_1.png" />
@@ -243,6 +244,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="imageassets\Charachter Cards\Explorer_dead.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Charachter Cards\indicator.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="imageassets\Charachter Cards\Meteorologist.png">

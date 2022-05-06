@@ -16,6 +16,7 @@ namespace GUI_20212202_MQ7GIA.Models
         public int TurnOrder { get; set; }
         public RoleName PlayerRoleName { get; set; }
         public int WaterLevel { get; set; }
+        public int MaxWaterLevel { get; set; }
         public string AbilityDescription { get; set; }
         public bool[] AbilityList { get; set; }
         public string ActionDescription { get; set; }
