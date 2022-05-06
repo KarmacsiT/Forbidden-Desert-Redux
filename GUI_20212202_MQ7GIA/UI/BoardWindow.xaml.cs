@@ -206,6 +206,7 @@ namespace GUI_20212202_MQ7GIA
             display.EndTurn();
             Sound.PlaySound("411749__natty23__bell-ding.wav");
             UpdateBoardViewModel();
+            MessageBox.Show($"{boardWindowViewModel.FirstPlayerName} you're up!");
             // draw cards, (and move storm, ...) 
         }
         private void UpdateBoardViewModel()
