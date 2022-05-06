@@ -20,6 +20,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public string DifficultyLevel { get; set; }
         public int NumberOfPlayers { get; set; } // this is a very efficient way to store the # of players, because there are cases when we don't want the entire object (eg. Storm Meter)
         public double StormProgress { get; set; }
+        public int StormProgressNumberOfCards { get; set; }
 
         Random random = new Random();
         public GameLogic(Sound sound)
@@ -207,6 +208,8 @@ namespace GUI_20212202_MQ7GIA.Logic
             board.SandTiles[1, 3] += 1;
             board.SandTiles[3, 3] += 1;
             board.SandTiles[2, 4] += 1;
+
+            Deck = DeckGeneration();
         }
         public bool IsItDuplicate(int X, int Y, AirShipClueTile[] tiles)
         {
@@ -279,7 +282,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 cardCounter += 2;
             }
         }
-        public bool MoveStorm(int x, int y)
+        private bool MoveStorm(int x, int y)
         {
             if (x != 0 && StormProgress < 0.93)
             {
@@ -514,9 +517,13 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
         }
 
+        public bool StormCardAction(StormCard currentCard)          //only 1 card is played in the Logic, this is the function, that is called muliple times if needed   
+        {
+            return MoveStorm(currentCard.XMove, currentCard.YMove);
+        }
+
         private Deck DeckGeneration()
         {
-            Random rng = new Random();
             Deck GameDeck = new Deck();
 
             ItemCard duneBlaster = new ItemCard("Dune Blaster", false, false);
@@ -541,6 +548,11 @@ namespace GUI_20212202_MQ7GIA.Logic
             StormCard threeLeft = new StormCard("threeLeft", false, -3, 0);
             StormCard threeRight = new StormCard("threeRight", false, 3, 0);
             StormCard threeUp = new StormCard("threeUp", false, 0, 3);
+
+            GameDeck.AvailableItemCards = new List<ItemCard>();
+            GameDeck.AvailableStormCards = new List<StormCard>();
+            //GameDeck.DiscardedItemCards = new List<ItemCard>();         we might not need this
+            //GameDeck.DiscardedStormCards = new List<StormCard>();
 
             for (int i = 0; i < 3; i++)
             {
@@ -573,28 +585,32 @@ namespace GUI_20212202_MQ7GIA.Logic
             GameDeck.AvailableStormCards.Add(threeLeft);
             GameDeck.AvailableStormCards.Add(threeRight);
 
+            GameDeck = Shuffle(GameDeck);
+            return GameDeck;
+        }
 
-            int n = GameDeck.AvailableItemCards.Count;
+        private Deck Shuffle(Deck deckToSuffle)
+        {
+            int n = deckToSuffle.AvailableItemCards.Count;
             while (n > 1) //Shuffling ItemCards
             {
                 n--;
-                int k = rng.Next(n + 1);
-                ItemCard itemCardValue = GameDeck.AvailableItemCards[k];
-                GameDeck.AvailableItemCards[k] = GameDeck.AvailableItemCards[n];
-                GameDeck.AvailableItemCards[n] = itemCardValue;
+                int k = random.Next(n + 1);
+                ItemCard itemCardValue = deckToSuffle.AvailableItemCards[k];
+                deckToSuffle.AvailableItemCards[k] = deckToSuffle.AvailableItemCards[n];
+                deckToSuffle.AvailableItemCards[n] = itemCardValue;
             }
 
-            n = GameDeck.AvailableStormCards.Count;
+            n = deckToSuffle.AvailableStormCards.Count;
             while (n > 1) //Shuffling StormCards
             {
                 n--;
-                int k = rng.Next(n + 1);
-                StormCard stormCardValue = GameDeck.AvailableStormCards[k];
-                GameDeck.AvailableStormCards[k] = GameDeck.AvailableStormCards[n];
-                GameDeck.AvailableStormCards[n] = stormCardValue;
+                int k = random.Next(n + 1);
+                StormCard stormCardValue = deckToSuffle.AvailableStormCards[k];
+                deckToSuffle.AvailableStormCards[k] = deckToSuffle.AvailableStormCards[n];
+                deckToSuffle.AvailableStormCards[n] = stormCardValue;
             }
-
-            return GameDeck;
+            return deckToSuffle;
         }
 
         public bool GameWon(List<Player> players)

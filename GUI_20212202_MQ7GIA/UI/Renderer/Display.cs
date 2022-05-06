@@ -371,16 +371,45 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                 
             }
         }
-        public bool MoveTheStorm(int x, int y)
+        public bool MoveTheStorm()
         {
-            if (logic.MoveStorm(x, y) == true)
+            if(logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false).XMove == -9 && logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false).YMove == -9)  // Sun 
             {
-                return true;
+                //decrease water level
+                return false;
+            }
+            else if(logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false).XMove == -6 && logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false).YMove == -6)  // Stormmeter
+            {
+                //move stormmeter
+                return false;
             }
             else
             {
+                if (logic.StormCardAction(logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        public bool NeedsShuffling()
+        {
+            if (logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false) != null)
+            {
                 return false;
             }
+            return true;
+        }
+        public void MoveStormCardToDiscarded()
+        {
+            logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false).IsDiscarded = true;
+        }
+        public int NumberOfStormCardsActivated()
+        {
+            return logic.StormProgressNumberOfCards;
         }
         public bool MoveThePlayer(int x, int y)
         {

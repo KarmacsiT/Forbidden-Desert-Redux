@@ -47,17 +47,21 @@ namespace GUI_20212202_MQ7GIA.UI
                 Logic.DifficultyLevel = TwoPlayerDiffLevel.Text;
                 Logic.NumberOfPlayers = 2;
                 Logic.StormProgress += 1.0/15.0;
+                Logic.StormProgressNumberOfCards = 2;
                 if (Logic.DifficultyLevel == "Normal")
                 {
                     Logic.StormProgress += 1.0 / 15.0;
+                    Logic.StormProgressNumberOfCards = 3;
                 }
                 else if (Logic.DifficultyLevel == "Elite")
                 {
                     Logic.StormProgress += 2.0 / 15.0;
+                    Logic.StormProgressNumberOfCards = 3;
                 }
                 else if (Logic.DifficultyLevel == "Legendary")
                 {
                     Logic.StormProgress += 3.0 / 15.0;
+                    Logic.StormProgressNumberOfCards = 3;
                 }
                 this.Close();
                 Sound.stopMusic();
@@ -89,17 +93,21 @@ namespace GUI_20212202_MQ7GIA.UI
                 PlayerThreeName = ThreePlayerModePlayerThreeTextBox.Text;
                 Logic.DifficultyLevel = ThreePlayerDiffLevel.Text;
                 Logic.NumberOfPlayers = 3;
+                Logic.StormProgressNumberOfCards = 2;
                 if (Logic.DifficultyLevel == "Normal")
                 {
                     Logic.StormProgress += 1.0 / 15.0;
+                    Logic.StormProgressNumberOfCards = 3;
                 }
                 else if (Logic.DifficultyLevel == "Elite")
                 {
                     Logic.StormProgress += 2.0 / 15.0;
+                    Logic.StormProgressNumberOfCards = 3;
                 }
                 else if (Logic.DifficultyLevel == "Legendary")
                 {
                     Logic.StormProgress += 3.0 / 15.0;
+                    Logic.StormProgressNumberOfCards = 3;
                 }
                 this.Close();
                 Sound.stopMusic();

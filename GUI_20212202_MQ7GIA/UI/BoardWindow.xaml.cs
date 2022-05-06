@@ -99,28 +99,7 @@ namespace GUI_20212202_MQ7GIA
             {
                 this.Close();
             }
-        }
-        private void StormMove(object sender, RoutedEventArgs e)  //only for testing
-        {
-            if (display.MoveTheStorm(0, 1))
-            {
-                display.InvalidateVisual();
-                stormMeter.InvalidateVisual();
-            }
-            else
-            {
-                //implement some proper game over screen
-                stormMeter.InvalidateVisual();
-                LosingWindow window = new LosingWindow(Sound);
-                window.ShowDialog();
-                if (window.DialogResult == true)
-                {
-                    this.Close();
-                }
-            }
-
-        }
-
+        }       
         private void KeyBoardUsed(object sender, KeyEventArgs e)
         {
             bool invalidate = false;
@@ -227,6 +206,39 @@ namespace GUI_20212202_MQ7GIA
         }
         private void EndTurn(object sender, RoutedEventArgs e)
         {
+            //storm
+
+            //if (display.MoveTheStorm(0, 1))
+            //{
+            //    display.InvalidateVisual();
+            //    stormMeter.InvalidateVisual();
+            //}
+            //else
+            //{
+            //    //implement some proper game over screen
+            //    stormMeter.InvalidateVisual();
+            //    LosingWindow window = new LosingWindow(Sound);
+            //    window.ShowDialog();
+            //    if (window.DialogResult == true)
+            //    {
+            //        this.Close();
+            //    }
+            //}           
+            if(display.NeedsShuffling())
+            {
+                //shuffle
+            }
+            int iterations = display.NumberOfStormCardsActivated();
+            for (int i = 0; i < iterations; i++)
+            {
+                if(display.MoveTheStorm())
+                {
+                    display.InvalidateVisual();
+                }
+                display.MoveStormCardToDiscarded();
+            }
+
+
             display.EndTurn();
             Sound.PlaySound("411749__natty23__bell-ding.wav");
             UpdateBoardViewModel();
