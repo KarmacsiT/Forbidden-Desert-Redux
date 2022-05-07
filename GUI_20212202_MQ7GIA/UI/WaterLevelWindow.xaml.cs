@@ -53,5 +53,11 @@ namespace GUI_20212202_MQ7GIA
         {
             Close();
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e) //Makes the window dragable
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
     }
 }

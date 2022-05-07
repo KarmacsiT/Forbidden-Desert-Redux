@@ -10,17 +10,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace GUI_20212202_MQ7GIA.UI.ViewModel
 {
     public class BoardWindowViewModel : INotifyPropertyChanged
-    {       
+    {
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string property)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
-        }       
+        }
         string firstcolor;
         public string FirstColor
         {
@@ -31,12 +32,22 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 OnPropertyChanged("FirstColor");
             }
         }
+        string secondcolor;
+        public string SecondColor
+        {
+            get { return secondcolor; }
+            set
+            {
+                secondcolor = value;
+                OnPropertyChanged("SecondColor");
+            }
+        }
         int firstNumActions;
         public int FirstNumActions
         {
             get { return firstNumActions; }
-            set 
-            { 
+            set
+            {
                 firstNumActions = value;
                 OnPropertyChanged("FirstNumActions");
             }
@@ -51,20 +62,36 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 OnPropertyChanged("FirstPlayerName");
             }
         }
+        string secondPlayerName;
+        public string SecondPlayerName
+        {
+            get { return secondPlayerName; }
+            set
+            {
+                secondPlayerName = value;
+                OnPropertyChanged("SecondPlayerName");
+            }
+        }
         public BoardWindowViewModel(List<Player> players)
         {
             SetPlayers(players);
+        }
+        public BoardWindowViewModel()
+        {
+
         }
         public void SetPlayers(List<Player> players)
         {
             FirstNumActions = players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions;
             FirstColor = PlayerColorGiver(players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName);
+            SecondColor = PlayerColorGiver(players.Where(p => p.TurnOrder == 2).FirstOrDefault().PlayerRoleName);
             FirstPlayerName = players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerName;
+            SecondPlayerName = players.Where(p => p.TurnOrder == 2).FirstOrDefault().PlayerName;
             if (players.Count == 3)
             {
                 //third player's stuff
             }
-        }      
+        }
         private string PlayerColorGiver(RoleName roleName)
         {
             switch (roleName)

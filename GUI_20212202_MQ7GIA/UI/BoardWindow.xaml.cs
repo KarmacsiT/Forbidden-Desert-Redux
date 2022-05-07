@@ -23,31 +23,33 @@ namespace GUI_20212202_MQ7GIA
     /// </summary>
     public partial class BoardWindow : Window
     {
+        GameLogic logic;
         public Sound Sound { get; set; }
-        List<Player> players = new List<Player>();
+        //List<Player> Players = new List<Player>();
         List<string> colors = new List<string>();
         BoardWindowViewModel boardWindowViewModel;
         WaterSharingWindowViewModel waterSharingWindowVM;
+
         public BoardWindow(GameLogic logic, Sound sound, GameSetupWindow setupWindow)
         {
             InitializeComponent();
             //playerGeneration
-            if (setupWindow.PlayerThreeName is null && players.Count == 0)
+            if (setupWindow.PlayerThreeName is null && logic.Players.Count == 0)
             {
-                players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, players));
-                players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, players));
+                logic.Players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, logic.Players));
+                logic.Players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, logic.Players));
             }
 
-            else if (players.Count == 0)
+            else if (logic.Players.Count == 0)
             {
-                players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, players));
-                players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, players));
-                players.Add(logic.PlayerInit(setupWindow.PlayerThreeName, 3, players));
+                logic.Players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, logic.Players));
+                logic.Players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, logic.Players));
+                logic.Players.Add(logic.PlayerInit(setupWindow.PlayerThreeName, 3, logic.Players));
             }
 
             //Create some logic that matches the role to the piece color
 
-            foreach (Player player in players)
+            foreach (Player player in logic.Players)
             {
                 switch (player.PlayerRoleName)
                 {
@@ -71,16 +73,19 @@ namespace GUI_20212202_MQ7GIA
                         break;
                     default: break;
                 }
+
+
             }
-            display.SetupLogic(logic, players, colors);
+            display.SetupLogic(logic, colors);
             Sound = sound;
-            
-            partsCollected.SetupModel(logic, players);
+
+            partsCollected.SetupModel(logic, logic.Players);
             stormMeter.SetupModel(logic);
             waterSharingWindowVM = new WaterSharingWindowViewModel();
-            waterSharingWindowVM.SetupLogic(logic, players,this);
-            boardWindowViewModel = new BoardWindowViewModel(players);
+            waterSharingWindowVM.SetupLogic(logic, logic.Players, this);
+            boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
+            logic.CardsMovingOnBoard += CardsChanging;
         }
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
@@ -130,7 +135,7 @@ namespace GUI_20212202_MQ7GIA
             {
                 invalidate = display.MoveThePlayer(-1, -1);
                 gameWon = display.GameWon();
-            }       
+            }
             else if (e.Key == Key.NumPad9)    // right and up
             {
                 invalidate = display.MoveThePlayer(1, -1);
@@ -170,27 +175,29 @@ namespace GUI_20212202_MQ7GIA
             {
                 invalidate = display.RemoveSand();
             }
-            else if(e.Key == Key.E)
+            else if (e.Key == Key.E)
             {
                 invalidate = display.Excavate();
             }
-            else if(e.Key == Key.P)
+            else if (e.Key == Key.P)
             {
                 partInvalidate = partsCollected.ItemPickUp();
             }
             else if (e.Key == Key.S)
             {
                 //implement waterSharing
-                waterSharingWindowVM.RefreshPlayers(players); //Because in the VM the first element is deleted
+                logic = display.GetLogic();
+                waterSharingWindowVM.RefreshPlayers(logic.Players); //Because in the VM the first element is deleted
                 waterSharingWindowVM.ShowWindow();
             }
-            else if(e.Key == Key.W)
+            else if (e.Key == Key.W)
             {
                 //implement DisplayWaterLevel
-                WaterLevelWindow waterLevelWindow = new WaterLevelWindow(players.Where(x=>x.TurnOrder == 1).SingleOrDefault());
+                logic = display.GetLogic();
+                WaterLevelWindow waterLevelWindow = new WaterLevelWindow(logic.Players.Where(x => x.TurnOrder == 1).SingleOrDefault());
                 waterLevelWindow.Show();
             }
-            else if(e.Key == Key.C)
+            else if (e.Key == Key.C)
             {
                 // Refill
                 invalidate = display.WaterCarrierRefill();
@@ -199,11 +206,13 @@ namespace GUI_20212202_MQ7GIA
             if (invalidate == true)
             {
                 UpdateBoardViewModel();
+                UpdateItemCardDisplay();
                 display.InvalidateVisual();
             }
             if (partInvalidate)
             {
                 UpdateBoardViewModel();
+                UpdateItemCardDisplay();
                 partsCollected.InvalidateVisual();
             }
             if (gameWon)
@@ -235,8 +244,81 @@ namespace GUI_20212202_MQ7GIA
         }
         private void UpdateBoardViewModel()
         {
-            boardWindowViewModel.SetPlayers(players);
+            GameLogic logic = display.GetLogic();
+            boardWindowViewModel.SetPlayers(logic.Players);
 
+        }
+
+
+        private void UpdateItemCardDisplay()
+        {
+            GameLogic logic = display.GetLogic();
+
+
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 1 && logic.CurrentPlayerCard1Display is not null)
+            {
+                Card1.Source = new BitmapImage(new Uri(logic.CurrentPlayerCard1Display, UriKind.RelativeOrAbsolute));
+            }
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 2 && logic.CurrentPlayerCard2Display is not null)
+            {
+                Card2.Source = new BitmapImage(new Uri(logic.CurrentPlayerCard2Display, UriKind.RelativeOrAbsolute));
+            }
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 3 && logic.CurrentPlayerCard3Display is not null)
+            {
+                Card3.Source = new BitmapImage(new Uri(logic.CurrentPlayerCard3Display, UriKind.RelativeOrAbsolute));
+            }
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 4 && logic.CurrentPLayerCard4Display is not null)
+            {
+                Card4.Source = new BitmapImage(new Uri(logic.CurrentPLayerCard4Display, UriKind.RelativeOrAbsolute));
+            }
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 5 && logic.CurrentPlayerCard5Display is not null)
+            {
+                Card5.Source = new BitmapImage(new Uri(logic.CurrentPlayerCard5Display, UriKind.RelativeOrAbsolute));
+            }
+        }
+        private void CardsChanging(object sender, EventArgs e)
+        {
+            logic = display.GetLogic();
+
+            if (P2Card1.Source is not null)
+            {
+                logic.CurrentPlayerCard1Display = P2Card1.Source.ToString();
+            }
+            if (P2Card2.Source is not null)
+            {
+                logic.CurrentPlayerCard2Display = P2Card2.Source.ToString();
+            }
+            if (P2Card3.Source is not null)
+            {
+                logic.CurrentPlayerCard3Display = P2Card3.Source.ToString();
+            }
+            if (P2Card4.Source is not null)
+            {
+                logic.CurrentPLayerCard4Display = P2Card4.Source.ToString();
+            }
+            if (P2Card5.Source is not null)
+            {
+                logic.CurrentPlayerCard5Display = P2Card5.Source.ToString();
+            }
+
+
+            ImageSource temp1 = P2Card1.Source;
+            ImageSource temp2 = P2Card2.Source;
+            ImageSource temp3 = P2Card3.Source;
+            ImageSource temp4 = P2Card4.Source;
+            ImageSource temp5 = P2Card5.Source;
+
+
+            P2Card1.Source = Card1.Source;
+            P2Card2.Source = Card2.Source;
+            P2Card3.Source = Card3.Source;
+            P2Card4.Source = Card4.Source;
+            P2Card5.Source = Card5.Source;
+            Card1.Source = temp1;
+            Card2.Source = temp2;
+            Card3.Source = temp3;
+            Card4.Source = temp4;
+            Card5.Source = temp5;
         }
     }
 }

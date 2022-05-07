@@ -55,17 +55,57 @@
         <Button Grid.Column="2" Content="Pause" HorizontalAlignment="Right" Height="44" VerticalAlignment="Bottom" Width="86" Click="Pause" FontFamily="{StaticResource Steamwreck}" FontSize="24" Margin="0,0,10,10" Grid.RowSpan="2"/>
         <Button Grid.Column="2" Content="End Turn" HorizontalAlignment="Right" Height="44" VerticalAlignment="Center" Width="86" Click="EndTurn" FontFamily="{StaticResource Steamwreck}" FontSize="24" Grid.RowSpan="2"/>
         <Label Content="Collected items:" HorizontalAlignment="Left" Margin="50,19,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="30" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
-        <Grid x:Name="CurrentPlayerCardsDisplay" Margin="735,932,734,0" Grid.ColumnSpan="3" Grid.RowSpan="2">
-            <renderer:CurrentPlayerCards x:Name="currentPlayerCards"/>
-        </Grid>
         <StackPanel Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center">
             <Label Content="Remaining turns:" FontFamily="{StaticResource Steamwreck}" FontSize="30" />
             <Label Content="{Binding FirstNumActions}" FontSize="36" FontFamily="{StaticResource Steamwreck}"/>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom">
         </StackPanel>
-        <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="{Binding FirstColor}" Width="300" Height="100">
-            <Label Content="{Binding FirstPlayerName}" FontFamily="{StaticResource Steamwreck}" FontSize="30"></Label>
+        <Grid Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="500" Height="130" Background="{Binding FirstColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="120*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="{Binding FirstPlayerName}" Grid.Row="0" Grid.Column="0" FontFamily="{StaticResource Steamwreck}" FontSize="20" Grid.ColumnSpan="2" Grid.RowSpan="2"></Label>
+            <Image x:Name="Card1" Grid.Row="1" Grid.Column="1"/>
+            <Image x:Name="Card2" Grid.Row="1" Grid.Column="2" />
+            <Image x:Name="Card3" Grid.Row="1" Grid.Column="3" />
+            <Image x:Name="Card4" Grid.Row="1" Grid.Column="4" />
+            <Image x:Name="Card5" Grid.Row="1" Grid.Column="5" />
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Width="500" Margin="0,10,0,305" Background="{Binding SecondColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="120*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="{Binding SecondPlayerName}" Grid.Row="0" Grid.Column="0" FontFamily="{StaticResource Steamwreck}" FontSize="20" Grid.ColumnSpan="2" Grid.RowSpan="2"></Label>
+            <Image x:Name="P2Card1" Grid.Row="1" Grid.Column="1"/>
+            <Image x:Name="P2Card2" Grid.Row="1" Grid.Column="2" />
+            <Image x:Name="P2Card3" Grid.Row="1" Grid.Column="3" />
+            <Image x:Name="P2Card4" Grid.Row="1" Grid.Column="4" />
+            <Image x:Name="P2Card5" Grid.Row="1" Grid.Column="5" />
         </Grid>
     </Grid>
+
 </Window>
