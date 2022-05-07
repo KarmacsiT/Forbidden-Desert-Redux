@@ -42,11 +42,11 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1.2*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.RowSpan="2" Grid.Column="1" Grid.Row="1">
-            <Label HorizontalAlignment="Center" FontSize="60" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White">You successfully left the desert!</Label>
+            <Label HorizontalAlignment="Center" FontSize="60" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" >You successfully left the desert! </Label>
             <Image Source="/ImageAssets/trophy.png" Height="400" >
 
             </Image>

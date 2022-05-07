@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -104,28 +105,7 @@ namespace GUI_20212202_MQ7GIA
             {
                 this.Close();
             }
-        }
-        private void StormMove(object sender, RoutedEventArgs e)  //only for testing
-        {
-            if (display.MoveTheStorm(0, 1))
-            {
-                display.InvalidateVisual();
-                stormMeter.InvalidateVisual();
-            }
-            else
-            {
-                //implement some proper game over screen
-                stormMeter.InvalidateVisual();
-                LosingWindow window = new LosingWindow(Sound);
-                window.ShowDialog();
-                if (window.DialogResult == true)
-                {
-                    this.Close();
-                }
-            }
-
-        }
-
+        }       
         private void KeyBoardUsed(object sender, KeyEventArgs e)
         {
             bool invalidate = false;
@@ -235,12 +215,38 @@ namespace GUI_20212202_MQ7GIA
             MessageBox.Show(ex.Message);
         }
         private void EndTurn(object sender, RoutedEventArgs e)
-        {
-            display.EndTurn();
-            Sound.PlaySound("411749__natty23__bell-ding.wav");
-            UpdateBoardViewModel();
-            MessageBox.Show($"{boardWindowViewModel.FirstPlayerName} you're up!");
-            // draw cards, (and move storm, ...) 
+        {                    
+            int iterations = display.NumberOfStormCardsActivated();       
+            for (int i = 0; i < iterations; i++)
+            {
+                display.NeedsShufflingStormcards();           //if yes, it automatically shuffles the stormcards
+                string MoveStormMessage = display.MoveTheStorm();
+                if(MoveStormMessage == "Storm Moves")
+                {
+                    display.InvalidateVisual();
+                }
+                else if(MoveStormMessage == "Storm Picks Up")
+                {
+                    stormMeter.InvalidateVisual();
+                }
+                else if(MoveStormMessage == "Sun Beats Down")
+                {
+                    //invalidate water
+                }
+                display.MoveStormCardToDiscarded();
+                if(display.LoseOrNot())
+                {
+                    LoseGame();
+                    break;
+                }
+            }
+            if (display.LoseOrNot() == false)
+            {
+                display.EndTurn();
+                Sound.PlaySound("411749__natty23__bell-ding.wav");
+                UpdateBoardViewModel();
+                MessageBox.Show($"{boardWindowViewModel.FirstPlayerName} you're up!");
+            }                      
         }
         private void UpdateBoardViewModel()
         {
@@ -319,6 +325,15 @@ namespace GUI_20212202_MQ7GIA
             Card3.Source = temp3;
             Card4.Source = temp4;
             Card5.Source = temp5;
+        }
+        private void LoseGame()
+        {
+            LosingWindow window = new LosingWindow(Sound);
+            window.ShowDialog();
+            if (window.DialogResult == true)
+            {
+                this.Close();
+            }
         }
     }
 }

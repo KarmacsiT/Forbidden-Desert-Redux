@@ -7,7 +7,7 @@
         xmlns:renderer="clr-namespace:GUI_20212202_MQ7GIA.UI.Renderer"
         xmlns:vm="clr-namespace:GUI_20212202_MQ7GIA.UI.ViewModel"
         mc:Ignorable="d"
-        Title="BoardWindow" Height="1080" Width="1920" ResizeMode="NoResize" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" Loaded="WindowLoaded" MouseDoubleClick="StormMove" KeyDown="KeyBoardUsed">
+        Title="BoardWindow" Height="1080" Width="1920" ResizeMode="NoResize" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" Loaded="WindowLoaded" KeyDown="KeyBoardUsed">
     <Window.Resources>
         <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
         <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
