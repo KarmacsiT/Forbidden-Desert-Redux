@@ -326,11 +326,11 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                         drawingContext.DrawVideo(player, new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
                     }
 
-                    if (logic.SandTileChecker(x, y))
+                    if (logic.SandTileChecker(x, y) && SandCheckIfStorm(x,y))
                     {
                         drawingContext.DrawRectangle(SandBrush, new Pen(Brushes.Black, 1), new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
                     }
-                    if (logic.DoubleSandChecker(x, y))
+                    if (logic.DoubleSandChecker(x, y) && SandCheckIfStorm(x, y))
                     {
                         drawingContext.DrawRectangle(DoubleSandBrush, new Pen(Brushes.Black, 1), new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
                     }
@@ -557,6 +557,14 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         public bool LoseOrNot()
         {
             return logic.LoseCondition(players);
+        }
+        private bool SandCheckIfStorm(int x, int y)       //returns true if the sandpile can be placed on the tile
+        {
+            if(x == logic.board.storm.X && y == logic.board.storm.Y)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -359,7 +359,6 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                             }
                             board.storm.X += 1;
-                            board.SandTiles[board.storm.X, board.storm.Y] = 0;
                             //StormProgress += 1.0 / 15.0;
                             Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
@@ -418,7 +417,6 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                             }
                             board.storm.X -= 1;
-                            board.SandTiles[board.storm.X, board.storm.Y] = 0;
                             //StormProgress += 1.0 / 15.0;
                             Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
@@ -486,7 +484,6 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                             }
                             board.storm.Y += 1;
-                            board.SandTiles[board.storm.X, board.storm.Y] = 0;
                             //StormProgress += 1.0 / 15.0;
                             Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
@@ -545,7 +542,6 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                             }
                             board.storm.Y -= 1;
-                            board.SandTiles[board.storm.X, board.storm.Y] = 0;
                             Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
                     }
@@ -559,7 +555,6 @@ namespace GUI_20212202_MQ7GIA.Logic
         {
             return MoveStorm(currentCard.XMove, currentCard.YMove, players);
         }
-
         public void StormMeterUp()
         {
             StormProgress += 1.0 / 15.0;
@@ -672,7 +667,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             GameDeck = Shuffle(GameDeck, true,true);
             return GameDeck;
         }
-
         private Deck Shuffle(Deck deckToSuffle, bool stormshuffle, bool itemcardshuffle)
         {
             if(itemcardshuffle == true)
@@ -701,7 +695,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             }        
             return deckToSuffle;
         }
-
         public void ReEnableDiscardedPropertyStorm()
         
         {
@@ -720,7 +713,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             return false;
         }
-
         public Player PlayerInit(string playerName, int turnOrder, List<Player> players)  //Roles are random now, needs testing tho
         {
             Random rng = new Random();
@@ -1169,11 +1161,26 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             else return "";
         }
-
+        private bool SandTilesOnBoardMaximum()   //returns true if no more sand can be placed on the board --> 48
+        {
+            int count = 0;
+            for (int i = 0; i < board.SandTiles.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.SandTiles.GetLength(1); j++)
+                {
+                    count += board.SandTiles[i, j];
+                }
+            }
+            if(count >= 48)
+            {
+                return true;
+            }
+            return false;
+        }
         public bool LoseCondition(List<Player> players)
         {
             //lose if:
-            if(StormProgress > 0.87)   
+            if(StormProgress > 0.87 || SandTilesOnBoardMaximum())   
             {
                 return true;
             }

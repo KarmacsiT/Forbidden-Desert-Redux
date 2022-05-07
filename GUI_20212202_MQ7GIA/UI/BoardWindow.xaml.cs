@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -205,25 +206,7 @@ namespace GUI_20212202_MQ7GIA
             MessageBox.Show(ex.Message);
         }
         private void EndTurn(object sender, RoutedEventArgs e)
-        {
-            //storm 
-
-            //if (display.MoveTheStorm(0, 1))
-            //{
-            //    display.InvalidateVisual();
-            //    stormMeter.InvalidateVisual();
-            //}
-            //else
-            //{
-            //    //implement some proper game over screen
-            //    stormMeter.InvalidateVisual();
-            //    LosingWindow window = new LosingWindow(Sound);
-            //    window.ShowDialog();
-            //    if (window.DialogResult == true)
-            //    {
-            //        this.Close();
-            //    }
-            //}           
+        {                    
             int iterations = display.NumberOfStormCardsActivated();       
             for (int i = 0; i < iterations; i++)
             {
@@ -248,7 +231,7 @@ namespace GUI_20212202_MQ7GIA
                     break;
                 }
             }
-            if(display.LoseOrNot() == false)
+            if (display.LoseOrNot() == false)
             {
                 display.EndTurn();
                 Sound.PlaySound("411749__natty23__bell-ding.wav");
