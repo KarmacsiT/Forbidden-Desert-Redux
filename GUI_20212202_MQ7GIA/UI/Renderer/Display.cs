@@ -386,7 +386,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             }
             else
             {
-                if (logic.StormCardAction(card))
+                if (logic.StormCardAction(card, players))
                 {
                     return true;
                 }

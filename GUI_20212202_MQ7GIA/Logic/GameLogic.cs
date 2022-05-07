@@ -282,7 +282,24 @@ namespace GUI_20212202_MQ7GIA.Logic
                 cardCounter += 2;
             }
         }
-        private bool MoveStorm(int x, int y)
+        private void PlayersOnStorm(int PositionX, int PositionY, int x, int y, List<Player> players)
+        {
+            for (int i = 0; i < NumberOfPlayers; i++)
+            {
+                if(players[i].X == PositionX && players[i].Y == PositionY)
+                {
+                    if(x != -100)
+                    {
+                        players[i].X = x;
+                    }
+                    else if(y != -100)
+                    {
+                        players[i].Y = y;
+                    }
+                }
+            }
+        }
+        private bool MoveStorm(int x, int y, List<Player> players)
         {
             bool changed = false;
             if (x != 0)  //&& StormProgress < 0.93
@@ -302,7 +319,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             string tempname = TileNames[board.storm.X + 1, board.storm.Y];
                             TileNames[board.storm.X + 1, board.storm.Y] = "Storm";
                             TileNames[board.storm.X, board.storm.Y] = tempname;
-
+                            PlayersOnStorm(board.storm.X + 1, board.storm.Y, board.storm.X, -100, players);      // -100 means that the value should not change                          
                             switch (tempname)
                             {
                                 case "AirShipClueTile":
@@ -360,6 +377,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             string tempname = TileNames[board.storm.X - 1, board.storm.Y];
                             TileNames[board.storm.X - 1, board.storm.Y] = "Storm";
                             TileNames[board.storm.X, board.storm.Y] = tempname;
+                            PlayersOnStorm(board.storm.X - 1, board.storm.Y, board.storm.X, -100, players);      // -100 means that the value should not change                          
 
                             switch (tempname)
                             {
@@ -425,6 +443,8 @@ namespace GUI_20212202_MQ7GIA.Logic
                             string tempname = TileNames[board.storm.X, board.storm.Y + 1];
                             TileNames[board.storm.X, board.storm.Y + 1] = "Storm";
                             TileNames[board.storm.X, board.storm.Y] = tempname;
+                            PlayersOnStorm(board.storm.X, board.storm.Y+1, -100, board.storm.Y, players);      // -100 means that the value should not change                          
+
 
                             switch (tempname)
                             {
@@ -484,6 +504,8 @@ namespace GUI_20212202_MQ7GIA.Logic
                             string tempname = TileNames[board.storm.X, board.storm.Y - 1];
                             TileNames[board.storm.X, board.storm.Y - 1] = "Storm";
                             TileNames[board.storm.X, board.storm.Y] = tempname;
+                            PlayersOnStorm(board.storm.X, board.storm.Y-1, -100, board.storm.Y, players);      // -100 means that the value should not change                          
+
                             switch (tempname)
                             {
                                 case "AirShipClueTile":
@@ -534,9 +556,9 @@ namespace GUI_20212202_MQ7GIA.Logic
             return changed;
         }
 
-        public bool StormCardAction(StormCard currentCard)          //only 1 card is played in the Logic, this is the function, that is called muliple times if needed   
+        public bool StormCardAction(StormCard currentCard, List<Player> players)          //only 1 card is played in the Logic, this is the function, that is called muliple times if needed   
         {
-            return MoveStorm(currentCard.XMove, currentCard.YMove);
+            return MoveStorm(currentCard.XMove, currentCard.YMove, players);
         }
 
         private Deck DeckGeneration()
