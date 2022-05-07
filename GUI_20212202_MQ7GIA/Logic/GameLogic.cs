@@ -541,30 +541,7 @@ namespace GUI_20212202_MQ7GIA.Logic
 
         private Deck DeckGeneration()
         {
-            Deck GameDeck = new Deck();
-
-            //ItemCard duneBlaster = new ItemCard("Dune Blaster", false, false);
-            //ItemCard jetPack = new ItemCard("Jet Pack", false, false);
-            //ItemCard secretWaterReserve = new ItemCard("Secret Water Reserve", false, false);
-            //ItemCard solarShield = new ItemCard("Solar Shield", false, false);
-            //ItemCard stormTracker = new ItemCard("Storm Tracker", false, false);
-            //ItemCard terraScope = new ItemCard("Terrascope", false, false);
-            //ItemCard timeThrottle = new ItemCard("Time Throttle", false, false);
-
-            //StormCard oneDown = new StormCard("oneDown", false, 0, -1);
-            //StormCard oneLeft = new StormCard("oneLeft", false, -1, 0);
-            //StormCard oneRight = new StormCard("oneRight", false, 1, 0);
-            //StormCard oneUp = new StormCard("oneUp", false, 0, 1);
-
-            //StormCard twoDown = new StormCard("twoDown", false, 0, -2);
-            //StormCard twoLeft = new StormCard("twoLeft", false, -2, 0);
-            //StormCard twoRight = new StormCard("twoRight", false, 2, 0);
-            //StormCard twoUp = new StormCard("twoUp", false, 0, 2);
-
-            //StormCard threeDown = new StormCard("threeDown", false, 0, -3);
-            //StormCard threeLeft = new StormCard("threeLeft", false, -3, 0);
-            //StormCard threeRight = new StormCard("threeRight", false, 3, 0);
-            //StormCard threeUp = new StormCard("threeUp", false, 0, 3);
+            Deck GameDeck = new Deck();            
 
             GameDeck.AvailableItemCards = new List<ItemCard>();
             GameDeck.AvailableStormCards = new List<StormCard>();
