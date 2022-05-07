@@ -548,6 +548,8 @@ namespace GUI_20212202_MQ7GIA.Logic
             //GameDeck.DiscardedItemCards = new List<ItemCard>();         we might not need this
             //GameDeck.DiscardedStormCards = new List<StormCard>();
 
+            
+
             for (int i = 0; i < 3; i++)
             {
                 GameDeck.AvailableItemCards.Add(new ItemCard("Dune Blaster", false, false));
@@ -557,7 +559,11 @@ namespace GUI_20212202_MQ7GIA.Logic
                 GameDeck.AvailableStormCards.Add(new StormCard("oneUp", false, 0, 1));
                 GameDeck.AvailableStormCards.Add(new StormCard("oneLeft", false, -1, 0));
                 GameDeck.AvailableStormCards.Add(new StormCard("oneRight", false, 1, 0));
+                GameDeck.AvailableStormCards.Add(new StormCard("SunBeatsdown", false, -404, -404));
+                GameDeck.AvailableStormCards.Add(new StormCard("StormPicksUp", false, -303, -303));
             }
+
+            GameDeck.AvailableStormCards.Add(new StormCard("SunBeatsdown", false, -404, -404));
 
             for (int i = 0; i < 2; i++)
             {

@@ -374,12 +374,12 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         public bool MoveTheStorm()
         {
             StormCard card = logic.Deck.AvailableStormCards[NextStormCardIndex()];
-            if (card.XMove == -9 && card.YMove == -9)  // Sun 
+            if (card.XMove == -404 && card.YMove == -404)  // Sun 
             {
                 //decrease water level
                 return false;
             }
-            else if(card.XMove == -6 && card.YMove == -6)  // Stormmeter
+            else if(card.XMove == -303 && card.YMove == -303)  // Stormmeter
             {
                 //move stormmeter
                 return true;
