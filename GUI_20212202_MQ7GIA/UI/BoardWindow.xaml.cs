@@ -206,7 +206,7 @@ namespace GUI_20212202_MQ7GIA
         }
         private void EndTurn(object sender, RoutedEventArgs e)
         {
-            //storm
+            //storm 
 
             //if (display.MoveTheStorm(0, 1))
             //{
@@ -224,28 +224,51 @@ namespace GUI_20212202_MQ7GIA
             //        this.Close();
             //    }
             //}           
-            int iterations = display.NumberOfStormCardsActivated();
+            int iterations = display.NumberOfStormCardsActivated();       
             for (int i = 0; i < iterations; i++)
             {
-                display.NeedsShufflingStormcards();           //if yes, it automatically shuffles the stormcards          
-                if (display.MoveTheStorm())
+                display.NeedsShufflingStormcards();           //if yes, it automatically shuffles the stormcards
+                string MoveStormMessage = display.MoveTheStorm();
+                if(MoveStormMessage == "Storm Moves")
                 {
                     display.InvalidateVisual();
                 }
+                else if(MoveStormMessage == "Storm Picks Up")
+                {
+                    stormMeter.InvalidateVisual();
+                }
+                else if(MoveStormMessage == "Sun Beats Down")
+                {
+                    //invalidate water
+                }
                 display.MoveStormCardToDiscarded();
+                if(display.LoseOrNot())
+                {
+                    LoseGame();
+                    break;
+                }
             }
-
-
-            display.EndTurn();
-            Sound.PlaySound("411749__natty23__bell-ding.wav");
-            UpdateBoardViewModel();
-            MessageBox.Show($"{boardWindowViewModel.FirstPlayerName} you're up!");
-            // draw cards, (and move storm, ...) 
+            if(display.LoseOrNot() == false)
+            {
+                display.EndTurn();
+                Sound.PlaySound("411749__natty23__bell-ding.wav");
+                UpdateBoardViewModel();
+                MessageBox.Show($"{boardWindowViewModel.FirstPlayerName} you're up!");
+            }                      
         }
         private void UpdateBoardViewModel()
         {
             boardWindowViewModel.SetPlayers(players);
 
+        }
+        private void LoseGame()
+        {
+            LosingWindow window = new LosingWindow(Sound);
+            window.ShowDialog();
+            if (window.DialogResult == true)
+            {
+                this.Close();
+            }
         }
     }
 }

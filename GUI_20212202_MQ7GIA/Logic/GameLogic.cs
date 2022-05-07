@@ -546,7 +546,6 @@ namespace GUI_20212202_MQ7GIA.Logic
                             }
                             board.storm.Y -= 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
-                            //StormProgress += 1.0 / 15.0;
                             Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
                     }
@@ -561,6 +560,69 @@ namespace GUI_20212202_MQ7GIA.Logic
             return MoveStorm(currentCard.XMove, currentCard.YMove, players);
         }
 
+        public void StormMeterUp()
+        {
+            StormProgress += 1.0 / 15.0;
+        }
+        public int CalculateNumberOfStormCards()
+        {
+            if(NumberOfPlayers == 2)
+            {
+                if (StormProgress < (1.0 / 15.0)*2)
+                {
+                    StormProgressNumberOfCards = 2;
+                }
+                else if(StormProgress >= (1.0 / 15.0) * 2 && StormProgress < (1.0 / 15.0) * 5)
+                {
+                    StormProgressNumberOfCards = 3;
+                }
+                else if(StormProgress >= (1.0 / 15.0) * 5 && StormProgress < (1.0 / 15.0) * 9)
+                {
+                    StormProgressNumberOfCards = 4;
+                }
+                else if (StormProgress >= (1.0 / 15.0) * 9 && StormProgress < 0.79)   //double accuracy stops here :)
+                {
+                    StormProgressNumberOfCards = 5;
+                }
+                else if (StormProgress >= 0.79 && StormProgress < 0.87)
+                {
+                    StormProgressNumberOfCards = 6;
+                }
+                else
+                {
+                    StormProgressNumberOfCards = 144; //theoretically, this part should never be accessed
+                }
+            }
+            else if(NumberOfPlayers == 3)
+            {
+                if (StormProgress < 1.0 / 15.0)
+                {
+                    StormProgressNumberOfCards = 2;
+                }
+                else if (StormProgress >= 1.0 / 15.0 && StormProgress < (1.0 / 15.0) *5)
+                {
+                    StormProgressNumberOfCards = 3;
+                }
+                else if (StormProgress >= (1.0 / 15.0) * 5 && StormProgress < (1.0 / 15.0) * 9)
+                {
+                    StormProgressNumberOfCards = 4;
+                }
+                else if (StormProgress >= (1.0 / 15.0) * 9 && StormProgress < 0.79)  //double accuracy stops here :)
+                {
+                    StormProgressNumberOfCards = 5;
+                }
+                else if (StormProgress >= 0.79 && StormProgress < 0.87)
+                {
+                    StormProgressNumberOfCards = 6;
+                }
+                else
+                {
+                    StormProgressNumberOfCards = 144; //theoretically, this part should never be accessed
+                }
+
+            }
+            return StormProgressNumberOfCards;
+        }
         private Deck DeckGeneration()
         {
             Deck GameDeck = new Deck();            
@@ -1106,6 +1168,16 @@ namespace GUI_20212202_MQ7GIA.Logic
                 return "outOfActions";
             }
             else return "";
+        }
+
+        public bool LoseCondition(List<Player> players)
+        {
+            //lose if:
+            if(StormProgress > 0.87)   
+            {
+                return true;
+            }
+            return false;
         }
 
     }

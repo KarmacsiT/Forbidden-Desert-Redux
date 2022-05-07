@@ -371,28 +371,28 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                 
             }
         }
-        public bool MoveTheStorm()
+        public string MoveTheStorm()
         {
             StormCard card = logic.Deck.AvailableStormCards[NextStormCardIndex()];
             if (card.XMove == -404 && card.YMove == -404)  // Sun 
             {
                 //decrease water level
-                return false;
+                return "Sun Beats Down";
             }
             else if(card.XMove == -303 && card.YMove == -303)  // Stormmeter
             {
-                //move stormmeter
-                return true;
+                logic.StormMeterUp();
+                return "Storm Picks Up";
             }
             else
             {
                 if (logic.StormCardAction(card, players))
                 {
-                    return true;
+                    return "Storm Moves";
                 }
                 else
                 {
-                    return false;
+                    return "Storm Stays";
                 }
             }
         }
@@ -423,8 +423,8 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         }
         public int NumberOfStormCardsActivated()
         {
-            return logic.StormProgressNumberOfCards;
-        }
+            return logic.CalculateNumberOfStormCards();
+        }        
         public bool MoveThePlayer(int x, int y)
         {
             bool invalidate = false;
@@ -553,6 +553,10 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                 MessageBox.Show("Hint: You're not in the reach of the well.");
             }
             return false;
+        }
+        public bool LoseOrNot()
+        {
+            return logic.LoseCondition(players);
         }
     }
 }
