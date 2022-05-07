@@ -569,9 +569,9 @@ namespace GUI_20212202_MQ7GIA.Logic
             return changed;
         }
 
-        public bool StormCardAction(StormCard currentCard, List<Player> players)          //only 1 card is played in the Logic, this is the function, that is called muliple times if needed   
+        public bool StormCardAction(StormCard currentCard)          //only 1 card is played in the Logic, this is the function, that is called muliple times if needed   
         {
-            return MoveStorm(currentCard.XMove, currentCard.YMove, players);
+            return MoveStorm(currentCard.XMove, currentCard.YMove, Players);
         }
         public void StormMeterUp()
         {
@@ -715,545 +715,552 @@ namespace GUI_20212202_MQ7GIA.Logic
                 }
             }
             return deckToSuffle;
-            public bool GameWon(List<Player> players)
+        }
+        public bool GameWon(List<Player> players)
+        {
+            //Defining condition for the winning. If all players are on the launchpad tile which is discovered and you have all the shipparts then the game is won.
+            if (players.All(x => x.X == board.LaunchPadTile.X) && players.All(x => x.Y == board.LaunchPadTile.Y) && board.LaunchPadTile.IsDiscovered == true && shipParts.All(x => x.IsPickedUp == true) == true)
             {
-                //Defining condition for the winning. If all players are on the launchpad tile which is discovered and you have all the shipparts then the game is won.
-                if (players.All(x => x.X == board.LaunchPadTile.X) && players.All(x => x.Y == board.LaunchPadTile.Y) && board.LaunchPadTile.IsDiscovered == true && shipParts.All(x => x.IsPickedUp == true) == true)
-                {
-                    return true;
-                }
-                return false;
+                return true;
             }
-            public Player PlayerInit(string playerName, int turnOrder, List<Player> players)  //Roles are random now, needs testing tho
+            return false;
+        }
+        public Player PlayerInit(string playerName, int turnOrder, List<Player> players)  //Roles are random now, needs testing tho
+        {
+            Random rng = new Random();
+            int roleNumber = rng.Next(0, 6);
+
+            Player newPlayer = new Player()
             {
-                Random rng = new Random();
-                int roleNumber = rng.Next(0, 6);
+                X = board.CrashStartTile.X,
+                Y = board.CrashStartTile.Y, //The launchpad tile would be the finishing tile, so we need the CrashStartTile as starting position
+                NumberOfActions = 4,
+                ActionDescription = "ActionDescriptionLongString",    //needs to be finished
+                Cards = new List<ItemCard>(),
+                PlayerName = playerName,
+                TurnOrder = turnOrder,
+            };
 
-                Player newPlayer = new Player()
-                {
-                    X = board.CrashStartTile.X,
-                    Y = board.CrashStartTile.Y, //The launchpad tile would be the finishing tile, so we need the CrashStartTile as starting position
-                    NumberOfActions = 4,
-                    ActionDescription = "ActionDescriptionLongString",    //needs to be finished
-                    Cards = new List<ItemCard>(),
-                    PlayerName = playerName,
-                    TurnOrder = turnOrder,
-                };
-
-                while (players.Any(x => (int)x.PlayerRoleName == roleNumber))
-                {
-                    roleNumber = rng.Next(0, 6);
-                }
-
-                switch (roleNumber)     //Abilitylist not finished
-                {
-                    case 0:
-                        {
-                            newPlayer.PlayerRoleName = RoleName.Archeologist;
-                            newPlayer.WaterLevel = 3;
-                            newPlayer.MaxWaterLevel = 3;
-                            newPlayer.AbilityDescription = "You can remove 2 Sand markers from any single tile for 1 action";
-                            //newPlayer.AbilityList
-                        }
-                        break;
-                    case 1:
-                        {
-                            newPlayer.PlayerRoleName = RoleName.Climber;
-                            newPlayer.WaterLevel = 3;
-                            newPlayer.MaxWaterLevel = 3;
-                            newPlayer.AbilityDescription = "You can move to blocked tiles (tiles with 2 or more Sand markers on them). You may also take one other player with you whenever you move. Pawns on the your tile are never buried and can leave the tile containing you even if there are 2 or more Sand markers on it";
-                            //newPlayer.AbilityList
-                        }
-                        break;
-                    case 2:
-                        {
-                            newPlayer.PlayerRoleName = RoleName.Explorer;
-                            newPlayer.WaterLevel = 4;
-                            newPlayer.MaxWaterLevel = 4;
-                            newPlayer.AbilityDescription = "You can move, remove sand, and may use Dune Blasters diagonally";
-                            //newPlayer.AbilityList
-                        }
-                        break;
-                    case 3:
-                        {
-                            newPlayer.PlayerRoleName = RoleName.Meteorologist;
-                            newPlayer.WaterLevel = 4;
-                            newPlayer.MaxWaterLevel = 4;
-                            newPlayer.AbilityDescription = "You may spend actions to draw fewer Storm cards (1 card per action) at the end of your turn. You may also choose to spend 1 action to look at the top Storm cards, equal to the Storm level, and may place one at the bottom of the deck.";
-                            //newPlayer.AbilityList
-                        }
-                        break;
-                    case 4:
-                        {
-                            newPlayer.PlayerRoleName = RoleName.Navigator;
-                            newPlayer.WaterLevel = 4;
-                            newPlayer.MaxWaterLevel = 4;
-                            newPlayer.AbilityDescription = "You may move another player up to 3 unblocked tiles per action, including tunnels. You can move the Explorer diagonally and can move the Climber through blocked tiles. When moved in this way, the Climber can also use his power to take along 1 other player-including you!";
-                            //newPlayer.AbilityList
-                        }
-                        break;
-                    case 5:
-                        {
-                            newPlayer.PlayerRoleName = RoleName.WaterCarrier;
-                            newPlayer.WaterLevel = 5;
-                            newPlayer.MaxWaterLevel = 5;
-                            newPlayer.AbilityDescription = "You can take 2 water from already excavated wells for 1 action. You may also give water to players on adjacent tiles for free at any time.";
-                            //newPlayer.AbilityList
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
-                return newPlayer;
+            while (players.Any(x => (int)x.PlayerRoleName == roleNumber))
+            {
+                roleNumber = rng.Next(0, 6);
             }
-            public string MovePlayer(int newX, int newY, List<Player> players) // returns true if the player moves ---> so render only rerenders in this case
+
+            switch (roleNumber)     //Abilitylist not finished
             {
-                if (board.storm.X == newX && board.storm.Y == newY)
-                {
-                    return "invalidMove";
-                }
-                if (DoubleSandChecker(newX, newY) && players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName != RoleName.Climber)
-                {
-                    return "blocked";
-                }
-                else
-                {
-                    if (newX > -1 && newY > -1 && newX < 5 && newY < 5)
+                case 0:
                     {
-                        if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0) // >0, because if the # of moves is < 0, you can move
-                        {
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = newX;
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = newY;
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                            Sound.PlaySound("game_monopoly_game_metal_playing_piece_drop_onto_playing_board.mp3");
-                            return "validMove";
-                        }
-                        else return "outOfActions";
+                        newPlayer.PlayerRoleName = RoleName.Archeologist;
+                        newPlayer.WaterLevel = 3;
+                        newPlayer.MaxWaterLevel = 3;
+                        newPlayer.AbilityDescription = "You can remove 2 Sand markers from any single tile for 1 action";
+                        //newPlayer.AbilityList
                     }
-                    else return "invalidMove";
-                }
-            }
-            public void Endturn(List<Player> players)
-            {
-                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions = 4;
-                players.Where(p => p.TurnOrder == 1).FirstOrDefault().TurnOrder = 6;   // We are using maxsearch-like pattern we are copying 1 to 6 then later on 6 to 3, because the other players will have 2 or 1.
-                players.Where(p => p.TurnOrder == 2).FirstOrDefault().TurnOrder -= 1;
-                if (players.Count == 3)
-                {
-                    players.Where(p => p.TurnOrder == 3).FirstOrDefault().TurnOrder -= 1;
-                }
-                players.Where(p => p.TurnOrder == 6).FirstOrDefault().TurnOrder = players.Count;      // either 2 or 3
-
-                CurrentPlayer++;
-
-                if (players.Count is 3 && CurrentPlayer is 4)
-                {
-                    CurrentPlayer = 1;
-                }
-                if (players.Count is 2 && CurrentPlayer is 3)
-                {
-                    CurrentPlayer = 1;
-                }
-                OnCardsMovingOnBoard(EventArgs.Empty);
-            }
-            public string RemoveSand(List<Player> players) // We need bool because of invalidatevisual
-            {
-                int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
-                int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
-                bool sand = SandTileChecker(x, y);
-                if (sand && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0) //if we are on a sand tile and we can do an action
-                {
-                    board.SandTiles[x, y] -= 1; //we excavate the sand
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                    Sound.PlaySound("441824__jjdg__shovel-digging-sound.mp3");
-                    return "validMove";
-                }
-                else if (!sand)
-                {
-                    return "notSand";
-                }
-                else return "outOfActions";
-            }
-            public string Excavate(List<Player> players)
-            {
-                int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
-                int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
-                bool sand = SandTileChecker(x, y);
-                string typeOfCard = TileNames[x, y];
-                int pos = -1;
-                bool cardDiscovered = IsCardDiscovered(typeOfCard, x, y);
-                if (sand == false && cardDiscovered == false && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
-                {
-                    switch (typeOfCard)
+                    break;
+                case 1:
                     {
-                        case "AirShipClueTile":
-                            pos = CardFinder(board.AirShipClueTiles, x, y);
-                            board.AirShipClueTiles[pos].IsDiscovered = true;
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                            Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
-                            return "validMove";
-                        case "LaunchPadTile":
-                            board.LaunchPadTile.IsDiscovered = true;
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                            Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
-                            return "validMove";
-                        case "CrashStartTile":
-                            board.CrashStartTile.IsDiscovered = true;
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                            Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
-                            return "validMove";
-                        case "TunnelTile":
-                            pos = CardFinder(board.TunnelTiles, x, y);
-                            board.TunnelTiles[pos].IsDiscovered = true;
-                            AddGadgetCardOnExcavate();
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                            Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
-                            return "validMove";
-                        case "Mirage":
-                            pos = CardFinder(board.OasisMirageTiles, x, y);
-                            board.OasisMirageTiles[pos].IsDiscovered = true;
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                            Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
-                            return "validMove";
-                        case "Oasis":
-                            pos = CardFinder(board.OasisMirageTiles, x, y);
-                            board.OasisMirageTiles[pos].IsDiscovered = true;
-                            players.Where(p => p.X == board.OasisMirageTiles[pos].X && p.Y == board.OasisMirageTiles[pos].Y).ToList().ForEach(x => x.WaterLevel = x.WaterLevel + 2);
-                            //checking if the players have over the maximum water level
-                            players.Where(p => p.WaterLevel > p.MaxWaterLevel).ToList().ForEach(x => x.WaterLevel = x.MaxWaterLevel);
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                            Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
-                            return "validMove";
-                        case "EmptyShelter":
-                            pos = CardFinder(board.ShelterTiles, x, y);
-                            board.ShelterTiles[pos].IsDiscovered = true;
-                            AddGadgetCardOnExcavate();
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                            Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
-                            return "validMove";
-                        case "FriendlyWater":
-                            pos = CardFinder(board.ShelterTiles, x, y);
-                            board.ShelterTiles[pos].IsDiscovered = true;
-                            AddGadgetCardOnExcavate();
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                            Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
-                            return "validMove";
-                        case "FriendlyQuest":
-                            pos = CardFinder(board.ShelterTiles, x, y);
-                            board.ShelterTiles[pos].IsDiscovered = true;
-                            AddGadgetCardOnExcavate();
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                            Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
-                            return "validMove";
-                        case "Hostile":
-                            pos = CardFinder(board.ShelterTiles, x, y);
-                            board.ShelterTiles[pos].IsDiscovered = true;
-                            AddGadgetCardOnExcavate();
-                            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                            Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
-                            return "validMove";
-                        default:
-                            break;
+                        newPlayer.PlayerRoleName = RoleName.Climber;
+                        newPlayer.WaterLevel = 3;
+                        newPlayer.MaxWaterLevel = 3;
+                        newPlayer.AbilityDescription = "You can move to blocked tiles (tiles with 2 or more Sand markers on them). You may also take one other player with you whenever you move. Pawns on the your tile are never buried and can leave the tile containing you even if there are 2 or more Sand markers on it";
+                        //newPlayer.AbilityList
                     }
-                }
-                else if (cardDiscovered == true)
-                {
-                    return "alreadyDiscovered";
-                }
-                else if (sand == true)
-                {
-                    return "sandTile";
-                }
-                return "outOfActions";
-            }
-            public void AddGadgetCardOnExcavate()
-            {
-                //Placeholder card with a true InPlayerHand property in order the while loop can generate an actual card
-                ItemCard currentItemCard = new ItemCard("Placeholder", false, true, "Long live the while loop");
-
-                while (currentItemCard.InPlayerHand)
-                {
-                    currentItemCard = Deck.AvailableItemCards.ElementAt(random.Next(0, Deck.AvailableItemCards.Count));
-                }
-
-                currentItemCard.InPlayerHand = true;
-
-                if (CurrentPlayerCard1Display == null)
-                {
-                    Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
-                    CurrentPlayerCard1Display = currentItemCard.Display;
-                }
-                else if (CurrentPlayerCard2Display == null)
-                {
-                    Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
-                    CurrentPlayerCard2Display = currentItemCard.Display;
-                }
-                else if (CurrentPlayerCard3Display == null)
-                {
-                    Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
-                    CurrentPlayerCard3Display = currentItemCard.Display;
-                }
-                else if (CurrentPLayerCard4Display == null)
-                {
-                    Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
-                    CurrentPLayerCard4Display = currentItemCard.Display;
-                }
-                else if (CurrentPlayerCard5Display == null)
-                {
-                    Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
-                    CurrentPlayerCard5Display = currentItemCard.Display;
-                }
-                //implement something when all player card slots is filled
+                    break;
+                case 2:
+                    {
+                        newPlayer.PlayerRoleName = RoleName.Explorer;
+                        newPlayer.WaterLevel = 4;
+                        newPlayer.MaxWaterLevel = 4;
+                        newPlayer.AbilityDescription = "You can move, remove sand, and may use Dune Blasters diagonally";
+                        //newPlayer.AbilityList
+                    }
+                    break;
+                case 3:
+                    {
+                        newPlayer.PlayerRoleName = RoleName.Meteorologist;
+                        newPlayer.WaterLevel = 4;
+                        newPlayer.MaxWaterLevel = 4;
+                        newPlayer.AbilityDescription = "You may spend actions to draw fewer Storm cards (1 card per action) at the end of your turn. You may also choose to spend 1 action to look at the top Storm cards, equal to the Storm level, and may place one at the bottom of the deck.";
+                        //newPlayer.AbilityList
+                    }
+                    break;
+                case 4:
+                    {
+                        newPlayer.PlayerRoleName = RoleName.Navigator;
+                        newPlayer.WaterLevel = 4;
+                        newPlayer.MaxWaterLevel = 4;
+                        newPlayer.AbilityDescription = "You may move another player up to 3 unblocked tiles per action, including tunnels. You can move the Explorer diagonally and can move the Climber through blocked tiles. When moved in this way, the Climber can also use his power to take along 1 other player-including you!";
+                        //newPlayer.AbilityList
+                    }
+                    break;
+                case 5:
+                    {
+                        newPlayer.PlayerRoleName = RoleName.WaterCarrier;
+                        newPlayer.WaterLevel = 5;
+                        newPlayer.MaxWaterLevel = 5;
+                        newPlayer.AbilityDescription = "You can take 2 water from already excavated wells for 1 action. You may also give water to players on adjacent tiles for free at any time.";
+                        //newPlayer.AbilityList
+                    }
+                    break;
+                default:
+                    break;
             }
 
-            private bool IsCardDiscovered(string typeOfCard, int x, int y)
+            return newPlayer;
+        }
+        public string MovePlayer(int newX, int newY, List<Player> players) // returns true if the player moves ---> so render only rerenders in this case
+        {
+            if (board.storm.X == newX && board.storm.Y == newY)
             {
-                int pos = -1;
-                bool isDiscovered = false;
+                return "invalidMove";
+            }
+            if (DoubleSandChecker(newX, newY) && players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName != RoleName.Climber)
+            {
+                return "blocked";
+            }
+            else
+            {
+                if (newX > -1 && newY > -1 && newX < 5 && newY < 5)
+                {
+                    if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0) // >0, because if the # of moves is < 0, you can move
+                    {
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = newX;
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = newY;
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("game_monopoly_game_metal_playing_piece_drop_onto_playing_board.mp3");
+                        return "validMove";
+                    }
+                    else return "outOfActions";
+                }
+                else return "invalidMove";
+            }
+        }
+        public void Endturn(List<Player> players)
+        {
+            players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions = 4;
+            players.Where(p => p.TurnOrder == 1).FirstOrDefault().TurnOrder = 6;   // We are using maxsearch-like pattern we are copying 1 to 6 then later on 6 to 3, because the other players will have 2 or 1.
+            players.Where(p => p.TurnOrder == 2).FirstOrDefault().TurnOrder -= 1;
+            if (players.Count == 3)
+            {
+                players.Where(p => p.TurnOrder == 3).FirstOrDefault().TurnOrder -= 1;
+            }
+            players.Where(p => p.TurnOrder == 6).FirstOrDefault().TurnOrder = players.Count;      // either 2 or 3
+
+            CurrentPlayer++;
+
+            if (players.Count is 3 && CurrentPlayer is 4)
+            {
+                CurrentPlayer = 1;
+            }
+            if (players.Count is 2 && CurrentPlayer is 3)
+            {
+                CurrentPlayer = 1;
+            }
+            OnCardsMovingOnBoard(EventArgs.Empty);
+        }
+        public string RemoveSand(List<Player> players) // We need bool because of invalidatevisual
+        {
+            int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
+            int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
+            bool sand = SandTileChecker(x, y);
+            if (sand && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0) //if we are on a sand tile and we can do an action
+            {
+                board.SandTiles[x, y] -= 1; //we excavate the sand
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                Sound.PlaySound("441824__jjdg__shovel-digging-sound.mp3");
+                return "validMove";
+            }
+            else if (!sand)
+            {
+                return "notSand";
+            }
+            else return "outOfActions";
+        }
+        public string Excavate(List<Player> players)
+        {
+            int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
+            int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
+            bool sand = SandTileChecker(x, y);
+            string typeOfCard = TileNames[x, y];
+            int pos = -1;
+            bool cardDiscovered = IsCardDiscovered(typeOfCard, x, y);
+            if (sand == false && cardDiscovered == false && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
+            {
                 switch (typeOfCard)
                 {
                     case "AirShipClueTile":
                         pos = CardFinder(board.AirShipClueTiles, x, y);
-                        if (board.AirShipClueTiles[pos].IsDiscovered == true)
-                        {
-                            isDiscovered = true;
-                        }
-                        break;
+                        board.AirShipClueTiles[pos].IsDiscovered = true;
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
+                        return "validMove";
                     case "LaunchPadTile":
-                        if (board.LaunchPadTile.IsDiscovered == true)
-                        {
-                            isDiscovered = true;
-                        }
-                        break;
+                        board.LaunchPadTile.IsDiscovered = true;
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
+                        return "validMove";
                     case "CrashStartTile":
-                        if (board.CrashStartTile.IsDiscovered == true)
-                        {
-                            isDiscovered = true;
-                        }
-                        break;
+                        board.CrashStartTile.IsDiscovered = true;
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
+                        return "validMove";
                     case "TunnelTile":
                         pos = CardFinder(board.TunnelTiles, x, y);
-                        if (board.TunnelTiles[pos].IsDiscovered == true)
-                        {
-                            isDiscovered = true;
-                        }
-                        break;
+                        board.TunnelTiles[pos].IsDiscovered = true;
+                        AddGadgetCardOnExcavate();
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
+                        return "validMove";
                     case "Mirage":
                         pos = CardFinder(board.OasisMirageTiles, x, y);
-                        if (board.OasisMirageTiles[pos].IsDiscovered == true)
-                        {
-                            isDiscovered = true;
-                        }
-                        break;
+                        board.OasisMirageTiles[pos].IsDiscovered = true;
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
+                        return "validMove";
                     case "Oasis":
                         pos = CardFinder(board.OasisMirageTiles, x, y);
-                        if (board.OasisMirageTiles[pos].IsDiscovered == true)
-                        {
-                            isDiscovered = true;
-                        }
-                        break;
+                        board.OasisMirageTiles[pos].IsDiscovered = true;
+                        players.Where(p => p.X == board.OasisMirageTiles[pos].X && p.Y == board.OasisMirageTiles[pos].Y).ToList().ForEach(x => x.WaterLevel = x.WaterLevel + 2);
+                        //checking if the players have over the maximum water level
+                        players.Where(p => p.WaterLevel > p.MaxWaterLevel).ToList().ForEach(x => x.WaterLevel = x.MaxWaterLevel);
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
+                        return "validMove";
                     case "EmptyShelter":
                         pos = CardFinder(board.ShelterTiles, x, y);
-                        if (board.ShelterTiles[pos].IsDiscovered == true)
-                        {
-                            isDiscovered = true;
-                        }
-                        break;
+                        board.ShelterTiles[pos].IsDiscovered = true;
+                        AddGadgetCardOnExcavate();
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
+                        return "validMove";
                     case "FriendlyWater":
                         pos = CardFinder(board.ShelterTiles, x, y);
-                        if (board.ShelterTiles[pos].IsDiscovered == true)
-                        {
-                            isDiscovered = true;
-                        }
-                        break;
+                        board.ShelterTiles[pos].IsDiscovered = true;
+                        AddGadgetCardOnExcavate();
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
+                        return "validMove";
                     case "FriendlyQuest":
                         pos = CardFinder(board.ShelterTiles, x, y);
-                        if (board.ShelterTiles[pos].IsDiscovered == true)
-                        {
-                            isDiscovered = true;
-                        }
-                        break;
+                        board.ShelterTiles[pos].IsDiscovered = true;
+                        AddGadgetCardOnExcavate();
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
+                        return "validMove";
                     case "Hostile":
                         pos = CardFinder(board.ShelterTiles, x, y);
-                        if (board.ShelterTiles[pos].IsDiscovered == true)
-                        {
-                            isDiscovered = true;
-                        }
-                        break;
+                        board.ShelterTiles[pos].IsDiscovered = true;
+                        AddGadgetCardOnExcavate();
+                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                        Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
+                        return "validMove";
                     default:
                         break;
                 }
-                return isDiscovered;
             }
-            public int CardFinder(ITile[] cards, int x, int y) //here Linq doesn't work because we have to return the index of where we found the card in the given card's list
+            else if (cardDiscovered == true)
             {
-                for (int i = 0; i < cards.Length; i++)
-                {
-                    if (cards[i].X == x && cards[i].Y == y)
+                return "alreadyDiscovered";
+            }
+            else if (sand == true)
+            {
+                return "sandTile";
+            }
+            return "outOfActions";
+        }
+        public void AddGadgetCardOnExcavate()
+        {
+            //Placeholder card with a true InPlayerHand property in order the while loop can generate an actual card
+            ItemCard currentItemCard = new ItemCard("Placeholder", false, true, "Long live the while loop");
+
+            while (currentItemCard.InPlayerHand)
+            {
+                currentItemCard = Deck.AvailableItemCards.ElementAt(random.Next(0, Deck.AvailableItemCards.Count));
+            }
+
+            currentItemCard.InPlayerHand = true;
+
+            if (CurrentPlayerCard1Display == null)
+            {
+                Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
+                CurrentPlayerCard1Display = currentItemCard.Display;
+            }
+            else if (CurrentPlayerCard2Display == null)
+            {
+                Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
+                CurrentPlayerCard2Display = currentItemCard.Display;
+            }
+            else if (CurrentPlayerCard3Display == null)
+            {
+                Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
+                CurrentPlayerCard3Display = currentItemCard.Display;
+            }
+            else if (CurrentPLayerCard4Display == null)
+            {
+                Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
+                CurrentPLayerCard4Display = currentItemCard.Display;
+            }
+            else if (CurrentPlayerCard5Display == null)
+            {
+                Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
+                CurrentPlayerCard5Display = currentItemCard.Display;
+            }
+            //implement something when all player card slots is filled
+        }
+
+        private bool IsCardDiscovered(string typeOfCard, int x, int y)
+        {
+            int pos = -1;
+            bool isDiscovered = false;
+            switch (typeOfCard)
+            {
+                case "AirShipClueTile":
+                    pos = CardFinder(board.AirShipClueTiles, x, y);
+                    if (board.AirShipClueTiles[pos].IsDiscovered == true)
                     {
-                        return i;
+                        isDiscovered = true;
                     }
-                }
-                return 0; // -1 or lower values would break the program, also the next thing is that this should always return a value in the for loop since if we caught a certain card, it certainly exists
-            }
-            public string ItemPickUp(List<Player> players)
-            {
-                int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
-                int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
-                bool sand = SandTileChecker(x, y);
-                string typeOfItem = PartTiles[x, y];
-                bool isPickedUp = false;
-                if (typeOfItem == "Crystal" || typeOfItem == "Compass" || typeOfItem == "Engine" || typeOfItem == "Propeller")
-                {
-                    isPickedUp = PartPickedChecker(x, y);
-                    if (sand == false && isPickedUp == false && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
+                    break;
+                case "LaunchPadTile":
+                    if (board.LaunchPadTile.IsDiscovered == true)
                     {
-                        shipParts.Where(x => x.Name == typeOfItem).FirstOrDefault().IsPickedUp = true;
-                        players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                        Sound.PlaySound("422709__niamhd00145229__inspect-item.wav");
-                        return "validMove";
+                        isDiscovered = true;
                     }
-                    else if (isPickedUp == true)
+                    break;
+                case "CrashStartTile":
+                    if (board.CrashStartTile.IsDiscovered == true)
                     {
-                        return "alreadyPickedUp";
+                        isDiscovered = true;
                     }
-                    return "outOfActions";
-                }
-                else
+                    break;
+                case "TunnelTile":
+                    pos = CardFinder(board.TunnelTiles, x, y);
+                    if (board.TunnelTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "Mirage":
+                    pos = CardFinder(board.OasisMirageTiles, x, y);
+                    if (board.OasisMirageTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "Oasis":
+                    pos = CardFinder(board.OasisMirageTiles, x, y);
+                    if (board.OasisMirageTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "EmptyShelter":
+                    pos = CardFinder(board.ShelterTiles, x, y);
+                    if (board.ShelterTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "FriendlyWater":
+                    pos = CardFinder(board.ShelterTiles, x, y);
+                    if (board.ShelterTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "FriendlyQuest":
+                    pos = CardFinder(board.ShelterTiles, x, y);
+                    if (board.ShelterTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                case "Hostile":
+                    pos = CardFinder(board.ShelterTiles, x, y);
+                    if (board.ShelterTiles[pos].IsDiscovered == true)
+                    {
+                        isDiscovered = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return isDiscovered;
+        }
+        public int CardFinder(ITile[] cards, int x, int y) //here Linq doesn't work because we have to return the index of where we found the card in the given card's list
+        {
+            for (int i = 0; i < cards.Length; i++)
+            {
+                if (cards[i].X == x && cards[i].Y == y)
                 {
-                    return "notAnItem";
+                    return i;
                 }
             }
-            public void WaterSharing(List<Player> players, Player selectedPlayer)
+            return 0; // -1 or lower values would break the program, also the next thing is that this should always return a value in the for loop since if we caught a certain card, it certainly exists
+        }
+        public string ItemPickUp(List<Player> players)
+        {
+            int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
+            int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
+            bool sand = SandTileChecker(x, y);
+            string typeOfItem = PartTiles[x, y];
+            bool isPickedUp = false;
+            if (typeOfItem == "Crystal" || typeOfItem == "Compass" || typeOfItem == "Engine" || typeOfItem == "Propeller")
             {
-                int playerX = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
-                int playerY = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
-                int waterLevel = players.Where(p => p == selectedPlayer).SingleOrDefault().WaterLevel;
-                int playerWaterLevel = players.Where(p => p.TurnOrder == 1).SingleOrDefault().WaterLevel;
-                int maxWaterLevel = players.Where(p => p == selectedPlayer).SingleOrDefault().MaxWaterLevel;
-                bool isWaterCarrier = players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName == RoleName.WaterCarrier;
-                bool isLeft = selectedPlayer.X == playerX - 1 && selectedPlayer.Y == playerY;
-                bool isRight = selectedPlayer.X == playerX + 1 && selectedPlayer.Y == playerY;
-                bool isUp = selectedPlayer.Y == playerY + 1 && selectedPlayer.X == playerX;
-                bool isDown = selectedPlayer.Y == playerY - 1 && selectedPlayer.X == playerX;
-
-                if (selectedPlayer == players.Where(p => p.TurnOrder == 1).FirstOrDefault())
+                isPickedUp = PartPickedChecker(x, y);
+                if (sand == false && isPickedUp == false && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
                 {
-                    throw new Exception("You can't give water to yourself. Try another player.");
-                }
-                else if (isWaterCarrier && playerWaterLevel > 0
-                     && (isLeft || isRight || isUp || isDown) && waterLevel < maxWaterLevel)
-                {
-                    players.Where(p => p == selectedPlayer).SingleOrDefault().WaterLevel += 1;
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel -= 1;
+                    shipParts.Where(x => x.Name == typeOfItem).FirstOrDefault().IsPickedUp = true;
                     players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                    return;
-                }
-                else if (isWaterCarrier == false && (isLeft || isRight || isUp || isDown))
-                {
-                    throw new Exception("You can't give water to the selected player. You're not a water carrier. Go to their tile first.");
-                }
-
-                else if (selectedPlayer.WaterLevel == selectedPlayer.MaxWaterLevel)
-                {
-                    throw new Exception("You can't give water to the selected player. Their water level is max.");
-                }
-                else if (isWaterCarrier == true && selectedPlayer.X - playerX > 1 || selectedPlayer.X - playerX < -1 || selectedPlayer.Y - playerY > 1 || selectedPlayer.Y - playerY < -1)
-                {
-                    throw new Exception("You can't give water to the selected player as a Water Carrier. You're out of reach.");
-                }
-
-                else if (playerWaterLevel == 0)
-                {
-                    throw new Exception("You can't give water to the selected player. You're almost dead because of thirstiness.");
-                }
-
-                else if (selectedPlayer == players.Where(p => p.TurnOrder == 1).FirstOrDefault())
-                {
-                    throw new Exception("You can't give water to yourself. Try another player.");
-                }
-
-                else if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
-                {
-                    players.Where(p => p == selectedPlayer).SingleOrDefault().WaterLevel += 1;
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel -= 1;
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                    return;
-                }
-                throw new Exception("You are out of actions.");
-            }
-            public string WaterCarrierRefill(List<Player> players)
-            {
-                int X = players.Where(p => p.TurnOrder == 1).SingleOrDefault().X;
-                int Y = players.Where(p => p.TurnOrder == 1).SingleOrDefault().Y;
-                int waterLevel = players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel;
-                int maxWaterLevel = players.Where(p => p.TurnOrder == 1).FirstOrDefault().MaxWaterLevel;
-                bool sand = SandTileChecker(X, Y);
-                bool isDiscovered = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y && x.IsDiscovered == true);
-                bool sameCoordinate = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y);
-                RoleName roleName = players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName;
-                if (isDiscovered && sameCoordinate && roleName == RoleName.WaterCarrier &&
-                    waterLevel < maxWaterLevel &&
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
-                {
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel += 2;
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                    //Of course we decrease the water level to max
-                    players.Where(p => p.WaterLevel > p.MaxWaterLevel).ToList().ForEach(x => x.WaterLevel = x.MaxWaterLevel);
+                    Sound.PlaySound("422709__niamhd00145229__inspect-item.wav");
                     return "validMove";
                 }
-                else if (roleName != RoleName.WaterCarrier)
+                else if (isPickedUp == true)
                 {
-                    return "notWaterCarrier";
+                    return "alreadyPickedUp";
                 }
-                else if (sameCoordinate != true)
-                {
-                    return "notInReach";
-                }
-                else if (sand == true)
-                {
-                    return "sandTile";
-                }
-                else if (isDiscovered != true)
-                {
-                    return "notDiscovered";
-                }
-                else if (waterLevel == maxWaterLevel)
-                {
-                    return "maxWater";
-                }
-                else if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions <= 0)
-                {
-                    return "outOfActions";
-                }
-                else return "";
+                return "outOfActions";
             }
-            private bool SandTilesOnBoardMaximum()   //returns true if no more sand can be placed on the board --> 48
+            else
             {
-                int count = 0;
-                for (int i = 0; i < board.SandTiles.GetLength(0); i++)
-                {
-                    for (int j = 0; j < board.SandTiles.GetLength(1); j++)
-                    {
-                        count += board.SandTiles[i, j];
-                    }
-                }
-                if (count >= 48)
-                {
-                    return true;
-                }
-                return false;
+                return "notAnItem";
             }
-            public bool LoseCondition(List<Player> players)
+        }
+        public void WaterSharing(List<Player> players, Player selectedPlayer)
+        {
+            int playerX = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
+            int playerY = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
+            int waterLevel = players.Where(p => p == selectedPlayer).SingleOrDefault().WaterLevel;
+            int playerWaterLevel = players.Where(p => p.TurnOrder == 1).SingleOrDefault().WaterLevel;
+            int maxWaterLevel = players.Where(p => p == selectedPlayer).SingleOrDefault().MaxWaterLevel;
+            bool isWaterCarrier = players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName == RoleName.WaterCarrier;
+            bool isLeft = selectedPlayer.X == playerX - 1 && selectedPlayer.Y == playerY;
+            bool isRight = selectedPlayer.X == playerX + 1 && selectedPlayer.Y == playerY;
+            bool isUp = selectedPlayer.Y == playerY + 1 && selectedPlayer.X == playerX;
+            bool isDown = selectedPlayer.Y == playerY - 1 && selectedPlayer.X == playerX;
+
+            if (selectedPlayer == players.Where(p => p.TurnOrder == 1).FirstOrDefault())
             {
-                //lose if:
-                if (StormProgress > 0.87 || SandTilesOnBoardMaximum())
-                {
-                    return true;
-                }
-                return false;
+                throw new Exception("You can't give water to yourself. Try another player.");
+            }
+            else if (isWaterCarrier && playerWaterLevel > 0
+                 && (isLeft || isRight || isUp || isDown) && waterLevel < maxWaterLevel)
+            {
+                players.Where(p => p == selectedPlayer).SingleOrDefault().WaterLevel += 1;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel -= 1;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                return;
+            }
+            else if (isWaterCarrier == false && (isLeft || isRight || isUp || isDown))
+            {
+                throw new Exception("You can't give water to the selected player. You're not a water carrier. Go to their tile first.");
             }
 
+            else if (selectedPlayer.WaterLevel == selectedPlayer.MaxWaterLevel)
+            {
+                throw new Exception("You can't give water to the selected player. Their water level is max.");
+            }
+            else if (isWaterCarrier == true && selectedPlayer.X - playerX > 1 || selectedPlayer.X - playerX < -1 || selectedPlayer.Y - playerY > 1 || selectedPlayer.Y - playerY < -1)
+            {
+                throw new Exception("You can't give water to the selected player as a Water Carrier. You're out of reach.");
+            }
+
+            else if (playerWaterLevel == 0)
+            {
+                throw new Exception("You can't give water to the selected player. You're almost dead because of thirstiness.");
+            }
+
+            else if (selectedPlayer == players.Where(p => p.TurnOrder == 1).FirstOrDefault())
+            {
+                throw new Exception("You can't give water to yourself. Try another player.");
+            }
+
+            else if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
+            {
+                players.Where(p => p == selectedPlayer).SingleOrDefault().WaterLevel += 1;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel -= 1;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                return;
+            }
+            throw new Exception("You are out of actions.");
+        }
+        public string WaterCarrierRefill(List<Player> players)
+        {
+            int X = players.Where(p => p.TurnOrder == 1).SingleOrDefault().X;
+            int Y = players.Where(p => p.TurnOrder == 1).SingleOrDefault().Y;
+            int waterLevel = players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel;
+            int maxWaterLevel = players.Where(p => p.TurnOrder == 1).FirstOrDefault().MaxWaterLevel;
+            bool sand = SandTileChecker(X, Y);
+            bool isDiscovered = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y && x.IsDiscovered == true);
+            bool sameCoordinate = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y);
+            RoleName roleName = players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName;
+            if (isDiscovered && sameCoordinate && roleName == RoleName.WaterCarrier && waterLevel < maxWaterLevel && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
+            {
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel += 2;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                //Of course we decrease the water level to max
+                players.Where(p => p.WaterLevel > p.MaxWaterLevel).ToList().ForEach(x => x.WaterLevel = x.MaxWaterLevel);
+                return "validMove";
+            }
+            else if (roleName != RoleName.WaterCarrier)
+            {
+                return "notWaterCarrier";
+            }
+            else if (sameCoordinate != true)
+            {
+                return "notInReach";
+            }
+            else if (sand == true)
+            {
+                return "sandTile";
+            }
+            else if (isDiscovered != true)
+            {
+                return "notDiscovered";
+            }
+            else if (waterLevel == maxWaterLevel)
+            {
+                return "maxWater";
+            }
+            else if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions <= 0)
+            {
+                return "outOfActions";
+            }
+            else return "";
+        }
+        private bool SandTilesOnBoardMaximum()   //returns true if no more sand can be placed on the board --> 48
+        {
+            int count = 0;
+            for (int i = 0; i < board.SandTiles.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.SandTiles.GetLength(1); j++)
+                {
+                    count += board.SandTiles[i, j];
+                }
+            }
+            if (count >= 48)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool LoseCondition()
+        {
+            //lose if:
+            if (StormProgress > 0.87 || SandTilesOnBoardMaximum())
+            {
+                return true;
+            }
+            return false;
+        }
+        public void ReEnableDiscardedPropertyStorm()
+
+        {
+            foreach (StormCard card in Deck.AvailableStormCards)
+            {
+                card.IsDiscarded = false;
+            }
+            Deck = Shuffle(Deck, true, false);
         }
     }
+}

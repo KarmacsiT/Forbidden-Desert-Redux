@@ -328,7 +328,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                         drawingContext.DrawVideo(player, new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
                     }
 
-                    if (logic.SandTileChecker(x, y) && SandCheckIfStorm(x,y))
+                    if (logic.SandTileChecker(x, y) && SandCheckIfStorm(x, y))
                     {
                         drawingContext.DrawRectangle(SandBrush, new Pen(Brushes.Black, 1), new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));
                     }
@@ -381,14 +381,14 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                 //decrease water level
                 return "Sun Beats Down";
             }
-            else if(card.XMove == -303 && card.YMove == -303)  // Stormmeter
+            else if (card.XMove == -303 && card.YMove == -303)  // Stormmeter
             {
                 logic.StormMeterUp();
                 return "Storm Picks Up";
             }
             else
             {
-                if (logic.StormCardAction(card, players))
+                if (logic.StormCardAction(card))
                 {
                     return "Storm Moves";
                 }
@@ -404,7 +404,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             {
                 logic.ReEnableDiscardedPropertyStorm();
             }
-        }       
+        }
         public void MoveStormCardToDiscarded()
         {
             int index = NextStormCardIndex();
@@ -416,7 +416,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             foreach (StormCard card in logic.Deck.AvailableStormCards)
             {
                 index++;
-                if(card.IsDiscarded == false)
+                if (card.IsDiscarded == false)
                 {
                     return index;
                 }
@@ -426,7 +426,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         public int NumberOfStormCardsActivated()
         {
             return logic.CalculateNumberOfStormCards();
-        }        
+        }
         public bool MoveThePlayer(int x, int y)
         {
             bool invalidate = false;
@@ -562,11 +562,11 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         }
         public bool LoseOrNot()
         {
-            return logic.LoseCondition(players);
+            return logic.LoseCondition();
         }
         private bool SandCheckIfStorm(int x, int y)       //returns true if the sandpile can be placed on the tile
         {
-            if(x == logic.board.storm.X && y == logic.board.storm.Y)
+            if (x == logic.board.storm.X && y == logic.board.storm.Y)
             {
                 return false;
             }

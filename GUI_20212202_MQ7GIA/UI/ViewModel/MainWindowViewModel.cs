@@ -31,7 +31,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         public MainWindowViewModel()
         {
             Sound = new Sound();
-            //Sound.PlayMusic("Scarface - Bolivia Theme.mp3"); //commented for my sanity during debugging
+            Sound.PlayMusic("Scarface - Bolivia Theme.mp3");
             StartGame = new RelayCommand(StartGameSequence);
             OpenOptions = new RelayCommand(() => OptionsWindow(Sound));
         }
