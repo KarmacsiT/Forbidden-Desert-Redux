@@ -15,11 +15,12 @@ namespace GUI_20212202_MQ7GIA.Models
     }
     public class ItemCard
     {
-        public ItemCard(string name, bool isDiscarded, bool inPlayerHand)
+        public ItemCard(string name, bool isDiscarded, bool inPlayerHand, string display)
         {
             Name = name;
             IsDiscarded = isDiscarded;
             InPlayerHand = inPlayerHand;
+            Display = display;
         }
 
         public string Name { get; set; }
@@ -27,6 +28,7 @@ namespace GUI_20212202_MQ7GIA.Models
         public bool InPlayerHand { get; set; }
         //public string Description { get; set; } dont think it is necessary given that the UI will show its description 
         //public Action Ability { get; set; }
+        public string Display { get; set; }
     }
 
     public class StormCard

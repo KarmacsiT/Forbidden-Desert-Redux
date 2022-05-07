@@ -1,18 +1,24 @@
 ﻿using GUI_20212202_MQ7GIA.Models;
+using GUI_20212202_MQ7GIA.UI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace GUI_20212202_MQ7GIA.Logic
 {
     public class GameLogic
     {
+        public BoardWindowViewModel BoardWindowViewModel { get; set; } = new BoardWindowViewModel();
         public Board board { get; set; }
-        public Deck Deck { get; set; }
+        public Deck Deck { get { return DeckGeneration(); } set { Deck = value; } } //Setting might be incorrect check back later
+
         public GameStatus Status { get; set; }
-        // public List<Player> Players { get; set; }   we may not need this, since in the display we store them, and here so far it was not needed
+        private List<Player> players = new List<Player>();
+        public List<Player> Players { get { return players; } set { players = value; } }
+        public int CurrentPlayer { get; set; } = 1;
         public ShipParts[] shipParts { get; set; }
         public Sound Sound { get; set; }
         public string[,] TileNames { get; set; }
@@ -20,6 +26,19 @@ namespace GUI_20212202_MQ7GIA.Logic
         public string DifficultyLevel { get; set; }
         public int NumberOfPlayers { get; set; } // this is a very efficient way to store the # of players, because there are cases when we don't want the entire object (eg. Storm Meter)
         public double StormProgress { get; set; }
+
+        public string CurrentPlayerCard1Display { get; set; }
+        public string CurrentPlayerCard2Display { get; set; }
+        public string CurrentPlayerCard3Display { get; set; }
+        public string CurrentPLayerCard4Display { get; set; }
+        public string CurrentPlayerCard5Display { get; set; }
+
+
+        public EventHandler CardsMovingOnBoard;
+        protected virtual void OnCardsMovingOnBoard(EventArgs e)
+        {
+            CardsMovingOnBoard?.Invoke(this, e);
+        }
 
         Random random = new Random();
         public GameLogic(Sound sound)
@@ -516,85 +535,90 @@ namespace GUI_20212202_MQ7GIA.Logic
 
         private Deck DeckGeneration()
         {
-            Random rng = new Random();
             Deck GameDeck = new Deck();
 
-            ItemCard duneBlaster = new ItemCard("Dune Blaster", false, false);
-            ItemCard jetPack = new ItemCard("Jet Pack", false, false);
-            ItemCard secretWaterReserve = new ItemCard("Secret Water Reserve", false, false);
-            ItemCard solarShield = new ItemCard("Solar Shield", false, false);
-            ItemCard stormTracker = new ItemCard("Storm Tracker", false, false);
-            ItemCard terraScope = new ItemCard("Terrascope", false, false);
-            ItemCard timeThrottle = new ItemCard("Time Throttle", false, false);
+            GameDeck.AvailableItemCards = new List<ItemCard>();
+            GameDeck.AvailableStormCards = new List<StormCard>();
+            //GameDeck.DiscardedItemCards = new List<ItemCard>();         we might not need this
+            //GameDeck.DiscardedStormCards = new List<StormCard>();
 
-            StormCard oneDown = new StormCard("oneDown", false, 0, -1);
-            StormCard oneLeft = new StormCard("oneLeft", false, -1, 0);
-            StormCard oneRight = new StormCard("oneRight", false, 1, 0);
-            StormCard oneUp = new StormCard("oneUp", false, 0, 1);
 
-            StormCard twoDown = new StormCard("twoDown", false, 0, -2);
-            StormCard twoLeft = new StormCard("twoLeft", false, -2, 0);
-            StormCard twoRight = new StormCard("twoRight", false, 2, 0);
-            StormCard twoUp = new StormCard("twoUp", false, 0, 2);
-
-            StormCard threeDown = new StormCard("threeDown", false, 0, -3);
-            StormCard threeLeft = new StormCard("threeLeft", false, -3, 0);
-            StormCard threeRight = new StormCard("threeRight", false, 3, 0);
-            StormCard threeUp = new StormCard("threeUp", false, 0, 3);
 
             for (int i = 0; i < 3; i++)
             {
-                GameDeck.AvailableItemCards.Add(duneBlaster);
-                GameDeck.AvailableItemCards.Add(jetPack);
+                GameDeck.AvailableItemCards.Add(new ItemCard("Dune Blaster", false, false, "/ImageAssets/Gadget Cards/Dune Blaster.png"));
+                GameDeck.AvailableItemCards.Add(new ItemCard("Jet Pack", false, false, "/ImageAssets/Gadget Cards/Jet Pack.png"));
 
-                GameDeck.AvailableStormCards.Add(oneDown);
-                GameDeck.AvailableStormCards.Add(oneUp);
-                GameDeck.AvailableStormCards.Add(oneLeft);
-                GameDeck.AvailableStormCards.Add(oneRight);
+                GameDeck.AvailableStormCards.Add(new StormCard("oneDown", false, 0, -1));
+                GameDeck.AvailableStormCards.Add(new StormCard("oneUp", false, 0, 1));
+                GameDeck.AvailableStormCards.Add(new StormCard("oneLeft", false, -1, 0));
+                GameDeck.AvailableStormCards.Add(new StormCard("oneRight", false, 1, 0));
+                GameDeck.AvailableStormCards.Add(new StormCard("SunBeatsdown", false, -404, -404));
+                GameDeck.AvailableStormCards.Add(new StormCard("StormPicksUp", false, -303, -303));
             }
+
+            GameDeck.AvailableStormCards.Add(new StormCard("SunBeatsdown", false, -404, -404));
 
             for (int i = 0; i < 2; i++)
             {
-                GameDeck.AvailableItemCards.Add(solarShield);
-                GameDeck.AvailableItemCards.Add(terraScope);
+                GameDeck.AvailableItemCards.Add(new ItemCard("Solar Shield", false, false, "/ImageAssets/Gadget Cards/Solar Shield.png"));
+                GameDeck.AvailableItemCards.Add(new ItemCard("Terrascope", false, false, "/ImageAssets/Gadget Cards/Terrascope.png"));
 
-                GameDeck.AvailableStormCards.Add(twoDown);
-                GameDeck.AvailableStormCards.Add(twoUp);
-                GameDeck.AvailableStormCards.Add(twoLeft);
-                GameDeck.AvailableStormCards.Add(twoRight);
+                GameDeck.AvailableStormCards.Add(new StormCard("twoDown", false, 0, -2));
+                GameDeck.AvailableStormCards.Add(new StormCard("twoUp", false, 0, 2));
+                GameDeck.AvailableStormCards.Add(new StormCard("twoLeft", false, -2, 0));
+                GameDeck.AvailableStormCards.Add(new StormCard("twoRight", false, 2, 0));
             }
 
-            GameDeck.AvailableItemCards.Add(secretWaterReserve);
-            GameDeck.AvailableItemCards.Add(stormTracker);
-            GameDeck.AvailableItemCards.Add(timeThrottle);
+            GameDeck.AvailableItemCards.Add(new ItemCard("Secret Water Reserve", false, false, "/ImageAssets/Gadget Cards/Secret Water Reserve.png"));
+            GameDeck.AvailableItemCards.Add(new ItemCard("Storm Tracker", false, false, "/ImageAssets/Gadget Cards/Storm Tracker.png"));
+            GameDeck.AvailableItemCards.Add(new ItemCard("Time Throttle", false, false, "/ImageAssets/Gadget Cards/Time Throttler.png"));
 
-            GameDeck.AvailableStormCards.Add(threeDown);
-            GameDeck.AvailableStormCards.Add(threeUp);
-            GameDeck.AvailableStormCards.Add(threeLeft);
-            GameDeck.AvailableStormCards.Add(threeRight);
+            GameDeck.AvailableStormCards.Add(new StormCard("threeDown", false, 0, -3));
+            GameDeck.AvailableStormCards.Add(new StormCard("threeUp", false, 0, 3));
+            GameDeck.AvailableStormCards.Add(new StormCard("threeLeft", false, -3, 0));
+            GameDeck.AvailableStormCards.Add(new StormCard("threeRight", false, 3, 0));
 
-
-            int n = GameDeck.AvailableItemCards.Count;
-            while (n > 1) //Shuffling ItemCards
-            {
-                n--;
-                int k = rng.Next(n + 1);
-                ItemCard itemCardValue = GameDeck.AvailableItemCards[k];
-                GameDeck.AvailableItemCards[k] = GameDeck.AvailableItemCards[n];
-                GameDeck.AvailableItemCards[n] = itemCardValue;
-            }
-
-            n = GameDeck.AvailableStormCards.Count;
-            while (n > 1) //Shuffling StormCards
-            {
-                n--;
-                int k = rng.Next(n + 1);
-                StormCard stormCardValue = GameDeck.AvailableStormCards[k];
-                GameDeck.AvailableStormCards[k] = GameDeck.AvailableStormCards[n];
-                GameDeck.AvailableStormCards[n] = stormCardValue;
-            }
-
+            GameDeck = Shuffle(GameDeck, true, true);
             return GameDeck;
+        }
+
+        private Deck Shuffle(Deck deckToSuffle, bool stormshuffle, bool itemcardshuffle)
+        {
+            if (itemcardshuffle == true)
+            {
+                int n = deckToSuffle.AvailableItemCards.Count;
+                while (n > 1) //Shuffling ItemCards
+                {
+                    n--;
+                    int k = random.Next(n + 1);
+                    ItemCard itemCardValue = deckToSuffle.AvailableItemCards[k];
+                    deckToSuffle.AvailableItemCards[k] = deckToSuffle.AvailableItemCards[n];
+                    deckToSuffle.AvailableItemCards[n] = itemCardValue;
+                }
+            }
+            if (stormshuffle == true)
+            {
+                int n = deckToSuffle.AvailableStormCards.Count;
+                while (n > 1) //Shuffling StormCards
+                {
+                    n--;
+                    int k = random.Next(n + 1);
+                    StormCard stormCardValue = deckToSuffle.AvailableStormCards[k];
+                    deckToSuffle.AvailableStormCards[k] = deckToSuffle.AvailableStormCards[n];
+                    deckToSuffle.AvailableStormCards[n] = stormCardValue;
+                }
+            }
+            return deckToSuffle;
+        }
+        public void ReEnableDiscardedPropertyStorm()
+
+        {
+            foreach (StormCard card in Deck.AvailableStormCards)
+            {
+                card.IsDiscarded = false;
+            }
+            Deck = Shuffle(Deck, true, false);
         }
 
         public bool GameWon(List<Player> players)
@@ -727,6 +751,18 @@ namespace GUI_20212202_MQ7GIA.Logic
                 players.Where(p => p.TurnOrder == 3).FirstOrDefault().TurnOrder -= 1;
             }
             players.Where(p => p.TurnOrder == 6).FirstOrDefault().TurnOrder = players.Count;      // either 2 or 3
+
+            CurrentPlayer++;
+
+            if (players.Count is 3 && CurrentPlayer is 4)
+            {
+                CurrentPlayer = 1;
+            }
+            if (players.Count is 2 && CurrentPlayer is 3)
+            {
+                CurrentPlayer = 1;
+            }
+            OnCardsMovingOnBoard(EventArgs.Empty);
         }
         public string RemoveSand(List<Player> players) // We need bool because of invalidatevisual
         {
@@ -777,6 +813,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                     case "TunnelTile":
                         pos = CardFinder(board.TunnelTiles, x, y);
                         board.TunnelTiles[pos].IsDiscovered = true;
+                        AddGadgetCardOnExcavate();
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
                         Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
@@ -798,24 +835,28 @@ namespace GUI_20212202_MQ7GIA.Logic
                     case "EmptyShelter":
                         pos = CardFinder(board.ShelterTiles, x, y);
                         board.ShelterTiles[pos].IsDiscovered = true;
+                        AddGadgetCardOnExcavate();
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
                         Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     case "FriendlyWater":
                         pos = CardFinder(board.ShelterTiles, x, y);
                         board.ShelterTiles[pos].IsDiscovered = true;
+                        AddGadgetCardOnExcavate();
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
                         Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     case "FriendlyQuest":
                         pos = CardFinder(board.ShelterTiles, x, y);
                         board.ShelterTiles[pos].IsDiscovered = true;
+                        AddGadgetCardOnExcavate();
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
                         Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
                     case "Hostile":
                         pos = CardFinder(board.ShelterTiles, x, y);
                         board.ShelterTiles[pos].IsDiscovered = true;
+                        AddGadgetCardOnExcavate();
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
                         Sound.PlaySound("zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3");
                         return "validMove";
@@ -833,6 +874,46 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             return "outOfActions";
         }
+        public void AddGadgetCardOnExcavate()
+        {
+            //Placeholder card with a true InPlayerHand property in order the while loop can generate an actual card
+            ItemCard currentItemCard = new ItemCard("Placeholder", false, true, "Long live the while loop");
+
+            while (currentItemCard.InPlayerHand)
+            {
+                currentItemCard = Deck.AvailableItemCards.ElementAt(random.Next(0, Deck.AvailableItemCards.Count));
+            }
+
+            currentItemCard.InPlayerHand = true;
+
+            if (CurrentPlayerCard1Display == null)
+            {
+                Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
+                CurrentPlayerCard1Display = currentItemCard.Display;
+            }
+            else if (CurrentPlayerCard2Display == null)
+            {
+                Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
+                CurrentPlayerCard2Display = currentItemCard.Display;
+            }
+            else if (CurrentPlayerCard3Display == null)
+            {
+                Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
+                CurrentPlayerCard3Display = currentItemCard.Display;
+            }
+            else if (CurrentPLayerCard4Display == null)
+            {
+                Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
+                CurrentPLayerCard4Display = currentItemCard.Display;
+            }
+            else if (CurrentPlayerCard5Display == null)
+            {
+                Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
+                CurrentPlayerCard5Display = currentItemCard.Display;
+            }
+            //implement something when all player card slots is filled
+        }
+
         private bool IsCardDiscovered(string typeOfCard, int x, int y)
         {
             int pos = -1;
@@ -969,12 +1050,12 @@ namespace GUI_20212202_MQ7GIA.Logic
                 throw new Exception("You can't give water to yourself. Try another player.");
             }
             else if (isWaterCarrier && playerWaterLevel > 0
-                 && (isLeft || isRight || isUp || isDown)&& waterLevel < maxWaterLevel)
+                 && (isLeft || isRight || isUp || isDown) && waterLevel < maxWaterLevel)
             {
-                    players.Where(p => p == selectedPlayer).SingleOrDefault().WaterLevel += 1;
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel -= 1;
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                    return;
+                players.Where(p => p == selectedPlayer).SingleOrDefault().WaterLevel += 1;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel -= 1;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                return;
             }
             else if (isWaterCarrier == false && (isLeft || isRight || isUp || isDown))
             {
@@ -1016,7 +1097,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             int waterLevel = players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel;
             int maxWaterLevel = players.Where(p => p.TurnOrder == 1).FirstOrDefault().MaxWaterLevel;
             bool sand = SandTileChecker(X, Y);
-            bool isDiscovered = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y && x.IsDiscovered== true);
+            bool isDiscovered = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y && x.IsDiscovered == true);
             bool sameCoordinate = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y);
             RoleName roleName = players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName;
             if (isDiscovered && sameCoordinate && roleName == RoleName.WaterCarrier &&

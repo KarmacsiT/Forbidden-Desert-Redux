@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Controls;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using GUI_20212202_MQ7GIA.UI.ViewModel;
 
 namespace GUI_20212202_MQ7GIA.UI.Renderer
 {
@@ -20,13 +21,14 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         GameLogic logic;
         Size size;
         MediaPlayer player = new MediaPlayer();
-        public List<Player> players = new List<Player>();
+        //List<Player> Players = new List<Player>();
         List<string> colors = new List<string>();
+        Random rng = new Random();
 
-        public void SetupLogic(GameLogic logic, List<Player> players, List<string> colors)
+        public void SetupLogic(GameLogic logic, /*List<Player> players,*/ List<string> colors)
         {
             this.logic = logic;
-            this.players = players;
+            //this.Players = players;
             this.colors = colors;
             //Storm playing and looping
             player.Open(new Uri(Path.Combine("ImageAssets/Tiles", "storm.gif"), UriKind.RelativeOrAbsolute));
@@ -117,7 +119,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                     ImageBrush brush = null;
                     string typeOfCard = logic.TileNames[x, y];
                     int pos = -1;
-                    
+
                     switch (typeOfCard)
                     {
                         case "AirShipClueTile":
@@ -176,7 +178,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                                         discovered = false;
                                         break;
                                 }
-                                
+
                             }
                             break;
                         case "LaunchPadTile":
@@ -340,16 +342,16 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                     //drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", "white_piece.png"), UriKind.RelativeOrAbsolute)), new Rect(startX * tileWidth + 43, startY * tileHeight + 25, tileWidth / 3.5, tileHeight / 2));
 
                     //Piece draw when two players are on the same tile
-                    if (players.Count == 2)
+                    if (logic.Players.Count == 2)
                     {
-                        drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[0]), UriKind.RelativeOrAbsolute)), new Rect(players[0].X * tileWidth + 10, players[0].Y * tileHeight + 25, tileWidth / 3.5, tileHeight / 2));
-                        drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[1]), UriKind.RelativeOrAbsolute)), new Rect(players[1].X * tileWidth + 75, players[1].Y * tileHeight + 25, tileWidth / 3.5, tileHeight / 2));
+                        drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[0]), UriKind.RelativeOrAbsolute)), new Rect(logic.Players[0].X * tileWidth + 10, logic.Players[0].Y * tileHeight + 25, tileWidth / 3.5, tileHeight / 2));
+                        drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[1]), UriKind.RelativeOrAbsolute)), new Rect(logic.Players[1].X * tileWidth + 75, logic.Players[1].Y * tileHeight + 25, tileWidth / 3.5, tileHeight / 2));
                     }
                     else
                     {
-                        drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[0]), UriKind.RelativeOrAbsolute)), new Rect(players[0].X * tileWidth + 10, players[0].Y * tileHeight + 5, tileWidth / 3.5, tileHeight / 2));
-                        drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[1]), UriKind.RelativeOrAbsolute)), new Rect(players[1].X * tileWidth + 75, players[1].Y * tileHeight + 5, tileWidth / 3.5, tileHeight / 2));
-                        drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[2]), UriKind.RelativeOrAbsolute)), new Rect(players[2].X * tileWidth + 43, players[2].Y * tileHeight + 50, tileWidth / 3.5, tileHeight / 2));
+                        drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[0]), UriKind.RelativeOrAbsolute)), new Rect(logic.Players[0].X * tileWidth + 10, logic.Players[0].Y * tileHeight + 5, tileWidth / 3.5, tileHeight / 2));
+                        drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[1]), UriKind.RelativeOrAbsolute)), new Rect(logic.Players[1].X * tileWidth + 75, logic.Players[1].Y * tileHeight + 5, tileWidth / 3.5, tileHeight / 2));
+                        drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[2]), UriKind.RelativeOrAbsolute)), new Rect(logic.Players[2].X * tileWidth + 43, logic.Players[2].Y * tileHeight + 50, tileWidth / 3.5, tileHeight / 2));
                     }
                     //
 
@@ -368,7 +370,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                     //}
                     discovered = false;
                 }
-                
+
             }
         }
         public bool MoveTheStorm(int x, int y)
@@ -388,9 +390,9 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             string validationMessage = String.Empty;
             if (x != 0 && y != 0)  //diagonal movement
             {
-                if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName == RoleName.Explorer)
+                if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName == RoleName.Explorer)
                 {
-                    validationMessage = logic.MovePlayer(players.Where(p => p.TurnOrder == 1).FirstOrDefault().X + x, players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y + y, players);
+                    validationMessage = logic.MovePlayer(logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().X + x, logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y + y, logic.Players);
 
                     if (validationMessage is "validMove")
                     {
@@ -410,7 +412,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             }
             else
             {
-                validationMessage = logic.MovePlayer(players.Where(p => p.TurnOrder == 1).FirstOrDefault().X + x, players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y + y, players);
+                validationMessage = logic.MovePlayer(logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().X + x, logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y + y, logic.Players);
 
                 if (validationMessage is "validMove")
                 {
@@ -431,12 +433,12 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         }
         public void EndTurn()
         {
-            logic.Endturn(players);
+            logic.Endturn(logic.Players);
         }
         public bool RemoveSand()
         {
             bool invalidate = false;
-            string validationMessage = logic.RemoveSand(players);
+            string validationMessage = logic.RemoveSand(logic.Players);
             if (validationMessage == "validMove")
             {
                 invalidate = true;
@@ -453,13 +455,13 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         }
         public bool GameWon()
         {
-            if (logic.GameWon(players) == true) { return true; }
+            if (logic.GameWon(logic.Players) == true) { return true; }
             else return false;
         }
         public bool Excavate()
         {
             bool invalidate = false;
-            string validationMessage = logic.Excavate(players);
+            string validationMessage = logic.Excavate(logic.Players);
             if (validationMessage == "validMove")
             {
                 invalidate = true;
@@ -478,9 +480,13 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             }
             return invalidate;
         }
+        public GameLogic GetLogic()
+        {
+            return logic;
+        }
         public bool WaterCarrierRefill()
         {
-            string validationMessage = logic.WaterCarrierRefill(players);
+            string validationMessage = logic.WaterCarrierRefill(logic.Players);
             if (validationMessage == "validMove")
             {
                 return true;

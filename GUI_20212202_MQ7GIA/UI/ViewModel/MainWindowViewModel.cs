@@ -19,7 +19,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         private void StartGameSequence()
         {
             GameLogic logic = new GameLogic(Sound);
-            GameSetupWindow gameSetup = new GameSetupWindow(logic,Sound);
+            GameSetupWindow gameSetup = new GameSetupWindow(logic, Sound);
             gameSetup.ShowDialog();
         }
         private void OptionsWindow(Sound sound)
@@ -31,7 +31,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         public MainWindowViewModel()
         {
             Sound = new Sound();
-            Sound.PlayMusic("Scarface - Bolivia Theme.mp3");
+            //Sound.PlayMusic("Scarface - Bolivia Theme.mp3"); //commented for my sanity during debugging
             StartGame = new RelayCommand(StartGameSequence);
             OpenOptions = new RelayCommand(() => OptionsWindow(Sound));
         }
