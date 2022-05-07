@@ -373,19 +373,20 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         }
         public bool MoveTheStorm()
         {
-            if(logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false).XMove == -9 && logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false).YMove == -9)  // Sun 
+            StormCard card = logic.Deck.AvailableStormCards[NextStormCardIndex()];
+            if (card.XMove == -9 && card.YMove == -9)  // Sun 
             {
                 //decrease water level
                 return false;
             }
-            else if(logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false).XMove == -6 && logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false).YMove == -6)  // Stormmeter
+            else if(card.XMove == -6 && card.YMove == -6)  // Stormmeter
             {
                 //move stormmeter
-                return false;
+                return true;
             }
             else
             {
-                if (logic.StormCardAction(logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false)))
+                if (logic.StormCardAction(card))
                 {
                     return true;
                 }
@@ -395,17 +396,30 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                 }
             }
         }
-        public bool NeedsShuffling()
+        public void NeedsShufflingStormcards()
         {
-            if (logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false) != null)
+            if (NextStormCardIndex() == -1)
             {
-                return false;
+                logic.ReEnableDiscardedPropertyStorm();
             }
-            return true;
-        }
+        }       
         public void MoveStormCardToDiscarded()
         {
-            logic.Deck.AvailableStormCards.FirstOrDefault(c => c.IsDiscarded == false).IsDiscarded = true;
+            int index = NextStormCardIndex();
+            logic.Deck.AvailableStormCards[index].IsDiscarded = true;
+        }
+        private int NextStormCardIndex()
+        {
+            int index = -1;
+            foreach (StormCard card in logic.Deck.AvailableStormCards)
+            {
+                index++;
+                if(card.IsDiscarded == false)
+                {
+                    return index;
+                }
+            }
+            return -1; // needs shuffling
         }
         public int NumberOfStormCardsActivated()
         {

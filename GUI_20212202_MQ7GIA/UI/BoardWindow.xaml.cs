@@ -224,14 +224,11 @@ namespace GUI_20212202_MQ7GIA
             //        this.Close();
             //    }
             //}           
-            if(display.NeedsShuffling())
-            {
-                //shuffle
-            }
             int iterations = display.NumberOfStormCardsActivated();
             for (int i = 0; i < iterations; i++)
             {
-                if(display.MoveTheStorm())
+                display.NeedsShufflingStormcards();           //if yes, it automatically shuffles the stormcards          
+                if (display.MoveTheStorm())
                 {
                     display.InvalidateVisual();
                 }

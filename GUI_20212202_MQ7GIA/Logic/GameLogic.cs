@@ -20,7 +20,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public string DifficultyLevel { get; set; }
         public int NumberOfPlayers { get; set; } // this is a very efficient way to store the # of players, because there are cases when we don't want the entire object (eg. Storm Meter)
         public double StormProgress { get; set; }
-        public int StormProgressNumberOfCards { get; set; }
+        public int StormProgressNumberOfCards { get; set; }  // from 2 to 6, it gives us the number of stormcards to be drawn
 
         Random random = new Random();
         public GameLogic(Sound sound)
@@ -284,19 +284,21 @@ namespace GUI_20212202_MQ7GIA.Logic
         }
         private bool MoveStorm(int x, int y)
         {
-            if (x != 0 && StormProgress < 0.93)
+            bool changed = false;
+            if (x != 0)  //&& StormProgress < 0.93
             {
                 for (int i = 0; i < Math.Abs(x); i++)
                 {
-                    if (board.storm.X + 1 == 5 || board.storm.X - 1 == -1)
+                    if (x > 0)
                     {
-                        //nothing happens, this is the case when the storm is on the edge
-                    }
-                    else
-                    {
-                        board.SandTiles[board.storm.X, board.storm.Y] += 1;
-                        if (x > 0)
+                        if (board.storm.X + 1 == 5)
                         {
+                            //nothing happens, this is the case when the storm is on the edge
+                        }
+                        else
+                        {
+                            changed = true;
+                            board.SandTiles[board.storm.X, board.storm.Y] += 1;
                             string tempname = TileNames[board.storm.X + 1, board.storm.Y];
                             TileNames[board.storm.X + 1, board.storm.Y] = "Storm";
                             TileNames[board.storm.X, board.storm.Y] = tempname;
@@ -328,6 +330,11 @@ namespace GUI_20212202_MQ7GIA.Logic
                                         board.OasisMirageTiles.First(x => x.X == board.storm.X + 1 && x.Y == board.storm.Y).X = board.storm.X;
                                     }
                                     break;
+                                case "CrashStartTile":
+                                    {
+                                        board.CrashStartTile.X = board.storm.X;
+                                    }
+                                    break;
                                 default:      //Shelters left
                                     {
                                         board.ShelterTiles.First(x => x.X == board.storm.X + 1 && x.Y == board.storm.Y).X = board.storm.X;
@@ -336,11 +343,20 @@ namespace GUI_20212202_MQ7GIA.Logic
                             }
                             board.storm.X += 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
-                            StormProgress += 1.0 / 15.0;
+                            //StormProgress += 1.0 / 15.0;
                             Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
+                        }
+                    }
+                    else
+                    {
+                        if (board.storm.X - 1 == -1)
+                        {
+                            //nothing happens, this is the case when the storm is on the edge
                         }
                         else
                         {
+                            changed = true;
+                            board.SandTiles[board.storm.X, board.storm.Y] += 1;
                             string tempname = TileNames[board.storm.X - 1, board.storm.Y];
                             TileNames[board.storm.X - 1, board.storm.Y] = "Storm";
                             TileNames[board.storm.X, board.storm.Y] = tempname;
@@ -372,6 +388,11 @@ namespace GUI_20212202_MQ7GIA.Logic
                                         board.OasisMirageTiles.First(x => x.X == board.storm.X - 1 && x.Y == board.storm.Y).X = board.storm.X;
                                     }
                                     break;
+                                case "CrashStartTile":
+                                    {
+                                        board.CrashStartTile.X = board.storm.X;
+                                    }
+                                    break;
                                 default:      //Shelters left
                                     {
                                         board.ShelterTiles.First(x => x.X == board.storm.X - 1 && x.Y == board.storm.Y).X = board.storm.X;
@@ -380,32 +401,27 @@ namespace GUI_20212202_MQ7GIA.Logic
                             }
                             board.storm.X -= 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
-                            StormProgress += 1.0 / 15.0;
+                            //StormProgress += 1.0 / 15.0;
                             Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
-                        PartTileCoordinateGiver();
-
                     }
+                    PartTileCoordinateGiver();
                 }
-                if (StormProgress >= 0.93)
-                {
-                    return false;
-                }
-                return true;
             }
-            else if (StormProgress < 0.93)
+            else      //StormProgress < 0.93
             {
                 for (int i = 0; i < Math.Abs(y); i++)
                 {
-                    if (board.storm.Y + 1 == 5 || board.storm.Y - 1 == -1)
+                    if (y > 0)
                     {
-                        //nothing happens, this is the case when the storm is on the edge
-                    }
-                    else
-                    {
-                        board.SandTiles[board.storm.X, board.storm.Y] += 1;
-                        if (y > 0)
+                        if (board.storm.Y + 1 == 5)
                         {
+                            //nothing happens, this is the case when the storm is on the edge
+                        }
+                        else
+                        {
+                            changed = true;
+                            board.SandTiles[board.storm.X, board.storm.Y] += 1;
                             string tempname = TileNames[board.storm.X, board.storm.Y + 1];
                             TileNames[board.storm.X, board.storm.Y + 1] = "Storm";
                             TileNames[board.storm.X, board.storm.Y] = tempname;
@@ -424,7 +440,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                                 case "CrashStartTile":
                                     {
-                                        board.CrashStartTile.Y = board.LaunchPadTile.Y = board.storm.Y;
+                                        board.CrashStartTile.Y  = board.storm.Y;
                                     }
                                     break;
                                 case "TunnelTile":
@@ -451,11 +467,20 @@ namespace GUI_20212202_MQ7GIA.Logic
                             }
                             board.storm.Y += 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
-                            StormProgress += 1.0 / 15.0;
+                            //StormProgress += 1.0 / 15.0;
                             Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
+                        }
+                    }
+                    else
+                    {
+                        if (board.storm.Y - 1 == -1)
+                        {
+                            //nothing happens, this is the case when the storm is on the edge
                         }
                         else
                         {
+                            changed = true;
+                            board.SandTiles[board.storm.X, board.storm.Y] += 1;
                             string tempname = TileNames[board.storm.X, board.storm.Y - 1];
                             TileNames[board.storm.X, board.storm.Y - 1] = "Storm";
                             TileNames[board.storm.X, board.storm.Y] = tempname;
@@ -473,7 +498,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                                 case "CrashStartTile":
                                     {
-                                        board.CrashStartTile.Y = board.LaunchPadTile.Y = board.storm.Y;
+                                        board.CrashStartTile.Y = board.storm.Y;
                                     }
                                     break;
                                 case "TunnelTile":
@@ -499,22 +524,14 @@ namespace GUI_20212202_MQ7GIA.Logic
                             }
                             board.storm.Y -= 1;
                             board.SandTiles[board.storm.X, board.storm.Y] = 0;
-                            StormProgress += 1.0 / 15.0;
+                            //StormProgress += 1.0 / 15.0;
                             Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
-                        PartTileCoordinateGiver();
                     }
+                    PartTileCoordinateGiver();
                 }
-                if (StormProgress >= 0.93)
-                {
-                    return false;
-                }
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return changed;
         }
 
         public bool StormCardAction(StormCard currentCard)          //only 1 card is played in the Logic, this is the function, that is called muliple times if needed   
@@ -526,28 +543,28 @@ namespace GUI_20212202_MQ7GIA.Logic
         {
             Deck GameDeck = new Deck();
 
-            ItemCard duneBlaster = new ItemCard("Dune Blaster", false, false);
-            ItemCard jetPack = new ItemCard("Jet Pack", false, false);
-            ItemCard secretWaterReserve = new ItemCard("Secret Water Reserve", false, false);
-            ItemCard solarShield = new ItemCard("Solar Shield", false, false);
-            ItemCard stormTracker = new ItemCard("Storm Tracker", false, false);
-            ItemCard terraScope = new ItemCard("Terrascope", false, false);
-            ItemCard timeThrottle = new ItemCard("Time Throttle", false, false);
+            //ItemCard duneBlaster = new ItemCard("Dune Blaster", false, false);
+            //ItemCard jetPack = new ItemCard("Jet Pack", false, false);
+            //ItemCard secretWaterReserve = new ItemCard("Secret Water Reserve", false, false);
+            //ItemCard solarShield = new ItemCard("Solar Shield", false, false);
+            //ItemCard stormTracker = new ItemCard("Storm Tracker", false, false);
+            //ItemCard terraScope = new ItemCard("Terrascope", false, false);
+            //ItemCard timeThrottle = new ItemCard("Time Throttle", false, false);
 
-            StormCard oneDown = new StormCard("oneDown", false, 0, -1);
-            StormCard oneLeft = new StormCard("oneLeft", false, -1, 0);
-            StormCard oneRight = new StormCard("oneRight", false, 1, 0);
-            StormCard oneUp = new StormCard("oneUp", false, 0, 1);
+            //StormCard oneDown = new StormCard("oneDown", false, 0, -1);
+            //StormCard oneLeft = new StormCard("oneLeft", false, -1, 0);
+            //StormCard oneRight = new StormCard("oneRight", false, 1, 0);
+            //StormCard oneUp = new StormCard("oneUp", false, 0, 1);
 
-            StormCard twoDown = new StormCard("twoDown", false, 0, -2);
-            StormCard twoLeft = new StormCard("twoLeft", false, -2, 0);
-            StormCard twoRight = new StormCard("twoRight", false, 2, 0);
-            StormCard twoUp = new StormCard("twoUp", false, 0, 2);
+            //StormCard twoDown = new StormCard("twoDown", false, 0, -2);
+            //StormCard twoLeft = new StormCard("twoLeft", false, -2, 0);
+            //StormCard twoRight = new StormCard("twoRight", false, 2, 0);
+            //StormCard twoUp = new StormCard("twoUp", false, 0, 2);
 
-            StormCard threeDown = new StormCard("threeDown", false, 0, -3);
-            StormCard threeLeft = new StormCard("threeLeft", false, -3, 0);
-            StormCard threeRight = new StormCard("threeRight", false, 3, 0);
-            StormCard threeUp = new StormCard("threeUp", false, 0, 3);
+            //StormCard threeDown = new StormCard("threeDown", false, 0, -3);
+            //StormCard threeLeft = new StormCard("threeLeft", false, -3, 0);
+            //StormCard threeRight = new StormCard("threeRight", false, 3, 0);
+            //StormCard threeUp = new StormCard("threeUp", false, 0, 3);
 
             GameDeck.AvailableItemCards = new List<ItemCard>();
             GameDeck.AvailableStormCards = new List<StormCard>();
@@ -556,63 +573,77 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             for (int i = 0; i < 3; i++)
             {
-                GameDeck.AvailableItemCards.Add(duneBlaster);
-                GameDeck.AvailableItemCards.Add(jetPack);
+                GameDeck.AvailableItemCards.Add(new ItemCard("Dune Blaster", false, false));
+                GameDeck.AvailableItemCards.Add(new ItemCard("Jet Pack", false, false));
 
-                GameDeck.AvailableStormCards.Add(oneDown);
-                GameDeck.AvailableStormCards.Add(oneUp);
-                GameDeck.AvailableStormCards.Add(oneLeft);
-                GameDeck.AvailableStormCards.Add(oneRight);
+                GameDeck.AvailableStormCards.Add(new StormCard("oneDown", false, 0, -1));
+                GameDeck.AvailableStormCards.Add(new StormCard("oneUp", false, 0, 1));
+                GameDeck.AvailableStormCards.Add(new StormCard("oneLeft", false, -1, 0));
+                GameDeck.AvailableStormCards.Add(new StormCard("oneRight", false, 1, 0));
             }
 
             for (int i = 0; i < 2; i++)
             {
-                GameDeck.AvailableItemCards.Add(solarShield);
-                GameDeck.AvailableItemCards.Add(terraScope);
+                GameDeck.AvailableItemCards.Add(new ItemCard("Solar Shield", false, false));
+                GameDeck.AvailableItemCards.Add(new ItemCard("Terrascope", false, false));
 
-                GameDeck.AvailableStormCards.Add(twoDown);
-                GameDeck.AvailableStormCards.Add(twoUp);
-                GameDeck.AvailableStormCards.Add(twoLeft);
-                GameDeck.AvailableStormCards.Add(twoRight);
+                GameDeck.AvailableStormCards.Add(new StormCard("twoDown", false, 0, -2));
+                GameDeck.AvailableStormCards.Add(new StormCard("twoUp", false, 0, 2));
+                GameDeck.AvailableStormCards.Add(new StormCard("twoLeft", false, -2, 0));
+                GameDeck.AvailableStormCards.Add(new StormCard("twoRight", false, 2, 0));
             }
 
-            GameDeck.AvailableItemCards.Add(secretWaterReserve);
-            GameDeck.AvailableItemCards.Add(stormTracker);
-            GameDeck.AvailableItemCards.Add(timeThrottle);
+            GameDeck.AvailableItemCards.Add(new ItemCard("Secret Water Reserve", false, false));
+            GameDeck.AvailableItemCards.Add(new ItemCard("Storm Tracker", false, false));
+            GameDeck.AvailableItemCards.Add(new ItemCard("Time Throttle", false, false));
 
-            GameDeck.AvailableStormCards.Add(threeDown);
-            GameDeck.AvailableStormCards.Add(threeUp);
-            GameDeck.AvailableStormCards.Add(threeLeft);
-            GameDeck.AvailableStormCards.Add(threeRight);
+            GameDeck.AvailableStormCards.Add(new StormCard("threeDown", false, 0, -3));
+            GameDeck.AvailableStormCards.Add(new StormCard("threeUp", false, 0, 3));
+            GameDeck.AvailableStormCards.Add(new StormCard("threeLeft", false, -3, 0));
+            GameDeck.AvailableStormCards.Add(new StormCard("threeRight", false, 3, 0));
 
-            GameDeck = Shuffle(GameDeck);
+            GameDeck = Shuffle(GameDeck, true,true);
             return GameDeck;
         }
 
-        private Deck Shuffle(Deck deckToSuffle)
+        private Deck Shuffle(Deck deckToSuffle, bool stormshuffle, bool itemcardshuffle)
         {
-            int n = deckToSuffle.AvailableItemCards.Count;
-            while (n > 1) //Shuffling ItemCards
+            if(itemcardshuffle == true)
             {
-                n--;
-                int k = random.Next(n + 1);
-                ItemCard itemCardValue = deckToSuffle.AvailableItemCards[k];
-                deckToSuffle.AvailableItemCards[k] = deckToSuffle.AvailableItemCards[n];
-                deckToSuffle.AvailableItemCards[n] = itemCardValue;
+                int n = deckToSuffle.AvailableItemCards.Count;
+                while (n > 1) //Shuffling ItemCards
+                {
+                    n--;
+                    int k = random.Next(n + 1);
+                    ItemCard itemCardValue = deckToSuffle.AvailableItemCards[k];
+                    deckToSuffle.AvailableItemCards[k] = deckToSuffle.AvailableItemCards[n];
+                    deckToSuffle.AvailableItemCards[n] = itemCardValue;
+                }
             }
-
-            n = deckToSuffle.AvailableStormCards.Count;
-            while (n > 1) //Shuffling StormCards
+            if(stormshuffle == true)
             {
-                n--;
-                int k = random.Next(n + 1);
-                StormCard stormCardValue = deckToSuffle.AvailableStormCards[k];
-                deckToSuffle.AvailableStormCards[k] = deckToSuffle.AvailableStormCards[n];
-                deckToSuffle.AvailableStormCards[n] = stormCardValue;
-            }
+                int n = deckToSuffle.AvailableStormCards.Count;
+                while (n > 1) //Shuffling StormCards
+                {
+                    n--;
+                    int k = random.Next(n + 1);
+                    StormCard stormCardValue = deckToSuffle.AvailableStormCards[k];
+                    deckToSuffle.AvailableStormCards[k] = deckToSuffle.AvailableStormCards[n];
+                    deckToSuffle.AvailableStormCards[n] = stormCardValue;
+                }
+            }        
             return deckToSuffle;
         }
 
+        public void ReEnableDiscardedPropertyStorm()
+        
+        {
+            foreach (StormCard card in Deck.AvailableStormCards)
+            {
+                card.IsDiscarded = false;
+            }
+            Deck = Shuffle(Deck, true, false);
+        }
         public bool GameWon(List<Player> players)
         {
             //Defining condition for the winning. If all players are on the launchpad tile which is discovered and you have all the shipparts then the game is won.
@@ -985,12 +1016,12 @@ namespace GUI_20212202_MQ7GIA.Logic
                 throw new Exception("You can't give water to yourself. Try another player.");
             }
             else if (isWaterCarrier && playerWaterLevel > 0
-                 && (isLeft || isRight || isUp || isDown)&& waterLevel < maxWaterLevel)
+                 && (isLeft || isRight || isUp || isDown) && waterLevel < maxWaterLevel)
             {
-                    players.Where(p => p == selectedPlayer).SingleOrDefault().WaterLevel += 1;
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel -= 1;
-                    players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
-                    return;
+                players.Where(p => p == selectedPlayer).SingleOrDefault().WaterLevel += 1;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel -= 1;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                return;
             }
             else if (isWaterCarrier == false && (isLeft || isRight || isUp || isDown))
             {
@@ -1032,7 +1063,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             int waterLevel = players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel;
             int maxWaterLevel = players.Where(p => p.TurnOrder == 1).FirstOrDefault().MaxWaterLevel;
             bool sand = SandTileChecker(X, Y);
-            bool isDiscovered = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y && x.IsDiscovered== true);
+            bool isDiscovered = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y && x.IsDiscovered == true);
             bool sameCoordinate = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y);
             RoleName roleName = players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName;
             if (isDiscovered && sameCoordinate && roleName == RoleName.WaterCarrier &&
