@@ -810,6 +810,9 @@ namespace GUI_20212202_MQ7GIA.Logic
         }
         public string MovePlayer(int newX, int newY, List<Player> players) // returns true if the player moves ---> so render only rerenders in this case
         {
+            int X = players.Where(p => p.TurnOrder == 1).SingleOrDefault().X;
+            int Y = players.Where(p => p.TurnOrder == 1).SingleOrDefault().Y;
+
             if (board.storm.X == newX && board.storm.Y == newY)
             {
                 return "invalidMove";
@@ -817,6 +820,11 @@ namespace GUI_20212202_MQ7GIA.Logic
             if (DoubleSandChecker(newX, newY) && players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName != RoleName.Climber)
             {
                 return "blocked";
+            }
+            if (DoubleSandChecker(X, Y) && players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName != RoleName.Climber)
+            {
+                //Making sure you can't move out of the tile when you're on a sand tile. You have to dig that first out
+                return "currentBlocked";
             }
             else
             {
@@ -1153,26 +1161,26 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             else if (isWaterCarrier == false && (isLeft || isRight || isUp || isDown))
             {
-                throw new Exception("You can't give water to the selected player. You're not a water carrier. Go to their tile first.");
+                throw new Exception("Hint: You can't give water to the selected player. You're not a water carrier. Go to their tile first.");
             }
 
             else if (selectedPlayer.WaterLevel == selectedPlayer.MaxWaterLevel)
             {
-                throw new Exception("You can't give water to the selected player. Their water level is max.");
+                throw new Exception("Hint: You can't give water to the selected player. Their water level is max.");
             }
             else if (isWaterCarrier == true && selectedPlayer.X - playerX > 1 || selectedPlayer.X - playerX < -1 || selectedPlayer.Y - playerY > 1 || selectedPlayer.Y - playerY < -1)
             {
-                throw new Exception("You can't give water to the selected player as a Water Carrier. You're out of reach.");
+                throw new Exception("Hint: You can't give water to the selected player as a Water Carrier. You're out of reach.");
             }
 
             else if (playerWaterLevel == 0)
             {
-                throw new Exception("You can't give water to the selected player. You're almost dead because of thirstiness.");
+                throw new Exception("Hint: You can't give water to the selected player. You're almost dead because of thirstiness.");
             }
 
             else if (selectedPlayer == players.Where(p => p.TurnOrder == 1).FirstOrDefault())
             {
-                throw new Exception("You can't give water to yourself. Try another player.");
+                throw new Exception("Hint: You can't give water to yourself. Try another player.");
             }
 
             else if (players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
@@ -1182,19 +1190,24 @@ namespace GUI_20212202_MQ7GIA.Logic
                 players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
                 return;
             }
-            throw new Exception("You are out of actions.");
+            throw new Exception("Hint: You are out of actions.");
         }
         public string WaterCarrierRefill(List<Player> players)
         {
+            //Conditions: the player is on the same coordinates, their waterlevel isn't higher than max, they're not on a sandtile, not on a mirage tile, and it's discovered,
+            // and of course, the player is a water carrier, then we're all good
             int X = players.Where(p => p.TurnOrder == 1).SingleOrDefault().X;
             int Y = players.Where(p => p.TurnOrder == 1).SingleOrDefault().Y;
             int waterLevel = players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel;
             int maxWaterLevel = players.Where(p => p.TurnOrder == 1).FirstOrDefault().MaxWaterLevel;
             bool sand = SandTileChecker(X, Y);
             bool isDiscovered = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y && x.IsDiscovered == true);
+            bool isMirage = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y && x.IsDried == true);
+            //We also have to check if it's a mirage or not
             bool sameCoordinate = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y);
             RoleName roleName = players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName;
-            if (isDiscovered && sameCoordinate && roleName == RoleName.WaterCarrier && waterLevel < maxWaterLevel && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
+            if (!sand && !isMirage && isDiscovered && sameCoordinate && roleName == RoleName.WaterCarrier 
+                && waterLevel < maxWaterLevel && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
             {
                 players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel += 2;
                 players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
@@ -1217,6 +1230,10 @@ namespace GUI_20212202_MQ7GIA.Logic
             else if (isDiscovered != true)
             {
                 return "notDiscovered";
+            }
+            else if (isMirage == true)
+            {
+                return "mirage";
             }
             else if (waterLevel == maxWaterLevel)
             {
@@ -1247,7 +1264,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public bool LoseCondition()
         {
             //lose if:
-            if (StormProgress > 0.87 || SandTilesOnBoardMaximum())
+            if (StormProgress > 0.87 || SandTilesOnBoardMaximum() || players.Any(x=>x.WaterLevel < 0))
             {
                 return true;
             }
@@ -1261,6 +1278,39 @@ namespace GUI_20212202_MQ7GIA.Logic
                 card.IsDiscarded = false;
             }
             Deck = Shuffle(Deck, true, false);
+        }
+        public void TunnelTeleport(List<Player> players, TunnelTile selectedTunnelTile)
+        {
+            int playerX = players.Where(x => x.TurnOrder == 1).SingleOrDefault().X;
+            int playerY = players.Where(x => x.TurnOrder == 1).SingleOrDefault().Y;
+            int currentActions = players.Where(x => x.TurnOrder == 1).SingleOrDefault().NumberOfActions;
+            int discoveredTunnels = board.TunnelTiles.Count(x=>x.IsDiscovered == true);
+            bool sand = SandTileChecker(selectedTunnelTile.X, selectedTunnelTile.Y);
+            if (!sand && selectedTunnelTile.IsDiscovered == true && PlayerOnTunnelTile(playerX,playerY) && discoveredTunnels > 1 && currentActions > 0)
+            {
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = selectedTunnelTile.X;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = selectedTunnelTile.Y;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                return;
+            }
+            else if (discoveredTunnels == 1)
+            {
+                throw new Exception("Hint: Discover more tunnel tiles in order to teleport.");
+            }
+            else if (sand)
+            {
+                throw new Exception("Hint: The tunnel tile is covered by sand. Remove it first.");
+            }
+
+            throw new Exception("Hint: You are out of actions.");
+        }
+        public bool PlayerOnTunnelTile(int X, int Y)
+        {
+            if (board.TunnelTiles.Any(x => x.X == X && x.Y == Y))
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }

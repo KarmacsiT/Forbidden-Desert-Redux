@@ -1,0 +1,31 @@
+﻿<Window x:Class="GUI_20212202_MQ7GIA.TunnelTeleportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_20212202_MQ7GIA"
+        mc:Ignorable="d"
+Title="TunnelTeleportWindow" Height="120" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True">
+    <Grid>
+        <Label Content="Which tunnel do you want to teleport to?" HorizontalAlignment="Left" Margin="47,36,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="330,38,0,0" VerticalAlignment="Top" Width="200" ItemsSource="{Binding TunnelsWithoutFirst}" SelectedItem="{Binding SelectedTunnel}" SelectedIndex="1">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Label>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{} X: {0} Y: {1}">
+                                    <Binding Path="X"></Binding>
+                                    <Binding Path="Y"></Binding>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Label>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Content="Teleport" HorizontalAlignment="Left" Margin="251,77,0,0" VerticalAlignment="Top" Command="{Binding TeleportCommand}"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="309,77,0,0" VerticalAlignment="Top" Click="Exit"/>
+
+    </Grid>
+</Window>

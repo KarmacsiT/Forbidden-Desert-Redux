@@ -15,7 +15,6 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
     public class WaterSharingWindowViewModel : ObservableRecipient
     {
         public GameLogic Logic { get; set; }
-        public List<Player> players { get; set; }
         public ObservableCollection<Player> PlayersWithoutFirst { get; set; }
         public BoardWindow boardWindow { get; set; }
         WaterSharingWindow window;
@@ -29,11 +28,10 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 (ShareCommand as RelayCommand).NotifyCanExecuteChanged();
             }
         }
-        public void SetupLogic(GameLogic logic, List<Player> players, BoardWindow boardWindow)
+        public void SetupLogic(GameLogic logic, BoardWindow boardWindow)
         {
             this.Logic = logic;
-            this.PlayersWithoutFirst = new ObservableCollection<Player>(players);
-            this.players = players;
+            this.PlayersWithoutFirst = new ObservableCollection<Player>(logic.Players);
             PlayersWithoutFirst.Remove(PlayersWithoutFirst.Where(x=>x.TurnOrder == 1).SingleOrDefault());
             this.boardWindow = boardWindow;
         }
@@ -43,7 +41,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             // implement water change
             try
             {
-                Logic.WaterSharing(players, selectedPlayer);
+                Logic.WaterSharing(Logic.Players, selectedPlayer);
                 window.Close();
             }
             catch (Exception ex)

@@ -30,6 +30,7 @@ namespace GUI_20212202_MQ7GIA
         List<string> colors = new List<string>();
         BoardWindowViewModel boardWindowViewModel;
         WaterSharingWindowViewModel waterSharingWindowVM;
+        TunnelTeleportWindowViewModel tunnelTeleportWindowVM;
 
         public BoardWindow(GameLogic logic, Sound sound, GameSetupWindow setupWindow)
         {
@@ -83,7 +84,9 @@ namespace GUI_20212202_MQ7GIA
             partsCollected.SetupModel(logic, logic.Players);
             stormMeter.SetupModel(logic);
             waterSharingWindowVM = new WaterSharingWindowViewModel();
-            waterSharingWindowVM.SetupLogic(logic, logic.Players, this);
+            waterSharingWindowVM.SetupLogic(logic, this);
+            tunnelTeleportWindowVM = new TunnelTeleportWindowViewModel();
+            tunnelTeleportWindowVM.SetupLogic(logic, display,this);
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
@@ -182,7 +185,13 @@ namespace GUI_20212202_MQ7GIA
                 // Refill
                 invalidate = display.WaterCarrierRefill();
             }
-
+            else if (e.Key == Key.T)
+            {
+                // Refill
+                logic = display.GetLogic();
+                tunnelTeleportWindowVM.RefreshTunnels(new List<TunnelTile>(logic.board.TunnelTiles));
+                invalidate = tunnelTeleportWindowVM.ShowWindow();               
+            }
             if (invalidate == true)
             {
                 UpdateBoardViewModel();

@@ -373,6 +373,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
 
             }
         }
+
         public string MoveTheStorm()
         {
             StormCard card = logic.Deck.AvailableStormCards[NextStormCardIndex()];
@@ -444,6 +445,11 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                     else if (validationMessage is "blocked")
                     {
                         MessageBox.Show("Hint: You can't move to this tile because it is blocked.");
+                        invalidate = false;
+                    }
+                    else if (validationMessage is "currentBlocked")
+                    {
+                        MessageBox.Show("Hint: You can't move from this tile because it is blocked. Remove the double sand first.");
                         invalidate = false;
                     }
                     else if (validationMessage is "outOfActions")
@@ -549,6 +555,47 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             else if (validationMessage == "notDiscovered")
             {
                 MessageBox.Show("Hint: You're not in the reach of the well.");
+            }
+            else if (validationMessage == "mirage")
+            {
+                MessageBox.Show("Hint: You're on a Mirage tile. You're not able to get water.");
+            }
+            else if (validationMessage == "maxWater")
+            {
+                MessageBox.Show("Hint: Your water level is max.");
+            }
+            else if (validationMessage == "notInReach")
+            {
+                MessageBox.Show("Hint: You're not in the reach of the well.");
+            }
+            return false;
+        }
+        public bool WaterCarrier()
+        {
+            string validationMessage = logic.WaterCarrierRefill(logic.Players);
+            if (validationMessage == "validMove")
+            {
+                return true;
+            }
+            else if (validationMessage == "notWaterCarrier")
+            {
+                MessageBox.Show("Hint: You're not a Water Carrier.");
+            }
+            else if (validationMessage == "outOfActions")
+            {
+                MessageBox.Show("Hint: You can't refill water because you're out of actions.");
+            }
+            else if (validationMessage == "sandTile")
+            {
+                MessageBox.Show("Hint: You have to remove the sand first.");
+            }
+            else if (validationMessage == "notDiscovered")
+            {
+                MessageBox.Show("Hint: You're not in the reach of the well.");
+            }
+            else if (validationMessage == "mirage")
+            {
+                MessageBox.Show("Hint: You're on a Mirage tile. You're not able to get water.");
             }
             else if (validationMessage == "maxWater")
             {
