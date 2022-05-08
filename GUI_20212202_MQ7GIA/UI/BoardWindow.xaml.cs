@@ -105,6 +105,10 @@ namespace GUI_20212202_MQ7GIA
         {
             PauseWindow pauseWindow = new PauseWindow(Sound);
             pauseWindow.ShowDialog();
+            if(pauseWindow.Save == true)
+            {
+                display.SaveGame();
+            }
             if (pauseWindow.DialogResult == true)
             {
                 this.Close();

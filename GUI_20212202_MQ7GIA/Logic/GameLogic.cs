@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Xml.Linq;
 
 namespace GUI_20212202_MQ7GIA.Logic
 {
@@ -14,8 +15,7 @@ namespace GUI_20212202_MQ7GIA.Logic
     {
         public BoardWindowViewModel BoardWindowViewModel { get; set; } = new BoardWindowViewModel();
         public Board board { get; set; }
-        public Deck Deck { get { return DeckGeneration(); } set { Deck = value; } } //Setting might be incorrect check back later
-
+        public Deck Deck { get; set; }
         public GameStatus Status { get; set; }
         private List<Player> players = new List<Player>();
         public List<Player> Players { get { return players; } set { players = value; } }
@@ -45,6 +45,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         Random random = new Random();
         public GameLogic(Sound sound)
         {
+            Deck = DeckGeneration();
             bool[,] isTaken = new bool[5, 5];
             TileNames = new string[5, 5];
             Sound = sound;
@@ -255,7 +256,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             return false;
         }
-
         public bool DoubleSandChecker(int X, int Y)
         {
             for (int x = 0; x < 5; x++)
@@ -569,7 +569,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             return changed;
         }
-
         public bool StormCardAction(StormCard currentCard)          //only 1 card is played in the Logic, this is the function, that is called muliple times if needed   
         {
             return MoveStorm(currentCard.XMove, currentCard.YMove, Players);
@@ -639,13 +638,13 @@ namespace GUI_20212202_MQ7GIA.Logic
         }
         private Deck DeckGeneration()
         {
-
             Deck GameDeck = new Deck();
 
             GameDeck.AvailableItemCards = new List<ItemCard>();
             GameDeck.AvailableStormCards = new List<StormCard>();
-            //GameDeck.DiscardedItemCards = new List<ItemCard>();         we might not need this
-            //GameDeck.DiscardedStormCards = new List<StormCard>();
+
+
+
 
             for (int i = 0; i < 3; i++)
             {
@@ -685,8 +684,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             GameDeck = Shuffle(GameDeck, true, true);
             return GameDeck;
         }
-
-
         private Deck Shuffle(Deck deckToSuffle, bool stormshuffle, bool itemcardshuffle)
         {
             if (itemcardshuffle == true)
@@ -1014,7 +1011,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             //implement something when all player card slots is filled
         }
-
         private bool IsCardDiscovered(string typeOfCard, int x, int y)
         {
             int pos = -1;
@@ -1310,6 +1306,303 @@ namespace GUI_20212202_MQ7GIA.Logic
                 return true;
             }
             else return false;
+        }
+        public void SaveGame()
+        {
+            XDocument xdocument = new XDocument();
+
+            XElement elementroot = new XElement("savegame", xdocument.Root);
+
+            //
+            //board
+            XElement xboard = new XElement("board");
+
+            // launchpad
+            XElement xlaunchpadtile = new XElement("LaunchPadTile");
+            xlaunchpadtile.SetAttributeValue("X", board.LaunchPadTile.X);
+            xlaunchpadtile.SetAttributeValue("Y", board.LaunchPadTile.Y);
+            xlaunchpadtile.SetAttributeValue("IsDiscovered", board.LaunchPadTile.IsDiscovered);
+            xboard.Add(xlaunchpadtile);
+
+            // crashstarttile
+            XElement xcrashstarttile = new XElement("CrashStartTile");
+            xcrashstarttile.SetAttributeValue("X", board.CrashStartTile.X);
+            xcrashstarttile.SetAttributeValue("Y", board.CrashStartTile.Y);
+            xcrashstarttile.SetAttributeValue("IsDiscovered", board.CrashStartTile.IsDiscovered);
+            xboard.Add(xcrashstarttile);
+
+            //tunnel tiles
+            XElement xtunneltiles = new XElement("TunnelTiles");
+            foreach (TunnelTile tile in board.TunnelTiles)
+            {
+                XElement xtunneltile = new XElement("TunnelTile");
+                xtunneltile.SetAttributeValue("X", tile.X);
+                xtunneltile.SetAttributeValue("Y", tile.Y);
+                xtunneltile.SetAttributeValue("IsDiscovered", tile.IsDiscovered);
+
+                xtunneltiles.Add(xtunneltile);
+            }
+            xboard.Add(xtunneltiles);
+
+            //airshipcluetiles
+            XElement xairshipcluetiles = new XElement("AirShipClueTiles");
+            foreach (AirShipClueTile tile in board.AirShipClueTiles)
+            {
+                XElement airshipcluetile = new XElement("AirShipClueTile");
+                airshipcluetile.SetAttributeValue("X", tile.X);
+                airshipcluetile.SetAttributeValue("Y", tile.Y);
+                airshipcluetile.SetAttributeValue("IsDiscovered", tile.IsDiscovered);
+                airshipcluetile.SetAttributeValue("Direction", tile.Direction);
+                airshipcluetile.SetAttributeValue("PartName", tile.PartName);
+
+                xairshipcluetiles.Add(airshipcluetile);
+            }
+            xboard.Add(xairshipcluetiles);
+
+            //OasisMirageTiles
+            XElement xoasismiragetiles = new XElement("OasisMirageTiles");
+            foreach (OasisMirageTile tile in board.OasisMirageTiles)
+            {
+                XElement xoasismiragetile = new XElement("OasisMirageTile");
+                xoasismiragetile.SetAttributeValue("X", tile.X);
+                xoasismiragetile.SetAttributeValue("Y", tile.Y);
+                xoasismiragetile.SetAttributeValue("IsDiscovered", tile.IsDiscovered);
+                xoasismiragetile.SetAttributeValue("IsDried", tile.IsDried);
+
+                xoasismiragetiles.Add(xoasismiragetile);
+            }
+            xboard.Add(xoasismiragetiles);
+
+            //ShelterTiles
+            XElement xsheltertiles = new XElement("ShelterTiles");
+            foreach (ShelterTile tile in board.ShelterTiles)
+            {
+                XElement xsheltertile = new XElement("ShelterTiles");
+                xsheltertile.SetAttributeValue("X", tile.X);
+                xsheltertile.SetAttributeValue("Y", tile.Y);
+                xsheltertile.SetAttributeValue("IsDiscovered", tile.IsDiscovered);
+                xsheltertile.SetAttributeValue("ShelterType", tile.ShelterType);
+
+                xsheltertiles.Add(xsheltertile);
+            }
+            xboard.Add(xsheltertiles);
+
+            // storm
+            XElement xstorm = new XElement("storm");
+            xstorm.SetAttributeValue("X", board.storm.X);
+            xstorm.SetAttributeValue("Y", board.storm.Y);
+
+            xboard.Add(xstorm);
+
+            //SandTiles
+            XElement xsandtiles = new XElement("SandTiles");
+            for (int i = 0; i < board.SandTiles.GetLength(0); i++)
+            {
+                XElement xsandtilerow = new XElement("Row");
+                for (int j = 0; j < board.SandTiles.GetLength(1); j++)
+                {
+                    XElement xsandtilecolumn = new XElement("Column");
+                    xsandtilecolumn.SetAttributeValue("value", board.SandTiles[i, j]);
+                    xsandtilerow.Add(xsandtilecolumn);
+                }
+                xsandtiles.Add(xsandtilerow);
+            }
+            xboard.Add(xsandtiles);
+
+            elementroot.Add(xboard);
+
+            //
+            //Deck
+            XElement xdeck = new XElement("Deck");
+
+            //AvailableItemCards
+            XElement xavailableitemcards = new XElement("AvailableItemCards");
+
+            foreach (ItemCard card in Deck.AvailableItemCards)
+            {
+                XElement xcard = new XElement("AvailableItemCard");
+                xcard.SetAttributeValue("Name", card.Name);
+                xcard.SetAttributeValue("IsDiscarded", card.IsDiscarded);
+                xcard.SetAttributeValue("InPlayerHand", card.InPlayerHand);
+                xcard.SetAttributeValue("Display", card.Display);
+
+                xavailableitemcards.Add(xcard);
+            }
+            xdeck.Add(xavailableitemcards);
+
+            //AvailableStormCards
+            XElement xavailablestormcards = new XElement("AvailableStormCards");
+
+            foreach (StormCard card in Deck.AvailableStormCards)
+            {
+                XElement xcard = new XElement("AvailableItemCard");
+                xcard.SetAttributeValue("Name", card.Name);
+                xcard.SetAttributeValue("IsDiscarded", card.IsDiscarded);
+                xcard.SetAttributeValue("XMove", card.XMove);
+                xcard.SetAttributeValue("YMove", card.YMove);
+
+                xavailablestormcards.Add(xcard);
+            }
+            xdeck.Add(xavailablestormcards);
+
+            elementroot.Add(xdeck);
+
+            //
+            //Game Status ---- apperently not used anywhere
+            //XElement xgamestatus = new XElement("Status");
+            //xgamestatus.SetAttributeValue("NumberOfSandTiles", Status.NumberOfSandTiles);
+            //xgamestatus.SetAttributeValue("NumberOfStormCardsDrawn", Status.NumberOfStormCardsDrawn);
+            //xgamestatus.SetAttributeValue("StormMeter", Status.StormMeter);
+            //xgamestatus.SetAttributeValue("GameDifficulty", Status.GameDifficulty);
+
+            //elementroot.Add(xgamestatus);
+
+            //
+            //Players
+            XElement xplayers = new XElement("Players");
+
+            foreach (Player player in Players)
+            {
+                XElement xplayer = new XElement("Player");
+                xplayer.SetAttributeValue("X", player.X);
+                xplayer.SetAttributeValue("Y", player.Y);
+                xplayer.SetAttributeValue("NumberOfActions", player.NumberOfActions);
+                xplayer.SetAttributeValue("PlayerName", player.PlayerName);
+                xplayer.SetAttributeValue("TurnOrder", player.TurnOrder);
+                xplayer.SetAttributeValue("PlayerRoleName", player.PlayerRoleName);
+                xplayer.SetAttributeValue("WaterLevel", player.WaterLevel);
+                xplayer.SetAttributeValue("MaxWaterLevel", player.MaxWaterLevel);
+                xplayer.SetAttributeValue("AbilityDescription", player.AbilityDescription);
+
+                foreach (ItemCard card in player.Cards)
+                {
+
+                    XElement xplayercard = new XElement("Cards");
+                    xplayercard.SetAttributeValue("Name", card.Name);
+                    xplayercard.SetAttributeValue("IsDiscarded", card.IsDiscarded);
+                    xplayercard.SetAttributeValue("InPlayerHand", card.InPlayerHand);
+                    xplayercard.SetAttributeValue("Display", card.Display);
+
+                    xplayer.Add(xplayercard);
+                }
+
+                xplayers.Add(xplayer);
+            }
+
+            elementroot.Add(xplayers);
+            //
+            //CurrentPlayer 
+            XElement xcurrentplayer = new XElement("CurrentPlayer");
+            xcurrentplayer.SetAttributeValue("value", CurrentPlayer);
+            elementroot.Add(xcurrentplayer);
+
+            //
+            //shipparts
+            XElement xshipparts = new XElement("shipParts");
+            foreach (ShipParts part in shipParts)
+            {
+                XElement xpart = new XElement("ShipPart");
+                xpart.SetAttributeValue("X", part.X);
+                xpart.SetAttributeValue("Y", part.Y);
+                xpart.SetAttributeValue("Name", part.Name);
+                xpart.SetAttributeValue("IsPickedUp", part.IsPickedUp);
+
+                xshipparts.Add(xpart);
+            }
+            elementroot.Add(xshipparts);
+
+            //
+            //sound
+            XElement xsound = new XElement("Sound");
+            xsound.SetAttributeValue("MusicVolume", Sound.MusicVolume);
+            xsound.SetAttributeValue("SoundVolume", Sound.SoundVolume);
+
+            elementroot.Add(xsound);
+
+            //
+            //tilenames
+            XElement xtilenames = new XElement("TileNames");
+            for (int i = 0; i < TileNames.GetLength(0); i++)
+            {
+                XElement xrow = new XElement("TileNameRow");
+                for (int j = 0; j < TileNames.GetLength(1); j++)
+                {
+                    XElement xcolumn = new XElement("TileNameColumn");
+                    xcolumn.SetAttributeValue("Name", TileNames[i, j]);
+                    xrow.Add(xcolumn);
+                }
+                xtilenames.Add(xrow);
+            }
+
+            elementroot.Add(xtilenames);
+
+            //
+            //PartTiles 
+            XElement xparttiles = new XElement("PartTiles");
+            for (int i = 0; i < PartTiles.GetLength(0); i++)
+            {
+                XElement xrow = new XElement("TileNameRow");
+                for (int j = 0; j < PartTiles.GetLength(1); j++)
+                {
+                    XElement xcolumn = new XElement("TileNameColumn");
+                    xcolumn.SetAttributeValue("Name", PartTiles[i, j]);
+                    xrow.Add(xcolumn);
+                }
+                xparttiles.Add(xrow);
+            }
+
+            elementroot.Add(xparttiles);
+
+            //
+            // DifficultyLevel 
+            XElement xdifficultylevel = new XElement("DifficultyLevel");
+            xdifficultylevel.SetAttributeValue("value", DifficultyLevel);
+            elementroot.Add(xdifficultylevel);
+
+            //
+            //NumberOfPlayers
+            XElement xnumberofplayers = new XElement("NumberOfPlayers");
+            xnumberofplayers.SetAttributeValue("value", NumberOfPlayers);
+            elementroot.Add(xnumberofplayers);
+
+            //
+            //StormProgress
+            XElement xstormprogress = new XElement("StormProgress");
+            xstormprogress.SetAttributeValue("value", StormProgress);
+            elementroot.Add(xstormprogress);
+
+            //
+            //StormProgressNumberOfCards 
+            XElement xstormprogressnumberofcards = new XElement("StormProgressNumberOfCards");
+            xstormprogressnumberofcards.SetAttributeValue("value", StormProgressNumberOfCards);
+            elementroot.Add(xstormprogressnumberofcards);
+
+            //
+            //CurrentPlayerCard1Display 
+            XElement xcurrentplayercard1display = new XElement("CurrentPlayerCard1Display");
+            xcurrentplayercard1display.SetAttributeValue("value", CurrentPlayerCard1Display);
+            elementroot.Add(xcurrentplayercard1display);
+            //CurrentPlayerCard2Display 
+            XElement xcurrentplayercard2display = new XElement("CurrentPlayerCard2Display");
+            xcurrentplayercard2display.SetAttributeValue("value", CurrentPlayerCard2Display);
+            elementroot.Add(xcurrentplayercard2display);
+            //CurrentPlayerCard3Display 
+            XElement xcurrentplayercard3display = new XElement("CurrentPlayerCard3Display");
+            xcurrentplayercard3display.SetAttributeValue("value", CurrentPlayerCard3Display);
+            elementroot.Add(xcurrentplayercard3display);
+            //CurrentPlayerCard4Display 
+            XElement xcurrentplayercard4display = new XElement("CurrentPlayerCard4Display");
+            xcurrentplayercard4display.SetAttributeValue("value", CurrentPLayerCard4Display);
+            elementroot.Add(xcurrentplayercard4display);
+            //CurrentPlayerCard5Display 
+            XElement xcurrentplayercard5display = new XElement("CurrentPlayerCard5Display");
+            xcurrentplayercard5display.SetAttributeValue("value", CurrentPlayerCard5Display);
+            elementroot.Add(xcurrentplayercard5display);
+
+
+            xdocument.Add(elementroot);
+            xdocument.Save("savegame.xml");
+
         }
     }
 }

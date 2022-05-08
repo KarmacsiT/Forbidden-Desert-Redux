@@ -21,10 +21,12 @@ namespace GUI_20212202_MQ7GIA
     public partial class PauseWindow : Window
     {
         public Sound Sound { get; set; }
+        public bool Save { get; set; }
         public PauseWindow(Sound sound)
         {
             InitializeComponent();
             Sound = sound;
+            Save = false;
         }
 
         private void Continue(object sender, RoutedEventArgs e)
@@ -41,6 +43,12 @@ namespace GUI_20212202_MQ7GIA
         {
             OptionsWindow window = new OptionsWindow(Sound);
             window.ShowDialog();
+        }
+
+        private void SaveGame(object sender, RoutedEventArgs e)
+        {
+            Save = true;
+            this.Close();
         }
     }
 }
