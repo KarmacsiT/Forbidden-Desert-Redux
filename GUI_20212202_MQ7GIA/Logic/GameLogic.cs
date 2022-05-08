@@ -884,6 +884,22 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             else return "outOfActions";
         }
+        public string RemoveSandByCoordinate(int x, int y, List<Player> players)
+        {
+            bool sand = SandTileChecker(x, y);
+            if (sand && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0) //if we are on a sand tile and we can do an action
+            {
+                board.SandTiles[x, y] -= 1; //we excavate the sand
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                Sound.PlaySound("441824__jjdg__shovel-digging-sound.mp3");
+                return "validMove";
+            }
+            else if (!sand)
+            {
+                return "notSand";
+            }
+            else return "outOfActions";
+        }
         public string Excavate(List<Player> players)
         {
             int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;

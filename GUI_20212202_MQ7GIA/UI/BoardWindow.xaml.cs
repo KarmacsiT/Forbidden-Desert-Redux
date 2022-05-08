@@ -187,11 +187,61 @@ namespace GUI_20212202_MQ7GIA
             }
             else if (e.Key == Key.T)
             {
-                // Refill
+                // Teleport
                 logic = display.GetLogic();
                 tunnelTeleportWindowVM.RefreshTunnels(new List<TunnelTile>(logic.board.TunnelTiles));
                 invalidate = tunnelTeleportWindowVM.ShowWindow();               
             }
+            else if (e.Key == Key.D0)
+            {
+                // Remove by Sand
+                logic = display.GetLogic();
+                invalidate = display.RemoveSandByCoordinates(-1, -1);
+            }
+            else if (e.Key == Key.D1)
+            {
+                // Remove by Sand
+                logic = display.GetLogic();
+                invalidate = display.RemoveSandByCoordinates(-1, 0);
+            }
+            else if (e.Key == Key.D2)
+            {
+                // Remove by Sand
+                logic = display.GetLogic();
+                invalidate = display.RemoveSandByCoordinates(-1, 1);
+
+            }
+            else if (e.Key == Key.D3)
+            {
+                // Remove by Sand
+                logic = display.GetLogic();
+                invalidate = display.RemoveSandByCoordinates(0, -1);
+            }
+            else if (e.Key == Key.D4)
+            {
+                // Remove by Sand
+                logic = display.GetLogic();
+                invalidate = display.RemoveSandByCoordinates(0, 1);
+            }
+            else if (e.Key == Key.D5)
+            {
+                // Remove by Sand
+                logic = display.GetLogic();
+                invalidate = display.RemoveSandByCoordinates(1, -1);
+            }
+            else if (e.Key == Key.D6)
+            {
+                // Remove by Sand
+                logic = display.GetLogic();
+                invalidate = display.RemoveSandByCoordinates(1, 0);
+            }
+            else if (e.Key == Key.D7)
+            {
+                // Remove by Sand
+                logic = display.GetLogic();
+                invalidate = display.RemoveSandByCoordinates(1, 1);
+            }
+
             if (invalidate == true)
             {
                 UpdateBoardViewModel();

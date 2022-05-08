@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:renderer="clr-namespace:GUI_20212202_MQ7GIA.UI.Renderer"
         mc:Ignorable="d"
-        Title="WaterLevelWindow" Width="366.04" Height="500" ResizeMode="NoResize" WindowStartupLocation="Manual" VerticalAlignment="Bottom" HorizontalAlignment="Left" AllowsTransparency="True" WindowStyle="None" Topmost="True" MouseDown="Window_MouseDown">
+        Title="WaterLevelWindow" Width="292.837" Height="400" ResizeMode="NoResize" WindowStartupLocation="Manual" VerticalAlignment="Bottom" HorizontalAlignment="Left" AllowsTransparency="True" WindowStyle="None" Topmost="True" MouseDown="Window_MouseDown">
     <Window.Resources>
         <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
         <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
@@ -32,10 +32,10 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid x:Name="partsCollectedDisplay" HorizontalAlignment="Left" VerticalAlignment="Top" Width="109" Height="500" Margin="11,0,0,0" Grid.ColumnSpan="3" Grid.RowSpan="2">
+        <Grid x:Name="partsCollectedDisplay" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87.44" Height="400" Margin="11,0,0,0" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <renderer:WaterLevelNeedle x:Name="WaterLevelNeedle"></renderer:WaterLevelNeedle>
         </Grid>
-        <Button Content="Go back" HorizontalAlignment="Left" Margin="224,435,0,0" VerticalAlignment="Top" Style="{StaticResource TransparentStyle}" FontFamily="{StaticResource Steamwreck}" FontSize="40" Click="Exit"/>
+        <Button Content="Go back" HorizontalAlignment="Left" Margin="170,330,0,0" VerticalAlignment="Top" Style="{StaticResource TransparentStyle}" FontFamily="{StaticResource Steamwreck}" FontSize="35" Click="Exit"/>
 
     </Grid>
 </Window>
