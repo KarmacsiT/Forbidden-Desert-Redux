@@ -619,5 +619,9 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             }
             return true;
         }
+        public void SaveGame()
+        {
+            logic.SaveGame();
+        }
     }
 }
