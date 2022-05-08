@@ -26,11 +26,11 @@ namespace GUI_20212202_MQ7GIA
     {
         GameLogic logic;
         public Sound Sound { get; set; }
-        //List<Player> Players = new List<Player>();
         List<string> colors = new List<string>();
         BoardWindowViewModel boardWindowViewModel;
         WaterSharingWindowViewModel waterSharingWindowVM;
         TunnelTeleportWindowViewModel tunnelTeleportWindowVM;
+        CardInspector cardInspector = new CardInspector();
 
         public BoardWindow(GameLogic logic, Sound sound, GameSetupWindow setupWindow)
         {
@@ -80,13 +80,14 @@ namespace GUI_20212202_MQ7GIA
             }
             display.SetupLogic(logic, colors);
             Sound = sound;
+            Sound.PlayMusic("RPG DD Ambience Windy Desert Immersive Realistic Relaxing Heat Sand Calm.mp3");
 
             partsCollected.SetupModel(logic, logic.Players);
             stormMeter.SetupModel(logic);
             waterSharingWindowVM = new WaterSharingWindowViewModel();
             waterSharingWindowVM.SetupLogic(logic, this);
             tunnelTeleportWindowVM = new TunnelTeleportWindowViewModel();
-            tunnelTeleportWindowVM.SetupLogic(logic, display,this);
+            tunnelTeleportWindowVM.SetupLogic(logic, display, this);
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
@@ -108,7 +109,7 @@ namespace GUI_20212202_MQ7GIA
             {
                 this.Close();
             }
-        }       
+        }
         private void KeyBoardUsed(object sender, KeyEventArgs e)
         {
             bool invalidate = false;
@@ -190,7 +191,7 @@ namespace GUI_20212202_MQ7GIA
                 // Refill
                 logic = display.GetLogic();
                 tunnelTeleportWindowVM.RefreshTunnels(new List<TunnelTile>(logic.board.TunnelTiles));
-                invalidate = tunnelTeleportWindowVM.ShowWindow();               
+                invalidate = tunnelTeleportWindowVM.ShowWindow();
             }
             if (invalidate == true)
             {
@@ -224,26 +225,26 @@ namespace GUI_20212202_MQ7GIA
             MessageBox.Show(ex.Message);
         }
         private void EndTurn(object sender, RoutedEventArgs e)
-        {                    
-            int iterations = display.NumberOfStormCardsActivated();       
+        {
+            int iterations = display.NumberOfStormCardsActivated();
             for (int i = 0; i < iterations; i++)
             {
                 display.NeedsShufflingStormcards();           //if yes, it automatically shuffles the stormcards
                 string MoveStormMessage = display.MoveTheStorm();
-                if(MoveStormMessage == "Storm Moves")
+                if (MoveStormMessage == "Storm Moves")
                 {
                     display.InvalidateVisual();
                 }
-                else if(MoveStormMessage == "Storm Picks Up")
+                else if (MoveStormMessage == "Storm Picks Up")
                 {
                     stormMeter.InvalidateVisual();
                 }
-                else if(MoveStormMessage == "Sun Beats Down")
+                else if (MoveStormMessage == "Sun Beats Down")
                 {
                     //invalidate water
                 }
                 display.MoveStormCardToDiscarded();
-                if(display.LoseOrNot())
+                if (display.LoseOrNot())
                 {
                     LoseGame();
                     break;
@@ -252,10 +253,10 @@ namespace GUI_20212202_MQ7GIA
             if (display.LoseOrNot() == false)
             {
                 display.EndTurn();
-                Sound.PlaySound("411749__natty23__bell-ding.wav");
+                Sound.PlaySound("326478__byseb__automatic-wrist-watch-ticking.wav");
                 UpdateBoardViewModel();
                 MessageBox.Show($"{boardWindowViewModel.FirstPlayerName} you're up!");
-            }                      
+            }
         }
         private void UpdateBoardViewModel()
         {
@@ -272,23 +273,23 @@ namespace GUI_20212202_MQ7GIA
 
             if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 1 && logic.CurrentPlayerCard1Display is not null)
             {
-                Card1.Source = new BitmapImage(new Uri(logic.CurrentPlayerCard1Display, UriKind.RelativeOrAbsolute));
+                Card1.Source = logic.CurrentPlayerCard1Display;
             }
             if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 2 && logic.CurrentPlayerCard2Display is not null)
             {
-                Card2.Source = new BitmapImage(new Uri(logic.CurrentPlayerCard2Display, UriKind.RelativeOrAbsolute));
+                Card2.Source = logic.CurrentPlayerCard2Display;
             }
             if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 3 && logic.CurrentPlayerCard3Display is not null)
             {
-                Card3.Source = new BitmapImage(new Uri(logic.CurrentPlayerCard3Display, UriKind.RelativeOrAbsolute));
+                Card3.Source = logic.CurrentPlayerCard3Display;
             }
             if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 4 && logic.CurrentPLayerCard4Display is not null)
             {
-                Card4.Source = new BitmapImage(new Uri(logic.CurrentPLayerCard4Display, UriKind.RelativeOrAbsolute));
+                Card4.Source = logic.CurrentPLayerCard4Display;
             }
             if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 5 && logic.CurrentPlayerCard5Display is not null)
             {
-                Card5.Source = new BitmapImage(new Uri(logic.CurrentPlayerCard5Display, UriKind.RelativeOrAbsolute));
+                Card5.Source = logic.CurrentPlayerCard5Display;
             }
         }
         private void CardsChanging(object sender, EventArgs e)
@@ -297,23 +298,43 @@ namespace GUI_20212202_MQ7GIA
 
             if (P2Card1.Source is not null)
             {
-                logic.CurrentPlayerCard1Display = P2Card1.Source.ToString();
+                logic.CurrentPlayerCard1Display = P2Card1.Source;
+            }
+            else
+            {
+                logic.CurrentPlayerCard1Display = null;
             }
             if (P2Card2.Source is not null)
             {
-                logic.CurrentPlayerCard2Display = P2Card2.Source.ToString();
+                logic.CurrentPlayerCard2Display = P2Card2.Source;
+            }
+            else
+            {
+                logic.CurrentPlayerCard2Display = null;
             }
             if (P2Card3.Source is not null)
             {
-                logic.CurrentPlayerCard3Display = P2Card3.Source.ToString();
+                logic.CurrentPlayerCard3Display = P2Card3.Source;
+            }
+            else
+            {
+                logic.CurrentPlayerCard3Display = null;
             }
             if (P2Card4.Source is not null)
             {
-                logic.CurrentPLayerCard4Display = P2Card4.Source.ToString();
+                logic.CurrentPLayerCard4Display = P2Card4.Source;
+            }
+            else
+            {
+                logic.CurrentPLayerCard4Display = null;
             }
             if (P2Card5.Source is not null)
             {
-                logic.CurrentPlayerCard5Display = P2Card5.Source.ToString();
+                logic.CurrentPlayerCard5Display = P2Card5.Source;
+            }
+            else
+            {
+                logic.CurrentPlayerCard5Display = null;
             }
 
 
@@ -342,6 +363,189 @@ namespace GUI_20212202_MQ7GIA
             if (window.DialogResult == true)
             {
                 this.Close();
+            }
+        }
+
+        private void CurrentPlayer_Card1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(Card1, Card1, DragDropEffects.Copy);
+            }
+        }
+
+        private void Board_Drop(object sender, DragEventArgs e)
+        {
+            //Activating Item effect
+        }
+
+        private void CurrentPlayer_Card1_MouseEnter(object sender, MouseEventArgs e) //Somehow close the window once the player goes back to the main menu
+        {
+            if (Card1.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = Card1.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void CurrentPlayer_Card1_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (Card1.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void CurrentPlayer_Card2_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Card2.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = Card2.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void CurrentPlayer_Card2_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (Card2.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void CurrentPlayer_Card3_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Card3.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = Card3.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void CurrentPlayer_Card3_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (Card3.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void CurrentPlayer_Card4_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Card4.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = Card4.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void CurrentPlayer_Card4_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (Card4.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void CurrentPlayer_Card5_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (Card5.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = Card5.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void CurrentPlayer_Card5_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (Card5.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void Player2_Card1_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (P2Card1.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = P2Card1.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void Player2_Card1_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (P2Card1.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void Player2_Card2_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (P2Card2.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = P2Card2.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void Player2_Card2_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (P2Card2.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void Player2_Card3_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (P2Card3.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = P2Card3.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void Player2_Card3_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (P2Card3.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void Player2_Card4_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (P2Card4.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = P2Card4.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void Player2_Card4_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (P2Card4.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void Player2_Card5_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (P2Card5.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = P2Card5.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void Player2_Card5_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (P2Card5.Source is not null)
+            {
+                cardInspector.Hide();
             }
         }
     }

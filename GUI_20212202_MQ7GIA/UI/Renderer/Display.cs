@@ -21,14 +21,12 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         GameLogic logic;
         Size size;
         MediaPlayer player = new MediaPlayer();
-        //List<Player> Players = new List<Player>();
         List<string> colors = new List<string>();
         Random rng = new Random();
 
-        public void SetupLogic(GameLogic logic, /*List<Player> players,*/ List<string> colors)
+        public void SetupLogic(GameLogic logic, List<string> colors)
         {
             this.logic = logic;
-            //this.Players = players;
             this.colors = colors;
             //Storm playing and looping
             player.Open(new Uri(Path.Combine("ImageAssets/Tiles", "storm.gif"), UriKind.RelativeOrAbsolute));

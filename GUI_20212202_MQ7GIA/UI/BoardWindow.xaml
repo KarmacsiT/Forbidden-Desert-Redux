@@ -33,7 +33,10 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Background="White">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="pack://application:,,,/ImageAssets/desert-sand-texture.jpg"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="8*"></ColumnDefinition>
@@ -43,7 +46,7 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid x:Name="boardDisplay" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="600" Background="Orange" Grid.ColumnSpan="3" Grid.RowSpan="2">
+        <Grid x:Name="boardDisplay" AllowDrop="True" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="600" Background="Orange" Grid.ColumnSpan="3" Grid.RowSpan="2" Drop="Board_Drop">
             <renderer:Display x:Name="display" />
         </Grid>
         <Grid x:Name="stormMeterDisplay" HorizontalAlignment="Right" VerticalAlignment="Top" Width="300" Height="116.617" Background="Orange" Margin="0,50,50,0" Grid.ColumnSpan="3" Grid.RowSpan="2">
@@ -77,11 +80,11 @@
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
             <Label Content="{Binding FirstPlayerName}" Grid.Row="0" Grid.Column="0" FontFamily="{StaticResource Steamwreck}" FontSize="20" Grid.ColumnSpan="2" Grid.RowSpan="2"></Label>
-            <Image x:Name="Card1" Grid.Row="1" Grid.Column="1"/>
-            <Image x:Name="Card2" Grid.Row="1" Grid.Column="2" />
-            <Image x:Name="Card3" Grid.Row="1" Grid.Column="3" />
-            <Image x:Name="Card4" Grid.Row="1" Grid.Column="4" />
-            <Image x:Name="Card5" Grid.Row="1" Grid.Column="5" />
+            <Image x:Name="Card1" Grid.Row="1" Grid.Column="1" MouseMove="CurrentPlayer_Card1_MouseMove" MouseEnter="CurrentPlayer_Card1_MouseEnter" MouseLeave="CurrentPlayer_Card1_MouseLeave"/>
+            <Image x:Name="Card2" Grid.Row="1" Grid.Column="2" MouseEnter="CurrentPlayer_Card2_MouseEnter" MouseLeave="CurrentPlayer_Card2_MouseLeave" />
+            <Image x:Name="Card3" Grid.Row="1" Grid.Column="3" MouseEnter="CurrentPlayer_Card3_MouseEnter" MouseLeave="CurrentPlayer_Card3_MouseLeave" />
+            <Image x:Name="Card4" Grid.Row="1" Grid.Column="4" MouseEnter="CurrentPlayer_Card4_MouseEnter" MouseLeave="CurrentPlayer_Card4_MouseLeave" />
+            <Image x:Name="Card5" Grid.Row="1" Grid.Column="5" MouseEnter="CurrentPlayer_Card5_MouseEnter" MouseLeave="CurrentPlayer_Card5_MouseLeave" />
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Width="500" Margin="0,10,0,305" Background="{Binding SecondColor}">
@@ -100,12 +103,11 @@
                 <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
             <Label Content="{Binding SecondPlayerName}" Grid.Row="0" Grid.Column="0" FontFamily="{StaticResource Steamwreck}" FontSize="20" Grid.ColumnSpan="2" Grid.RowSpan="2"></Label>
-            <Image x:Name="P2Card1" Grid.Row="1" Grid.Column="1"/>
-            <Image x:Name="P2Card2" Grid.Row="1" Grid.Column="2" />
-            <Image x:Name="P2Card3" Grid.Row="1" Grid.Column="3" />
-            <Image x:Name="P2Card4" Grid.Row="1" Grid.Column="4" />
-            <Image x:Name="P2Card5" Grid.Row="1" Grid.Column="5" />
+            <Image x:Name="P2Card1" Grid.Row="1" Grid.Column="1" MouseEnter="Player2_Card1_MouseEnter" MouseLeave="Player2_Card1_MouseLeave"/>
+            <Image x:Name="P2Card2" Grid.Row="1" Grid.Column="2" MouseEnter="Player2_Card2_MouseEnter" MouseLeave="Player2_Card2_MouseLeave" />
+            <Image x:Name="P2Card3" Grid.Row="1" Grid.Column="3" MouseEnter="Player2_Card3_MouseEnter" MouseLeave="Player2_Card3_MouseLeave" />
+            <Image x:Name="P2Card4" Grid.Row="1" Grid.Column="4" MouseEnter="Player2_Card4_MouseEnter" MouseLeave="Player2_Card4_MouseLeave" />
+            <Image x:Name="P2Card5" Grid.Row="1" Grid.Column="5" MouseEnter="Player2_Card5_MouseEnter" MouseLeave="Player2_Card5_MouseLeave" />
         </Grid>
     </Grid>
-
 </Window>

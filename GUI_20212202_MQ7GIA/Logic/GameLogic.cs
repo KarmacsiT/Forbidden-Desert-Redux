@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace GUI_20212202_MQ7GIA.Logic
@@ -28,11 +29,11 @@ namespace GUI_20212202_MQ7GIA.Logic
         public double StormProgress { get; set; }
         public int StormProgressNumberOfCards { get; set; }  // from 2 to 6, it gives us the number of stormcards to be drawn
 
-        public string CurrentPlayerCard1Display { get; set; }
-        public string CurrentPlayerCard2Display { get; set; }
-        public string CurrentPlayerCard3Display { get; set; }
-        public string CurrentPLayerCard4Display { get; set; }
-        public string CurrentPlayerCard5Display { get; set; }
+        public ImageSource CurrentPlayerCard1Display { get; set; }
+        public ImageSource CurrentPlayerCard2Display { get; set; }
+        public ImageSource CurrentPlayerCard3Display { get; set; }
+        public ImageSource CurrentPLayerCard4Display { get; set; }
+        public ImageSource CurrentPlayerCard5Display { get; set; }
 
 
         public EventHandler CardsMovingOnBoard;
@@ -646,8 +647,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             //GameDeck.DiscardedItemCards = new List<ItemCard>();         we might not need this
             //GameDeck.DiscardedStormCards = new List<StormCard>();
 
-
-
             for (int i = 0; i < 3; i++)
             {
                 GameDeck.AvailableItemCards.Add(new ItemCard("Dune Blaster", false, false, "/ImageAssets/Gadget Cards/Dune Blaster.png"));
@@ -981,7 +980,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             //Placeholder card with a true InPlayerHand property in order the while loop can generate an actual card
             ItemCard currentItemCard = new ItemCard("Placeholder", false, true, "Long live the while loop");
 
-            while (currentItemCard.InPlayerHand)
+            while (currentItemCard.InPlayerHand && !currentItemCard.IsDiscarded)
             {
                 currentItemCard = Deck.AvailableItemCards.ElementAt(random.Next(0, Deck.AvailableItemCards.Count));
             }
@@ -991,27 +990,27 @@ namespace GUI_20212202_MQ7GIA.Logic
             if (CurrentPlayerCard1Display == null)
             {
                 Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
-                CurrentPlayerCard1Display = currentItemCard.Display;
+                CurrentPlayerCard1Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
             }
             else if (CurrentPlayerCard2Display == null)
             {
                 Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
-                CurrentPlayerCard2Display = currentItemCard.Display;
+                CurrentPlayerCard2Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
             }
             else if (CurrentPlayerCard3Display == null)
             {
                 Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
-                CurrentPlayerCard3Display = currentItemCard.Display;
+                CurrentPlayerCard3Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
             }
             else if (CurrentPLayerCard4Display == null)
             {
                 Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
-                CurrentPLayerCard4Display = currentItemCard.Display;
+                CurrentPLayerCard4Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
             }
             else if (CurrentPlayerCard5Display == null)
             {
                 Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
-                CurrentPlayerCard5Display = currentItemCard.Display;
+                CurrentPlayerCard5Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
             }
             //implement something when all player card slots is filled
         }
@@ -1206,7 +1205,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             //We also have to check if it's a mirage or not
             bool sameCoordinate = board.OasisMirageTiles.Any(x => x.X == X && x.Y == Y);
             RoleName roleName = players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName;
-            if (!sand && !isMirage && isDiscovered && sameCoordinate && roleName == RoleName.WaterCarrier 
+            if (!sand && !isMirage && isDiscovered && sameCoordinate && roleName == RoleName.WaterCarrier
                 && waterLevel < maxWaterLevel && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0)
             {
                 players.Where(p => p.TurnOrder == 1).FirstOrDefault().WaterLevel += 2;
@@ -1264,7 +1263,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public bool LoseCondition()
         {
             //lose if:
-            if (StormProgress > 0.87 || SandTilesOnBoardMaximum() || players.Any(x=>x.WaterLevel < 0))
+            if (StormProgress > 0.87 || SandTilesOnBoardMaximum() || players.Any(x => x.WaterLevel < 0))
             {
                 return true;
             }
@@ -1284,9 +1283,9 @@ namespace GUI_20212202_MQ7GIA.Logic
             int playerX = players.Where(x => x.TurnOrder == 1).SingleOrDefault().X;
             int playerY = players.Where(x => x.TurnOrder == 1).SingleOrDefault().Y;
             int currentActions = players.Where(x => x.TurnOrder == 1).SingleOrDefault().NumberOfActions;
-            int discoveredTunnels = board.TunnelTiles.Count(x=>x.IsDiscovered == true);
+            int discoveredTunnels = board.TunnelTiles.Count(x => x.IsDiscovered == true);
             bool sand = SandTileChecker(selectedTunnelTile.X, selectedTunnelTile.Y);
-            if (!sand && selectedTunnelTile.IsDiscovered == true && PlayerOnTunnelTile(playerX,playerY) && discoveredTunnels > 1 && currentActions > 0)
+            if (!sand && selectedTunnelTile.IsDiscovered == true && PlayerOnTunnelTile(playerX, playerY) && discoveredTunnels > 1 && currentActions > 0)
             {
                 players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = selectedTunnelTile.X;
                 players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = selectedTunnelTile.Y;

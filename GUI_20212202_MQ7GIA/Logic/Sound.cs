@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,13 +26,14 @@ namespace GUI_20212202_MQ7GIA.Logic
 
         public Sound()
         {
-            
+
         }
         public void PlayMusic(string filename)
         {
             this.filename = filename;
-            music.Open(new Uri(Path.Combine("Sounds",filename), UriKind.RelativeOrAbsolute)); //music can be anything just choose it
+            music.Open(new Uri(Path.Combine("Sounds", filename), UriKind.RelativeOrAbsolute)); //music can be anything just choose it
             music.MediaEnded += Media_Ended;
+            music.Volume = 0.1;
             music.Play();
         }
         public void stopMusic()
@@ -47,6 +48,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public void PlaySound(string filename)
         {
             sound.Open(new Uri(Path.Combine("Sounds", filename), UriKind.RelativeOrAbsolute));
+            sound.Volume = 0.3;
             sound.Play();
         }
     }
