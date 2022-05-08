@@ -18,9 +18,9 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         double needlePosition = 0;
         double lowestBarPosition = 0;
         double highestBarPosition = 0;
-        double indicatorWidth = 235 / 2.15;
-        double indicatorHeight = 141 / 2.15;
-        double middleOfIndicator = 69.5 / 2.15;
+        double indicatorWidth = 235 / 2.6875;
+        double indicatorHeight = 141 / 2.6875;
+        double middleOfIndicator = 69.5 / 2.6875;
         public void SetupPlayer(Player player)
         {
             this.player = player;
@@ -33,28 +33,28 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             switch (player.PlayerRoleName)
             {
                 case RoleName.Archeologist:
-                    highestBarPosition = 196.27; // calculated, the ratio is 2.15 because I made the render of each card 2.15x smaller
-                    lowestBarPosition = 447.44;
+                    highestBarPosition = 422/2.6875; // calculated, the ratio is 2.6875 (1075 / 400) because I made the render of each card 2.15x smaller
+                    lowestBarPosition = 962/2.6875;
                     break;
                 case RoleName.Climber:
-                    highestBarPosition = 200; // calculated, the ratio is 2.15 because I made the render of each card 2.15x smaller
-                    lowestBarPosition = 450.69;
+                    highestBarPosition = 435/2.6875; // calculated, the ratio is 2.6875 because I made the render of each card 2.15x smaller
+                    lowestBarPosition = 969/2.6875;
                     break;
                 case RoleName.Explorer:
-                    highestBarPosition = 136.27; // calculated, the ratio is 2.15 because I made the render of each card 2.15x smaller
-                    lowestBarPosition = 449.76;
+                    highestBarPosition = 293/2.6875; // calculated, the ratio is 2.6875 because I made the render of each card 2.15x smaller
+                    lowestBarPosition = 967/2.6875;
                     break;
                 case RoleName.Meteorologist:
-                    highestBarPosition = 137.20; // calculated, the ratio is 2.15 because I made the render of each card 2.15x smaller
-                    lowestBarPosition = 450.69;
+                    highestBarPosition = 295/2.6875; // calculated, the ratio is 2.6875 because I made the render of each card 2.15x smaller
+                    lowestBarPosition = 969 / 2.6875;
                     break;
                 case RoleName.Navigator:
-                    highestBarPosition = 133.95; // calculated, the ratio is 2.15 because I made the render of each card 2.15x smaller
-                    lowestBarPosition = 446.97;
+                    highestBarPosition = 288/2.6875; // calculated, the ratio is 2.6875 because I made the render of each card 2.15x smaller
+                    lowestBarPosition = 961/2.6875;
                     break;
                 case RoleName.WaterCarrier:
-                    highestBarPosition = 129.30; // calculated, the ratio is 2.15 because I made the render of each card 2.15x smaller
-                    lowestBarPosition = 448.83;
+                    highestBarPosition = 278/2.6875; // calculated, the ratio is 2.6875 because I made the render of each card 2.15x smaller
+                    lowestBarPosition = 965/2.6875;
                     break;
                 default: break;
             }

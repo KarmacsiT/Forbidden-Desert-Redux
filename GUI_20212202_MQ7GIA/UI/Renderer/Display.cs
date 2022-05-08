@@ -500,6 +500,40 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             }
             return invalidate;
         }
+        public bool RemoveSandByCoordinates(int x, int y)
+        {
+            bool invalidate = false;
+            int playerX = logic.Players.Where(p=>p.TurnOrder == 1).FirstOrDefault().X;
+            int playerY = logic.Players.Where(p=>p.TurnOrder == 1).FirstOrDefault().Y;
+            string validationMessage = "";
+            if ((x == -1 && y == -1 || x == -1 && y == 1 || x == 1 && y == -1 || x == 1 && y == 1) && logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName != RoleName.Explorer)
+            {
+                validationMessage = "notExplorer";
+            }
+            else
+            {
+                validationMessage = logic.RemoveSandByCoordinate(playerX + x, playerY + y, logic.Players);
+            }
+            
+            
+            if (validationMessage == "validMove")
+            {
+                invalidate = true;
+            }
+            else if (validationMessage == "outOfActions")
+            {
+                MessageBox.Show("Hint: You can't remove the sand because you are out of actions.");
+            }
+            else if (validationMessage == "notExplorer")
+            {
+                MessageBox.Show("Hint: You're not a Explorer.");
+            }
+            else if (validationMessage == "notSand")
+            {
+                MessageBox.Show("Hint: This is not a sand tile.");
+            }
+            return invalidate;
+        }
         public bool GameWon()
         {
             if (logic.GameWon(logic.Players) == true) { return true; }
