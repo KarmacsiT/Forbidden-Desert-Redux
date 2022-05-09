@@ -534,7 +534,6 @@ namespace GUI_20212202_MQ7GIA
                 string draggedCardGadgetType = (dragedObject as Image).Source.ToString().Split('/')[5].Split('.')[0]; //We can use this to trigger gadget effects
                 bool invalidate = false;
                 ItemDiscardDisplay.Source = new BitmapImage(new Uri("/ImageAssets/Gadget Cards/Gadget Backside.png", UriKind.RelativeOrAbsolute));
-
                 switch (dragedCardName) //null out the dropped cards source and the logic card property
                 {
                     case "Card1":
@@ -603,17 +602,24 @@ namespace GUI_20212202_MQ7GIA
                         logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
                         break;
                 }
+                //decide which player's card was pulled
+                int turnOrder = 1;
+                if (dragedCardName.StartsWith("P2"))
+                {
+                    turnOrder = 2;
+                }
                 switch (draggedCardGadgetType)
                 {
                     case "Dune Blaster":
-                        logic.RefreshAdjacentSandTilesForPlayer();
+                        logic.RefreshAdjacentSandTilesForPlayer(turnOrder);
                         duneBlasterWindowViewModel.ConvertListToObservable(logic.adjacentSandedTilesFromPlayer);
                         invalidate = duneBlasterWindowViewModel.ShowWindow();
                         break;
                     case "Jet Pack":
-                        List<Player> onSameTile = logic.GetPlayersOnSameTile();
+                        List<Player> onSameTile = logic.GetPlayersOnSameTile(turnOrder);
                         List<Tile> unblockedTiles = logic.GetUnblockedTiles();
                         jetPackWindowViewModel.ConvertListToObservable(unblockedTiles,onSameTile);
+                        jetPackWindowViewModel.TurnOrder = turnOrder;
                         invalidate = jetPackWindowViewModel.ShowWindow();
                         break;
                     default:

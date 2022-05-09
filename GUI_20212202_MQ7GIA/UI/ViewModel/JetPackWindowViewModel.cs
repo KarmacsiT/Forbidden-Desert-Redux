@@ -21,6 +21,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         public ObservableCollection<Player> AvailablePlayers { get; set; } //in case there are other players on the tile
         public BoardWindow boardWindow { get; set; }
         JetPackWindow window;
+        public int TurnOrder { get; set; }
         private Tile selectedTile;
         public Tile SelectedTile
         {
@@ -53,7 +54,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             // implement water change
             try
             {
-                Logic.Teleport(Logic.Players, selectedTile,selectedPlayer);
+                Logic.Teleport(Logic.Players, selectedTile,selectedPlayer, TurnOrder);
                 Display.InvalidateVisual();
             }
             catch (Exception ex)

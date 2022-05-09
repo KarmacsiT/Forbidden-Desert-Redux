@@ -860,14 +860,13 @@ namespace GUI_20212202_MQ7GIA.Logic
                 CurrentPlayer = 1;
             }
             OnCardsMovingOnBoard(EventArgs.Empty);
-            RefreshAdjacentSandTilesForPlayer();
         }
-        public void RefreshAdjacentSandTilesForPlayer()
+        public void RefreshAdjacentSandTilesForPlayer(int turnOrder)
         {
             adjacentSandedTilesFromPlayer.Clear();
             // Here I'm refreshing the AdjacentTilesFromPlayer list so there is no problem when you remove sand by the Dune Blaster Card
-            int playerX = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
-            int playerY = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
+            int playerX = players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().X;
+            int playerY = players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().Y;
             //Firstly. I'm saying that whenever calculated x is < 0 or > 4, same with Y, THOSE will be not put in the list, because that would give me an error.
             //Secondly. I'm just assigning names to the tiles so the player don't have to calculate where is that coordinate from the list
             //Third. With Linq, i don't think i can solve this, since I have to go through the entire board and check if there is storm on the tile.
@@ -1004,7 +1003,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             bool sand = SandTileChecker(x, y);
             if (sand && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions >= 0) //Even if we have 0 actions, we can use this card:)
             {
-                board.SandTiles[x, y] -= 1; //we excavate the sand
+                board.SandTiles[x, y] = 0; //we excavate ALL sand according to Dune Blaster card
                 Sound.PlaySound("441824__jjdg__shovel-digging-sound.mp3");
                 return "validMove";
             }
@@ -1761,36 +1760,36 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             return tiles;
         }
-        public void Teleport(List<Player> players, Tile selectedTile, Player selectedPlayer)
+        public void Teleport(List<Player> players, Tile selectedTile, Player selectedPlayer, int turnOrder)
         {
-            int playerX = players.Where(x => x.TurnOrder == 1).SingleOrDefault().X;
-            int playerY = players.Where(x => x.TurnOrder == 1).SingleOrDefault().Y;
-            int currentActions = players.Where(x => x.TurnOrder == 1).SingleOrDefault().NumberOfActions;
+            int playerX = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().X;
+            int playerY = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().Y;
+            int currentActions = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().NumberOfActions;
             if (currentActions > 0&& selectedPlayer != null)
             {
-                players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = selectedTile.X;
-                players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = selectedTile.Y;
+                players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().X = selectedTile.X;
+                players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().Y = selectedTile.Y;
                 selectedPlayer.X = selectedTile.X;
                 selectedPlayer.Y = selectedTile.Y;
-                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().NumberOfActions -= 1;
                 return;
             }
             else if (currentActions > 0)
             {
-                players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = selectedTile.X;
-                players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = selectedTile.Y;
-                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().X = selectedTile.X;
+                players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().Y = selectedTile.Y;
+                players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().NumberOfActions -= 1;
                 return;
             }
             throw new Exception("Hint: You are out of actions.");
         }
-        public List<Player> GetPlayersOnSameTile()
+        public List<Player> GetPlayersOnSameTile(int turnOrder)
         {
             List<Player> playersOnSameTile = new List<Player>();
-            int playerX = players.Where(x => x.TurnOrder == 1).SingleOrDefault().X;
-            int playerY = players.Where(x => x.TurnOrder == 1).SingleOrDefault().Y;
+            int playerX = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().X;
+            int playerY = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().Y;
             playersOnSameTile.AddRange(Players.Where(x => x.X == playerX && x.Y == playerY));
-            playersOnSameTile.Remove(Players.Where(x => x.TurnOrder == 1).SingleOrDefault()); //removing yourself from the list
+            playersOnSameTile.Remove(Players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault()); //removing yourself from the list
             return playersOnSameTile;
         }
 
