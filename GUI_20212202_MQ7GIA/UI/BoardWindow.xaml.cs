@@ -27,9 +27,14 @@ namespace GUI_20212202_MQ7GIA
         GameLogic logic;
         public Sound Sound { get; set; }
         List<string> colors = new List<string>();
+        #region ViewModels
         BoardWindowViewModel boardWindowViewModel;
         WaterSharingWindowViewModel waterSharingWindowVM;
         TunnelTeleportWindowViewModel tunnelTeleportWindowVM;
+        //Gadget card viewModels
+        DuneBlasterWindowViewModel duneBlasterWindowViewModel;
+        JetPackWindowViewModel jetPackWindowViewModel;
+        #endregion
         CardInspector cardInspector = new CardInspector();
 
         public BoardWindow(GameLogic logic, Sound sound, GameSetupWindow setupWindow)
@@ -88,6 +93,10 @@ namespace GUI_20212202_MQ7GIA
             waterSharingWindowVM.SetupLogic(logic, this);
             tunnelTeleportWindowVM = new TunnelTeleportWindowViewModel();
             tunnelTeleportWindowVM.SetupLogic(logic, display, this);
+            duneBlasterWindowViewModel = new DuneBlasterWindowViewModel();
+            duneBlasterWindowViewModel.SetupLogic(logic, this);
+            jetPackWindowViewModel = new JetPackWindowViewModel();
+            jetPackWindowViewModel.SetupLogic(logic, display, this);
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
@@ -523,7 +532,7 @@ namespace GUI_20212202_MQ7GIA
                 string dragedCardName = (dragedObject as Image).Name;
 
                 string draggedCardGadgetType = (dragedObject as Image).Source.ToString().Split('/')[5].Split('.')[0]; //We can use this to trigger gadget effects
-
+                bool invalidate = false;
                 ItemDiscardDisplay.Source = new BitmapImage(new Uri("/ImageAssets/Gadget Cards/Gadget Backside.png", UriKind.RelativeOrAbsolute));
 
                 switch (dragedCardName) //null out the dropped cards source and the logic card property
@@ -594,8 +603,29 @@ namespace GUI_20212202_MQ7GIA
                         logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
                         break;
                 }
-
-
+                switch (draggedCardGadgetType)
+                {
+                    case "Dune Blaster":
+                        logic.RefreshAdjacentSandTilesForPlayer();
+                        duneBlasterWindowViewModel.ConvertListToObservable(logic.adjacentSandedTilesFromPlayer);
+                        invalidate = duneBlasterWindowViewModel.ShowWindow();
+                        break;
+                    case "Jet Pack":
+                        List<Player> onSameTile = logic.GetPlayersOnSameTile();
+                        List<Tile> unblockedTiles = logic.GetUnblockedTiles();
+                        jetPackWindowViewModel.ConvertListToObservable(unblockedTiles,onSameTile);
+                        invalidate = jetPackWindowViewModel.ShowWindow();
+                        break;
+                    default:
+                        break;
+                }
+                if (invalidate)
+                {
+                    UpdateBoardViewModel();
+                    UpdateItemCardDisplay();
+                    display.InvalidateVisual();
+                }
+               //
 
             }
         }

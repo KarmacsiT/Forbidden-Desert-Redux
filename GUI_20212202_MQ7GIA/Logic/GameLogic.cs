@@ -28,9 +28,12 @@ namespace GUI_20212202_MQ7GIA.Logic
         public int NumberOfPlayers { get; set; } // this is a very efficient way to store the # of players, because there are cases when we don't want the entire object (eg. Storm Meter)
         public double StormProgress { get; set; }
         public int StormProgressNumberOfCards { get; set; }  // from 2 to 6, it gives us the number of stormcards to be drawn
-
+        public List<AdjacentSandedTileFromPlayer> adjacentSandedTilesFromPlayer = new List<AdjacentSandedTileFromPlayer>(); //This will always change, depending on when the duneblaster card is drawn
+        public List<ITile> tilesToTeleportTo = new List<ITile>();
         public ImageSource CurrentPlayerCard1Display { get; set; }
         public ImageSource CurrentPlayerCard2Display { get; set; }
+
+       
         public ImageSource CurrentPlayerCard3Display { get; set; }
         public ImageSource CurrentPlayerCard4Display { get; set; }
         public ImageSource CurrentPlayerCard5Display { get; set; }
@@ -229,7 +232,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             board.SandTiles[1, 3] += 1;
             board.SandTiles[3, 3] += 1;
             board.SandTiles[2, 4] += 1;
-
         }
         public bool IsItDuplicate(int X, int Y, AirShipClueTile[] tiles)
         {
@@ -858,6 +860,109 @@ namespace GUI_20212202_MQ7GIA.Logic
                 CurrentPlayer = 1;
             }
             OnCardsMovingOnBoard(EventArgs.Empty);
+            RefreshAdjacentSandTilesForPlayer();
+        }
+        public void RefreshAdjacentSandTilesForPlayer()
+        {
+            adjacentSandedTilesFromPlayer.Clear();
+            // Here I'm refreshing the AdjacentTilesFromPlayer list so there is no problem when you remove sand by the Dune Blaster Card
+            int playerX = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
+            int playerY = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
+            //Firstly. I'm saying that whenever calculated x is < 0 or > 4, same with Y, THOSE will be not put in the list, because that would give me an error.
+            //Secondly. I'm just assigning names to the tiles so the player don't have to calculate where is that coordinate from the list
+            //Third. With Linq, i don't think i can solve this, since I have to go through the entire board and check if there is storm on the tile.
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    bool sand = SandTileChecker(x, y);
+                    //Top row (north of you)
+                    if (playerX - 1 > -1 && playerY - 1 > -1 && x == playerX-1 && y == playerY -1 && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name = "Northwest of you",
+                            X = x,
+                            Y = y
+                        });
+                    }
+                    else if (playerY - 1 > -1 && x == playerX && y == playerY - 1 && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name = "North of you",
+                            X = x,
+                            Y = y
+                        });
+                    }
+                    else if (playerX + 1 < 5 && playerY - 1 > -1 && x == playerX + 1 && y == playerY - 1 && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name = "Northeast of you",
+                            X = x,
+                            Y = y
+                        });
+                    }
+                    //Middle row(in the row where you are)
+                    else if (playerX - 1 > -1 && x == playerX-1 && y == playerY && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name="West of you",
+                            X = x,
+                            Y = y
+                        });
+                    }
+                    else if (x == playerX && y == playerY && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name = "The tile you're standing on",
+                            X = x,
+                            Y = y
+                        });
+                    } //This is the tile where you are. Although the method name doesn't include it, I have it here.
+                    else if (playerX + 1 < 5 && x == playerX + 1 && y == playerY && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name = "East of you",
+                            X = x,
+                            Y = y
+                        });
+                    }
+                    //Bottom row (south of you)
+                    else if (playerX - 1 > -1 && playerY + 1 < 5 && x == playerX - 1 && y == playerY + 1 && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name = "Southwest of you",
+                            X = x,
+                            Y = y
+                        });
+                    }
+                    else if (playerY + 1 < 5 && x == playerX && y == playerY + 1 && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name = "South of you",
+                            X = x,
+                            Y = y
+                        });
+                    }
+                    else if (playerX + 1 < 5 && playerY + 1 < 5 && x == playerX + 1 && y == playerY + 1 && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name = "Southeast of you",
+                            X = x,
+                            Y = y
+                        });
+                    }
+                }
+            }
+
         }
         public string RemoveSand(List<Player> players) // We need bool because of invalidatevisual
         {
@@ -893,6 +998,23 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             else return "outOfActions";
         }
+        public string RemoveSandByCoordinateNoAction(int x, int y, List<Player> players)
+        {
+            //Basically same as RemoveSandByCoordinate but we don't take any action away.
+            bool sand = SandTileChecker(x, y);
+            if (sand && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions >= 0) //Even if we have 0 actions, we can use this card:)
+            {
+                board.SandTiles[x, y] -= 1; //we excavate the sand
+                Sound.PlaySound("441824__jjdg__shovel-digging-sound.mp3");
+                return "validMove";
+            }
+            else if (!sand)
+            {
+                return "notSand";
+            }
+            else return "outOfActions";
+        }
+
         public string Excavate(List<Player> players)
         {
             int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
@@ -1617,5 +1739,60 @@ namespace GUI_20212202_MQ7GIA.Logic
             xdocument.Save("savegame.xml");
 
         }
+        public List<Tile> GetUnblockedTiles()
+        {
+            //Beware, we need to remove the storm's coordinates.
+            List<Tile> tiles = new List<Tile>();
+            Storm storm = board.storm;
+            for (int x = 0; x < board.SandTiles.GetLength(0); x++)
+            {
+                for (int y = 0; y < board.SandTiles.GetLength(1); y++)
+                {
+                    if (board.SandTiles[x,y] < 2 && !(x == storm.X && y == storm.Y))
+                    {
+                        tiles.Add(new Tile
+                        {
+                            X = x,
+                            Y = y,
+                            IsDiscovered = false //This is totally unnecessary tbh because I don't need this
+                        });
+                    }
+                }
+            }
+            return tiles;
+        }
+        public void Teleport(List<Player> players, Tile selectedTile, Player selectedPlayer)
+        {
+            int playerX = players.Where(x => x.TurnOrder == 1).SingleOrDefault().X;
+            int playerY = players.Where(x => x.TurnOrder == 1).SingleOrDefault().Y;
+            int currentActions = players.Where(x => x.TurnOrder == 1).SingleOrDefault().NumberOfActions;
+            if (currentActions > 0&& selectedPlayer != null)
+            {
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = selectedTile.X;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = selectedTile.Y;
+                selectedPlayer.X = selectedTile.X;
+                selectedPlayer.Y = selectedTile.Y;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                return;
+            }
+            else if (currentActions > 0)
+            {
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = selectedTile.X;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = selectedTile.Y;
+                players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
+                return;
+            }
+            throw new Exception("Hint: You are out of actions.");
+        }
+        public List<Player> GetPlayersOnSameTile()
+        {
+            List<Player> playersOnSameTile = new List<Player>();
+            int playerX = players.Where(x => x.TurnOrder == 1).SingleOrDefault().X;
+            int playerY = players.Where(x => x.TurnOrder == 1).SingleOrDefault().Y;
+            playersOnSameTile.AddRange(Players.Where(x => x.X == playerX && x.Y == playerY));
+            playersOnSameTile.Remove(Players.Where(x => x.TurnOrder == 1).SingleOrDefault()); //removing yourself from the list
+            return playersOnSameTile;
+        }
+
     }
 }
