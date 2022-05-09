@@ -30,8 +30,7 @@ namespace GUI_20212202_MQ7GIA
         BoardWindowViewModel boardWindowViewModel;
         WaterSharingWindowViewModel waterSharingWindowVM;
         TunnelTeleportWindowViewModel tunnelTeleportWindowVM;
-        CardInspector cardInspector = new CardInspector();
-
+        CardInspector cardInspector = new CardInspector();      
         public BoardWindow(GameLogic logic, Sound sound, GameSetupWindow setupWindow)
         {
             InitializeComponent();
@@ -92,7 +91,49 @@ namespace GUI_20212202_MQ7GIA
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
         }
+        public BoardWindow(GameLogic logic, Sound sound)       //continue game
+        {
+            InitializeComponent();
+            foreach (Player player in logic.Players)
+            {
+                switch (player.PlayerRoleName)
+                {
+                    case RoleName.Archeologist:
+                        colors.Add("red_piece.png");
+                        break;
+                    case RoleName.Climber:
+                        colors.Add("black_piece.png");
+                        break;
+                    case RoleName.Explorer:
+                        colors.Add("green_piece.png");
+                        break;
+                    case RoleName.Meteorologist:
+                        colors.Add("white_piece.png");
+                        break;
+                    case RoleName.Navigator:
+                        colors.Add("yellow_piece.png");
+                        break;
+                    case RoleName.WaterCarrier:
+                        colors.Add("blue_piece.png");
+                        break;
+                    default: break;
+                }
+            }
+            display.SetupLogic(logic, colors);
+            Sound = sound;
+            Sound.PlayMusic("RPG DD Ambience Windy Desert Immersive Realistic Relaxing Heat Sand Calm.mp3");
 
+            partsCollected.SetupModel(logic, logic.Players);
+            stormMeter.SetupModel(logic);
+            waterSharingWindowVM = new WaterSharingWindowViewModel();
+            waterSharingWindowVM.SetupLogic(logic, this);
+            tunnelTeleportWindowVM = new TunnelTeleportWindowViewModel();
+            tunnelTeleportWindowVM.SetupLogic(logic, display, this);
+            boardWindowViewModel = new BoardWindowViewModel(logic.Players);
+            this.DataContext = boardWindowViewModel;
+            logic.CardsMovingOnBoard += CardsChanging;
+
+        }
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             display.Resize(new Size(boardDisplay.ActualWidth, boardDisplay.ActualHeight));

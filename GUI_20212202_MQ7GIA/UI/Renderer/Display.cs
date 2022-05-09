@@ -320,7 +320,6 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                     }
                     if (x == logic.board.storm.X && y == logic.board.storm.Y)
                     {
-                        //player.Open(new Uri("A:\\4\\Programming 4\\game project\\GUI_20212202_MQ7GIA\\imageassets\\Tiles\\storm.gif"));
                         player.Open(new Uri(Path.Combine("ImageAssets/Tiles", "storm.gif"), UriKind.RelativeOrAbsolute));
                         player.Play();
                         drawingContext.DrawVideo(player, new Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight));

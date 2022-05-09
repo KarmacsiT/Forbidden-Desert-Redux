@@ -231,6 +231,10 @@ namespace GUI_20212202_MQ7GIA.Logic
             board.SandTiles[2, 4] += 1;
 
         }
+        public GameLogic()
+        {
+            // constructor for ContinueGame, properties are added right after calling the ctr for convenience
+        }
         public bool IsItDuplicate(int X, int Y, AirShipClueTile[] tiles)
         {
             for (int i = 0; i < tiles.Length; i += 2)
