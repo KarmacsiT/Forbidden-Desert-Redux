@@ -105,13 +105,14 @@ namespace GUI_20212202_MQ7GIA
         {
             PauseWindow pauseWindow = new PauseWindow(Sound);
             pauseWindow.ShowDialog();
-            if(pauseWindow.Save == true)
+            if (pauseWindow.Save == true)
             {
                 display.SaveGame();
             }
             if (pauseWindow.DialogResult == true)
             {
                 this.Close();
+                cardInspector.Close();
             }
         }
         private void KeyBoardUsed(object sender, KeyEventArgs e)
@@ -288,6 +289,7 @@ namespace GUI_20212202_MQ7GIA
                 if (MoveStormMessage == "Storm Moves")
                 {
                     display.InvalidateVisual();
+                    StormDiscardDisplay.Source = new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm Card Backside.png", UriKind.RelativeOrAbsolute));
                 }
                 else if (MoveStormMessage == "Storm Picks Up")
                 {
@@ -337,9 +339,9 @@ namespace GUI_20212202_MQ7GIA
             {
                 Card3.Source = logic.CurrentPlayerCard3Display;
             }
-            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 4 && logic.CurrentPLayerCard4Display is not null)
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 4 && logic.CurrentPlayerCard4Display is not null)
             {
-                Card4.Source = logic.CurrentPLayerCard4Display;
+                Card4.Source = logic.CurrentPlayerCard4Display;
             }
             if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 5 && logic.CurrentPlayerCard5Display is not null)
             {
@@ -376,11 +378,11 @@ namespace GUI_20212202_MQ7GIA
             }
             if (P2Card4.Source is not null)
             {
-                logic.CurrentPLayerCard4Display = P2Card4.Source;
+                logic.CurrentPlayerCard4Display = P2Card4.Source;
             }
             else
             {
-                logic.CurrentPLayerCard4Display = null;
+                logic.CurrentPlayerCard4Display = null;
             }
             if (P2Card5.Source is not null)
             {
@@ -420,19 +422,185 @@ namespace GUI_20212202_MQ7GIA
             }
         }
 
+        #region MouseMove Functions
         private void CurrentPlayer_Card1_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                DragDrop.DoDragDrop(Card1, Card1, DragDropEffects.Copy);
+                DragDrop.DoDragDrop(Card1, new DataObject(typeof(Image), Card1), DragDropEffects.Copy);
+
             }
         }
 
-        private void Board_Drop(object sender, DragEventArgs e)
+        private void CurrentPlayer_Card2_MouseMove(object sender, MouseEventArgs e)
         {
-            //Activating Item effect
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(Card2, new DataObject(typeof(Image), Card2), DragDropEffects.Copy);
+
+            }
         }
 
+        private void CurrentPlayer_Card3_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(Card3, new DataObject(typeof(Image), Card3), DragDropEffects.Copy);
+
+            }
+        }
+
+        private void CurrentPlayer_Card4_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(Card4, new DataObject(typeof(Image), Card4), DragDropEffects.Copy);
+
+            }
+        }
+
+        private void CurrentPlayer_Card5_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(Card5, new DataObject(typeof(Image), Card5), DragDropEffects.Copy);
+
+            }
+        }
+
+        private void Player2_Card1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(P2Card1, new DataObject(typeof(Image), P2Card1), DragDropEffects.Copy);
+
+            }
+        }
+
+        private void Player2_Card2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(P2Card2, new DataObject(typeof(Image), P2Card2), DragDropEffects.Copy);
+
+            }
+        }
+
+        private void Player2_Card3_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(P2Card3, new DataObject(typeof(Image), P2Card3), DragDropEffects.Copy);
+
+            }
+        }
+
+        private void Player2_Card4_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(P2Card4, new DataObject(typeof(Image), P2Card4), DragDropEffects.Copy);
+
+            }
+        }
+
+        private void Player2_Card5_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(P2Card5, new DataObject(typeof(Image), P2Card5), DragDropEffects.Copy);
+
+            }
+        }
+        #endregion
+        private void Board_Drop(object sender, DragEventArgs e)
+        {
+            object dragedObject = e.Data.GetData(typeof(Image)) as Image;
+
+            if (dragedObject is not null)
+            {
+                logic = display.GetLogic();
+                string dragedCardName = (dragedObject as Image).Name;
+
+                string draggedCardGadgetType = (dragedObject as Image).Source.ToString().Split('/')[5].Split('.')[0]; //We can use this to trigger gadget effects
+
+                ItemDiscardDisplay.Source = new BitmapImage(new Uri("/ImageAssets/Gadget Cards/Gadget Backside.png", UriKind.RelativeOrAbsolute));
+
+                switch (dragedCardName) //null out the dropped cards source and the logic card property
+                {
+                    case "Card1":
+                        Card1.Source = null;
+                        logic.CurrentPlayerCard1Display = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 1).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 1).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "Card2":
+                        Card2.Source = null;
+                        logic.CurrentPlayerCard2Display = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 1).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 1).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "Card3":
+                        Card3.Source = null;
+                        logic.CurrentPlayerCard3Display = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 1).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 1).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "Card4":
+                        Card4.Source = null;
+                        logic.CurrentPlayerCard4Display = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 1).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 1).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "Card5":
+                        Card5.Source = null;
+                        logic.CurrentPlayerCard5Display = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 1).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 1).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "P2Card1":
+                        P2Card1.Source = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "P2Card2":
+                        P2Card2.Source = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "P2Card3":
+                        P2Card3.Source = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "P2Card4":
+                        P2Card4.Source = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "P2Card5":
+                        P2Card5.Source = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                }
+
+
+
+            }
+        }
+
+        #region MouseEnter and MouseLeave Funtions
         private void CurrentPlayer_Card1_MouseEnter(object sender, MouseEventArgs e) //Somehow close the window once the player goes back to the main menu
         {
             if (Card1.Source is not null)
@@ -602,5 +770,7 @@ namespace GUI_20212202_MQ7GIA
                 cardInspector.Hide();
             }
         }
+        #endregion
+
     }
 }

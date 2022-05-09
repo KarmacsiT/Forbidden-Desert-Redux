@@ -32,7 +32,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public ImageSource CurrentPlayerCard1Display { get; set; }
         public ImageSource CurrentPlayerCard2Display { get; set; }
         public ImageSource CurrentPlayerCard3Display { get; set; }
-        public ImageSource CurrentPLayerCard4Display { get; set; }
+        public ImageSource CurrentPlayerCard4Display { get; set; }
         public ImageSource CurrentPlayerCard5Display { get; set; }
 
 
@@ -643,9 +643,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             GameDeck.AvailableItemCards = new List<ItemCard>();
             GameDeck.AvailableStormCards = new List<StormCard>();
 
-
-
-
             for (int i = 0; i < 3; i++)
             {
                 GameDeck.AvailableItemCards.Add(new ItemCard("Dune Blaster", false, false, "/ImageAssets/Gadget Cards/Dune Blaster.png"));
@@ -1015,10 +1012,10 @@ namespace GUI_20212202_MQ7GIA.Logic
                 Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
                 CurrentPlayerCard3Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
             }
-            else if (CurrentPLayerCard4Display == null)
+            else if (CurrentPlayerCard4Display == null)
             {
                 Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
-                CurrentPLayerCard4Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
+                CurrentPlayerCard4Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
             }
             else if (CurrentPlayerCard5Display == null)
             {
@@ -1608,7 +1605,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             elementroot.Add(xcurrentplayercard3display);
             //CurrentPlayerCard4Display 
             XElement xcurrentplayercard4display = new XElement("CurrentPlayerCard4Display");
-            xcurrentplayercard4display.SetAttributeValue("value", CurrentPLayerCard4Display);
+            xcurrentplayercard4display.SetAttributeValue("value", CurrentPlayerCard4Display);
             elementroot.Add(xcurrentplayercard4display);
             //CurrentPlayerCard5Display 
             XElement xcurrentplayercard5display = new XElement("CurrentPlayerCard5Display");

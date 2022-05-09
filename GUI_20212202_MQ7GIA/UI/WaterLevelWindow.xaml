@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:renderer="clr-namespace:GUI_20212202_MQ7GIA.UI.Renderer"
         mc:Ignorable="d"
-        Title="WaterLevelWindow" Width="292.837" Height="400" ResizeMode="NoResize" WindowStartupLocation="Manual" Left="100" Top="370" VerticalAlignment="Bottom" HorizontalAlignment="Left" AllowsTransparency="True" WindowStyle="None" Topmost="True" MouseDown="Window_MouseDown">
+        Title="WaterLevelWindow" Width="292.837" Height="400" ResizeMode="NoResize" WindowStartupLocation="Manual" Left="180" Top="470" VerticalAlignment="Bottom" HorizontalAlignment="Left" AllowsTransparency="True" WindowStyle="None" Topmost="True" MouseDown="Window_MouseDown">
     <Window.Resources>
         <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
         <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
