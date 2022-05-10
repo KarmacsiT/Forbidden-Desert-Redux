@@ -37,6 +37,7 @@ namespace GUI_20212202_MQ7GIA
         DuneBlasterWindowViewModel duneBlasterWindowViewModel;
         JetPackWindowViewModel jetPackWindowViewModel;
         TerrascopeSelectWindowViewModel terrascopeSelectWVM;
+        StormTrackerWindowViewModel stormTrackerWVM;
         public TerraScopeRenderer terraScopeRenderer;
         #endregion
         CardInspector cardInspector = new CardInspector();
@@ -107,6 +108,8 @@ namespace GUI_20212202_MQ7GIA
             jetPackWindowViewModel.SetupLogic(logic, display, this);
             terrascopeSelectWVM = new TerrascopeSelectWindowViewModel();
             terrascopeSelectWVM.SetupLogic(logic, terraScopeRenderer, this);
+            stormTrackerWVM = new StormTrackerWindowViewModel();
+            stormTrackerWVM.SetupLogic(logic, this);
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
@@ -149,6 +152,14 @@ namespace GUI_20212202_MQ7GIA
             waterSharingWindowVM.SetupLogic(logic, this);
             tunnelTeleportWindowVM = new TunnelTeleportWindowViewModel();
             tunnelTeleportWindowVM.SetupLogic(logic, display, this);
+            duneBlasterWindowViewModel = new DuneBlasterWindowViewModel();
+            duneBlasterWindowViewModel.SetupLogic(logic, this);
+            jetPackWindowViewModel = new JetPackWindowViewModel();
+            jetPackWindowViewModel.SetupLogic(logic, display, this);
+            terrascopeSelectWVM = new TerrascopeSelectWindowViewModel();
+            terrascopeSelectWVM.SetupLogic(logic, terraScopeRenderer, this);
+            stormTrackerWVM = new StormTrackerWindowViewModel();
+            stormTrackerWVM.SetupLogic(logic, this);
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
@@ -263,50 +274,42 @@ namespace GUI_20212202_MQ7GIA
             else if (e.Key == Key.D0)
             {
                 // Remove by Sand
-                logic = display.GetLogic();
                 invalidate = display.RemoveSandByCoordinates(-1, -1);
             }
             else if (e.Key == Key.D1)
             {
                 // Remove by Sand
-                logic = display.GetLogic();
                 invalidate = display.RemoveSandByCoordinates(-1, 0);
             }
             else if (e.Key == Key.D2)
             {
                 // Remove by Sand
-                logic = display.GetLogic();
                 invalidate = display.RemoveSandByCoordinates(-1, 1);
 
             }
             else if (e.Key == Key.D3)
             {
                 // Remove by Sand
-                logic = display.GetLogic();
                 invalidate = display.RemoveSandByCoordinates(0, -1);
             }
             else if (e.Key == Key.D4)
             {
                 // Remove by Sand
-                logic = display.GetLogic();
                 invalidate = display.RemoveSandByCoordinates(0, 1);
             }
             else if (e.Key == Key.D5)
             {
                 // Remove by Sand
-                logic = display.GetLogic();
                 invalidate = display.RemoveSandByCoordinates(1, -1);
             }
             else if (e.Key == Key.D6)
             {
                 // Remove by Sand
-                logic = display.GetLogic();
                 invalidate = display.RemoveSandByCoordinates(1, 0);
             }
             else if (e.Key == Key.D7)
             {
                 // Remove by Sand
-                logic = display.GetLogic();
                 invalidate = display.RemoveSandByCoordinates(1, 1);
             }           
             //testing purpose
@@ -755,6 +758,12 @@ namespace GUI_20212202_MQ7GIA
                         List<ITile> undiscoveredTiles = logic.UndiscoveredTiles();
                         terrascopeSelectWVM.ConvertListToObservable(undiscoveredTiles);
                         terrascopeSelectWVM.ShowWindow();
+                        break;
+                    case "Storm Tracker":
+                        logic = display.GetLogic();
+                        List<StormCard> stormcards = logic.CollectStormCardsForTracking();
+                        stormTrackerWVM.ConvertListToObservable(stormcards);
+                        stormTrackerWVM.ShowWindow();
                         break;
                     default:
                         break;

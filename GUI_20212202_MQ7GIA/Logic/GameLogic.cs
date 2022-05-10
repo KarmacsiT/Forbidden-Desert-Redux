@@ -1810,6 +1810,65 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             }
         }
+        public List<StormCard> CollectStormCardsForTracking()
+        {
+            List<StormCard> stormTrackingCards = new List<StormCard>();
+            int cardsToTake = 0;
+            if (players.Count == 2)
+            {
+                if (StormProgress < 0.13)
+                {
+                    cardsToTake = 2;
+                }
+                else if (StormProgress < 0.33)
+                {
+                    cardsToTake = 3;
+                }
+                else if (StormProgress < 0.65)
+                {
+                    cardsToTake = 4;
+                }
+                else if (StormProgress < 0.85)
+                {
+                    cardsToTake = 5;
+                }
+                else
+                {
+                    cardsToTake = 6;
+                }
+            }
+            else if (players.Count == 2)
+            {
+                if (StormProgress < 0.06)
+                {
+                    cardsToTake = 2;
+                }
+                else if (StormProgress < 0.40)
+                {
+                    cardsToTake = 3;
+                }
+                else if (StormProgress < 0.65)
+                {
+                    cardsToTake = 4;
+                }
+                else if (StormProgress < 0.85)
+                {
+                    cardsToTake = 5;
+                }
+                else
+                {
+                    cardsToTake = 6;
+                }
+            }
+            for (int i = 0; i < cardsToTake; i++)
+            {
+                if (Deck.AvailableStormCards.Count >= cardsToTake)
+                {
+                    stormTrackingCards.Add(Deck.AvailableStormCards[i]);
+                }
+            }
+            return stormTrackingCards;
+        }
     }
     public class TileComparer : IComparer<ITile>
     {
