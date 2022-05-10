@@ -102,6 +102,10 @@
     <None Remove="imageassets\Sand\sand.png" />
     <None Remove="imageassets\Sand_test.jpg" />
     <None Remove="imageassets\skull.png" />
+    <None Remove="imageassets\Storm Cards\oneDown.png" />
+    <None Remove="imageassets\Storm Cards\oneLeft.png" />
+    <None Remove="imageassets\Storm Cards\oneRight.png" />
+    <None Remove="imageassets\Storm Cards\oneUp.png" />
     <None Remove="imageassets\Storm Cards\Storm 1Down.png" />
     <None Remove="imageassets\Storm Cards\Storm 1Left.png" />
     <None Remove="imageassets\Storm Cards\Storm 1Right.png" />
@@ -117,6 +121,14 @@
     <None Remove="imageassets\Storm Cards\Storm Card Backside.png" />
     <None Remove="imageassets\Storm Cards\Storm Picks Up.png" />
     <None Remove="imageassets\Storm Cards\Sun Beats Down.png" />
+    <None Remove="imageassets\Storm Cards\threeDown.png" />
+    <None Remove="imageassets\Storm Cards\threeLeft.png" />
+    <None Remove="imageassets\Storm Cards\threeRight.png" />
+    <None Remove="imageassets\Storm Cards\threeUp.png" />
+    <None Remove="imageassets\Storm Cards\twoDown.png" />
+    <None Remove="imageassets\Storm Cards\twoLeft.png" />
+    <None Remove="imageassets\Storm Cards\twoRight.png" />
+    <None Remove="imageassets\Storm Cards\twoUp.png" />
     <None Remove="imageassets\Storm Meter\indicator.png" />
     <None Remove="imageassets\Storm Meter\indicator_2_player.png" />
     <None Remove="imageassets\Storm Meter\indicator_3_player.png" />
@@ -403,43 +415,43 @@
     <Content Include="imageassets\skull.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="imageassets\Storm Cards\oneDown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\oneLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\oneRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\oneUp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\threeDown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\threeLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\threeRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\threeUp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\twoDown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\twoLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\twoRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\Storm Cards\twoUp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="imageassets\trophy.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Storm 1Down.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Storm 1Left.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Storm 1Right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Storm 1Up.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Storm 2Down.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Storm 2Left.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Storm 2Right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Storm 2Up.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Storm 3Down.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Storm 3Left.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Storm 3Right.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="imageassets\Storm Cards\Storm 3Up.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="imageassets\Storm Cards\Storm Card Backside.png">

@@ -372,28 +372,29 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             }
         }
 
-        public string MoveTheStorm()
+        public StormCard MoveTheStorm()
         {
             StormCard card = logic.Deck.AvailableStormCards[NextStormCardIndex()];
+
             if (card.XMove == -404 && card.YMove == -404)  // Sun 
             {
-                //decrease water level
-                return "Sun Beats Down";
+                logic.DecreaseWaterLevel(GetLogic());
+                return card;
             }
             else if (card.XMove == -303 && card.YMove == -303)  // Stormmeter
             {
                 logic.StormMeterUp();
-                return "Storm Picks Up";
+                return card;
             }
             else
             {
                 if (logic.StormCardAction(card))
                 {
-                    return "Storm Moves";
+                    return card;
                 }
-                else
+                else //Storm does not move because it would move out of bounds
                 {
-                    return "Storm Stays";
+                    return card;
                 }
             }
         }
@@ -409,7 +410,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             int index = NextStormCardIndex();
             logic.Deck.AvailableStormCards[index].IsDiscarded = true;
         }
-        private int NextStormCardIndex()
+        private int NextStormCardIndex() //Needs shuffling is not yet implemeted or the function gave an invalid value either -1 or over the storm card deck maxvalue index
         {
             int index = -1;
             foreach (StormCard card in logic.Deck.AvailableStormCards)
@@ -503,8 +504,8 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         public bool RemoveSandByCoordinates(int x, int y)
         {
             bool invalidate = false;
-            int playerX = logic.Players.Where(p=>p.TurnOrder == 1).FirstOrDefault().X;
-            int playerY = logic.Players.Where(p=>p.TurnOrder == 1).FirstOrDefault().Y;
+            int playerX = logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
+            int playerY = logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
             string validationMessage = "";
             if ((x == -1 && y == -1 || x == -1 && y == 1 || x == 1 && y == -1 || x == 1 && y == 1) && logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName != RoleName.Explorer)
             {
@@ -514,8 +515,8 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             {
                 validationMessage = logic.RemoveSandByCoordinate(playerX + x, playerY + y, logic.Players);
             }
-            
-            
+
+
             if (validationMessage == "validMove")
             {
                 invalidate = true;

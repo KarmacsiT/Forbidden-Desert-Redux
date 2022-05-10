@@ -1,0 +1,34 @@
+﻿<Window x:Class="GUI_20212202_MQ7GIA.UI.StormCardDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_20212202_MQ7GIA.UI"
+        mc:Ignorable="d"
+        Title="StormCardDisplay" Height="1080" Width="1920" ResizeMode="NoResize" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None">
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/ImageAssets/PauseMenu.png"/>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+
+        </Grid.ColumnDefinitions>
+        <Image x:Name="StormCard1Display" Grid.Row="1" Grid.Column="0"/>
+        <Image x:Name="StormCard2Display" Grid.Row="1" Grid.Column="1"/>
+        <Image x:Name="StormCard3Display" Grid.Row="1" Grid.Column="2"/>
+        <Image x:Name="StormCard4Display" Grid.Row="1" Grid.Column="3"/>
+        <Image x:Name="StormCard5Display" Grid.Row="1" Grid.Column="4"/>
+        <Image x:Name="StormCard6Display" Grid.Row="1" Grid.Column="5"/>
+    </Grid>
+</Window>

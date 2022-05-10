@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace GUI_20212202_MQ7GIA
 {
@@ -31,6 +32,8 @@ namespace GUI_20212202_MQ7GIA
         WaterSharingWindowViewModel waterSharingWindowVM;
         TunnelTeleportWindowViewModel tunnelTeleportWindowVM;
         CardInspector cardInspector = new CardInspector();
+        StormCardDisplay stormCardDisplay = new StormCardDisplay();
+        DispatcherTimer timer = new DispatcherTimer();
 
         public BoardWindow(GameLogic logic, Sound sound, GameSetupWindow setupWindow)
         {
@@ -113,6 +116,7 @@ namespace GUI_20212202_MQ7GIA
             {
                 this.Close();
                 cardInspector.Close();
+                stormCardDisplay.Close();
             }
         }
         private void KeyBoardUsed(object sender, KeyEventArgs e)
@@ -271,33 +275,73 @@ namespace GUI_20212202_MQ7GIA
             }
         }
 
-        private void ExcavateClick(object sender, KeyEventArgs e)
-        {
-
-        }
         public void CatchException(Exception ex)
         {
             MessageBox.Show(ex.Message);
         }
-        private void EndTurn(object sender, RoutedEventArgs e)
+        private void EndTurn(object sender, RoutedEventArgs e) //MoveTheStorm now returns storm cards you can use that to display the StormCard on the UI
         {
+            List<Image> stormCardDisplayElements = new Image[] { stormCardDisplay.StormCard1Display, stormCardDisplay.StormCard2Display, stormCardDisplay.StormCard3Display, stormCardDisplay.StormCard4Display, stormCardDisplay.StormCard5Display }.ToList();
+            List<string> possibleStormMovingCardNames = new string[] { "oneDown", "oneUp", "oneLeft", "oneRight", "twoDown", "twoUp", "twoLeft", "twoRight", "threeDown", "threeUp", "threeLeft", "threeRight" }.ToList();
+            string MoveStormMessage = string.Empty;
+            string stormCardImagePath = string.Empty;
+
+
+            foreach (var initialElement in stormCardDisplayElements)
+            {
+                initialElement.Source = null;
+            }
+
             int iterations = display.NumberOfStormCardsActivated();
             for (int i = 0; i < iterations; i++)
             {
-                display.NeedsShufflingStormcards();           //if yes, it automatically shuffles the stormcards
-                string MoveStormMessage = display.MoveTheStorm();
-                if (MoveStormMessage == "Storm Moves")
+                display.NeedsShufflingStormcards();  //if yes, it automatically shuffles the stormcards
+
+                MoveStormMessage = display.MoveTheStorm().Name;
+
+                if (possibleStormMovingCardNames.Any(sc => sc == MoveStormMessage))
                 {
+                    stormCardImagePath = $"/ImageAssets/Storm Cards/{MoveStormMessage}.png";
+
+                    foreach (var element in stormCardDisplayElements)
+                    {
+                        if (element.Source is null)
+                        {
+                            element.Source = new BitmapImage(new Uri(stormCardImagePath, UriKind.RelativeOrAbsolute));
+                            break;
+                        }
+                    }
+
                     display.InvalidateVisual();
                     StormDiscardDisplay.Source = new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm Card Backside.png", UriKind.RelativeOrAbsolute));
                 }
                 else if (MoveStormMessage == "Storm Picks Up")
                 {
+
+                    foreach (var element in stormCardDisplayElements)
+                    {
+                        if (element.Source is null)
+                        {
+                            element.Source = new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm Picks Up.png", UriKind.RelativeOrAbsolute));
+                            break;
+                        }
+                    }
+
                     stormMeter.InvalidateVisual();
+
                 }
+
                 else if (MoveStormMessage == "Sun Beats Down")
                 {
-                    //invalidate water
+                    foreach (var element in stormCardDisplayElements)
+                    {
+                        if (element.Source is null)
+                        {
+                            element.Source = new BitmapImage(new Uri("/ImageAssets/Storm Cards/Sun Beats Down.png", UriKind.RelativeOrAbsolute));
+                            break;
+                        }
+                    }
+
                 }
                 display.MoveStormCardToDiscarded();
                 if (display.LoseOrNot())
@@ -306,19 +350,47 @@ namespace GUI_20212202_MQ7GIA
                     break;
                 }
             }
+            stormCardDisplay.Show();
+
             if (display.LoseOrNot() == false)
             {
                 display.EndTurn();
                 Sound.PlaySound("326478__byseb__automatic-wrist-watch-ticking.wav");
                 UpdateBoardViewModel();
-                MessageBox.Show($"{boardWindowViewModel.FirstPlayerName} you're up!");
+                if (stormCardDisplay.IsVisible is true)
+                {
+                    timer.Tick += new EventHandler(NextPlayer);
+                    if (iterations <= 3)
+                    {
+                        timer.Interval = new TimeSpan(0, 0, 0, 4);
+                    }
+                    if (iterations >= 4)
+                    {
+                        timer.Interval = new TimeSpan(0, 0, 0, 5);
+                    }
+                    timer.Start();
+                }
+                else
+                {
+                    stormCardDisplay.Hide(); //Just in case to cover a rare corner case
+                    MessageBox.Show($"{boardWindowViewModel.FirstPlayerName} you're up!");
+                }
             }
         }
+
+
+        private void NextPlayer(object sender, EventArgs e)
+        {
+            stormCardDisplay.Hide(); //Just in case to cover a rare corner case
+            MessageBox.Show($"{boardWindowViewModel.FirstPlayerName} you're up!");
+            timer.Stop();
+            timer.Tick -= NextPlayer;
+        }
+
         private void UpdateBoardViewModel()
         {
             GameLogic logic = display.GetLogic();
             boardWindowViewModel.SetPlayers(logic.Players);
-
         }
 
 
@@ -415,6 +487,7 @@ namespace GUI_20212202_MQ7GIA
         private void LoseGame()
         {
             LosingWindow window = new LosingWindow(Sound);
+            stormCardDisplay.Hide();
             window.ShowDialog();
             if (window.DialogResult == true)
             {

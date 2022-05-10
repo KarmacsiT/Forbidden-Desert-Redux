@@ -649,14 +649,14 @@ namespace GUI_20212202_MQ7GIA.Logic
                 GameDeck.AvailableItemCards.Add(new ItemCard("Jet Pack", false, false, "/ImageAssets/Gadget Cards/Jet Pack.png"));
 
                 GameDeck.AvailableStormCards.Add(new StormCard("oneDown", false, 0, -1));
-                GameDeck.AvailableStormCards.Add(new StormCard("oneUp", false, 0, 1));
-                GameDeck.AvailableStormCards.Add(new StormCard("oneLeft", false, -1, 0));
-                GameDeck.AvailableStormCards.Add(new StormCard("oneRight", false, 1, 0));
-                GameDeck.AvailableStormCards.Add(new StormCard("SunBeatsdown", false, -404, -404));
-                GameDeck.AvailableStormCards.Add(new StormCard("StormPicksUp", false, -303, -303));
+                GameDeck.AvailableStormCards.Add(new StormCard("oneUp", false, 0, +1));
+                GameDeck.AvailableStormCards.Add(new StormCard("oneLeft", false, +1, 0));
+                GameDeck.AvailableStormCards.Add(new StormCard("oneRight", false, -1, 0));
+                GameDeck.AvailableStormCards.Add(new StormCard("Sun Beats Down", false, -404, -404));
+                GameDeck.AvailableStormCards.Add(new StormCard("Storm Picks Up", false, -303, -303));
             }
 
-            GameDeck.AvailableStormCards.Add(new StormCard("SunBeatsdown", false, -404, -404));
+            GameDeck.AvailableStormCards.Add(new StormCard("Sun Beats Down", false, -404, -404));
 
             for (int i = 0; i < 2; i++)
             {
@@ -664,9 +664,9 @@ namespace GUI_20212202_MQ7GIA.Logic
                 GameDeck.AvailableItemCards.Add(new ItemCard("Terrascope", false, false, "/ImageAssets/Gadget Cards/Terrascope.png"));
 
                 GameDeck.AvailableStormCards.Add(new StormCard("twoDown", false, 0, -2));
-                GameDeck.AvailableStormCards.Add(new StormCard("twoUp", false, 0, 2));
-                GameDeck.AvailableStormCards.Add(new StormCard("twoLeft", false, -2, 0));
-                GameDeck.AvailableStormCards.Add(new StormCard("twoRight", false, 2, 0));
+                GameDeck.AvailableStormCards.Add(new StormCard("twoUp", false, 0, +2));
+                GameDeck.AvailableStormCards.Add(new StormCard("twoLeft", false, +2, 0));
+                GameDeck.AvailableStormCards.Add(new StormCard("twoRight", false, -2, 0));
             }
 
             GameDeck.AvailableItemCards.Add(new ItemCard("Secret Water Reserve", false, false, "/ImageAssets/Gadget Cards/Secret Water Reserve.png"));
@@ -675,8 +675,8 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             GameDeck.AvailableStormCards.Add(new StormCard("threeDown", false, 0, -3));
             GameDeck.AvailableStormCards.Add(new StormCard("threeUp", false, 0, 3));
-            GameDeck.AvailableStormCards.Add(new StormCard("threeLeft", false, -3, 0));
-            GameDeck.AvailableStormCards.Add(new StormCard("threeRight", false, 3, 0));
+            GameDeck.AvailableStormCards.Add(new StormCard("threeLeft", false, +3, 0));
+            GameDeck.AvailableStormCards.Add(new StormCard("threeRight", false, -3, 0));
 
             GameDeck = Shuffle(GameDeck, true, true);
             return GameDeck;
@@ -1616,6 +1616,31 @@ namespace GUI_20212202_MQ7GIA.Logic
             xdocument.Add(elementroot);
             xdocument.Save("savegame.xml");
 
+        }
+        public void DecreaseWaterLevel(GameLogic logic)
+        {
+            List<string> playersInTunel = new List<string>();
+
+            foreach (var player in logic.Players)
+            {
+                foreach (var tunnelTile in logic.board.TunnelTiles)
+                {
+                    if (player.X == tunnelTile.X && player.Y == tunnelTile.Y && tunnelTile.IsDiscovered is true)
+                    {
+                        playersInTunel.Add(player.PlayerName);
+                    }
+
+                }
+            }
+
+            foreach (var checkPlayer in logic.Players)
+            {
+                if (playersInTunel.Any(x => x != checkPlayer.PlayerName) || playersInTunel.Count is 0)
+                {
+                    checkPlayer.WaterLevel--;
+                }
+
+            }
         }
     }
 }
