@@ -776,6 +776,9 @@ namespace GUI_20212202_MQ7GIA
                     case "Secret Water Reserve":
                         logic.SecretWaterReserve(turnOrder);
                         break;
+                    case "Solar Shield":
+                        logic.playersHavingNoEffectOnSunBeatsDown = logic.GetPlayersOnSameTileIncludingYou(turnOrder);
+                        break;
                     default:
                         break;
                 }

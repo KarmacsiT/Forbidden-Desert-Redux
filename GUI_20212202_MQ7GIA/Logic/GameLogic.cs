@@ -22,6 +22,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public int CurrentPlayer { get; set; } = 1;
         public ShipParts[] shipParts { get; set; }
         public Sound Sound { get; set; }
+        public List<Player> playersHavingNoEffectOnSunBeatsDown = new List<Player>();
         public string[,] TileNames { get; set; }
         public string[,] PartTiles { get; set; }
         public string DifficultyLevel { get; set; }
@@ -1768,6 +1769,14 @@ namespace GUI_20212202_MQ7GIA.Logic
             playersOnSameTile.Remove(Players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault()); //removing yourself from the list
             return playersOnSameTile;
         }
+        public List<Player> GetPlayersOnSameTileIncludingYou(int turnOrder)
+        {
+            List<Player> playersOnSameTile = new List<Player>();
+            int playerX = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().X;
+            int playerY = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().Y;
+            playersOnSameTile.AddRange(Players.Where(x => x.X == playerX && x.Y == playerY));
+            return playersOnSameTile;
+        }
         public void SetPeekTile(ITile selectedTile)
         {
             TileUnderPeek = selectedTile;
@@ -1808,8 +1817,11 @@ namespace GUI_20212202_MQ7GIA.Logic
                 {
                     checkPlayer.WaterLevel--;
                 }
-
             }
+            if (logic.playersHavingNoEffectOnSunBeatsDown.Count > 0){
+                logic.Players.Where(p => playersHavingNoEffectOnSunBeatsDown.Contains(p)).ToList().ForEach(x => x.WaterLevel += 1);
+            }
+            logic.playersHavingNoEffectOnSunBeatsDown.Clear();
         }
         public List<StormCard> CollectStormCardsForTracking()
         {
