@@ -32,7 +32,7 @@
         </Style>
     </Window.Resources>
     <Window.Background>
-        <ImageBrush ImageSource="pack://application:,,,/ImageAssets/PauseMenu.png"/>
+        <ImageBrush ImageSource="pack://application:,,,/ImageAssets/GameEnd.jpg"/>
     </Window.Background>
     <Grid>
         <Grid.RowDefinitions>
@@ -42,16 +42,11 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="1.2*"></ColumnDefinition>
+            <ColumnDefinition Width="20*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.RowSpan="2" Grid.Column="1" Grid.Row="1">
-            <Label HorizontalAlignment="Center" FontSize="60" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" >You successfully left the desert! </Label>
-            <Image Source="/ImageAssets/trophy.png" Height="400" >
-
-            </Image>
-            <Button Style="{StaticResource TransparentStyle}" Grid.Column="1" Grid.Row="4" Content="Exit to Menu" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="350" Height="105" FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Exit"/>
-            
-        </StackPanel>
+        <Label HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" FontSize="110" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black">Victory!</Label>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Top"  Grid.Row="0" Grid.Column="1" FontSize="40" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Margin="0,154,0,0">You and your team found all the parts of the Flying Machine and managed to escape with it, despite the challenging condions of the desert!</Label>
+        <Button Style="{StaticResource TransparentStyle}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" Content="Exit to Menu" Width="350" Height="105" FontSize="80" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Exit"/>
     </Grid>
 </Window>

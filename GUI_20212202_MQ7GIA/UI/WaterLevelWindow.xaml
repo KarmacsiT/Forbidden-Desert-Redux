@@ -36,6 +36,5 @@
             <renderer:WaterLevelNeedle x:Name="WaterLevelNeedle"></renderer:WaterLevelNeedle>
         </Grid>
         <Button Content="Go back" HorizontalAlignment="Left" Margin="170,330,0,0" VerticalAlignment="Top" Style="{StaticResource TransparentStyle}" FontFamily="{StaticResource Steamwreck}" FontSize="35" Click="Exit"/>
-
     </Grid>
 </Window>

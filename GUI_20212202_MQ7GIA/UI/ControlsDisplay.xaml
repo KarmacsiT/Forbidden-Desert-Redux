@@ -1,0 +1,73 @@
+﻿<Window x:Class="GUI_20212202_MQ7GIA.UI.ControlsDisplay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_20212202_MQ7GIA.UI"
+        mc:Ignorable="d"
+        Title="ControlsDisplay" Height="1080" Width="1920" ResizeMode="NoResize" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" >
+    <Window.Resources>
+        <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
+        <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Coral"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/ImageAssets/PauseMenu.png"/>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Controls:" Grid.Row="0" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Move: Arrow Keys" Grid.Row="1" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Examine Charachter and Water Level: W" Grid.Row="2" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Excavate Tile: E" Grid.Row="3" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Picking up Part: P" Grid.Row="4" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Dig Sand: R" Grid.Row="5" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Dig Sand Upward: 4" Grid.Row="6" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Dig Sand Downward: 3" Grid.Row="7" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Dig Sand Left: 1" Grid.Row="8" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Dig Sand Right: 6" Grid.Row="9" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Use Tunnel: T" Grid.Row="10" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Water Sharing with Players on your tile: S" Grid.Row="11" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="Water Carrier Water Refill: C" Grid.Row="12" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Button Content="Go Back" Grid.Row="13" Grid.Column="2" Style="{StaticResource TransparentStyle}" FontFamily="{StaticResource Steamwreck}"  Grid.RowSpan="2" Click="Button_Click"/>
+    </Grid>
+</Window>

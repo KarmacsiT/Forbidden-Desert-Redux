@@ -80,6 +80,7 @@
     <None Remove="imageassets\Gadget Cards\Storm Tracker.png" />
     <None Remove="imageassets\Gadget Cards\Terrascope.png" />
     <None Remove="imageassets\Gadget Cards\Time Throttle.png" />
+    <None Remove="imageassets\GameEnd.jpg" />
     <None Remove="ImageAssets\menu.png" />
     <None Remove="imageassets\Parts\Compass_Collected.png" />
     <None Remove="imageassets\Parts\Compass_unacquired.png" />
@@ -192,6 +193,8 @@
     <None Remove="Sounds\422709__niamhd00145229__inspect-item.wav" />
     <None Remove="Sounds\441824__jjdg__shovel-digging-sound.mp3" />
     <None Remove="Sounds\Desert sound Sound effect.mp3" />
+    <None Remove="Sounds\GameLostSound.mp3" />
+    <None Remove="Sounds\GameWonSound.mp3" />
     <None Remove="Sounds\game_monopoly_game_metal_playing_piece_drop_onto_playing_board.mp3" />
     <None Remove="Sounds\nature_thunder_clap_close.mp3" />
     <None Remove="Sounds\RPG DD Ambience Windy Desert Immersive Realistic Relaxing Heat Sand Calm.mp3" />
@@ -356,6 +359,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="imageassets\Gadget Cards\Time Throttle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="imageassets\GameEnd.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="imageassets\Parts\Compass_Collected.png">
@@ -643,6 +649,9 @@
     <Content Include="Sounds\441824__jjdg__shovel-digging-sound.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sounds\GameWonSound.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\game_monopoly_game_metal_playing_piece_drop_onto_playing_board.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -684,6 +693,9 @@
     <Resource Include="imageassets\PauseMenu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Sounds\GameLostSound.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

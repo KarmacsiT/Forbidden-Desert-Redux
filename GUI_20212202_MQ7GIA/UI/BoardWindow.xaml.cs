@@ -41,6 +41,7 @@ namespace GUI_20212202_MQ7GIA
         #endregion
         CardInspector cardInspector = new CardInspector();
         StormCardDisplay stormCardDisplay = new StormCardDisplay();
+        ControlsDisplay controls = new ControlsDisplay();
         DispatcherTimer timer = new DispatcherTimer();
 
         public BoardWindow(GameLogic logic, Sound sound, GameSetupWindow setupWindow)
@@ -175,6 +176,7 @@ namespace GUI_20212202_MQ7GIA
                 this.Close();
                 cardInspector.Close();
                 stormCardDisplay.Close();
+                controls.Close();
             }
         }
         private void KeyBoardUsed(object sender, KeyEventArgs e)
@@ -308,7 +310,7 @@ namespace GUI_20212202_MQ7GIA
                 // Remove by Sand
                 logic = display.GetLogic();
                 invalidate = display.RemoveSandByCoordinates(1, 1);
-            }           
+            }
             //testing purpose
             else if (e.Key == Key.Scroll)
             {
@@ -412,7 +414,7 @@ namespace GUI_20212202_MQ7GIA
                 if (display.LoseOrNot())
                 {
                     LoseGame();
-                    break;
+                    return;
                 }
             }
             stormCardDisplay.Show();
@@ -557,6 +559,9 @@ namespace GUI_20212202_MQ7GIA
             if (window.DialogResult == true)
             {
                 this.Close();
+                cardInspector.Close();
+                stormCardDisplay.Close();
+                controls.Close();
             }
         }
 
@@ -747,7 +752,7 @@ namespace GUI_20212202_MQ7GIA
                     case "Jet Pack":
                         List<Player> onSameTile = logic.GetPlayersOnSameTile(turnOrder);
                         List<Tile> unblockedTiles = logic.GetUnblockedTiles();
-                        jetPackWindowViewModel.ConvertListToObservable(unblockedTiles,onSameTile);
+                        jetPackWindowViewModel.ConvertListToObservable(unblockedTiles, onSameTile);
                         jetPackWindowViewModel.TurnOrder = turnOrder;
                         invalidate = jetPackWindowViewModel.ShowWindow();
                         break;
@@ -765,7 +770,7 @@ namespace GUI_20212202_MQ7GIA
                     UpdateItemCardDisplay();
                     display.InvalidateVisual();
                 }
-               //
+                //
 
             }
         }
@@ -942,5 +947,9 @@ namespace GUI_20212202_MQ7GIA
         }
         #endregion
 
+        private void Controls_Click(object sender, RoutedEventArgs e)
+        {
+            controls.Show();
+        }
     }
 }

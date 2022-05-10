@@ -25,7 +25,7 @@ namespace GUI_20212202_MQ7GIA
         {
             InitializeComponent();
             Sound = sound;
-            Sound.PlaySound("zapsplat_multimedia_game_sound_negative_big_lose_buzz_with_descending_fail_tone_78340.mp3");
+            Sound.PlaySound("GameLostSound.mp3");
         }
         private void Exit(object sender, RoutedEventArgs e)
         {

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
 Title="TunnelTeleportWindow" Height="120" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True">
     <Grid>
-        <Label Content="Which tunnel do you want to teleport to?" HorizontalAlignment="Left" Margin="47,36,0,0" VerticalAlignment="Top"/>
+        <Label Content="Which tunnel do you want to exit at?" HorizontalAlignment="Left" Margin="47,36,0,0" VerticalAlignment="Top"/>
         <ComboBox HorizontalAlignment="Left" Margin="330,38,0,0" VerticalAlignment="Top" Width="200" ItemsSource="{Binding TunnelsWithoutFirst}" SelectedItem="{Binding SelectedTunnel}" SelectedIndex="1">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -24,7 +24,7 @@ Title="TunnelTeleportWindow" Height="120" Width="600" WindowStartupLocation="Cen
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Content="Teleport" HorizontalAlignment="Left" Margin="251,77,0,0" VerticalAlignment="Top" Command="{Binding TeleportCommand}"/>
+        <Button Content="Go Underground" HorizontalAlignment="Left" Margin="206,77,0,0" VerticalAlignment="Top" Command="{Binding TeleportCommand}"/>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="309,77,0,0" VerticalAlignment="Top" Click="Exit"/>
 
     </Grid>

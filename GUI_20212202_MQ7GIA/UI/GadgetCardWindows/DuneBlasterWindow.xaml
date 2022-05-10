@@ -5,17 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_20212202_MQ7GIA"
         mc:Ignorable="d"
-Title="DuneBlasterWindow" Height="120" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True">
+Title="DuneBlasterWindow" Height="120" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True" FontFamily="Steamwreck">
+    <Window.Resources>
+        <FontFamily x:Key="Steamwreck">/Font/#Steamwreck</FontFamily>
+        <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Coral"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Label Content="Where do you want remove sand from?" HorizontalAlignment="Left" Margin="47,36,0,0" VerticalAlignment="Top"/>
+        <Label Content="Where do you want to remove the sand from?" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="20"/>
         <ComboBox HorizontalAlignment="Left" Margin="330,38,0,0" VerticalAlignment="Top" Width="200" ItemsSource="{Binding AdjacentTilesFromPlayers}" SelectedItem="{Binding SelectedTile}" SelectedIndex="1">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Name}"></Label>
+                    <Label Content="{Binding Name}" FontSize="13"></Label>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Content="Remove" HorizontalAlignment="Center" Margin="0,77,0,0" VerticalAlignment="Top" Command="{Binding RemoveCommand}"/>
-
+        <Button Content="Blast the Sand off" FontFamily="{StaticResource Steamwreck}" FontSize="20" HorizontalAlignment="Center" Margin="0,77,0,0" VerticalAlignment="Top" Style="{StaticResource TransparentStyle}" Command="{Binding RemoveCommand}"/>
     </Grid>
 </Window>

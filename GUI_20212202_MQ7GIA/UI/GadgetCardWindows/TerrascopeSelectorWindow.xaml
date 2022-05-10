@@ -6,8 +6,33 @@
         xmlns:local="clr-namespace:GUI_20212202_MQ7GIA"
         mc:Ignorable="d"
 Title="DuneBlasterWindow" Height="120" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True">
+    <Window.Resources>
+        <FontFamily x:Key="Steamwreck">/Font/#Steamwreck</FontFamily>
+        <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Coral"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Label Content="Which undiscovered tile do you want to see?" HorizontalAlignment="Left" Margin="47,36,0,0" VerticalAlignment="Top"/>
+        <Label Content="Which undiscovered tile do you want to see?" FontFamily="{StaticResource Steamwreck}" FontSize="20" HorizontalAlignment="Left" Margin="20,29,0,0" VerticalAlignment="Top"/>
         <ComboBox HorizontalAlignment="Left" Margin="330,38,0,0" VerticalAlignment="Top" Width="200" ItemsSource="{Binding UndiscoveredTiles}" SelectedItem="{Binding SelectedTile}" SelectedIndex="1">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -24,7 +49,6 @@ Title="DuneBlasterWindow" Height="120" Width="600" WindowStartupLocation="Center
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Content="Peek" HorizontalAlignment="Center" Margin="0,77,0,0" VerticalAlignment="Top" Command="{Binding PeekCommand}"/>
-
+        <Button Content="Engage Terrascope" FontFamily="{StaticResource Steamwreck}" FontSize="20" Style="{StaticResource TransparentStyle}" HorizontalAlignment="Center" Margin="0,77,0,0" VerticalAlignment="Top" Command="{Binding PeekCommand}"/>
     </Grid>
 </Window>

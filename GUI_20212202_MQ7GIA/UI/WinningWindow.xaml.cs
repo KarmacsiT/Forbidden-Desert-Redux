@@ -25,7 +25,7 @@ namespace GUI_20212202_MQ7GIA
         {
             InitializeComponent();
             Sound = sound;
-            Sound.PlaySound("zapsplat_multimedia_game_sound_win_complete_game_congratulations_harp_glissando_with_fanfare_and_fireworks_79053.mp3");
+            Sound.PlaySound("GameWonSound.mp3");
         }
 
         private void Exit(object sender, RoutedEventArgs e)
