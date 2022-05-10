@@ -1,6 +1,7 @@
 ﻿using GUI_20212202_MQ7GIA.Logic;
 using GUI_20212202_MQ7GIA.Models;
 using GUI_20212202_MQ7GIA.UI;
+using GUI_20212202_MQ7GIA.UI.Renderer;
 using GUI_20212202_MQ7GIA.UI.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -28,9 +29,16 @@ namespace GUI_20212202_MQ7GIA
         GameLogic logic;
         public Sound Sound { get; set; }
         List<string> colors = new List<string>();
+        #region ViewModels
         BoardWindowViewModel boardWindowViewModel;
         WaterSharingWindowViewModel waterSharingWindowVM;
         TunnelTeleportWindowViewModel tunnelTeleportWindowVM;
+        //Gadget card viewModels
+        DuneBlasterWindowViewModel duneBlasterWindowViewModel;
+        JetPackWindowViewModel jetPackWindowViewModel;
+        TerrascopeSelectWindowViewModel terrascopeSelectWVM;
+        public TerraScopeRenderer terraScopeRenderer;
+        #endregion
         CardInspector cardInspector = new CardInspector();
         StormCardDisplay stormCardDisplay = new StormCardDisplay();
         DispatcherTimer timer = new DispatcherTimer();
@@ -82,6 +90,8 @@ namespace GUI_20212202_MQ7GIA
 
             }
             display.SetupLogic(logic, colors);
+            terraScopeRenderer = new TerraScopeRenderer();
+            terraScopeRenderer.SetupLogic(logic);
             Sound = sound;
             Sound.PlayMusic("RPG DD Ambience Windy Desert Immersive Realistic Relaxing Heat Sand Calm.mp3");
 
@@ -91,6 +101,12 @@ namespace GUI_20212202_MQ7GIA
             waterSharingWindowVM.SetupLogic(logic, this);
             tunnelTeleportWindowVM = new TunnelTeleportWindowViewModel();
             tunnelTeleportWindowVM.SetupLogic(logic, display, this);
+            duneBlasterWindowViewModel = new DuneBlasterWindowViewModel();
+            duneBlasterWindowViewModel.SetupLogic(logic, this);
+            jetPackWindowViewModel = new JetPackWindowViewModel();
+            jetPackWindowViewModel.SetupLogic(logic, display, this);
+            terrascopeSelectWVM = new TerrascopeSelectWindowViewModel();
+            terrascopeSelectWVM.SetupLogic(logic, terraScopeRenderer, this);
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
@@ -292,8 +308,15 @@ namespace GUI_20212202_MQ7GIA
                 // Remove by Sand
                 logic = display.GetLogic();
                 invalidate = display.RemoveSandByCoordinates(1, 1);
+            }           
+            //testing purpose
+            else if (e.Key == Key.Scroll)
+            {
+                logic = display.GetLogic();
+                List<ITile> undiscoveredTiles = logic.UndiscoveredTiles();
+                terrascopeSelectWVM.ConvertListToObservable(undiscoveredTiles);
+                terrascopeSelectWVM.ShowWindow();
             }
-
             if (invalidate == true)
             {
                 UpdateBoardViewModel();
@@ -638,9 +661,8 @@ namespace GUI_20212202_MQ7GIA
                 string dragedCardName = (dragedObject as Image).Name;
 
                 string draggedCardGadgetType = (dragedObject as Image).Source.ToString().Split('/')[5].Split('.')[0]; //We can use this to trigger gadget effects
-
+                bool invalidate = false;
                 ItemDiscardDisplay.Source = new BitmapImage(new Uri("/ImageAssets/Gadget Cards/Gadget Backside.png", UriKind.RelativeOrAbsolute));
-
                 switch (dragedCardName) //null out the dropped cards source and the logic card property
                 {
                     case "Card1":
@@ -709,8 +731,41 @@ namespace GUI_20212202_MQ7GIA
                         logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
                         break;
                 }
-
-
+                //decide which player's card was pulled
+                int turnOrder = 1;
+                if (dragedCardName.StartsWith("P2"))
+                {
+                    turnOrder = 2;
+                }
+                switch (draggedCardGadgetType)
+                {
+                    case "Dune Blaster":
+                        logic.RefreshAdjacentSandTilesForPlayer(turnOrder);
+                        duneBlasterWindowViewModel.ConvertListToObservable(logic.adjacentSandedTilesFromPlayer);
+                        invalidate = duneBlasterWindowViewModel.ShowWindow();
+                        break;
+                    case "Jet Pack":
+                        List<Player> onSameTile = logic.GetPlayersOnSameTile(turnOrder);
+                        List<Tile> unblockedTiles = logic.GetUnblockedTiles();
+                        jetPackWindowViewModel.ConvertListToObservable(unblockedTiles,onSameTile);
+                        jetPackWindowViewModel.TurnOrder = turnOrder;
+                        invalidate = jetPackWindowViewModel.ShowWindow();
+                        break;
+                    case "Terrascope":
+                        List<ITile> undiscoveredTiles = logic.UndiscoveredTiles();
+                        terrascopeSelectWVM.ConvertListToObservable(undiscoveredTiles);
+                        terrascopeSelectWVM.ShowWindow();
+                        break;
+                    default:
+                        break;
+                }
+                if (invalidate)
+                {
+                    UpdateBoardViewModel();
+                    UpdateItemCardDisplay();
+                    display.InvalidateVisual();
+                }
+               //
 
             }
         }
