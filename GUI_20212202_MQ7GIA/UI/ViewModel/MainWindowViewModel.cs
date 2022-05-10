@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using GUI_20212202_MQ7GIA.Models;
 using System.Xml.Linq;
 using System.Windows.Media.Imaging;
+using System.Globalization;
 
 namespace GUI_20212202_MQ7GIA.UI.ViewModel
 {
@@ -59,7 +60,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             logic.board.CrashStartTile.Y = int.Parse(xdocument.Root.Element("board").Element("CrashStartTile").Attribute("Y").Value);
             logic.board.CrashStartTile.IsDiscovered = xdocument.Root.Element("board").Element("CrashStartTile").Attribute("IsDiscovered").Value == "true" ? true : false;
 
-            
+
             //TunnelTiles
             logic.board.TunnelTiles = new TunnelTile[3];
             int i = 0;
@@ -108,7 +109,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 logic.board.ShelterTiles[i].X = int.Parse(tile.Attribute("X").Value);
                 logic.board.ShelterTiles[i].Y = int.Parse(tile.Attribute("Y").Value);
                 logic.board.ShelterTiles[i].IsDiscovered = tile.Attribute("IsDiscovered").Value == "true" ? true : false;
-                logic.board.ShelterTiles[i].ShelterType = (ShelterVariations)Enum.Parse(typeof(ShelterVariations),tile.Attribute("ShelterType").Value);
+                logic.board.ShelterTiles[i].ShelterType = (ShelterVariations)Enum.Parse(typeof(ShelterVariations), tile.Attribute("ShelterType").Value);
                 i++;
             }
 
@@ -134,17 +135,17 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             //Deck
             logic.Deck = new Deck();
 
-            
+
             //AvailableItemCards
             logic.Deck.AvailableItemCards = new List<ItemCard>();
             var tt = xdocument.Root.Descendants("AvailableItemCard");
             i = 0;
             foreach (var card in xdocument.Root.Descendants("AvailableItemCard"))
             {
-                logic.Deck.AvailableItemCards.Add(new ItemCard(card.Attribute("Name").Value, card.Attribute("IsDiscarded").Value == "true" ? true : false, card.Attribute("InPlayerHand").Value == "true" ? true : false, card.Attribute("Display").Value));               
+                logic.Deck.AvailableItemCards.Add(new ItemCard(card.Attribute("Name").Value, card.Attribute("IsDiscarded").Value == "true" ? true : false, card.Attribute("InPlayerHand").Value == "true" ? true : false, card.Attribute("Display").Value));
                 i++;
             }
-            
+
             //AvailableItemCards
             logic.Deck.AvailableStormCards = new List<StormCard>();
             i = 0;
@@ -174,18 +175,18 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
 
                 foreach (var cards in player.Elements("PlayerCards"))
                 {
-                    if(int.Parse(cards.Attribute("WhichPlayer").Value) == ourplayer.TurnOrder)
+                    if (int.Parse(cards.Attribute("WhichPlayer").Value) == ourplayer.TurnOrder)
                     {
-                        if(cards.Attributes().Count() > 1)
+                        if (cards.Attributes().Count() > 1)
                         {
                             ourplayer.Cards.Add(new ItemCard(cards.Attribute("Name").Value, cards.Attribute("IsDiscarded").Value == "true" ? true : false, cards.Attribute("InPlayerHand").Value == "true" ? true : false, cards.Attribute("Display").Value));
                         }
                     }
                 }
-                
-                logic.Players.Add(ourplayer);               
+
+                logic.Players.Add(ourplayer);
             }
-            
+
 
             //
             //CurrentPlayer 
@@ -208,13 +209,13 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             //
             //sound
             logic.Sound = new Sound();
-            logic.Sound.MusicVolume = double.Parse(xdocument.Root.Element("Sound").Attribute("MusicVolume").Value);
-            logic.Sound.SoundVolume = double.Parse(xdocument.Root.Element("Sound").Attribute("SoundVolume").Value);
+            logic.Sound.MusicVolume = double.Parse(xdocument.Root.Element("Sound").Attribute("MusicVolume").Value, CultureInfo.InvariantCulture);
+            logic.Sound.SoundVolume = double.Parse(xdocument.Root.Element("Sound").Attribute("SoundVolume").Value, CultureInfo.InvariantCulture);
 
             //
             //tilenames
             logic.TileNames = new string[5, 5];
-            var alltilenames = xdocument.Root.Descendants("TileNameColumn").Attributes("Name");            
+            var alltilenames = xdocument.Root.Descendants("TileNameColumn").Attributes("Name");
             add = 0;
             for (i = 0; i < logic.TileNames.GetLength(0); i++)
             {
@@ -234,7 +235,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             {
                 for (int j = 0; j < logic.PartTiles.GetLength(1); j++)
                 {
-                    logic.PartTiles[i, j] = allparttiles.ToList()[j + add].Value == "null" ? null: allparttiles.ToList()[j + add].Value;
+                    logic.PartTiles[i, j] = allparttiles.ToList()[j + add].Value == "null" ? null : allparttiles.ToList()[j + add].Value;
                 }
                 add += 5;
             }
@@ -249,14 +250,14 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
 
             //
             //StormProgress
-            logic.StormProgress = double.Parse(xdocument.Root.Element("StormProgress").Attribute("value").Value);
+            logic.StormProgress = double.Parse(xdocument.Root.Element("StormProgress").Attribute("value").Value, CultureInfo.InvariantCulture);
 
             //
             //StormProgressNumberOfCards 
             logic.StormProgressNumberOfCards = int.Parse(xdocument.Root.Element("StormProgressNumberOfCards").Attribute("value").Value);
 
             //CurrentPlayerCardDisplays
-            if(xdocument.Root.Element("CurrentPlayerCard1Display").Attribute("value").ToString() != "null")
+            if (xdocument.Root.Element("CurrentPlayerCard1Display").Attribute("value").ToString() != "null")
             {
                 logic.CurrentPlayerCard1Display = new BitmapImage(new Uri(xdocument.Root.Element("CurrentPlayerCard1Display").Attribute("value").ToString(), UriKind.RelativeOrAbsolute));
             }
