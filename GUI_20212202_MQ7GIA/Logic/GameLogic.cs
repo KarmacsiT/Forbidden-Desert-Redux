@@ -22,6 +22,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public int CurrentPlayer { get; set; } = 1;
         public ShipParts[] shipParts { get; set; }
         public Sound Sound { get; set; }
+        public List<Player> playersHavingNoEffectOnSunBeatsDown = new List<Player>();
         public string[,] TileNames { get; set; }
         public string[,] PartTiles { get; set; }
         public string DifficultyLevel { get; set; }
@@ -816,6 +817,7 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             return newPlayer;
         }
+
         public string MovePlayer(int newX, int newY, List<Player> players) // returns true if the player moves ---> so render only rerenders in this case
         {
             int X = players.Where(p => p.TurnOrder == 1).SingleOrDefault().X;
@@ -1773,6 +1775,14 @@ namespace GUI_20212202_MQ7GIA.Logic
             playersOnSameTile.Remove(Players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault()); //removing yourself from the list
             return playersOnSameTile;
         }
+        public List<Player> GetPlayersOnSameTileIncludingYou(int turnOrder)
+        {
+            List<Player> playersOnSameTile = new List<Player>();
+            int playerX = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().X;
+            int playerY = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().Y;
+            playersOnSameTile.AddRange(Players.Where(x => x.X == playerX && x.Y == playerY));
+            return playersOnSameTile;
+        }
         public void SetPeekTile(ITile selectedTile)
         {
             TileUnderPeek = selectedTile;
@@ -1813,8 +1823,78 @@ namespace GUI_20212202_MQ7GIA.Logic
                 {
                     checkPlayer.WaterLevel--;
                 }
-
             }
+            if (logic.playersHavingNoEffectOnSunBeatsDown.Count > 0){
+                logic.Players.Where(p => playersHavingNoEffectOnSunBeatsDown.Contains(p)).ToList().ForEach(x => x.WaterLevel += 1);
+            }
+            logic.playersHavingNoEffectOnSunBeatsDown.Clear();
+        }
+        public List<StormCard> CollectStormCardsForTracking()
+        {
+            List<StormCard> stormTrackingCards = new List<StormCard>();
+            int cardsToTake = 0;
+            if (players.Count == 2)
+            {
+                if (StormProgress < 0.13)
+                {
+                    cardsToTake = 2;
+                }
+                else if (StormProgress < 0.33)
+                {
+                    cardsToTake = 3;
+                }
+                else if (StormProgress < 0.65)
+                {
+                    cardsToTake = 4;
+                }
+                else if (StormProgress < 0.85)
+                {
+                    cardsToTake = 5;
+                }
+                else
+                {
+                    cardsToTake = 6;
+                }
+            }
+            else if (players.Count == 2)
+            {
+                if (StormProgress < 0.06)
+                {
+                    cardsToTake = 2;
+                }
+                else if (StormProgress < 0.40)
+                {
+                    cardsToTake = 3;
+                }
+                else if (StormProgress < 0.65)
+                {
+                    cardsToTake = 4;
+                }
+                else if (StormProgress < 0.85)
+                {
+                    cardsToTake = 5;
+                }
+                else
+                {
+                    cardsToTake = 6;
+                }
+            }
+            for (int i = 0; i < cardsToTake; i++)
+            {
+                if (Deck.AvailableStormCards.Count >= cardsToTake)
+                {
+                    stormTrackingCards.Add(Deck.AvailableStormCards[i]);
+                }
+            }
+            return stormTrackingCards;
+        }
+        public void SecretWaterReserve(int turnOrder)
+        {
+            int playerX = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().X;
+            int playerY = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().Y;
+            players.Where(p => p.X == playerX && p.Y == playerY).ToList().ForEach(x => x.WaterLevel = x.WaterLevel + 2);
+            //checking if the players have over the maximum water level
+            players.Where(p => p.WaterLevel > p.MaxWaterLevel).ToList().ForEach(x => x.WaterLevel = x.MaxWaterLevel);
         }
     }
     public class TileComparer : IComparer<ITile>

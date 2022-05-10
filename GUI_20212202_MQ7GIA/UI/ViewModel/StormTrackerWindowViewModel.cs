@@ -26,18 +26,12 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             this.Logic = logic;
             this.boardWindow = boardWindow;
         }
-        ImageBrush SC1 { get; set; }
-        ImageBrush SC2 { get; set; }
-        ImageBrush SC3 { get; set; }
-        ImageBrush SC4 { get; set; }
-        ImageBrush SC5 { get; set; }
-        ImageBrush SC6 { get; set; }
-        public ICommand StormCard1 { get; set; }
-        public ICommand StormCard2 { get; set; }
-        public ICommand StormCard3 { get; set; }
-        public ICommand StormCard4 { get; set; }
-        public ICommand StormCard5 { get; set; }
-        public ICommand StormCard6 { get; set; }
+        public BitmapImage SC1 { get; set; }
+        public BitmapImage SC2 { get; set; }
+        public BitmapImage SC3 { get; set; }
+        public BitmapImage SC4 { get; set; }
+        public BitmapImage SC5 { get; set; }
+        public BitmapImage SC6 { get; set; }
         public void PutStormCard1()
         {
             try
@@ -147,7 +141,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 else
                 {
                     //this has to be implemented here, otherwise the window would open unnecessarily
-                    throw new Exception("There is no unblocked tile around you.");
+                    throw new Exception("There is no available storm cards.");
 
                 }
             }
@@ -160,30 +154,6 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
 
         public StormTrackerWindowViewModel()
         {
-            StormCard1 = new RelayCommand(
-                () => PutStormCard1(),
-                () => SC1 != null
-                );
-            StormCard2 = new RelayCommand(
-                () => PutStormCard2(),
-                () => SC2 != null
-                );
-            StormCard3 = new RelayCommand(
-                () => PutStormCard3(),
-                () => SC3 != null
-                );
-            StormCard4 = new RelayCommand(
-                () => PutStormCard4(),
-                () => SC4 != null
-                );
-            StormCard5 = new RelayCommand(
-                () => PutStormCard5(),
-                () => SC5 != null
-                );
-            StormCard6 = new RelayCommand(
-                () => PutStormCard6(),
-                () => SC6 != null
-                );
         }
 
         public void ConvertListToObservable(List<StormCard> cards)
@@ -197,85 +167,88 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             SC6 = null;
             for (int i = 0; i < AvailableStormCards.Count; i++) //Assign images to pictures (will be set in StormTrackerWindow)
             {
-                if (AvailableStormCards[i].IsDiscarded != true)
+                switch (i)
                 {
-                    switch (i)
-                    {
-                        case 0:
-                            SC1 = FindProperImage(AvailableStormCards[i]);
-                            break;
-                        case 1:
-                            SC2 = FindProperImage(AvailableStormCards[i]);
-                            break;
-                        case 2:
-                            SC3 = FindProperImage(AvailableStormCards[i]);
-                            break;
-                        case 3:
-                            SC4 = FindProperImage(AvailableStormCards[i]);
-                            break;
-                        case 4:
-                            SC5 = FindProperImage(AvailableStormCards[i]);
-                            break;
-                        case 5:
-                            SC6 = FindProperImage(AvailableStormCards[i]);
-                            break;
-                    }
+                    case 0:
+                        SC1 = FindProperImage(AvailableStormCards[i]);
+                        break;
+                    case 1:
+                        SC2 = FindProperImage(AvailableStormCards[i]);
+                        break;
+                    case 2:
+                        SC3 = FindProperImage(AvailableStormCards[i]);
+                        break;
+                    case 3:
+                        SC4 = FindProperImage(AvailableStormCards[i]);
+                        break;
+                    case 4:
+                        SC5 = FindProperImage(AvailableStormCards[i]);
+                        break;
+                    case 5:
+                        SC6 = FindProperImage(AvailableStormCards[i]);
+                        break;
                 }
             }
         }
 
-        private ImageBrush FindProperImage(StormCard stormCard)
+        private BitmapImage FindProperImage(StormCard stormCard)
         {
-            ImageBrush brush = null;
-            int X = stormCard.XMove;
-            int Y = stormCard.YMove;
-            if (X == -1 && Y == 0)
+            BitmapImage brush = null;
+            if (stormCard.Name =="oneLeft")
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneLeft.png", UriKind.RelativeOrAbsolute)));
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneLeft.png", UriKind.RelativeOrAbsolute));
             }
-            else if (X == -2 && Y == 0)
+            else if (stormCard.Name == "twoLeft")
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/twoLeft.png", UriKind.RelativeOrAbsolute)));
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/twoLeft.png", UriKind.RelativeOrAbsolute));
             }
-            else if (X == -3 && Y == 0)
+            else if (stormCard.Name == "threeLeft")
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/threeLeft.png", UriKind.RelativeOrAbsolute)));
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/threeLeft.png", UriKind.RelativeOrAbsolute));
             }
-            else if (X == 1 && Y == 0)
+            else if (stormCard.Name == "oneRight")
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneRight.png", UriKind.RelativeOrAbsolute)));
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneRight.png", UriKind.RelativeOrAbsolute));
             }
-            else if (X == 2 && Y == 0)
+            else if (stormCard.Name == "twoRight")
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/twoRight.png", UriKind.RelativeOrAbsolute)));
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/twoRight.png", UriKind.RelativeOrAbsolute));
             }
-            else if (X == 3 && Y == 0)
+            else if (stormCard.Name == "threeRight")
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/threeRight.png", UriKind.RelativeOrAbsolute)));
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/threeRight.png", UriKind.RelativeOrAbsolute));
             }
-            else if (X == 0 && Y == 1)
+            else if (stormCard.Name == "oneUp")
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneUp.png", UriKind.RelativeOrAbsolute)));
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneUp.png", UriKind.RelativeOrAbsolute));
             }
-            else if (X == 0 && Y == 2)
+            else if (stormCard.Name == "twoUp")
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/twoUp.png", UriKind.RelativeOrAbsolute)));
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/twoUp.png", UriKind.RelativeOrAbsolute));
             }
-            else if (X == 0 && Y == 3)
+            else if (stormCard.Name == "threeUp")
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/threeUp.png", UriKind.RelativeOrAbsolute)));
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/threeUp.png", UriKind.RelativeOrAbsolute));
             }
-            else if (X == 0 && Y == -1)
+            else if (stormCard.Name == "oneDown")
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneDown.png", UriKind.RelativeOrAbsolute)));
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneDown.png", UriKind.RelativeOrAbsolute));
             }
-            else if (X == 0 && Y == -2)
+            else if (stormCard.Name == "twoDown")
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/twoDown.png", UriKind.RelativeOrAbsolute)));
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/twoDown.png", UriKind.RelativeOrAbsolute));
             }
-            else if (X == 0 && Y == -3)
+            else if (stormCard.Name == "threeDown")
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/threeDown.png", UriKind.RelativeOrAbsolute)));
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/threeDown.png", UriKind.RelativeOrAbsolute));
+            }
+            else if (stormCard.Name == "Sun Beats Down")
+            {
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/Sun Beats Down.png", UriKind.RelativeOrAbsolute));
+            }
+            else if (stormCard.Name == "Storm Picks Up")
+            {
+                brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm Picks Up.png", UriKind.RelativeOrAbsolute));
             }
             return brush;
         }
