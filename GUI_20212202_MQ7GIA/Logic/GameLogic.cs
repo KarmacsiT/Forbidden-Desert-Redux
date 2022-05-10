@@ -26,6 +26,14 @@ namespace GUI_20212202_MQ7GIA.Logic
         public string[,] PartTiles { get; set; }
         public string DifficultyLevel { get; set; }
         public int NumberOfPlayers { get; set; } // this is a very efficient way to store the # of players, because there are cases when we don't want the entire object (eg. Storm Meter)
+
+        public void PutStormCardToBack(StormCard stormCard)
+        {
+            var temp = stormCard;
+            Deck.AvailableStormCards.Remove(stormCard);
+            Deck.AvailableStormCards.Add(temp);
+        }
+
         public double StormProgress { get; set; }
         public int StormProgressNumberOfCards { get; set; }  // from 2 to 6, it gives us the number of stormcards to be drawn
         public List<AdjacentSandedTileFromPlayer> adjacentSandedTilesFromPlayer = new List<AdjacentSandedTileFromPlayer>(); //This will always change, depending on when the duneblaster card is drawn
