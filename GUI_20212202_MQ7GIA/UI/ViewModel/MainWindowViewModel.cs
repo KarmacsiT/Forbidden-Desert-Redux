@@ -57,6 +57,52 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             logic.board.CrashStartTile.Y = int.Parse(xdocument.Root.Element("board").Element("CrashStartTile").Attribute("Y").Value);
             logic.board.CrashStartTile.IsDiscovered = xdocument.Root.Element("board").Element("CrashStartTile").Attribute("IsDiscovered").Value == "true" ? true : false;
 
+            
+            //TunnelTiles
+            logic.board.TunnelTiles = new Models.TunnelTile[3];
+            int i = 0;
+            foreach (var tile in xdocument.Root.Descendants("TunnelTile"))
+            {
+                logic.board.TunnelTiles[i] = new Models.TunnelTile();
+                logic.board.TunnelTiles[i].X = int.Parse(tile.Attribute("X").Value);
+                logic.board.TunnelTiles[i].Y = int.Parse(tile.Attribute("Y").Value);
+                logic.board.TunnelTiles[i].IsDiscovered = tile.Attribute("X").Value == "true" ? true : false;
+                i++;
+            }
+
+            //airshipcluetiles
+            logic.board.AirShipClueTiles = new Models.AirShipClueTile[8];
+            i = 0;
+            foreach (var tile in xdocument.Root.Descendants("AirShipClueTile"))
+            {
+                logic.board.AirShipClueTiles[i] = new Models.AirShipClueTile();
+                logic.board.AirShipClueTiles[i].X = int.Parse(tile.Attribute("X").Value);
+                logic.board.AirShipClueTiles[i].Y = int.Parse(tile.Attribute("Y").Value);
+                logic.board.AirShipClueTiles[i].IsDiscovered = tile.Attribute("X").Value == "true" ? true : false;
+                logic.board.AirShipClueTiles[i].Direction = tile.Attribute("Direction").Value == "X" ? 'X' : 'Y';
+                logic.board.AirShipClueTiles[i].PartName = tile.Attribute("PartName").Value;
+                i++;
+            }
+
+            //OasisMirageTiles
+            logic.board.OasisMirageTiles = new Models.OasisMirageTile[3];
+            i = 0;
+            foreach (var tile in xdocument.Root.Descendants("OasisMirageTile"))
+            {
+                logic.board.OasisMirageTiles[i] = new Models.OasisMirageTile();
+                logic.board.OasisMirageTiles[i].X = int.Parse(tile.Attribute("X").Value);
+                logic.board.OasisMirageTiles[i].Y = int.Parse(tile.Attribute("Y").Value);
+                logic.board.OasisMirageTiles[i].IsDiscovered = tile.Attribute("X").Value == "true" ? true : false;
+                logic.board.OasisMirageTiles[i].IsDried = tile.Attribute("X").Value == "true" ? true : false;
+                i++;
+            }
+
+
+
+
+
+
+
 
 
 
