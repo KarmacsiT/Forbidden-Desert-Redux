@@ -816,6 +816,7 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             return newPlayer;
         }
+
         public string MovePlayer(int newX, int newY, List<Player> players) // returns true if the player moves ---> so render only rerenders in this case
         {
             int X = players.Where(p => p.TurnOrder == 1).SingleOrDefault().X;
@@ -1868,6 +1869,14 @@ namespace GUI_20212202_MQ7GIA.Logic
                 }
             }
             return stormTrackingCards;
+        }
+        public void SecretWaterReserve(int turnOrder)
+        {
+            int playerX = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().X;
+            int playerY = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().Y;
+            players.Where(p => p.X == playerX && p.Y == playerY).ToList().ForEach(x => x.WaterLevel = x.WaterLevel + 2);
+            //checking if the players have over the maximum water level
+            players.Where(p => p.WaterLevel > p.MaxWaterLevel).ToList().ForEach(x => x.WaterLevel = x.MaxWaterLevel);
         }
     }
     public class TileComparer : IComparer<ITile>

@@ -740,6 +740,10 @@ namespace GUI_20212202_MQ7GIA
                 {
                     turnOrder = 2;
                 }
+                else if (dragedCardName.StartsWith("P3"))
+                {
+                    turnOrder = 3;
+                }
                 switch (draggedCardGadgetType)
                 {
                     case "Dune Blaster":
@@ -764,6 +768,13 @@ namespace GUI_20212202_MQ7GIA
                         List<StormCard> stormcards = logic.CollectStormCardsForTracking();
                         stormTrackerWVM.ConvertListToObservable(stormcards);
                         stormTrackerWVM.ShowWindow();
+                        break;
+                    case "Time Throttle":
+                        logic.Players.Where(p => p.TurnOrder == turnOrder).SingleOrDefault().NumberOfActions += 2;
+                        UpdateBoardViewModel();
+                        break;
+                    case "Secret Water Reserve":
+                        logic.SecretWaterReserve(turnOrder);
                         break;
                     default:
                         break;
