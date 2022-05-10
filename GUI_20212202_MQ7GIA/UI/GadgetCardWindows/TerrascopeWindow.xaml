@@ -3,10 +3,41 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GUI_20212202_MQ7GIA"
+        xmlns:renderer="clr-namespace:GUI_20212202_MQ7GIA.UI.Renderer"
         mc:Ignorable="d"
-        Title="TerrascopeWindow" Height="450" Width="800">
+        Title="TerrascopeWindow" Height="800" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/ImageAssets/PauseMenu.png" Opacity="0.3"/>
+    </Window.Background>
+    <Window.Resources>
+        <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
+        <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Coral"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid x:Name="boardDisplay" AllowDrop="True" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="600" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <renderer:TerraScopeRenderer x:Name="TerraScopeRenderer" />
+        </Grid>
+        <Button Style="{StaticResource TransparentStyle}" Grid.Column="1" Grid.Row="1" Content="Go back" HorizontalAlignment="center" VerticalAlignment="Bottom"  FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Close"/>
     </Grid>
 </Window>

@@ -29,7 +29,8 @@ namespace GUI_20212202_MQ7GIA.Logic
         public double StormProgress { get; set; }
         public int StormProgressNumberOfCards { get; set; }  // from 2 to 6, it gives us the number of stormcards to be drawn
         public List<AdjacentSandedTileFromPlayer> adjacentSandedTilesFromPlayer = new List<AdjacentSandedTileFromPlayer>(); //This will always change, depending on when the duneblaster card is drawn
-        public List<ITile> tilesToTeleportTo = new List<ITile>();
+
+        public ITile TileUnderPeek { get; set; }
         public ImageSource CurrentPlayerCard1Display { get; set; }
         public ImageSource CurrentPlayerCard2Display { get; set; }
 
@@ -876,29 +877,11 @@ namespace GUI_20212202_MQ7GIA.Logic
                 {
                     bool sand = SandTileChecker(x, y);
                     //Top row (north of you)
-                    if (playerX - 1 > -1 && playerY - 1 > -1 && x == playerX-1 && y == playerY -1 && sand)
-                    {
-                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
-                        {
-                            Name = "Northwest of you",
-                            X = x,
-                            Y = y
-                        });
-                    }
-                    else if (playerY - 1 > -1 && x == playerX && y == playerY - 1 && sand)
+                    if (playerY - 1 > -1 && x == playerX && y == playerY - 1 && sand)
                     {
                         adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
                         {
                             Name = "North of you",
-                            X = x,
-                            Y = y
-                        });
-                    }
-                    else if (playerX + 1 < 5 && playerY - 1 > -1 && x == playerX + 1 && y == playerY - 1 && sand)
-                    {
-                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
-                        {
-                            Name = "Northeast of you",
                             X = x,
                             Y = y
                         });
@@ -932,29 +915,11 @@ namespace GUI_20212202_MQ7GIA.Logic
                         });
                     }
                     //Bottom row (south of you)
-                    else if (playerX - 1 > -1 && playerY + 1 < 5 && x == playerX - 1 && y == playerY + 1 && sand)
-                    {
-                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
-                        {
-                            Name = "Southwest of you",
-                            X = x,
-                            Y = y
-                        });
-                    }
                     else if (playerY + 1 < 5 && x == playerX && y == playerY + 1 && sand)
                     {
                         adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
                         {
                             Name = "South of you",
-                            X = x,
-                            Y = y
-                        });
-                    }
-                    else if (playerX + 1 < 5 && playerY + 1 < 5 && x == playerX + 1 && y == playerY + 1 && sand)
-                    {
-                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
-                        {
-                            Name = "Southeast of you",
                             X = x,
                             Y = y
                         });
@@ -1760,25 +1725,23 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             return tiles;
         }
-        public void Teleport(List<Player> players, Tile selectedTile, Player selectedPlayer, int turnOrder)
+        public void Teleport(List<Player> players, Tile selectedTile, Player selectedPlayer, int turnOrder) //For teleporting you don't need to take action
         {
             int playerX = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().X;
             int playerY = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().Y;
             int currentActions = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().NumberOfActions;
-            if (currentActions > 0&& selectedPlayer != null)
+            if (currentActions >= 0&& selectedPlayer != null)
             {
                 players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().X = selectedTile.X;
                 players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().Y = selectedTile.Y;
                 selectedPlayer.X = selectedTile.X;
                 selectedPlayer.Y = selectedTile.Y;
-                players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().NumberOfActions -= 1;
                 return;
             }
-            else if (currentActions > 0)
+            else if (currentActions >= 0)
             {
                 players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().X = selectedTile.X;
                 players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().Y = selectedTile.Y;
-                players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().NumberOfActions -= 1;
                 return;
             }
             throw new Exception("Hint: You are out of actions.");
@@ -1792,6 +1755,66 @@ namespace GUI_20212202_MQ7GIA.Logic
             playersOnSameTile.Remove(Players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault()); //removing yourself from the list
             return playersOnSameTile;
         }
+        public void SetPeekTile(ITile selectedTile)
+        {
+            TileUnderPeek = selectedTile;
+        }
+        public List<ITile> UndiscoveredTiles()
+        {
+            List<ITile> undiscoveredTiles = new List<ITile>();
+            TileComparer tileComparer = new TileComparer();
+            undiscoveredTiles.AddRange(board.TunnelTiles);
+            undiscoveredTiles.AddRange(board.AirShipClueTiles);
+            undiscoveredTiles.AddRange(board.OasisMirageTiles);
+            undiscoveredTiles.Add(board.LaunchPadTile);
+            undiscoveredTiles.AddRange(board.ShelterTiles);
+            undiscoveredTiles.RemoveAll(x=>x.IsDiscovered == true); //Remove those which are discovered.
+            undiscoveredTiles.Sort(tileComparer);
+            return undiscoveredTiles;
+        }
 
+    }
+    public class TileComparer : IComparer<ITile>
+    {
+        public int Compare(ITile tile1, ITile tile2)
+        {
+            if (tile1.X == tile2.X && tile1.Y < tile2.Y) // Tile1(1,2) Tile2(1,4)
+            {
+                return -1; //less
+            }
+            if (tile1.X == tile2.X && tile1.Y > tile2.Y) // Tile1(1,4) Tile2(1,2)
+            {
+                return 1; //Greater
+            }
+            if (tile1.X == tile2.X && tile1.Y == tile2.Y) // Tile1(1,2) Tile2(1,2)
+            {
+                return 0; //equal
+            }
+            if (tile1.X < tile2.X && tile1.Y < tile2.Y) // Tile1(0,2) Tile2(1,3)
+            {
+                return -1;
+            }
+            if (tile1.X < tile2.X && tile1.Y == tile2.Y) // Tile1(0,2) Tile2(1,2)
+            {
+                return -1;
+            }
+            if (tile1.X < tile2.X && tile1.Y > tile2.Y) // Tile1(0,3) Tile2(1,2)
+            {
+                return -1;
+            }
+            if (tile1.X > tile2.X && tile1.Y < tile2.Y) // Tile1(2,2) Tile2(1,3)
+            {
+                return 1;
+            }
+            if (tile1.X > tile2.X && tile1.Y == tile2.Y) // Tile1(2,2) Tile2(1,2)
+            {
+                return 1;
+            }
+            if (tile1.X > tile2.X && tile1.Y > tile2.Y) // Tile1(2,3) Tile2(1,2)
+            {
+                return 1;
+            }
+            return 0;
+        }
     }
 }

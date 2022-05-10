@@ -1,6 +1,7 @@
 ﻿using GUI_20212202_MQ7GIA.Logic;
 using GUI_20212202_MQ7GIA.Models;
 using GUI_20212202_MQ7GIA.UI;
+using GUI_20212202_MQ7GIA.UI.Renderer;
 using GUI_20212202_MQ7GIA.UI.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,8 @@ namespace GUI_20212202_MQ7GIA
         //Gadget card viewModels
         DuneBlasterWindowViewModel duneBlasterWindowViewModel;
         JetPackWindowViewModel jetPackWindowViewModel;
+        TerrascopeSelectWindowViewModel terrascopeSelectWVM;
+        public TerraScopeRenderer terraScopeRenderer;
         #endregion
         CardInspector cardInspector = new CardInspector();
 
@@ -84,6 +87,8 @@ namespace GUI_20212202_MQ7GIA
 
             }
             display.SetupLogic(logic, colors);
+            terraScopeRenderer = new TerraScopeRenderer();
+            terraScopeRenderer.SetupLogic(logic);
             Sound = sound;
             Sound.PlayMusic("RPG DD Ambience Windy Desert Immersive Realistic Relaxing Heat Sand Calm.mp3");
 
@@ -97,6 +102,8 @@ namespace GUI_20212202_MQ7GIA
             duneBlasterWindowViewModel.SetupLogic(logic, this);
             jetPackWindowViewModel = new JetPackWindowViewModel();
             jetPackWindowViewModel.SetupLogic(logic, display, this);
+            terrascopeSelectWVM = new TerrascopeSelectWindowViewModel();
+            terrascopeSelectWVM.SetupLogic(logic, terraScopeRenderer, this);
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
@@ -255,8 +262,15 @@ namespace GUI_20212202_MQ7GIA
                 // Remove by Sand
                 logic = display.GetLogic();
                 invalidate = display.RemoveSandByCoordinates(1, 1);
+            }           
+            //testing purpose
+            else if (e.Key == Key.Scroll)
+            {
+                logic = display.GetLogic();
+                List<ITile> undiscoveredTiles = logic.UndiscoveredTiles();
+                terrascopeSelectWVM.ConvertListToObservable(undiscoveredTiles);
+                terrascopeSelectWVM.ShowWindow();
             }
-
             if (invalidate == true)
             {
                 UpdateBoardViewModel();
@@ -621,6 +635,11 @@ namespace GUI_20212202_MQ7GIA
                         jetPackWindowViewModel.ConvertListToObservable(unblockedTiles,onSameTile);
                         jetPackWindowViewModel.TurnOrder = turnOrder;
                         invalidate = jetPackWindowViewModel.ShowWindow();
+                        break;
+                    case "Terrascope":
+                        List<ITile> undiscoveredTiles = logic.UndiscoveredTiles();
+                        terrascopeSelectWVM.ConvertListToObservable(undiscoveredTiles);
+                        terrascopeSelectWVM.ShowWindow();
                         break;
                     default:
                         break;
