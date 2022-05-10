@@ -1488,7 +1488,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             XElement xsheltertiles = new XElement("ShelterTiles");
             foreach (ShelterTile tile in board.ShelterTiles)
             {
-                XElement xsheltertile = new XElement("ShelterTiles");
+                XElement xsheltertile = new XElement("ShelterTile");
                 xsheltertile.SetAttributeValue("X", tile.X);
                 xsheltertile.SetAttributeValue("Y", tile.Y);
                 xsheltertile.SetAttributeValue("IsDiscovered", tile.IsDiscovered);
@@ -1546,7 +1546,7 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             foreach (StormCard card in Deck.AvailableStormCards)
             {
-                XElement xcard = new XElement("AvailableItemCard");
+                XElement xcard = new XElement("AvailableStormCard");
                 xcard.SetAttributeValue("Name", card.Name);
                 xcard.SetAttributeValue("IsDiscarded", card.IsDiscarded);
                 xcard.SetAttributeValue("XMove", card.XMove);
@@ -1585,10 +1585,15 @@ namespace GUI_20212202_MQ7GIA.Logic
                 xplayer.SetAttributeValue("MaxWaterLevel", player.MaxWaterLevel);
                 xplayer.SetAttributeValue("AbilityDescription", player.AbilityDescription);
 
+                XElement xplayercarddefault = new XElement("PlayerCards");
+                xplayercarddefault.SetAttributeValue("WhichPlayer", player.TurnOrder);       // needed for reading XML
+                xplayer.Add(xplayercarddefault);
+                
                 foreach (ItemCard card in player.Cards)
                 {
 
-                    XElement xplayercard = new XElement("Cards");
+                    XElement xplayercard = new XElement("PlayerCards");
+                    xplayercard.SetAttributeValue("WhichPlayer", player.TurnOrder);
                     xplayercard.SetAttributeValue("Name", card.Name);
                     xplayercard.SetAttributeValue("IsDiscarded", card.IsDiscarded);
                     xplayercard.SetAttributeValue("InPlayerHand", card.InPlayerHand);
@@ -1652,11 +1657,12 @@ namespace GUI_20212202_MQ7GIA.Logic
             XElement xparttiles = new XElement("PartTiles");
             for (int i = 0; i < PartTiles.GetLength(0); i++)
             {
-                XElement xrow = new XElement("TileNameRow");
+                XElement xrow = new XElement("PartTileNameRow");
                 for (int j = 0; j < PartTiles.GetLength(1); j++)
                 {
-                    XElement xcolumn = new XElement("TileNameColumn");
-                    xcolumn.SetAttributeValue("Name", PartTiles[i, j]);
+                    XElement xcolumn = new XElement("PartTileNameColumn");
+                    string Namevalue = PartTiles[i, j] == null ? "null" : PartTiles[i, j];
+                    xcolumn.SetAttributeValue("Name", Namevalue);
                     xrow.Add(xcolumn);
                 }
                 xparttiles.Add(xrow);
@@ -1691,23 +1697,23 @@ namespace GUI_20212202_MQ7GIA.Logic
             //
             //CurrentPlayerCard1Display 
             XElement xcurrentplayercard1display = new XElement("CurrentPlayerCard1Display");
-            xcurrentplayercard1display.SetAttributeValue("value", CurrentPlayerCard1Display);
+            xcurrentplayercard1display.SetAttributeValue("value", CurrentPlayerCard1Display == null ? "null" : CurrentPlayerCard1Display.ToString());
             elementroot.Add(xcurrentplayercard1display);
             //CurrentPlayerCard2Display 
             XElement xcurrentplayercard2display = new XElement("CurrentPlayerCard2Display");
-            xcurrentplayercard2display.SetAttributeValue("value", CurrentPlayerCard2Display);
+            xcurrentplayercard2display.SetAttributeValue("value", CurrentPlayerCard2Display == null ? "null" : CurrentPlayerCard2Display.ToString());
             elementroot.Add(xcurrentplayercard2display);
             //CurrentPlayerCard3Display 
             XElement xcurrentplayercard3display = new XElement("CurrentPlayerCard3Display");
-            xcurrentplayercard3display.SetAttributeValue("value", CurrentPlayerCard3Display);
+            xcurrentplayercard3display.SetAttributeValue("value", CurrentPlayerCard3Display == null ? "null" : CurrentPlayerCard3Display.ToString());
             elementroot.Add(xcurrentplayercard3display);
             //CurrentPlayerCard4Display 
             XElement xcurrentplayercard4display = new XElement("CurrentPlayerCard4Display");
-            xcurrentplayercard4display.SetAttributeValue("value", CurrentPlayerCard4Display);
+            xcurrentplayercard4display.SetAttributeValue("value", CurrentPlayerCard4Display == null ? "null" : CurrentPlayerCard4Display.ToString());
             elementroot.Add(xcurrentplayercard4display);
             //CurrentPlayerCard5Display 
             XElement xcurrentplayercard5display = new XElement("CurrentPlayerCard5Display");
-            xcurrentplayercard5display.SetAttributeValue("value", CurrentPlayerCard5Display);
+            xcurrentplayercard5display.SetAttributeValue("value", CurrentPlayerCard5Display == null ? "null" : CurrentPlayerCard5Display.ToString());
             elementroot.Add(xcurrentplayercard5display);
 
 
