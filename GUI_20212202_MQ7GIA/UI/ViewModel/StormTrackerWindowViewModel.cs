@@ -219,8 +219,6 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                         case 5:
                             SC6 = FindProperImage(AvailableStormCards[i]);
                             break;
-                        default:
-                            break;
                     }
                 }
             }
@@ -233,51 +231,51 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             int Y = stormCard.YMove;
             if (X == -1 && Y == 0)
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm 1Left.png", UriKind.RelativeOrAbsolute)));
+                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneLeft.png", UriKind.RelativeOrAbsolute)));
             }
             else if (X == -2 && Y == 0)
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm 2Left.png", UriKind.RelativeOrAbsolute)));
+                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/twoLeft.png", UriKind.RelativeOrAbsolute)));
             }
             else if (X == -3 && Y == 0)
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm 3Left.png", UriKind.RelativeOrAbsolute)));
+                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/threeLeft.png", UriKind.RelativeOrAbsolute)));
             }
             else if (X == 1 && Y == 0)
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm 1Right.png", UriKind.RelativeOrAbsolute)));
+                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneRight.png", UriKind.RelativeOrAbsolute)));
             }
             else if (X == 2 && Y == 0)
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm 2Right.png", UriKind.RelativeOrAbsolute)));
+                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/twoRight.png", UriKind.RelativeOrAbsolute)));
             }
             else if (X == 3 && Y == 0)
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm 3Right.png", UriKind.RelativeOrAbsolute)));
+                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/threeRight.png", UriKind.RelativeOrAbsolute)));
             }
             else if (X == 0 && Y == 1)
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm 1Up.png", UriKind.RelativeOrAbsolute)));
+                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneUp.png", UriKind.RelativeOrAbsolute)));
             }
             else if (X == 0 && Y == 2)
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm 2Up.png", UriKind.RelativeOrAbsolute)));
+                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/twoUp.png", UriKind.RelativeOrAbsolute)));
             }
             else if (X == 0 && Y == 3)
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm 3Up.png", UriKind.RelativeOrAbsolute)));
+                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/threeUp.png", UriKind.RelativeOrAbsolute)));
             }
             else if (X == 0 && Y == -1)
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm 1Down.png", UriKind.RelativeOrAbsolute)));
+                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneDown.png", UriKind.RelativeOrAbsolute)));
             }
             else if (X == 0 && Y == -2)
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm 2Down.png", UriKind.RelativeOrAbsolute)));
+                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/twoDown.png", UriKind.RelativeOrAbsolute)));
             }
             else if (X == 0 && Y == -3)
             {
-                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/Storm 3Down.png", UriKind.RelativeOrAbsolute)));
+                brush = new ImageBrush(new BitmapImage(new Uri("/ImageAssets/Storm Cards/threeDown.png", UriKind.RelativeOrAbsolute)));
             }
             return brush;
         }
