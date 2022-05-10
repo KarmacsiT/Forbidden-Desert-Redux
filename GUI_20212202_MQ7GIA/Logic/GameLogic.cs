@@ -42,7 +42,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public ImageSource CurrentPlayerCard1Display { get; set; }
         public ImageSource CurrentPlayerCard2Display { get; set; }
 
-       
+
         public ImageSource CurrentPlayerCard3Display { get; set; }
         public ImageSource CurrentPlayerCard4Display { get; set; }
         public ImageSource CurrentPlayerCard5Display { get; set; }
@@ -899,11 +899,11 @@ namespace GUI_20212202_MQ7GIA.Logic
                         });
                     }
                     //Middle row(in the row where you are)
-                    else if (playerX - 1 > -1 && x == playerX-1 && y == playerY && sand)
+                    else if (playerX - 1 > -1 && x == playerX - 1 && y == playerY && sand)
                     {
                         adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
                         {
-                            Name="West of you",
+                            Name = "West of you",
                             X = x,
                             Y = y
                         });
@@ -1724,7 +1724,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             {
                 for (int y = 0; y < board.SandTiles.GetLength(1); y++)
                 {
-                    if (board.SandTiles[x,y] < 2 && !(x == storm.X && y == storm.Y))
+                    if (board.SandTiles[x, y] < 2 && !(x == storm.X && y == storm.Y))
                     {
                         tiles.Add(new Tile
                         {
@@ -1742,7 +1742,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             int playerX = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().X;
             int playerY = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().Y;
             int currentActions = players.Where(x => x.TurnOrder == turnOrder).SingleOrDefault().NumberOfActions;
-            if (currentActions >= 0&& selectedPlayer != null)
+            if (currentActions >= 0 && selectedPlayer != null)
             {
                 players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().X = selectedTile.X;
                 players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().Y = selectedTile.Y;
@@ -1780,11 +1780,36 @@ namespace GUI_20212202_MQ7GIA.Logic
             undiscoveredTiles.AddRange(board.OasisMirageTiles);
             undiscoveredTiles.Add(board.LaunchPadTile);
             undiscoveredTiles.AddRange(board.ShelterTiles);
-            undiscoveredTiles.RemoveAll(x=>x.IsDiscovered == true); //Remove those which are discovered.
+            undiscoveredTiles.RemoveAll(x => x.IsDiscovered == true); //Remove those which are discovered.
             undiscoveredTiles.Sort(tileComparer);
             return undiscoveredTiles;
         }
 
+        public void DecreaseWaterLevel(GameLogic logic)
+        {
+            List<string> playersInTunel = new List<string>();
+
+            foreach (var player in logic.Players)
+            {
+                foreach (var tunnelTile in logic.board.TunnelTiles)
+                {
+                    if (player.X == tunnelTile.X && player.Y == tunnelTile.Y && tunnelTile.IsDiscovered is true)
+                    {
+                        playersInTunel.Add(player.PlayerName);
+                    }
+
+                }
+            }
+
+            foreach (var checkPlayer in logic.Players)
+            {
+                if (playersInTunel.Any(x => x != checkPlayer.PlayerName) || playersInTunel.Count is 0)
+                {
+                    checkPlayer.WaterLevel--;
+                }
+
+            }
+        }
     }
     public class TileComparer : IComparer<ITile>
     {
@@ -1827,34 +1852,6 @@ namespace GUI_20212202_MQ7GIA.Logic
                 return 1;
             }
             return 0;
-        }
-    }
-}
-        }
-        public void DecreaseWaterLevel(GameLogic logic)
-        {
-            List<string> playersInTunel = new List<string>();
-
-            foreach (var player in logic.Players)
-            {
-                foreach (var tunnelTile in logic.board.TunnelTiles)
-                {
-                    if (player.X == tunnelTile.X && player.Y == tunnelTile.Y && tunnelTile.IsDiscovered is true)
-                    {
-                        playersInTunel.Add(player.PlayerName);
-                    }
-
-                }
-            }
-
-            foreach (var checkPlayer in logic.Players)
-            {
-                if (playersInTunel.Any(x => x != checkPlayer.PlayerName) || playersInTunel.Count is 0)
-                {
-                    checkPlayer.WaterLevel--;
-                }
-
-            }
         }
     }
 }
