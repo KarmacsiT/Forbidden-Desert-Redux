@@ -38,7 +38,7 @@ namespace GUI_20212202_MQ7GIA
         JetPackWindowViewModel jetPackWindowViewModel;
         TerrascopeSelectWindowViewModel terrascopeSelectWVM;
         StormTrackerWindowViewModel stormTrackerWVM;
-        public TerraScopeRenderer terraScopeRenderer;
+        public TerraScopeRenderer terraScopeRenderer { get; set; }
         #endregion
         CardInspector cardInspector = new CardInspector();
         StormCardDisplay stormCardDisplay = new StormCardDisplay();
@@ -108,8 +108,10 @@ namespace GUI_20212202_MQ7GIA
             duneBlasterWindowViewModel.SetupLogic(logic, this);
             jetPackWindowViewModel = new JetPackWindowViewModel();
             jetPackWindowViewModel.SetupLogic(logic, display, this);
+
             terrascopeSelectWVM = new TerrascopeSelectWindowViewModel();
             terrascopeSelectWVM.SetupLogic(logic, terraScopeRenderer, this);
+
             stormTrackerWVM = new StormTrackerWindowViewModel();
             stormTrackerWVM.SetupLogic(logic, this);
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
@@ -158,13 +160,19 @@ namespace GUI_20212202_MQ7GIA
             duneBlasterWindowViewModel.SetupLogic(logic, this);
             jetPackWindowViewModel = new JetPackWindowViewModel();
             jetPackWindowViewModel.SetupLogic(logic, display, this);
+
             terrascopeSelectWVM = new TerrascopeSelectWindowViewModel();
             terrascopeSelectWVM.SetupLogic(logic, terraScopeRenderer, this);
+
             stormTrackerWVM = new StormTrackerWindowViewModel();
             stormTrackerWVM.SetupLogic(logic, this);
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
+
+            ContinueGameCardDisplay();
+            UpdateBoardViewModel();
+            UpdateItemCardDisplay();
 
         }
         private void WindowLoaded(object sender, RoutedEventArgs e)
@@ -489,7 +497,63 @@ namespace GUI_20212202_MQ7GIA
             GameLogic logic = display.GetLogic();
             boardWindowViewModel.SetPlayers(logic.Players);
         }
+        private void ContinueGameCardDisplay()
+        {
+            GameLogic logic = display.GetLogic();
 
+            //Player 1
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 1)
+            {
+                logic.CurrentPlayerCard1Display = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards[0].Display, UriKind.RelativeOrAbsolute));
+                Card1.Source = logic.CurrentPlayerCard1Display;
+            }
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 2)
+            {
+                Card2.Source = logic.CurrentPlayerCard2Display;
+            }
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 3)
+            {
+                Card3.Source = logic.CurrentPlayerCard3Display;
+            }
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 4)
+            {
+                Card4.Source = logic.CurrentPlayerCard4Display;
+            }
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 5)
+            {
+                Card5.Source = logic.CurrentPlayerCard5Display;
+            }
+            //Player 2
+            if (logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards.Count() is 1)
+            {
+                ImageSource imagesourceone = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards[0].Display, UriKind.RelativeOrAbsolute));
+                P2Card1.Source = imagesourceone;
+            }          
+            if (logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards.Count() is 2)
+            {
+                ImageSource imagesourcetwo = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards[1].Display, UriKind.RelativeOrAbsolute));
+                P2Card2.Source = imagesourcetwo;
+            }           
+            if (logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards.Count() is 3)
+            {
+                ImageSource imagesourcethree = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards[2].Display, UriKind.RelativeOrAbsolute));
+                P2Card3.Source = imagesourcethree;
+            }            
+            if (logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards.Count() is 4)
+            {
+                ImageSource imagesourcefour = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards[3].Display, UriKind.RelativeOrAbsolute));
+                P2Card4.Source = imagesourcefour;
+            }           
+            if (logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards.Count() is 5)
+            {
+                ImageSource imagesourcefive = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards[4].Display, UriKind.RelativeOrAbsolute));
+                P2Card4.Source = imagesourcefive;
+            }
+            //else
+            //{
+            //    logic.CurrentPlayerCard5Display = null;
+            //}
+        }
 
         private void UpdateItemCardDisplay()
         {

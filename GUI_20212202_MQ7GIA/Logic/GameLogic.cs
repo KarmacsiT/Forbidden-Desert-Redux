@@ -68,8 +68,9 @@ namespace GUI_20212202_MQ7GIA.Logic
                 AirShipClueTiles = new AirShipClueTile[8],
                 LaunchPadTile = new LaunchPadTile(),
                 OasisMirageTiles = new OasisMirageTile[3],
-                ShelterTiles = new ShelterTile[9],
+                ShelterTiles = new ShelterTile[8],
                 SandTiles = new int[5, 5],
+                CrashStartTile = new CrashStartTile(),
                 storm = new Storm()
             };
             board.storm.X = 2;
@@ -142,7 +143,6 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             // CrashStartTile 
             coordinates = CoordinateGiver(isTaken);
-            board.CrashStartTile = new CrashStartTile();
             board.CrashStartTile.X = coordinates[0];
             board.CrashStartTile.Y = coordinates[1];
             board.CrashStartTile.IsDiscovered = true; //It's already discovered
@@ -1696,27 +1696,27 @@ namespace GUI_20212202_MQ7GIA.Logic
             xstormprogressnumberofcards.SetAttributeValue("value", StormProgressNumberOfCards);
             elementroot.Add(xstormprogressnumberofcards);
 
-            //
-            //CurrentPlayerCard1Display 
-            XElement xcurrentplayercard1display = new XElement("CurrentPlayerCard1Display");
-            xcurrentplayercard1display.SetAttributeValue("value", CurrentPlayerCard1Display == null ? "null" : CurrentPlayerCard1Display.ToString());
-            elementroot.Add(xcurrentplayercard1display);
-            //CurrentPlayerCard2Display 
-            XElement xcurrentplayercard2display = new XElement("CurrentPlayerCard2Display");
-            xcurrentplayercard2display.SetAttributeValue("value", CurrentPlayerCard2Display == null ? "null" : CurrentPlayerCard2Display.ToString());
-            elementroot.Add(xcurrentplayercard2display);
-            //CurrentPlayerCard3Display 
-            XElement xcurrentplayercard3display = new XElement("CurrentPlayerCard3Display");
-            xcurrentplayercard3display.SetAttributeValue("value", CurrentPlayerCard3Display == null ? "null" : CurrentPlayerCard3Display.ToString());
-            elementroot.Add(xcurrentplayercard3display);
-            //CurrentPlayerCard4Display 
-            XElement xcurrentplayercard4display = new XElement("CurrentPlayerCard4Display");
-            xcurrentplayercard4display.SetAttributeValue("value", CurrentPlayerCard4Display == null ? "null" : CurrentPlayerCard4Display.ToString());
-            elementroot.Add(xcurrentplayercard4display);
-            //CurrentPlayerCard5Display 
-            XElement xcurrentplayercard5display = new XElement("CurrentPlayerCard5Display");
-            xcurrentplayercard5display.SetAttributeValue("value", CurrentPlayerCard5Display == null ? "null" : CurrentPlayerCard5Display.ToString());
-            elementroot.Add(xcurrentplayercard5display);
+            ////
+            ////CurrentPlayerCard1Display 
+            //XElement xcurrentplayercard1display = new XElement("CurrentPlayerCard1Display");
+            //xcurrentplayercard1display.SetAttributeValue("value", CurrentPlayerCard1Display == null ? "null" : CurrentPlayerCard1Display.ToString());
+            //elementroot.Add(xcurrentplayercard1display);
+            ////CurrentPlayerCard2Display 
+            //XElement xcurrentplayercard2display = new XElement("CurrentPlayerCard2Display");
+            //xcurrentplayercard2display.SetAttributeValue("value", CurrentPlayerCard2Display == null ? "null" : CurrentPlayerCard2Display.ToString());
+            //elementroot.Add(xcurrentplayercard2display);
+            ////CurrentPlayerCard3Display 
+            //XElement xcurrentplayercard3display = new XElement("CurrentPlayerCard3Display");
+            //xcurrentplayercard3display.SetAttributeValue("value", CurrentPlayerCard3Display == null ? "null" : CurrentPlayerCard3Display.ToString());
+            //elementroot.Add(xcurrentplayercard3display);
+            ////CurrentPlayerCard4Display 
+            //XElement xcurrentplayercard4display = new XElement("CurrentPlayerCard4Display");
+            //xcurrentplayercard4display.SetAttributeValue("value", CurrentPlayerCard4Display == null ? "null" : CurrentPlayerCard4Display.ToString());
+            //elementroot.Add(xcurrentplayercard4display);
+            ////CurrentPlayerCard5Display 
+            //XElement xcurrentplayercard5display = new XElement("CurrentPlayerCard5Display");
+            //xcurrentplayercard5display.SetAttributeValue("value", CurrentPlayerCard5Display == null ? "null" : CurrentPlayerCard5Display.ToString());
+            //elementroot.Add(xcurrentplayercard5display);
 
 
             xdocument.Add(elementroot);
