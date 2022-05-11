@@ -21,19 +21,15 @@ namespace GUI_20212202_MQ7GIA
     /// </summary>
     public partial class TerrascopeWindow : Window
     {
-        public TerraScopeRenderer Renderer { get; set; }
-        public GameLogic Logic { get; set; }
-        public TerrascopeWindow(TerraScopeRenderer renderer, GameLogic logic)
+        public TerrascopeWindow(GameLogic logic)
         {
-            this.Renderer = renderer;
-            this.Logic = logic;
-            Renderer.SetupLogic(Logic);
             InitializeComponent();
+            terraScopeRenderer.SetupLogic(logic);
         }
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            Renderer.Resize(new Size(boardDisplay.ActualWidth, boardDisplay.ActualHeight));
-            Renderer.InvalidateVisual();
+            terraScopeRenderer.Resize(new Size(boardDisplay.ActualWidth, boardDisplay.ActualHeight));
+            terraScopeRenderer.InvalidateVisual();
         }
         private void Close(object sender, RoutedEventArgs e)
         {
