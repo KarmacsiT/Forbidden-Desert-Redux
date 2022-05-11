@@ -17,7 +17,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public Board board { get; set; }
         public Deck Deck { get; set; }
         public GameStatus Status { get; set; }
-        private List<Player> players = new List<Player>();
+        public List<Player> players = new List<Player>();
         public List<Player> Players { get { return players; } set { players = value; } }
         public int CurrentPlayer { get; set; } = 1;
         public ShipParts[] shipParts { get; set; }
@@ -26,6 +26,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public string[,] TileNames { get; set; }
         public string[,] PartTiles { get; set; }
         public string DifficultyLevel { get; set; }
+        public int MeteorologistRemainingActions { get; set; } // it's not necessary to include in savegame since it only works when endgame is called
         public int NumberOfPlayers { get; set; } // this is a very efficient way to store the # of players, because there are cases when we don't want the entire object (eg. Storm Meter)
 
         public void PutStormCardToBack(StormCard stormCard)
@@ -585,6 +586,17 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             return changed;
         }
+
+        public bool MeteorologistStormTracker(StormTrackerWindowViewModel stormTrackerWVM)
+        {
+            List<StormCard> stormcards = CollectStormCardsForTracking();
+            stormTrackerWVM.ConvertListToObservable(stormcards);
+            Sound.PlaySound("StormTracker.mp3");
+            stormTrackerWVM.ShowWindow();
+            players.Where(p => p.TurnOrder == 1).SingleOrDefault().NumberOfActions -= 1;
+            return true;
+        }
+
         public bool StormCardAction(StormCard currentCard)          //only 1 card is played in the Logic, this is the function, that is called muliple times if needed   
         {
             return MoveStorm(currentCard.XMove, currentCard.YMove, Players);
@@ -887,6 +899,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             // Here I'm refreshing the AdjacentTilesFromPlayer list so there is no problem when you remove sand by the Dune Blaster Card
             int playerX = players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().X;
             int playerY = players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().Y;
+            RoleName roleName= players.Where(p => p.TurnOrder == turnOrder).FirstOrDefault().PlayerRoleName;
             //Firstly. I'm saying that whenever calculated x is < 0 or > 4, same with Y, THOSE will be not put in the list, because that would give me an error.
             //Secondly. I'm just assigning names to the tiles so the player don't have to calculate where is that coordinate from the list
             //Third. With Linq, i don't think i can solve this, since I have to go through the entire board and check if there is storm on the tile.
@@ -896,11 +909,29 @@ namespace GUI_20212202_MQ7GIA.Logic
                 {
                     bool sand = SandTileChecker(x, y);
                     //Top row (north of you)
-                    if (playerY - 1 > -1 && x == playerX && y == playerY - 1 && sand)
+                    if (roleName == RoleName.Explorer && playerX - 1 > -1 && playerY - 1 > -1 && x == playerX - 1 && y == playerY - 1 && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name = "Northwest of you",
+                            X = x,
+                            Y = y
+                        });
+                    }
+                    else if (playerY - 1 > -1 && x == playerX && y == playerY - 1 && sand)
                     {
                         adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
                         {
                             Name = "North of you",
+                            X = x,
+                            Y = y
+                        });
+                    }
+                    else if (roleName == RoleName.Explorer && playerX - 1 < 5 && playerY - 1 > -1 && x == playerX +1 && y == playerY - 1 && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name = "Northeast of you",
                             X = x,
                             Y = y
                         });
@@ -934,7 +965,25 @@ namespace GUI_20212202_MQ7GIA.Logic
                         });
                     }
                     //Bottom row (south of you)
+                    else if (roleName == RoleName.Explorer && playerX - 1 > -1 && playerY + 1 < 5 && x == playerX -1 && y == playerY + 1 && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name = "Southwest of you",
+                            X = x,
+                            Y = y
+                        });
+                    }
                     else if (playerY + 1 < 5 && x == playerX && y == playerY + 1 && sand)
+                    {
+                        adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
+                        {
+                            Name = "South of you",
+                            X = x,
+                            Y = y
+                        });
+                    }
+                    else if (roleName == RoleName.Explorer && playerX + 1 < 5&&playerY + 1 < 5 && x == playerX + 1 && y == playerY + 1 && sand)
                     {
                         adjacentSandedTilesFromPlayer.Add(new AdjacentSandedTileFromPlayer
                         {
@@ -957,7 +1006,11 @@ namespace GUI_20212202_MQ7GIA.Logic
             {
                 if (roleName == RoleName.Archeologist)
                 {
-                    board.SandTiles[x, y] -= 2; //Archeologists can do two per action
+                    if (board.SandTiles[x, y] > 2) //Archeologists can do two per action
+                    {
+                        board.SandTiles[x, y] -= 2;
+                    }
+                    else board.SandTiles[x, y] = 0; 
                 }
                 else board.SandTiles[x, y] -= 1; //we excavate the sand
                 players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;

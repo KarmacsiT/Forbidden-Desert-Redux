@@ -392,6 +392,24 @@ namespace GUI_20212202_MQ7GIA
                 terrascopeSelectWVM.ConvertListToObservable(undiscoveredTiles);
                 terrascopeSelectWVM.ShowWindow();
             }
+            else if (e.Key == Key.Pause)
+            {
+                logic = display.GetLogic();
+                bool isMeteorologist = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Meteorologist;
+                bool hasFreeActions = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().NumberOfActions > 0;
+                if (isMeteorologist && hasFreeActions)
+                {
+                    invalidate = logic.MeteorologistStormTracker(stormTrackerWVM);
+                }
+                else if (!isMeteorologist)
+                {
+                    MessageBox.Show("You're not a meteorologist.");
+                }
+                else
+                {
+                    MessageBox.Show("You're out of actions.");
+                }
+            }
             if (invalidate == true)
             {
                 UpdateBoardViewModel();
@@ -424,18 +442,35 @@ namespace GUI_20212202_MQ7GIA
         }
         private void EndTurn(object sender, RoutedEventArgs e) //MoveTheStorm now returns storm cards you can use that to display the StormCard on the UI
         {
+            logic = display.GetLogic();
             List<Image> stormCardDisplayElements = new Image[] { stormCardDisplay.StormCard1Display, stormCardDisplay.StormCard2Display, stormCardDisplay.StormCard3Display, stormCardDisplay.StormCard4Display, stormCardDisplay.StormCard5Display }.ToList();
             List<string> possibleStormMovingCardNames = new string[] { "oneDown", "oneUp", "oneLeft", "oneRight", "twoDown", "twoUp", "twoLeft", "twoRight", "threeDown", "threeUp", "threeLeft", "threeRight" }.ToList();
             string MoveStormMessage = string.Empty;
             string stormCardImagePath = string.Empty;
 
-
+            //set the remaining actions in the case of meteorologist
+            if (logic.players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName == RoleName.Meteorologist)
+            {
+                logic.MeteorologistRemainingActions = logic.players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions;
+            }
             foreach (var initialElement in stormCardDisplayElements)
             {
                 initialElement.Source = null;
             }
 
             int iterations = display.NumberOfStormCardsActivated();
+            if (logic.MeteorologistRemainingActions > 0)
+            {
+                if (iterations - logic.MeteorologistRemainingActions < 0)
+                {
+                    iterations = 0;
+                }
+                else
+                {
+                    iterations = iterations - logic.MeteorologistRemainingActions;
+                }
+                logic.MeteorologistRemainingActions = 0;
+            }
             for (int i = 0; i < iterations; i++)
             {
                 display.NeedsShufflingStormcards();  //if yes, it automatically shuffles the stormcards
