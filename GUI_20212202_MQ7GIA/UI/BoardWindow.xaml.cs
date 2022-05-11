@@ -39,8 +39,9 @@ namespace GUI_20212202_MQ7GIA
         TerrascopeSelectWindowViewModel terrascopeSelectWVM;
         StormTrackerWindowViewModel stormTrackerWVM;
         ClimberTakingPlayerViewModel climberTakingPlayerViewModel;
-        public TerraScopeRenderer terraScopeRenderer { get; set; }
+        NavigatorPlayerMoveWindowViewModel navigatorPlayerMoveWVM;
         #endregion
+        public TerraScopeRenderer terraScopeRenderer { get; set; }
         CardInspector cardInspector = new CardInspector();
         StormCardDisplay stormCardDisplay = new StormCardDisplay();
         ControlsDisplay controls = new ControlsDisplay();
@@ -119,6 +120,9 @@ namespace GUI_20212202_MQ7GIA
             climberTakingPlayerViewModel = new ClimberTakingPlayerViewModel();
             climberTakingPlayerViewModel.SetupLogic(logic, display, this);
 
+            navigatorPlayerMoveWVM = new NavigatorPlayerMoveWindowViewModel();
+            navigatorPlayerMoveWVM.SetupLogic(logic, display, this);
+
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
@@ -171,6 +175,12 @@ namespace GUI_20212202_MQ7GIA
 
             stormTrackerWVM = new StormTrackerWindowViewModel();
             stormTrackerWVM.SetupLogic(logic, this);
+
+            climberTakingPlayerViewModel = new ClimberTakingPlayerViewModel();
+            climberTakingPlayerViewModel.SetupLogic(logic, display, this);
+
+            navigatorPlayerMoveWVM = new NavigatorPlayerMoveWindowViewModel();
+            navigatorPlayerMoveWVM.SetupLogic(logic, display, this);
 
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
@@ -321,7 +331,7 @@ namespace GUI_20212202_MQ7GIA
             {
                 //implement waterSharing
                 logic = display.GetLogic();
-                waterSharingWindowVM.RefreshPlayers(logic.Players); //Because in the VM the first element is deleted
+                waterSharingWindowVM.RefreshPlayers(logic); //Because we have to update the ViewModel about the changes in the player's list regarding location
                 waterSharingWindowVM.ShowWindow();
             }
             else if (e.Key == Key.W)
@@ -409,6 +419,23 @@ namespace GUI_20212202_MQ7GIA
                 {
                     MessageBox.Show("You're out of actions.");
                 }
+            }
+            else if (e.Key == Key.M)
+            {
+                logic = display.GetLogic();
+                bool isNavigator = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Navigator;
+                if (isNavigator)
+                {
+                    List<Player> availablePlayers = logic.GetPlayersOnSameTile(1);
+                    List<NamedTile> availableTiles = logic.NavigatorsTiles(logic.Players.Where(x => x.TurnOrder == 1).SingleOrDefault());
+                    navigatorPlayerMoveWVM.ConvertListToObservable(availableTiles, availablePlayers);
+                    navigatorPlayerMoveWVM.ShowWindow();
+                }
+                else
+                {
+                    MessageBox.Show("You're not a navigator.");
+                }
+
             }
             if (invalidate == true)
             {
