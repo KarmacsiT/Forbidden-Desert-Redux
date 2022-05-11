@@ -14,7 +14,7 @@ namespace GUI_20212202_MQ7GIA.Models
         public OasisMirageTile[] OasisMirageTiles { get; set; } // 3 tiles
         public LaunchPadTile LaunchPadTile { get; set; } // 1 tile
         public CrashStartTile CrashStartTile { get; set; } //1 tile
-        public ShelterTile[] ShelterTiles { get; set; } //9 tiles
+        public ShelterTile[] ShelterTiles { get; set; } //8 tiles
         public Storm storm { get; set; }
         public int[,] SandTiles { get; set; }
     }

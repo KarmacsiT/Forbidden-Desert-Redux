@@ -17,7 +17,7 @@
                                 <Style TargetType="{x:Type Border}">
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="Coral"/>
+                                            <Setter Property="Background" Value="DarkGoldenrod"/>
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
@@ -33,7 +33,7 @@
     </Window.Resources>
     <Grid>
         <TabControl Background="PeachPuff">
-            <TabItem Header="2 Player Mode" Background="Coral">
+            <TabItem Header="2 Player Mode" Background="DarkGoldenrod">
                 <Grid>
                     <Grid.Background>
                         <ImageBrush ImageSource="pack://application:,,,/ImageAssets/desert-sand-texture.jpg"/>
@@ -58,16 +58,16 @@
                     <TextBox x:Name="TwoPlayerModePlayerTwoTextBox" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
                     <Label Content="Difficulty:" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White"/>
                     <ComboBox x:Name="TwoPlayerDiffLevel"  Grid.Row="4" Grid.Column="1" Margin="15,15,15,15" FontFamily="{StaticResource Steamwreck}" Background="Coral" FontSize="20" VerticalContentAlignment="Center">
-                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="Coral" FontSize="20">Novice</ComboBoxItem>
-                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="Coral" FontSize="20">Normal</ComboBoxItem>
-                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="Coral" FontSize="20">Elite</ComboBoxItem>
-                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="Coral" FontSize="20">Legendary</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="DarkGoldenrod" FontSize="20">Novice</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="DarkGoldenrod" FontSize="20">Normal</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="DarkGoldenrod" FontSize="20">Elite</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="DarkGoldenrod" FontSize="20">Legendary</ComboBoxItem>
                     </ComboBox>
-                    <Button Style="{StaticResource TransparentStyle}" Content="Back" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0" Click="TwoPlayerBackButtonClick"/>
+                    <Button Style="{StaticResource TransparentStyle}" Content="Back" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0" Click="TwoPlayerBackButtonClick" Foreground="White" FontWeight="Bold" Height="46" Width="115"/>
                     <Button Style="{StaticResource TransparentStyle}" Content="Game on!" Grid.Row="7" Grid.Column="1" Margin="15,10,15,10" Click="TwoPlayerStartButtonClick" FontSize="15" FontWeight="Bold" Foreground="White"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="3 Player Mode" Background="Coral">
+            <TabItem Header="3 Player Mode" Background="DarkGoldenrod">
                 <Grid>
                     <Grid.Background>
                         <ImageBrush ImageSource="pack://application:,,,/ImageAssets/desert-sand-texture.jpg"/>
@@ -95,13 +95,13 @@
                     <TextBox x:Name="ThreePlayerModePlayerThreeTextBox" Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
                     <Label Content="Difficulty:" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White"/>
                     <ComboBox x:Name="ThreePlayerDiffLevel"  Grid.Row="4" Grid.Column="1" Margin="15,15,15,15" FontFamily="{StaticResource Steamwreck}" Background="Coral" FontSize="20" VerticalContentAlignment="Center">
-                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="Coral" FontSize="20">Novice</ComboBoxItem>
-                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="Coral" FontSize="20">Normal</ComboBoxItem>
-                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="Coral" FontSize="20">Elite</ComboBoxItem>
-                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="Coral" FontSize="20">Legendary</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="DarkGoldenrod" FontSize="20">Novice</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="DarkGoldenrod" FontSize="20">Normal</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="DarkGoldenrod" FontSize="20">Elite</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" Background="DarkGoldenrod" FontSize="20">Legendary</ComboBoxItem>
                     </ComboBox>
-                    <Button Style="{StaticResource TransparentStyle}" Content="Back" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0" Click="ThreePlayerBackButtonClick"/>
-                    <Button Style="{StaticResource TransparentStyle}" Content="Game on!" Foreground="White" Grid.Row="7" Grid.Column="1" Margin="15,10,15,10" Click="ThreePlayerStartButtonClick" Style="{StaticResource TransparentStyle}" FontSize="15" FontWeight="Bold"/>
+                    <Button Style="{StaticResource TransparentStyle}" Content="Back" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0" FontWeight="Bold" Foreground="White" Click="ThreePlayerBackButtonClick" Height="46" Width="115"/>
+                    <Button Style="{StaticResource TransparentStyle}" Content="Game on!" Foreground="White" Grid.Row="7" Grid.Column="1" Margin="15,10,15,10" Click="ThreePlayerStartButtonClick" FontSize="15" FontWeight="Bold"/>
                 </Grid>
             </TabItem>
         </TabControl>

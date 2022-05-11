@@ -101,7 +101,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             }
 
             //ShelterTiles
-            logic.board.ShelterTiles = new ShelterTile[9];
+            logic.board.ShelterTiles = new ShelterTile[8];
             i = 0;
             foreach (var tile in xdocument.Root.Descendants("ShelterTile"))
             {
