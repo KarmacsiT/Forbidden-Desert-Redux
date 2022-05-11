@@ -2036,21 +2036,31 @@ namespace GUI_20212202_MQ7GIA.Logic
             //checking if the players have over the maximum water level
             players.Where(p => p.WaterLevel > p.MaxWaterLevel).ToList().ForEach(x => x.WaterLevel = x.MaxWaterLevel);
         }
+        public bool isItOnStormTile(int X, int Y)
+        {
+            if (X == board.storm.X && Y == board.storm.Y)
+            {
+                return true;
+            }
+            else return false;
+        }
         public List<NamedTile> NavigatorsTiles(Player player)
         {
             List<NamedTile> tiles = new List<NamedTile>();
             int playerX = player.X;
             int playerY = player.Y;
-            bool IsSandedInTheDirection = false;
+            bool isSandedInTheDirection = false;
+            bool isStorm = false;
             string[] Directions = { "West", "East", "North", "South" };
             for (int i = 0; i < Directions.Length; i++)
             {
-                if (Directions[i] == "West" && IsSandedInTheDirection == false)
+                if (Directions[i] == "West" && isSandedInTheDirection == false)
                 {
                     for(int x = 1; x < 4; x++)
                     {
-                        IsSandedInTheDirection = DoubleSandChecker(playerX - x, playerY);
-                        if (playerX - x > -1 && !IsSandedInTheDirection)
+                        isSandedInTheDirection = DoubleSandChecker(playerX - x, playerY);
+                        isStorm = isItOnStormTile(playerX - x, playerY);
+                        if (playerX - x > -1 && !isSandedInTheDirection && !isStorm)
                         {
                             tiles.Add(new NamedTile
                             {
@@ -2062,16 +2072,18 @@ namespace GUI_20212202_MQ7GIA.Logic
                         else
                         {
                            x = 4;
-                           IsSandedInTheDirection = false;
+                           isSandedInTheDirection = false;
+                           isStorm = false;
                         }
                     }
                 }
-                else if (Directions[i] == "East" && IsSandedInTheDirection == false)
+                else if (Directions[i] == "East" && isSandedInTheDirection == false)
                 {
                     for (int x = 1; x < 4; x++)
                     {
-                        IsSandedInTheDirection = DoubleSandChecker(playerX - x, playerY);
-                        if (playerX + x < 5 && !IsSandedInTheDirection)
+                        isSandedInTheDirection = DoubleSandChecker(playerX + x, playerY);
+                        isStorm = isItOnStormTile(playerX + x, playerY);
+                        if (playerX + x < 5 && !isSandedInTheDirection && !isStorm)
                         {
                             tiles.Add(new NamedTile
                             {
@@ -2083,16 +2095,18 @@ namespace GUI_20212202_MQ7GIA.Logic
                         else
                         {
                             x = 4;
-                            IsSandedInTheDirection = false;
+                            isSandedInTheDirection = false;
+                            isStorm = false;
                         }
                     }
                 }
-                else if (Directions[i] == "North" && IsSandedInTheDirection == false)
+                else if (Directions[i] == "North" && isSandedInTheDirection == false)
                 {
                     for (int y = 1; y < 4; y++)
                     {
-                        IsSandedInTheDirection = DoubleSandChecker(playerY - y, playerY);
-                        if (playerY - y > -1 && !IsSandedInTheDirection)
+                        isSandedInTheDirection = DoubleSandChecker(playerX, playerY - y);
+                        isStorm = isItOnStormTile(playerX, playerY - y);
+                        if (playerY - y > -1 && !isSandedInTheDirection && !isStorm)
                         {
                             tiles.Add(new NamedTile
                             {
@@ -2104,16 +2118,18 @@ namespace GUI_20212202_MQ7GIA.Logic
                         else
                         {
                             y = 4;
-                            IsSandedInTheDirection = false;
+                            isSandedInTheDirection = false;
+                            isStorm = false;
                         }
                     }
                 }
-                else if (Directions[i] == "South" && IsSandedInTheDirection == false)
+                else if (Directions[i] == "South" && isSandedInTheDirection == false)
                 {
                     for (int y = 1; y < 4; y++)
                     {
-                        IsSandedInTheDirection = DoubleSandChecker(playerY - y, playerY);
-                        if (playerY + y < 5 && !IsSandedInTheDirection)
+                        isSandedInTheDirection = DoubleSandChecker(playerX, playerY + y);
+                        isStorm = isItOnStormTile(playerX, playerY + y);
+                        if (playerY + y < 5 && !isSandedInTheDirection && !isStorm)
                         {
                             tiles.Add(new NamedTile
                             {
@@ -2125,7 +2141,8 @@ namespace GUI_20212202_MQ7GIA.Logic
                         else
                         {
                             y = 4;
-                            IsSandedInTheDirection = false;
+                            isSandedInTheDirection = false;
+                            isStorm = false;
                         }
                     }
                 }
