@@ -31,8 +31,6 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         public void SetupLogic(GameLogic logic, BoardWindow boardWindow)
         {
             this.Logic = logic;
-            this.PlayersWithoutFirst = new ObservableCollection<Player>(logic.Players);
-            PlayersWithoutFirst.Remove(PlayersWithoutFirst.Where(x=>x.TurnOrder == 1).SingleOrDefault());
             this.boardWindow = boardWindow;
         }
         public ICommand ShareCommand { get; set; }
@@ -73,10 +71,15 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 );
         }
 
-        public void RefreshPlayers(List<Player> players)
+        public void RefreshPlayers(GameLogic logic)
         {
-            this.PlayersWithoutFirst = new ObservableCollection<Player>(players);
-            PlayersWithoutFirst.Remove(PlayersWithoutFirst.Where(x => x.TurnOrder == 1).SingleOrDefault());
+            PlayersWithoutFirst = null; // avoiding memory leak
+            RoleName role = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName;
+            if (role == RoleName.WaterCarrier)
+            {
+                this.PlayersWithoutFirst = new ObservableCollection<Player>(logic.GetPlayersOnAdjacentAndYourTile(1));
+            }
+            else this.PlayersWithoutFirst = new ObservableCollection<Player>(logic.GetPlayersOnSameTile(1));
         }
     }
 }

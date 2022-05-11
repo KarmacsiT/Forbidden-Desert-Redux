@@ -16,11 +16,11 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
     public class DuneBlasterWindowViewModel : ObservableRecipient
     {
         public GameLogic Logic { get; set; }
-        public ObservableCollection<AdjacentSandedTileFromPlayer> AdjacentTilesFromPlayers { get; set; } //okay this also contains the tile which the player is on
+        public ObservableCollection<NamedTile> AdjacentTilesFromPlayers { get; set; } //okay this also contains the tile which the player is on
         public BoardWindow boardWindow { get; set; }
         DuneBlasterWindow window;
-        private AdjacentSandedTileFromPlayer selectedTile;
-        public AdjacentSandedTileFromPlayer SelectedTile
+        private NamedTile selectedTile;
+        public NamedTile SelectedTile
         {
             get { return selectedTile; }
             set
@@ -82,9 +82,9 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 () => SelectedTile != null
                 );
         }
-        public void ConvertListToObservable(List<AdjacentSandedTileFromPlayer> adjacentSandedTileFromPlayers)
+        public void ConvertListToObservable(List<NamedTile> adjacentSandedTileFromPlayers)
         {
-            AdjacentTilesFromPlayers = new ObservableCollection<AdjacentSandedTileFromPlayer>(adjacentSandedTileFromPlayers);
+            AdjacentTilesFromPlayers = new ObservableCollection<NamedTile>(adjacentSandedTileFromPlayers);
             SelectedTile = null; // this is also done because otherwise there may be memory leakages from previous dune blaster card actions
         }
     }

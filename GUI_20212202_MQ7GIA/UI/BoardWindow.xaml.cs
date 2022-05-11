@@ -38,8 +38,10 @@ namespace GUI_20212202_MQ7GIA
         JetPackWindowViewModel jetPackWindowViewModel;
         TerrascopeSelectWindowViewModel terrascopeSelectWVM;
         StormTrackerWindowViewModel stormTrackerWVM;
-        public TerraScopeRenderer terraScopeRenderer { get; set; }
+        ClimberTakingPlayerViewModel climberTakingPlayerViewModel;
+        NavigatorPlayerMoveWindowViewModel navigatorPlayerMoveWVM;
         #endregion
+        public TerraScopeRenderer terraScopeRenderer { get; set; }
         CardInspector cardInspector = new CardInspector();
         StormCardDisplay stormCardDisplay = new StormCardDisplay();
         ControlsDisplay controls = new ControlsDisplay();
@@ -116,6 +118,13 @@ namespace GUI_20212202_MQ7GIA
 
             stormTrackerWVM = new StormTrackerWindowViewModel();
             stormTrackerWVM.SetupLogic(logic, this);
+
+            climberTakingPlayerViewModel = new ClimberTakingPlayerViewModel();
+            climberTakingPlayerViewModel.SetupLogic(logic, display, this);
+
+            navigatorPlayerMoveWVM = new NavigatorPlayerMoveWindowViewModel();
+            navigatorPlayerMoveWVM.SetupLogic(logic, display, this);
+
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
@@ -168,6 +177,13 @@ namespace GUI_20212202_MQ7GIA
 
             stormTrackerWVM = new StormTrackerWindowViewModel();
             stormTrackerWVM.SetupLogic(logic, this);
+
+            climberTakingPlayerViewModel = new ClimberTakingPlayerViewModel();
+            climberTakingPlayerViewModel.SetupLogic(logic, display, this);
+
+            navigatorPlayerMoveWVM = new NavigatorPlayerMoveWindowViewModel();
+            navigatorPlayerMoveWVM.SetupLogic(logic, display, this);
+
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
@@ -229,22 +245,77 @@ namespace GUI_20212202_MQ7GIA
             }
             else if (e.Key == Key.Up || e.Key == Key.NumPad8)      // up
             {
-                invalidate = display.MoveThePlayer(0, -1);
+                logic = display.GetLogic();
+                if (logic.Players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Climber)
+                {
+                    List<Player> availablePlayers = logic.GetPlayersOnSameTile(1);
+                    climberTakingPlayerViewModel.ConvertListToObservable(availablePlayers);
+                    climberTakingPlayerViewModel.X = 0;
+                    climberTakingPlayerViewModel.Y = -1;
+                    if (availablePlayers.Count >0)
+                    {
+                        climberTakingPlayerViewModel.ShowWindow();
+                    }
+                    else
+                    {
+                        invalidate = display.MoveThePlayer(0, -1);
+                    }
+                }
+                else invalidate = display.MoveThePlayer(0, -1);
                 gameWon = display.GameWon();
             }
             else if (e.Key == Key.Left || e.Key == Key.NumPad4)     // left
             {
-                invalidate = display.MoveThePlayer(-1, 0);
+                logic = display.GetLogic();
+                if (logic.Players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Climber)
+                {
+                    List<Player> availablePlayers = logic.GetPlayersOnSameTile(1);
+                    climberTakingPlayerViewModel.ConvertListToObservable(availablePlayers);
+                    climberTakingPlayerViewModel.X = -1;
+                    climberTakingPlayerViewModel.Y = 0;
+                    if (availablePlayers.Count > 0)
+                    {
+                        invalidate = climberTakingPlayerViewModel.ShowWindow();
+                    }
+                    else invalidate = display.MoveThePlayer(-1, 0);
+                }
+                else invalidate = display.MoveThePlayer(-1, 0);
                 gameWon = display.GameWon();
             }
             else if (e.Key == Key.Down || e.Key == Key.NumPad2)      // down
             {
-                invalidate = display.MoveThePlayer(0, 1);
+                logic = display.GetLogic();
+                if (logic.Players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Climber)
+                {
+                    List<Player> availablePlayers = logic.GetPlayersOnSameTile(1);
+                    climberTakingPlayerViewModel.ConvertListToObservable(availablePlayers);
+                    climberTakingPlayerViewModel.X = 0;
+                    climberTakingPlayerViewModel.Y = 1;
+                    if (availablePlayers.Count > 0)
+                    {
+                        climberTakingPlayerViewModel.ShowWindow();
+                    }
+                    else invalidate = display.MoveThePlayer(0, 1);
+                }
+                else invalidate = display.MoveThePlayer(0, 1);
                 gameWon = display.GameWon();
             }
             else if (e.Key == Key.Right || e.Key == Key.NumPad6)    // right
             {
-                invalidate = display.MoveThePlayer(1, 0);
+                logic = display.GetLogic();
+                if (logic.Players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Climber)
+                {
+                    List<Player> availablePlayers = logic.GetPlayersOnSameTile(1);
+                    climberTakingPlayerViewModel.ConvertListToObservable(availablePlayers);
+                    climberTakingPlayerViewModel.X = 1;
+                    climberTakingPlayerViewModel.Y = 0;
+                    if (availablePlayers.Count > 0)
+                    {
+                        climberTakingPlayerViewModel.ShowWindow();
+                    }
+                    else invalidate = display.MoveThePlayer(1, 0);
+                }
+                else invalidate = display.MoveThePlayer(1, 0);
                 gameWon = display.GameWon();
             }
             else if (e.Key == Key.R) // R
@@ -267,7 +338,7 @@ namespace GUI_20212202_MQ7GIA
             {
                 //implement waterSharing
                 logic = display.GetLogic();
-                waterSharingWindowVM.RefreshPlayers(logic.Players); //Because in the VM the first element is deleted
+                waterSharingWindowVM.RefreshPlayers(logic); //Because we have to update the ViewModel about the changes in the player's list regarding location
                 waterSharingWindowVM.ShowWindow();
             }
             else if (e.Key == Key.W)
@@ -338,6 +409,41 @@ namespace GUI_20212202_MQ7GIA
                 terrascopeSelectWVM.ConvertListToObservable(undiscoveredTiles);
                 terrascopeSelectWVM.ShowWindow();
             }
+            else if (e.Key == Key.Pause)
+            {
+                logic = display.GetLogic();
+                bool isMeteorologist = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Meteorologist;
+                bool hasFreeActions = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().NumberOfActions > 0;
+                if (isMeteorologist && hasFreeActions)
+                {
+                    invalidate = logic.MeteorologistStormTracker(stormTrackerWVM);
+                }
+                else if (!isMeteorologist)
+                {
+                    MessageBox.Show("You're not a meteorologist.");
+                }
+                else
+                {
+                    MessageBox.Show("You're out of actions.");
+                }
+            }
+            else if (e.Key == Key.M)
+            {
+                logic = display.GetLogic();
+                bool isNavigator = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Navigator;
+                if (isNavigator)
+                {
+                    List<Player> availablePlayers = logic.GetPlayersOnSameTile(1);
+                    List<NamedTile> availableTiles = logic.NavigatorsTiles(logic.Players.Where(x => x.TurnOrder == 1).SingleOrDefault());
+                    navigatorPlayerMoveWVM.ConvertListToObservable(availableTiles, availablePlayers);
+                    navigatorPlayerMoveWVM.ShowWindow();
+                }
+                else
+                {
+                    MessageBox.Show("You're not a navigator.");
+                }
+
+            }
             if (invalidate == true)
             {
                 UpdateBoardViewModel();
@@ -372,18 +478,35 @@ namespace GUI_20212202_MQ7GIA
         }
         private void EndTurn(object sender, RoutedEventArgs e) //MoveTheStorm now returns storm cards you can use that to display the StormCard on the UI
         {
+            logic = display.GetLogic();
             List<Image> stormCardDisplayElements = new Image[] { stormCardDisplay.StormCard1Display, stormCardDisplay.StormCard2Display, stormCardDisplay.StormCard3Display, stormCardDisplay.StormCard4Display, stormCardDisplay.StormCard5Display }.ToList();
             List<string> possibleStormMovingCardNames = new string[] { "oneDown", "oneUp", "oneLeft", "oneRight", "twoDown", "twoUp", "twoLeft", "twoRight", "threeDown", "threeUp", "threeLeft", "threeRight" }.ToList();
             string MoveStormMessage = string.Empty;
             string stormCardImagePath = string.Empty;
 
-
+            //set the remaining actions in the case of meteorologist
+            if (logic.players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName == RoleName.Meteorologist)
+            {
+                logic.MeteorologistRemainingActions = logic.players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions;
+            }
             foreach (var initialElement in stormCardDisplayElements)
             {
                 initialElement.Source = null;
             }
 
             int iterations = display.NumberOfStormCardsActivated();
+            if (logic.MeteorologistRemainingActions > 0)
+            {
+                if (iterations - logic.MeteorologistRemainingActions < 0)
+                {
+                    iterations = 0;
+                }
+                else
+                {
+                    iterations = iterations - logic.MeteorologistRemainingActions;
+                }
+                logic.MeteorologistRemainingActions = 0;
+            }
             for (int i = 0; i < iterations; i++)
             {
                 display.NeedsShufflingStormcards();  //if yes, it automatically shuffles the stormcards
@@ -501,7 +624,7 @@ namespace GUI_20212202_MQ7GIA
             timer.Tick -= NextPlayer;
         }
 
-        private void UpdateBoardViewModel()
+        public void UpdateBoardViewModel()
         {
             GameLogic logic = display.GetLogic();
             boardWindowViewModel.SetPlayers(logic.Players);
@@ -594,7 +717,7 @@ namespace GUI_20212202_MQ7GIA
 
         }
 
-        private void UpdateItemCardDisplay()
+        public void UpdateItemCardDisplay()
         {
             GameLogic logic = display.GetLogic();
 
