@@ -348,10 +348,35 @@ namespace GUI_20212202_MQ7GIA
                 WaterLevelWindow waterLevelWindow = new WaterLevelWindow(logic.Players.Where(x => x.TurnOrder == 1).SingleOrDefault());
                 waterLevelWindow.Show();
             }
-            else if (e.Key == Key.C)
+            else if (e.Key == Key.F)
             {
                 // Refill
-                invalidate = display.WaterCarrierRefill();
+                logic = display.GetLogic();
+                RoleName role = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName;
+                if (role == RoleName.WaterCarrier)
+                {
+                    invalidate = display.WaterCarrierRefill();
+                }
+                else if (role == RoleName.Navigator)
+                {
+                    List<Player> availablePlayers = logic.GetPlayersOnSameTile(1);
+                    List<NamedTile> availableTiles = logic.NavigatorsTiles(logic.Players.Where(x => x.TurnOrder == 1).SingleOrDefault());
+                    navigatorPlayerMoveWVM.ConvertListToObservable(availableTiles, availablePlayers);
+                    navigatorPlayerMoveWVM.ShowWindow();
+                }
+                else if (role == RoleName.Meteorologist)
+                {
+                    bool hasFreeActions = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().NumberOfActions > 0;
+                    if (hasFreeActions)
+                    {
+                        invalidate = logic.MeteorologistStormTracker(stormTrackerWVM);
+                    }
+                    else
+                    {
+                        MessageBox.Show("You're out of actions.");
+                    }
+                }
+                
             }
             else if (e.Key == Key.T)
             {
@@ -408,41 +433,6 @@ namespace GUI_20212202_MQ7GIA
                 List<ITile> undiscoveredTiles = logic.UndiscoveredTiles();
                 terrascopeSelectWVM.ConvertListToObservable(undiscoveredTiles);
                 terrascopeSelectWVM.ShowWindow();
-            }
-            else if (e.Key == Key.Pause)
-            {
-                logic = display.GetLogic();
-                bool isMeteorologist = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Meteorologist;
-                bool hasFreeActions = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().NumberOfActions > 0;
-                if (isMeteorologist && hasFreeActions)
-                {
-                    invalidate = logic.MeteorologistStormTracker(stormTrackerWVM);
-                }
-                else if (!isMeteorologist)
-                {
-                    MessageBox.Show("You're not a meteorologist.");
-                }
-                else
-                {
-                    MessageBox.Show("You're out of actions.");
-                }
-            }
-            else if (e.Key == Key.M)
-            {
-                logic = display.GetLogic();
-                bool isNavigator = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Navigator;
-                if (isNavigator)
-                {
-                    List<Player> availablePlayers = logic.GetPlayersOnSameTile(1);
-                    List<NamedTile> availableTiles = logic.NavigatorsTiles(logic.Players.Where(x => x.TurnOrder == 1).SingleOrDefault());
-                    navigatorPlayerMoveWVM.ConvertListToObservable(availableTiles, availablePlayers);
-                    navigatorPlayerMoveWVM.ShowWindow();
-                }
-                else
-                {
-                    MessageBox.Show("You're not a navigator.");
-                }
-
             }
             if (invalidate == true)
             {
@@ -1188,9 +1178,11 @@ namespace GUI_20212202_MQ7GIA
                     case "Time Throttle":
                         logic.Players.Where(p => p.TurnOrder == turnOrder).SingleOrDefault().NumberOfActions += 2;
                         UpdateBoardViewModel();
+                        Sound.PlaySound("326478__byseb__automatic-wrist-watch-ticking.wav");
                         break;
                     case "Secret Water Reserve":
                         logic.SecretWaterReserve(turnOrder);
+                        Sound.PlaySound("445970__breviceps__drink-drinking-liquid.wav");
                         break;
                     case "Solar Shield":
                         logic.playersHavingNoEffectOnSunBeatsDown = logic.GetPlayersOnSameTileIncludingYou(turnOrder);
