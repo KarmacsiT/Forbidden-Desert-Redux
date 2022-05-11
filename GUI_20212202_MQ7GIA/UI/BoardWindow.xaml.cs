@@ -38,7 +38,6 @@ namespace GUI_20212202_MQ7GIA
         JetPackWindowViewModel jetPackWindowViewModel;
         TerrascopeSelectWindowViewModel terrascopeSelectWVM;
         StormTrackerWindowViewModel stormTrackerWVM;
-        public TerraScopeRenderer terraScopeRenderer { get; set; }
         #endregion
         CardInspector cardInspector = new CardInspector();
         StormCardDisplay stormCardDisplay = new StormCardDisplay();
@@ -92,9 +91,7 @@ namespace GUI_20212202_MQ7GIA
 
 
             }
-            display.SetupLogic(logic, colors);
-            terraScopeRenderer = new TerraScopeRenderer();
-            terraScopeRenderer.SetupLogic(logic);
+            display.SetupLogic(logic, colors);            
             Sound = sound;
             Sound.PlayMusic("RPG DD Ambience Windy Desert Immersive Realistic Relaxing Heat Sand Calm.mp3");
 
@@ -110,7 +107,7 @@ namespace GUI_20212202_MQ7GIA
             jetPackWindowViewModel.SetupLogic(logic, display, this);
 
             terrascopeSelectWVM = new TerrascopeSelectWindowViewModel();
-            terrascopeSelectWVM.SetupLogic(logic, terraScopeRenderer, this);
+            terrascopeSelectWVM.SetupLogic(logic, this);
 
             stormTrackerWVM = new StormTrackerWindowViewModel();
             stormTrackerWVM.SetupLogic(logic, this);
@@ -162,7 +159,7 @@ namespace GUI_20212202_MQ7GIA
             jetPackWindowViewModel.SetupLogic(logic, display, this);
 
             terrascopeSelectWVM = new TerrascopeSelectWindowViewModel();
-            terrascopeSelectWVM.SetupLogic(logic, terraScopeRenderer, this);
+            terrascopeSelectWVM.SetupLogic(logic, this);
 
             stormTrackerWVM = new StormTrackerWindowViewModel();
             stormTrackerWVM.SetupLogic(logic, this);
@@ -324,13 +321,13 @@ namespace GUI_20212202_MQ7GIA
                 invalidate = display.RemoveSandByCoordinates(1, 1);
             }
             //testing purpose
-            else if (e.Key == Key.Scroll)
-            {
-                logic = display.GetLogic();
-                List<ITile> undiscoveredTiles = logic.UndiscoveredTiles();
-                terrascopeSelectWVM.ConvertListToObservable(undiscoveredTiles);
-                terrascopeSelectWVM.ShowWindow();
-            }
+            //else if (e.Key == Key.Z)
+            //{
+            //    logic = display.GetLogic();
+            //    List<ITile> undiscoveredTiles = logic.UndiscoveredTiles();
+            //    terrascopeSelectWVM.ConvertListToObservable(undiscoveredTiles);
+            //    terrascopeSelectWVM.ShowWindow();
+            //}
             if (invalidate == true)
             {
                 UpdateBoardViewModel();
@@ -549,9 +546,34 @@ namespace GUI_20212202_MQ7GIA
                 ImageSource imagesourcefive = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards[4].Display, UriKind.RelativeOrAbsolute));
                 P2Card4.Source = imagesourcefive;
             }
-            //else
+            ////player 3
+            //if(logic.Players.Count() == 3)
             //{
-            //    logic.CurrentPlayerCard5Display = null;
+            //    if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 1)
+            //    {
+            //        ImageSource imagesourceone = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[0].Display, UriKind.RelativeOrAbsolute));
+            //        P3Card1.Source = imagesourceone;
+            //    }
+            //    if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 2)
+            //    {
+            //        ImageSource imagesourcetwo = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[1].Display, UriKind.RelativeOrAbsolute));
+            //        P3Card2.Source = imagesourcetwo;
+            //    }
+            //    if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 3)
+            //    {
+            //        ImageSource imagesourcethree = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[2].Display, UriKind.RelativeOrAbsolute));
+            //        P3Card3.Source = imagesourcethree;
+            //    }
+            //    if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 4)
+            //    {
+            //        ImageSource imagesourcefour = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[3].Display, UriKind.RelativeOrAbsolute));
+            //        P3Card4.Source = imagesourcefour;
+            //    }
+            //    if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 5)
+            //    {
+            //        ImageSource imagesourcefive = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[4].Display, UriKind.RelativeOrAbsolute));
+            //        P3Card4.Source = imagesourcefive;
+            //    }
             //}
         }
 

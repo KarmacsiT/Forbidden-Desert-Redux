@@ -36,7 +36,7 @@
     </Window.Resources>
     <Grid>
         <Grid x:Name="boardDisplay" AllowDrop="True" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="600" Grid.ColumnSpan="3" Grid.RowSpan="2">
-            <renderer:TerraScopeRenderer x:Name="TerraScopeRenderer" />
+            <renderer:TerraScopeRenderer x:Name="terraScopeRenderer" />
         </Grid>
         <Button Style="{StaticResource TransparentStyle}" Grid.Column="1" Grid.Row="1" Content="Go back" HorizontalAlignment="center" VerticalAlignment="Bottom"  FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Close"/>
     </Grid>

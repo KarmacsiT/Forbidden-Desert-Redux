@@ -20,9 +20,9 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         // Models
         GameLogic logic;
         Size size;
-        public void SetupLogic(GameLogic logic)
+        public void SetupLogic(GameLogic logic_)
         {
-            this.logic = logic;
+            this.logic = logic_;
         }
         public void Resize(Size size)
         {

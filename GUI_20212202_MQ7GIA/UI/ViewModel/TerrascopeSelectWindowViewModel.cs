@@ -16,7 +16,6 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
     public class TerrascopeSelectWindowViewModel : ObservableRecipient
     {
         public GameLogic Logic { get; set; }
-        public TerraScopeRenderer Renderer { get; set; }
         public ObservableCollection<ITile> UndiscoveredTiles { get; set; }
         public BoardWindow boardWindow { get; set; }
         TerrascopeWindow window;
@@ -32,10 +31,9 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 (PeekCommand as RelayCommand).NotifyCanExecuteChanged();
             }
         }
-        public void SetupLogic(GameLogic logic, TerraScopeRenderer renderer, BoardWindow boardWindow)
+        public void SetupLogic(GameLogic logic, BoardWindow boardWindow)
         {
             this.Logic = logic;
-            this.Renderer = renderer;
             this.boardWindow = boardWindow;
         }
         public ICommand PeekCommand { get; set; }
@@ -45,7 +43,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             {
                 Logic.SetPeekTile(SelectedTile);
                 selectorWindow.Close();
-                window = new TerrascopeWindow(Renderer, Logic);
+                window = new TerrascopeWindow(Logic);
                 sound.PlaySound("Terrascope.wav");
                 window.Show();
             }
