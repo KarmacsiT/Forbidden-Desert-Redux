@@ -818,7 +818,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             return newPlayer;
         }
 
-        public string MovePlayer(int newX, int newY, List<Player> players) // returns true if the player moves ---> so render only rerenders in this case
+        public string MovePlayer(int newX, int newY, List<Player> players,Player selectedPlayer) // returns true if the player moves ---> so render only rerenders in this case
         {
             int X = players.Where(p => p.TurnOrder == 1).SingleOrDefault().X;
             int Y = players.Where(p => p.TurnOrder == 1).SingleOrDefault().Y;
@@ -844,6 +844,11 @@ namespace GUI_20212202_MQ7GIA.Logic
                     {
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().X = newX;
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y = newY;
+                        if (selectedPlayer != null)
+                        {
+                            selectedPlayer.X = newX;
+                            selectedPlayer.Y = newY;
+                        }
                         players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
                         Sound.PlaySound("game_monopoly_game_metal_playing_piece_drop_onto_playing_board.mp3");
                         return "validMove";
@@ -946,10 +951,15 @@ namespace GUI_20212202_MQ7GIA.Logic
         {
             int x = players.Where(p => p.TurnOrder == 1).FirstOrDefault().X;
             int y = players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y;
+            RoleName roleName = players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName;
             bool sand = SandTileChecker(x, y);
             if (sand && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions > 0) //if we are on a sand tile and we can do an action
             {
-                board.SandTiles[x, y] -= 1; //we excavate the sand
+                if (roleName == RoleName.Archeologist)
+                {
+                    board.SandTiles[x, y] -= 2; //Archeologists can do two per action
+                }
+                else board.SandTiles[x, y] -= 1; //we excavate the sand
                 players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions -= 1;
                 Sound.PlaySound("441824__jjdg__shovel-digging-sound.mp3");
                 return "validMove";
