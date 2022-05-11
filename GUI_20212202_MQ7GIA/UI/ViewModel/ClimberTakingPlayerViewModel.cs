@@ -44,10 +44,16 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         {
             try
             {
+                bool invalidate = false;
                 if (SelectedPlayer != null)
                 {
-                    Logic.MovePlayer(X, Y, Logic.Players, SelectedPlayer);
-                    Display.InvalidateVisual();
+                    invalidate = Display.MoveMultiPlayer(X, Y, SelectedPlayer);
+                    if (invalidate)
+                    {
+                        boardWindow.UpdateBoardViewModel();
+                        boardWindow.UpdateItemCardDisplay();
+                        Display.InvalidateVisual();
+                    }
                 }
                 else throw new Exception("You selected nobody to come with you. Please try again.");
 
@@ -58,16 +64,23 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             }
             finally
             {
+                window.DialogResult = true;
                 window.Close(); //this should always run since even if an error this window should go away.
             }
 
         }
         public void GoAlone()
         {
+            bool invalidate = false;
             try
             {
-                Logic.MovePlayer(X, Y, Logic.Players, null);
-                Display.InvalidateVisual();
+                invalidate = Display.MoveThePlayer(X, Y);
+                if (invalidate)
+                {
+                    boardWindow.UpdateBoardViewModel();
+                    boardWindow.UpdateItemCardDisplay();
+                    Display.InvalidateVisual();
+                }
             }
             catch (Exception ex)
             {
@@ -75,6 +88,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             }
             finally
             {
+                window.DialogResult = true;
                 window.Close(); //this should always run since even if an error this window should go away.
             }
 
@@ -84,6 +98,11 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             try
             {
                 window = new ClimberTakingPlayerWindow(this);
+                window.ShowDialog();
+                if (window.DialogResult == true)
+                {
+                    return true;
+                }
             }
             catch (Exception ex)
             {

@@ -478,6 +478,58 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             }
             return invalidate;
         }
+        public bool MoveMultiPlayer(int x, int y, Player selectedPlayer)
+        {
+            bool invalidate = false;
+            string validationMessage = String.Empty;
+            if (x != 0 && y != 0)  //diagonal movement
+            {
+                if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName == RoleName.Explorer)
+                {
+                    validationMessage = logic.MovePlayer(logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().X + x, logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y + y, logic.Players, selectedPlayer);
+
+                    if (validationMessage is "validMove")
+                    {
+                        invalidate = true;
+                    }
+                    else if (validationMessage is "blocked")
+                    {
+                        MessageBox.Show("Hint: You can't move to this tile because it is blocked.");
+                        invalidate = false;
+                    }
+                    else if (validationMessage is "currentBlocked")
+                    {
+                        MessageBox.Show("Hint: You can't move from this tile because it is blocked. Remove the double sand first.");
+                        invalidate = false;
+                    }
+                    else if (validationMessage is "outOfActions")
+                    {
+                        MessageBox.Show("Hint: You can't move anymore because you are out of actions.");
+                        invalidate = false;
+                    }
+                }
+            }
+            else
+            {
+                validationMessage = logic.MovePlayer(logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().X + x, logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y + y, logic.Players, selectedPlayer);
+
+                if (validationMessage is "validMove")
+                {
+                    invalidate = true;
+                }
+                else if (validationMessage is "blocked")
+                {
+                    MessageBox.Show("Hint: You can't move to this tile because it is blocked.");
+                    invalidate = false;
+                }
+                else if (validationMessage is "outOfActions")
+                {
+                    MessageBox.Show("Hint: You can't move anymore because you are out of actions.");
+                    invalidate = false;
+                }
+            }
+            return invalidate;
+        }
         public void EndTurn()
         {
             logic.Endturn(logic.Players);

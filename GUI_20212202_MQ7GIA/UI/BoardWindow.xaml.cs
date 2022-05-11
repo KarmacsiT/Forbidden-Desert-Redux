@@ -38,6 +38,7 @@ namespace GUI_20212202_MQ7GIA
         JetPackWindowViewModel jetPackWindowViewModel;
         TerrascopeSelectWindowViewModel terrascopeSelectWVM;
         StormTrackerWindowViewModel stormTrackerWVM;
+        ClimberTakingPlayerViewModel climberTakingPlayerViewModel;
         public TerraScopeRenderer terraScopeRenderer { get; set; }
         #endregion
         CardInspector cardInspector = new CardInspector();
@@ -114,6 +115,10 @@ namespace GUI_20212202_MQ7GIA
 
             stormTrackerWVM = new StormTrackerWindowViewModel();
             stormTrackerWVM.SetupLogic(logic, this);
+
+            climberTakingPlayerViewModel = new ClimberTakingPlayerViewModel();
+            climberTakingPlayerViewModel.SetupLogic(logic, display, this);
+
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
@@ -166,6 +171,7 @@ namespace GUI_20212202_MQ7GIA
 
             stormTrackerWVM = new StormTrackerWindowViewModel();
             stormTrackerWVM.SetupLogic(logic, this);
+
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
             this.DataContext = boardWindowViewModel;
             logic.CardsMovingOnBoard += CardsChanging;
@@ -226,22 +232,77 @@ namespace GUI_20212202_MQ7GIA
             }
             else if (e.Key == Key.Up || e.Key == Key.NumPad8)      // up
             {
-                invalidate = display.MoveThePlayer(0, -1);
+                logic = display.GetLogic();
+                if (logic.Players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Climber)
+                {
+                    List<Player> availablePlayers = logic.GetPlayersOnSameTile(1);
+                    climberTakingPlayerViewModel.ConvertListToObservable(availablePlayers);
+                    climberTakingPlayerViewModel.X = 0;
+                    climberTakingPlayerViewModel.Y = -1;
+                    if (availablePlayers.Count >0)
+                    {
+                        climberTakingPlayerViewModel.ShowWindow();
+                    }
+                    else
+                    {
+                        invalidate = display.MoveThePlayer(0, -1);
+                    }
+                }
+                else invalidate = display.MoveThePlayer(0, -1);
                 gameWon = display.GameWon();
             }
             else if (e.Key == Key.Left || e.Key == Key.NumPad4)     // left
             {
-                invalidate = display.MoveThePlayer(-1, 0);
+                logic = display.GetLogic();
+                if (logic.Players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Climber)
+                {
+                    List<Player> availablePlayers = logic.GetPlayersOnSameTile(1);
+                    climberTakingPlayerViewModel.ConvertListToObservable(availablePlayers);
+                    climberTakingPlayerViewModel.X = -1;
+                    climberTakingPlayerViewModel.Y = 0;
+                    if (availablePlayers.Count > 0)
+                    {
+                        invalidate = climberTakingPlayerViewModel.ShowWindow();
+                    }
+                    else invalidate = display.MoveThePlayer(-1, 0);
+                }
+                else invalidate = display.MoveThePlayer(-1, 0);
                 gameWon = display.GameWon();
             }
             else if (e.Key == Key.Down || e.Key == Key.NumPad2)      // down
             {
-                invalidate = display.MoveThePlayer(0, 1);
+                logic = display.GetLogic();
+                if (logic.Players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Climber)
+                {
+                    List<Player> availablePlayers = logic.GetPlayersOnSameTile(1);
+                    climberTakingPlayerViewModel.ConvertListToObservable(availablePlayers);
+                    climberTakingPlayerViewModel.X = 0;
+                    climberTakingPlayerViewModel.Y = 1;
+                    if (availablePlayers.Count > 0)
+                    {
+                        climberTakingPlayerViewModel.ShowWindow();
+                    }
+                    else invalidate = display.MoveThePlayer(0, 1);
+                }
+                else invalidate = display.MoveThePlayer(0, 1);
                 gameWon = display.GameWon();
             }
             else if (e.Key == Key.Right || e.Key == Key.NumPad6)    // right
             {
-                invalidate = display.MoveThePlayer(1, 0);
+                logic = display.GetLogic();
+                if (logic.Players.Where(p => p.TurnOrder == 1).SingleOrDefault().PlayerRoleName == RoleName.Climber)
+                {
+                    List<Player> availablePlayers = logic.GetPlayersOnSameTile(1);
+                    climberTakingPlayerViewModel.ConvertListToObservable(availablePlayers);
+                    climberTakingPlayerViewModel.X = 1;
+                    climberTakingPlayerViewModel.Y = 0;
+                    if (availablePlayers.Count > 0)
+                    {
+                        climberTakingPlayerViewModel.ShowWindow();
+                    }
+                    else invalidate = display.MoveThePlayer(1, 0);
+                }
+                else invalidate = display.MoveThePlayer(1, 0);
                 gameWon = display.GameWon();
             }
             else if (e.Key == Key.R) // R
@@ -492,7 +553,7 @@ namespace GUI_20212202_MQ7GIA
             timer.Tick -= NextPlayer;
         }
 
-        private void UpdateBoardViewModel()
+        public void UpdateBoardViewModel()
         {
             GameLogic logic = display.GetLogic();
             boardWindowViewModel.SetPlayers(logic.Players);
@@ -555,7 +616,7 @@ namespace GUI_20212202_MQ7GIA
             //}
         }
 
-        private void UpdateItemCardDisplay()
+        public void UpdateItemCardDisplay()
         {
             GameLogic logic = display.GetLogic();
 
