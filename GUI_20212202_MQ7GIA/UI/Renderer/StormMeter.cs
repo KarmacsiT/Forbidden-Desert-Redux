@@ -25,11 +25,11 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
 
             double Height = (842/10)*(400/216.5); //calculated from 842, it's 116.39 pixels
             double Width = 400; //original is 2165
-            double firstBarLocation = 580 * (400 / 2165);
-            double indicatorPosition = 0;
-            double indicatorHeight = 235* (400 / 2165);
-            double indicatorWidth = 141 * (400/2165);
-            double gapsBetweenBars =102* (400/2165);
+            double firstBarLocation = 580.0 * (400.0 / 2165);
+            double indicatorPosition = 0.0;
+            double indicatorHeight = 235.0* (400.0 / 2165);
+            double indicatorWidth = 141.0 * (400.0/2165);
+            double gapsBetweenBars =102.0* (400.0/2165);
             double middleOfIndicator = indicatorWidth / 2;
             //There are 15 bars for 3 players, 14 bars for 2 players (and the first one is the 3 player's second)
             // The gaps between two bars are 102 px originally, but because i decreased its size, I multiply it with the ratio. (400/2165)

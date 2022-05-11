@@ -19,20 +19,9 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         public Display Display { get; set; }
         public ObservableCollection<Player> AvailablePlayers { get; set; } //in case there are other players on the tile
         public BoardWindow boardWindow { get; set; }
-        JetPackWindow window;
-        public int TurnOrder { get; set; }
+        ClimberTakingPlayerWindow window;
         public int X { get; set; }
         public int Y { get; set; }
-        private Tile selectedTile;
-        public Tile SelectedTile
-        {
-            get { return selectedTile; }
-            set
-            {
-                SetProperty(ref selectedTile, value);
-                (TeleportCommand as RelayCommand).NotifyCanExecuteChanged();
-            }
-        }
         private Player selectedPlayer;
         public Player SelectedPlayer
         {
@@ -40,7 +29,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             set
             {
                 SetProperty(ref selectedPlayer, value);
-                //This doesn't depend on if the button can be pushed for teleporting
+                (TogetherCommand as RelayCommand).NotifyCanExecuteChanged();
             }
         }
         public void SetupLogic(GameLogic logic, Display display, BoardWindow boardWindow)
@@ -53,11 +42,15 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         public ICommand AloneCommand { get; set; }
         public void GoTogether()
         {
-            // implement water change
             try
             {
-                Logic.MovePlayer(X, Y, Logic.Players, SelectedPlayer);
-                Display.InvalidateVisual();
+                if (SelectedPlayer != null)
+                {
+                    Logic.MovePlayer(X, Y, Logic.Players, SelectedPlayer);
+                    Display.InvalidateVisual();
+                }
+                else throw new Exception("You selected nobody to come with you. Please try again.");
+
             }
             catch (Exception ex)
             {
@@ -71,7 +64,6 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         }
         public void GoAlone()
         {
-            // implement water change
             try
             {
                 Logic.MovePlayer(X, Y, Logic.Players, null);
@@ -91,18 +83,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         {
             try
             {
-                if (AvailableTiles.Count > 0)
-                {
-                    window = new JetPackWindow(this);
-                    window.ShowDialog();
-                    return true;
-                }
-                else
-                {
-                    //this has to be implemented here, otherwise the window would open unnecessarily
-                    throw new Exception("There is no unblocked tile around you.");
-
-                }
+                window = new ClimberTakingPlayerWindow(this);
             }
             catch (Exception ex)
             {
@@ -115,20 +96,17 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         {
             TogetherCommand = new RelayCommand(
                 () => GoTogether(),
-                () => SelectedTile != null
+                () => SelectedPlayer != null
                 );
             AloneCommand = new RelayCommand(
-                () => GoAlone(),
-                () => SelectedTile != null
+                () => GoAlone()
                 );
         }
 
-        public void ConvertListToObservable(List<Tile> tiles, List<Player> players)
+        public void ConvertListToObservable(List<Player> players)
         {
-            AvailableTiles = new ObservableCollection<Tile>(tiles);
             AvailablePlayers = new ObservableCollection<Player>(players);
-            SelectedTile = null; // this is also done because otherwise there may be memory leakages from previous dune blaster card actions
-            SelectedPlayer = null;
+            SelectedPlayer = null; //Because of avoiding memory leakages, we reset the value.
         }
     }
 }

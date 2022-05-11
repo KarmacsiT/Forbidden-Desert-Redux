@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI_20212202_MQ7GIA.UI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,12 @@ namespace GUI_20212202_MQ7GIA
     /// <summary>
     /// Interaction logic for ClimberTakingPlayer.xaml
     /// </summary>
-    public partial class ClimberTakingPlayer : Window
+    public partial class ClimberTakingPlayerWindow : Window
     {
-        public ClimberTakingPlayer()
+        public ClimberTakingPlayerWindow(ClimberTakingPlayerViewModel vm)
         {
             InitializeComponent();
+            DataContext = vm;
         }
     }
 }
