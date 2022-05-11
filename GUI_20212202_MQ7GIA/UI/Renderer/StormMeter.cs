@@ -23,16 +23,17 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
         {
             base.OnRender(drawingContext);
 
-            double Height = (842/10)*(300/216.5); //calculated from 842, it's 116.39 pixels
-            double Width = 300; //original is 2165
-            double firstBarLocation = (580 / 10) * (300 / 216.5);
-            double indicatorPosition = 0;
-            double indicatorHeight = (235/10)* (300 / 216.5);
-            double indicatorWidth = (141 /10) * (300 / 216.5);
+            double Height = (842/10)*(400/216.5); //calculated from 842, it's 116.39 pixels
+            double Width = 400; //original is 2165
+            double firstBarLocation = 580.0 * (400.0 / 2165);
+            double indicatorPosition = 0.0;
+            double indicatorHeight = 235.0* (400.0 / 2165);
+            double indicatorWidth = 141.0 * (400.0/2165);
+            double gapsBetweenBars =102.0* (400.0/2165);
+            double middleOfIndicator = indicatorWidth / 2;
             //There are 15 bars for 3 players, 14 bars for 2 players (and the first one is the 3 player's second)
-            // The gaps between two bars are 105 px originally, but for this time it's ~14.54 pixels
-            //The first bar is at 580 pixels originally but since i resized everything, it's different ->80.365 px
-            //We need to push the indicator 9.5 pixels left because that's how its center is positioned
+            // The gaps between two bars are 102 px originally, but because i decreased its size, I multiply it with the ratio. (400/2165)
+            //We need to push the indicator a bit left because that's how its center is positioned
             ImageBrush meter = null;
             meter = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Storm Meter", "Storm Meter.png"), UriKind.RelativeOrAbsolute)));
             drawingContext.DrawRectangle(meter, new Pen(Brushes.Black, 1), new Rect(0, 0, Width, Height));
@@ -46,7 +47,8 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                 indicator = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Storm Meter", "indicator_3_player.png"), UriKind.RelativeOrAbsolute)));
                 indicatorPosition = Height - indicatorHeight;
             }
-            drawingContext.DrawRectangle(indicator, null, new Rect(firstBarLocation - 14.54 + (logic.StormProgress * 15 * 14.54), indicatorPosition, indicatorWidth,indicatorHeight));
+            drawingContext.DrawRectangle(indicator, null, new Rect(firstBarLocation - middleOfIndicator + (logic.StormProgress * 15 * gapsBetweenBars), indicatorPosition, indicatorWidth,indicatorHeight));
+            //we need 15 at the storm progress
         }
     }
 }

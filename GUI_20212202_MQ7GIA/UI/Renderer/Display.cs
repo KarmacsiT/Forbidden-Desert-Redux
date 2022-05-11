@@ -434,7 +434,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             {
                 if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().PlayerRoleName == RoleName.Explorer)
                 {
-                    validationMessage = logic.MovePlayer(logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().X + x, logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y + y, logic.Players);
+                    validationMessage = logic.MovePlayer(logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().X + x, logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y + y, logic.Players, null);
 
                     if (validationMessage is "validMove")
                     {
@@ -459,7 +459,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             }
             else
             {
-                validationMessage = logic.MovePlayer(logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().X + x, logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y + y, logic.Players);
+                validationMessage = logic.MovePlayer(logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().X + x, logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Y + y, logic.Players, null);
 
                 if (validationMessage is "validMove")
                 {
