@@ -44,6 +44,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
+
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid x:Name="boardDisplay" AllowDrop="True" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="600" Background="Orange" Grid.ColumnSpan="3" Grid.RowSpan="2" Drop="Board_Drop">
@@ -117,7 +118,39 @@
             <Image x:Name="ItemDiscardDisplay" Grid.Row="0" Stretch="Fill"/>
             <Image x:Name="StormDiscardDisplay" Grid.Row="1" Stretch="Fill"/>
         </Grid>
+
         <Button Content="Controls" FontFamily="{StaticResource Steamwreck}" Style="{StaticResource CoralStyle}" FontSize="20" HorizontalAlignment="Left" Height="44" Width="86"  Grid.Row="1" VerticalAlignment="Bottom" Click="Controls_Click" Margin="10,0,0,10"/>
+
+        <Grid x:Name="PlayerThreeHand" Height="150" Width="500" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Background="{Binding ThirdColor}" Margin="-160,0,0,0">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="120*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="{Binding ThirdPlayerName}" Grid.Row="0" Grid.Column="0" FontFamily="{StaticResource Steamwreck}" FontSize="20" Grid.ColumnSpan="2" Grid.RowSpan="2"></Label>
+            <Image x:Name="P3Card1" Grid.Row="1" Grid.Column="1" MouseEnter="Player3_Card1_MouseEnter" MouseLeave="Player3_Card1_MouseLeave" MouseMove="Player3_Card1_MouseMove"/>
+            <Image x:Name="P3Card2" Grid.Row="1" Grid.Column="2" MouseEnter="Player3_Card2_MouseEnter" MouseLeave="Player3_Card2_MouseLeave" MouseMove="Player3_Card2_MouseMove"/>
+            <Image x:Name="P3Card3" Grid.Row="1" Grid.Column="3" MouseEnter="Player3_Card3_MouseEnter" MouseLeave="Player3_Card3_MouseLeave" MouseMove="Player3_Card3_MouseMove"/>
+            <Image x:Name="P3Card4" Grid.Row="1" Grid.Column="4" MouseEnter="Player3_Card4_MouseEnter" MouseLeave="Player3_Card4_MouseLeave" MouseMove="Player3_Card4_MouseMove"/>
+            <Image x:Name="P3Card5" Grid.Row="1" Grid.Column="5" MouseEnter="Player3_Card5_MouseEnter" MouseLeave="Player3_Card5_MouseLeave" MouseMove="Player3_Card5_MouseMove"/>
+        </Grid>
 
     </Grid>
 </Window>

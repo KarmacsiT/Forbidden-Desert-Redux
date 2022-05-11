@@ -818,7 +818,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             return newPlayer;
         }
 
-        public string MovePlayer(int newX, int newY, List<Player> players,Player selectedPlayer) // returns true if the player moves ---> so render only rerenders in this case
+        public string MovePlayer(int newX, int newY, List<Player> players, Player selectedPlayer) // returns true if the player moves ---> so render only rerenders in this case
         {
             int X = players.Where(p => p.TurnOrder == 1).SingleOrDefault().X;
             int Y = players.Where(p => p.TurnOrder == 1).SingleOrDefault().Y;
@@ -1111,26 +1111,31 @@ namespace GUI_20212202_MQ7GIA.Logic
             {
                 Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
                 CurrentPlayerCard1Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
+                return;
             }
             else if (CurrentPlayerCard2Display == null)
             {
                 Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
                 CurrentPlayerCard2Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
+                return;
             }
             else if (CurrentPlayerCard3Display == null)
             {
                 Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
                 CurrentPlayerCard3Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
+                return;
             }
             else if (CurrentPlayerCard4Display == null)
             {
                 Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
                 CurrentPlayerCard4Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
+                return;
             }
             else if (CurrentPlayerCard5Display == null)
             {
                 Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Add(currentItemCard);
                 CurrentPlayerCard5Display = new BitmapImage(new Uri(currentItemCard.Display, UriKind.RelativeOrAbsolute));
+                return;
             }
             //implement something when all player card slots is filled
         }

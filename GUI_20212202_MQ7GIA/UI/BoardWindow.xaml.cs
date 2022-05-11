@@ -54,6 +54,7 @@ namespace GUI_20212202_MQ7GIA
             {
                 logic.Players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, logic.Players));
                 logic.Players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, logic.Players));
+                PlayerThreeHand.Visibility = Visibility.Hidden; //We don't need the third players hand to be visible since there are only two players
             }
 
             else if (logic.Players.Count == 0)
@@ -61,6 +62,7 @@ namespace GUI_20212202_MQ7GIA
                 logic.Players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, logic.Players));
                 logic.Players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, logic.Players));
                 logic.Players.Add(logic.PlayerInit(setupWindow.PlayerThreeName, 3, logic.Players));
+                PlayerThreeHand.Visibility = Visibility.Visible;
             }
 
             //Create some logic that matches the role to the piece color
@@ -202,6 +204,7 @@ namespace GUI_20212202_MQ7GIA
         private void KeyBoardUsed(object sender, KeyEventArgs e)
         {
             bool invalidate = false;
+            bool excavated = false;
             bool partInvalidate = false;
             bool gameWon = false;
             if (e.Key == Key.NumPad7)    // left and up
@@ -251,6 +254,10 @@ namespace GUI_20212202_MQ7GIA
             else if (e.Key == Key.E)
             {
                 invalidate = display.Excavate();
+                if (invalidate)
+                {
+                    excavated = true;
+                }
             }
             else if (e.Key == Key.P)
             {
@@ -334,13 +341,15 @@ namespace GUI_20212202_MQ7GIA
             if (invalidate == true)
             {
                 UpdateBoardViewModel();
-                UpdateItemCardDisplay();
                 display.InvalidateVisual();
+            }
+            if (invalidate is true && excavated)
+            {
+                UpdateItemCardDisplay();
             }
             if (partInvalidate)
             {
                 UpdateBoardViewModel();
-                UpdateItemCardDisplay();
                 partsCollected.InvalidateVisual();
             }
             if (gameWon)
@@ -528,22 +537,22 @@ namespace GUI_20212202_MQ7GIA
             {
                 ImageSource imagesourceone = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards[0].Display, UriKind.RelativeOrAbsolute));
                 P2Card1.Source = imagesourceone;
-            }          
+            }
             if (logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards.Count() is 2)
             {
                 ImageSource imagesourcetwo = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards[1].Display, UriKind.RelativeOrAbsolute));
                 P2Card2.Source = imagesourcetwo;
-            }           
+            }
             if (logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards.Count() is 3)
             {
                 ImageSource imagesourcethree = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards[2].Display, UriKind.RelativeOrAbsolute));
                 P2Card3.Source = imagesourcethree;
-            }            
+            }
             if (logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards.Count() is 4)
             {
                 ImageSource imagesourcefour = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards[3].Display, UriKind.RelativeOrAbsolute));
                 P2Card4.Source = imagesourcefour;
-            }           
+            }
             if (logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards.Count() is 5)
             {
                 ImageSource imagesourcefive = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards[4].Display, UriKind.RelativeOrAbsolute));
@@ -553,97 +562,209 @@ namespace GUI_20212202_MQ7GIA
             //{
             //    logic.CurrentPlayerCard5Display = null;
             //}
+            //Player3 (made by Tomi)
+            if (logic.Players.Count is 3)
+            {
+                if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 1)
+                {
+                    ImageSource imagesourceone = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[0].Display, UriKind.RelativeOrAbsolute));
+                    P3Card1.Source = imagesourceone;
+                }
+                if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 2)
+                {
+                    ImageSource imagesourcetwo = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[0].Display, UriKind.RelativeOrAbsolute));
+                    P3Card2.Source = imagesourcetwo;
+                }
+                if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 3)
+                {
+                    ImageSource imagesourceone = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[0].Display, UriKind.RelativeOrAbsolute));
+                    P3Card3.Source = imagesourceone;
+                }
+                if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 4)
+                {
+                    ImageSource imagesourceone = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[0].Display, UriKind.RelativeOrAbsolute));
+                    P3Card4.Source = imagesourceone;
+                }
+                if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 5)
+                {
+                    ImageSource imagesourceone = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[0].Display, UriKind.RelativeOrAbsolute));
+                    P3Card5.Source = imagesourceone;
+                }
+            }
+
         }
 
         private void UpdateItemCardDisplay()
         {
             GameLogic logic = display.GetLogic();
 
-
-            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 1 && logic.CurrentPlayerCard1Display is not null)
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 1 && logic.CurrentPlayerCard1Display is not null && Card1.Source is null)
             {
                 Card1.Source = logic.CurrentPlayerCard1Display;
+                return;
             }
-            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 2 && logic.CurrentPlayerCard2Display is not null)
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 2 && logic.CurrentPlayerCard2Display is not null && Card2.Source is null)
             {
                 Card2.Source = logic.CurrentPlayerCard2Display;
+                return;
             }
-            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 3 && logic.CurrentPlayerCard3Display is not null)
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 3 && logic.CurrentPlayerCard3Display is not null && Card3.Source is null)
             {
                 Card3.Source = logic.CurrentPlayerCard3Display;
+                return;
             }
-            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 4 && logic.CurrentPlayerCard4Display is not null)
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 4 && logic.CurrentPlayerCard4Display is not null && Card4.Source is null)
             {
                 Card4.Source = logic.CurrentPlayerCard4Display;
+                return;
             }
-            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 5 && logic.CurrentPlayerCard5Display is not null)
+            if (logic.Players.Where(p => p.TurnOrder == 1).FirstOrDefault().Cards.Count() is 5 && logic.CurrentPlayerCard5Display is not null && Card5.Source is null)
             {
                 Card5.Source = logic.CurrentPlayerCard5Display;
+                return;
             }
         }
         private void CardsChanging(object sender, EventArgs e)
         {
             logic = display.GetLogic();
 
-            if (P2Card1.Source is not null)
+            if (logic.CurrentPlayer is 2)
             {
-                logic.CurrentPlayerCard1Display = P2Card1.Source;
-            }
-            else
-            {
-                logic.CurrentPlayerCard1Display = null;
-            }
-            if (P2Card2.Source is not null)
-            {
-                logic.CurrentPlayerCard2Display = P2Card2.Source;
-            }
-            else
-            {
-                logic.CurrentPlayerCard2Display = null;
-            }
-            if (P2Card3.Source is not null)
-            {
-                logic.CurrentPlayerCard3Display = P2Card3.Source;
-            }
-            else
-            {
-                logic.CurrentPlayerCard3Display = null;
-            }
-            if (P2Card4.Source is not null)
-            {
-                logic.CurrentPlayerCard4Display = P2Card4.Source;
-            }
-            else
-            {
-                logic.CurrentPlayerCard4Display = null;
-            }
-            if (P2Card5.Source is not null)
-            {
-                logic.CurrentPlayerCard5Display = P2Card5.Source;
-            }
-            else
-            {
-                logic.CurrentPlayerCard5Display = null;
+                if (P2Card1.Source is not null)
+                {
+                    logic.CurrentPlayerCard1Display = P2Card1.Source;
+                }
+                else
+                {
+                    logic.CurrentPlayerCard1Display = null;
+                }
+                if (P2Card2.Source is not null)
+                {
+                    logic.CurrentPlayerCard2Display = P2Card2.Source;
+                }
+                else
+                {
+                    logic.CurrentPlayerCard2Display = null;
+                }
+                if (P2Card3.Source is not null)
+                {
+                    logic.CurrentPlayerCard3Display = P2Card3.Source;
+                }
+                else
+                {
+                    logic.CurrentPlayerCard3Display = null;
+                }
+                if (P2Card4.Source is not null)
+                {
+                    logic.CurrentPlayerCard4Display = P2Card4.Source;
+                }
+                else
+                {
+                    logic.CurrentPlayerCard4Display = null;
+                }
+                if (P2Card5.Source is not null)
+                {
+                    logic.CurrentPlayerCard5Display = P2Card5.Source;
+                }
+                else
+                {
+                    logic.CurrentPlayerCard5Display = null;
+                }
             }
 
 
-            ImageSource temp1 = P2Card1.Source;
-            ImageSource temp2 = P2Card2.Source;
-            ImageSource temp3 = P2Card3.Source;
-            ImageSource temp4 = P2Card4.Source;
-            ImageSource temp5 = P2Card5.Source;
+            if (logic.Players.Count is 3 && logic.CurrentPlayer is 3)
+            {
+                if (P3Card1.Source is not null)
+                {
+                    logic.CurrentPlayerCard1Display = P3Card1.Source;
+                }
+                else
+                {
+                    logic.CurrentPlayerCard1Display = null;
+                }
+                if (P3Card2.Source is not null)
+                {
+                    logic.CurrentPlayerCard2Display = P3Card2.Source;
+                }
+                else
+                {
+                    logic.CurrentPlayerCard2Display = null;
+                }
+                if (P3Card3.Source is not null)
+                {
+                    logic.CurrentPlayerCard3Display = P3Card3.Source;
+                }
+                else
+                {
+                    logic.CurrentPlayerCard3Display = null;
+                }
+                if (P3Card4.Source is not null)
+                {
+                    logic.CurrentPlayerCard4Display = P3Card4.Source;
+                }
+                else
+                {
+                    logic.CurrentPlayerCard4Display = null;
+                }
+                if (P3Card5.Source is not null)
+                {
+                    logic.CurrentPlayerCard5Display = P3Card5.Source;
+                }
+                else
+                {
+                    logic.CurrentPlayerCard5Display = null;
+                }
+            }
+
+            if (logic.Players.Count is 3)
+            {
+                ImageSource temp1 = Card1.Source;
+                ImageSource temp2 = Card2.Source;
+                ImageSource temp3 = Card3.Source;
+                ImageSource temp4 = Card4.Source;
+                ImageSource temp5 = Card5.Source;
+
+                Card1.Source = P2Card1.Source;
+                Card2.Source = P2Card2.Source;
+                Card3.Source = P2Card3.Source;
+                Card4.Source = P2Card4.Source;
+                Card5.Source = P2Card5.Source;
+
+                P2Card1.Source = P3Card1.Source;
+                P2Card2.Source = P3Card2.Source;
+                P2Card3.Source = P3Card3.Source;
+                P2Card4.Source = P3Card4.Source;
+                P2Card5.Source = P3Card5.Source;
+
+                P3Card1.Source = temp1;
+                P3Card2.Source = temp2;
+                P3Card3.Source = temp3;
+                P3Card4.Source = temp4;
+                P3Card5.Source = temp5;
+            }
+            else //2Player Mode Card Switch
+            {
+                ImageSource temp1 = P2Card1.Source;
+                ImageSource temp2 = P2Card2.Source;
+                ImageSource temp3 = P2Card3.Source;
+                ImageSource temp4 = P2Card4.Source;
+                ImageSource temp5 = P2Card5.Source;
+
+                Card1.Source = temp1;
+                Card2.Source = temp2;
+                Card3.Source = temp3;
+                Card4.Source = temp4;
+                Card5.Source = temp5;
 
 
-            P2Card1.Source = Card1.Source;
-            P2Card2.Source = Card2.Source;
-            P2Card3.Source = Card3.Source;
-            P2Card4.Source = Card4.Source;
-            P2Card5.Source = Card5.Source;
-            Card1.Source = temp1;
-            Card2.Source = temp2;
-            Card3.Source = temp3;
-            Card4.Source = temp4;
-            Card5.Source = temp5;
+                P2Card1.Source = Card1.Source;
+                P2Card2.Source = Card2.Source;
+                P2Card3.Source = Card3.Source;
+                P2Card4.Source = Card4.Source;
+                P2Card5.Source = Card5.Source;
+            }
+
         }
         private void LoseGame()
         {
@@ -749,6 +870,51 @@ namespace GUI_20212202_MQ7GIA
 
             }
         }
+
+        private void Player3_Card1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(P3Card1, new DataObject(typeof(Image), P3Card1), DragDropEffects.Copy);
+
+            }
+        }
+
+        private void Player3_Card2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(P3Card2, new DataObject(typeof(Image), P3Card2), DragDropEffects.Copy);
+
+            }
+        }
+
+        private void Player3_Card3_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(P3Card3, new DataObject(typeof(Image), P3Card3), DragDropEffects.Copy);
+
+            }
+        }
+
+        private void Player3_Card4_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(P3Card4, new DataObject(typeof(Image), P3Card4), DragDropEffects.Copy);
+
+            }
+        }
+
+        private void Player3_Card5_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragDrop.DoDragDrop(P3Card5, new DataObject(typeof(Image), P3Card5), DragDropEffects.Copy);
+
+            }
+        }
         #endregion
         private void Board_Drop(object sender, DragEventArgs e)
         {
@@ -829,6 +995,36 @@ namespace GUI_20212202_MQ7GIA
                         logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
                         logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 2).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
                         break;
+                    case "P3Card1":
+                        P3Card1.Source = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 3).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 3).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "P3Card2":
+                        P3Card2.Source = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 3).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 3).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "P3Card3":
+                        P3Card3.Source = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 3).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 3).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "P3Card4":
+                        P3Card4.Source = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 3).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 3).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
+                    case "P3Card5":
+                        P3Card5.Source = null;
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().IsDiscarded = true; //Mathcing card type that is in a players hand is now discarded upon drop
+                        logic.Deck.AvailableItemCards.Where(c => c.Name == draggedCardGadgetType && c.InPlayerHand is true).FirstOrDefault().InPlayerHand = false; //After discarding the card, it is no longer in a players hand
+                        logic.Players.Where(p => p.TurnOrder is 3).FirstOrDefault().Cards.Remove(logic.Players.Where(p => p.TurnOrder is 3).FirstOrDefault().Cards.Where(c => c.Name == draggedCardGadgetType).FirstOrDefault()); //Removes the specified card from the players "hand"
+                        break;
                 }
                 //decide which player's card was pulled
                 int turnOrder = 1;
@@ -886,8 +1082,6 @@ namespace GUI_20212202_MQ7GIA
                     UpdateItemCardDisplay();
                     display.InvalidateVisual();
                 }
-                //
-
             }
         }
 
@@ -1057,6 +1251,91 @@ namespace GUI_20212202_MQ7GIA
         private void Player2_Card5_MouseLeave(object sender, MouseEventArgs e)
         {
             if (P2Card5.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void Player3_Card1_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (P3Card1.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = P3Card1.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void Player3_Card1_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (P3Card1.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void Player3_Card2_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (P3Card2.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = P3Card2.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void Player3_Card2_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (P3Card2.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void Player3_Card3_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (P3Card3.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = P3Card3.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void Player3_Card3_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (P3Card3.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void Player3_Card4_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (P3Card4.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = P3Card4.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void Player3_Card4_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (P3Card4.Source is not null)
+            {
+                cardInspector.Hide();
+            }
+        }
+
+        private void Player3_Card5_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (P3Card4.Source is not null)
+            {
+                cardInspector.InspectedCard.Source = P3Card4.Source;
+                cardInspector.Show();
+            }
+        }
+
+        private void Player3_Card5_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (P3Card5.Source is not null)
             {
                 cardInspector.Hide();
             }
