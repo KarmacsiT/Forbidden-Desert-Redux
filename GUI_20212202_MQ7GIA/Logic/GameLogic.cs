@@ -68,8 +68,9 @@ namespace GUI_20212202_MQ7GIA.Logic
                 AirShipClueTiles = new AirShipClueTile[8],
                 LaunchPadTile = new LaunchPadTile(),
                 OasisMirageTiles = new OasisMirageTile[3],
-                ShelterTiles = new ShelterTile[9],
+                ShelterTiles = new ShelterTile[8],
                 SandTiles = new int[5, 5],
+                CrashStartTile = new CrashStartTile(),
                 storm = new Storm()
             };
             board.storm.X = 2;
@@ -142,7 +143,6 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             // CrashStartTile 
             coordinates = CoordinateGiver(isTaken);
-            board.CrashStartTile = new CrashStartTile();
             board.CrashStartTile.X = coordinates[0];
             board.CrashStartTile.Y = coordinates[1];
             board.CrashStartTile.IsDiscovered = true; //It's already discovered

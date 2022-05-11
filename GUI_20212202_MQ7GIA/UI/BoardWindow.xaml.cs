@@ -38,7 +38,7 @@ namespace GUI_20212202_MQ7GIA
         JetPackWindowViewModel jetPackWindowViewModel;
         TerrascopeSelectWindowViewModel terrascopeSelectWVM;
         StormTrackerWindowViewModel stormTrackerWVM;
-        public TerraScopeRenderer terraScopeRenderer;
+        public TerraScopeRenderer terraScopeRenderer { get; set; }
         #endregion
         CardInspector cardInspector = new CardInspector();
         StormCardDisplay stormCardDisplay = new StormCardDisplay();
@@ -107,8 +107,10 @@ namespace GUI_20212202_MQ7GIA
             duneBlasterWindowViewModel.SetupLogic(logic, this);
             jetPackWindowViewModel = new JetPackWindowViewModel();
             jetPackWindowViewModel.SetupLogic(logic, display, this);
+
             terrascopeSelectWVM = new TerrascopeSelectWindowViewModel();
             terrascopeSelectWVM.SetupLogic(logic, terraScopeRenderer, this);
+
             stormTrackerWVM = new StormTrackerWindowViewModel();
             stormTrackerWVM.SetupLogic(logic, this);
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);
@@ -157,8 +159,10 @@ namespace GUI_20212202_MQ7GIA
             duneBlasterWindowViewModel.SetupLogic(logic, this);
             jetPackWindowViewModel = new JetPackWindowViewModel();
             jetPackWindowViewModel.SetupLogic(logic, display, this);
+
             terrascopeSelectWVM = new TerrascopeSelectWindowViewModel();
             terrascopeSelectWVM.SetupLogic(logic, terraScopeRenderer, this);
+
             stormTrackerWVM = new StormTrackerWindowViewModel();
             stormTrackerWVM.SetupLogic(logic, this);
             boardWindowViewModel = new BoardWindowViewModel(logic.Players);

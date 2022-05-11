@@ -18,7 +18,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
     public class TerraScopeRenderer : FrameworkElement
     {
         // Models
-        GameLogic logic { get; set; }
+        GameLogic logic;
         Size size;
         public void SetupLogic(GameLogic logic)
         {
