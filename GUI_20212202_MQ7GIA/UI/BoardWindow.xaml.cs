@@ -44,6 +44,7 @@ namespace GUI_20212202_MQ7GIA
         StormCardDisplay stormCardDisplay = new StormCardDisplay();
         ControlsDisplay controls = new ControlsDisplay();
         DispatcherTimer timer = new DispatcherTimer();
+        Random random = new Random();
 
         public BoardWindow(GameLogic logic, Sound sound, GameSetupWindow setupWindow)
         {
@@ -341,6 +342,9 @@ namespace GUI_20212202_MQ7GIA
                 if (window.DialogResult == true)
                 {
                     this.Close();
+                    cardInspector.Close();
+                    stormCardDisplay.Close();
+                    controls.Close();
                 }
             }
         }
@@ -425,7 +429,6 @@ namespace GUI_20212202_MQ7GIA
             if (display.LoseOrNot() == false)
             {
                 display.EndTurn();
-                Sound.PlaySound("326478__byseb__automatic-wrist-watch-ticking.wav");
                 UpdateBoardViewModel();
                 if (stormCardDisplay.IsVisible is true)
                 {
@@ -442,8 +445,21 @@ namespace GUI_20212202_MQ7GIA
                 }
                 else
                 {
-                    stormCardDisplay.Hide(); //Just in case to cover a rare corner case
-                    MessageBox.Show($"{boardWindowViewModel.FirstPlayerName} you're up!");
+                    stormCardDisplay.Hide(); //Just in case to cover a rare corner 
+
+                    switch (random.Next(1, 4))
+                    {
+                        case 1:
+                            MessageBox.Show($"Your turn starts here {boardWindowViewModel.FirstPlayerName}!");
+                            break;
+                        case 2:
+                            MessageBox.Show($"Here is your chance {boardWindowViewModel.FirstPlayerName}, make it count!");
+                            break;
+                        case 3:
+                            MessageBox.Show($"{boardWindowViewModel.FirstPlayerName}, you're up!");
+                            break;
+                    }
+
                 }
             }
         }
@@ -452,7 +468,18 @@ namespace GUI_20212202_MQ7GIA
         private void NextPlayer(object sender, EventArgs e)
         {
             stormCardDisplay.Hide(); //Just in case to cover a rare corner case
-            MessageBox.Show($"{boardWindowViewModel.FirstPlayerName} you're up!");
+            switch (random.Next(1, 4))
+            {
+                case 1:
+                    MessageBox.Show($"Your turn starts here {boardWindowViewModel.FirstPlayerName}!");
+                    break;
+                case 2:
+                    MessageBox.Show($"Here is your chance {boardWindowViewModel.FirstPlayerName}, make it count!");
+                    break;
+                case 3:
+                    MessageBox.Show($"{boardWindowViewModel.FirstPlayerName}, you're up!");
+                    break;
+            }
             timer.Stop();
             timer.Tick -= NextPlayer;
         }
@@ -772,6 +799,7 @@ namespace GUI_20212202_MQ7GIA
                         logic = display.GetLogic();
                         List<StormCard> stormcards = logic.CollectStormCardsForTracking();
                         stormTrackerWVM.ConvertListToObservable(stormcards);
+                        Sound.PlaySound("StormTracker.mp3");
                         stormTrackerWVM.ShowWindow();
                         break;
                     case "Time Throttle":
@@ -783,6 +811,7 @@ namespace GUI_20212202_MQ7GIA
                         break;
                     case "Solar Shield":
                         logic.playersHavingNoEffectOnSunBeatsDown = logic.GetPlayersOnSameTileIncludingYou(turnOrder);
+                        Sound.PlaySound("SolarShield.mp3");
                         break;
                     default:
                         break;

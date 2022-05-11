@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_20212202_MQ7GIA.UI"
         mc:Ignorable="d"
-        Title="ControlsDisplay" Height="1080" Width="1920" ResizeMode="NoResize" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" >
+        Title="ControlsDisplay" Height="720" Width="1280" ResizeMode="NoResize" WindowState="Maximized" AllowsTransparency="True" WindowStyle="None" >
     <Window.Resources>
         <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
         <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
@@ -52,22 +52,22 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Label Content="Controls:" Grid.Row="0" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Move: Arrow Keys" Grid.Row="1" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Examine Charachter and Water Level: W" Grid.Row="2" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Excavate Tile: E" Grid.Row="3" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Picking up Part: P" Grid.Row="4" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Dig Sand: R" Grid.Row="5" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Dig Sand Upward: 4" Grid.Row="6" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Dig Sand Downward: 3" Grid.Row="7" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Dig Sand Left: 1" Grid.Row="8" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Dig Sand Right: 6" Grid.Row="9" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Use Tunnel: T" Grid.Row="10" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Water Sharing with Players on your tile: S" Grid.Row="11" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Content="Water Carrier Water Refill: C" Grid.Row="12" Grid.Column="1" Foreground="Black" FontSize="13" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button Content="Go Back" Grid.Row="13" Grid.Column="2" Style="{StaticResource TransparentStyle}" FontFamily="{StaticResource Steamwreck}"  Grid.RowSpan="2" Click="Button_Click"/>
+        <Label Content="Controls:" Grid.Row="0" Grid.Column="1" Foreground="Black" FontSize="30" FontFamily="{StaticResource Steamwreck}" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Background="Coral"/>
+        <Label Content="Move: Arrow Keys" Grid.Row="1" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Coral"/>
+        <Label Content="Examine Charachter and Water Level: W" Grid.Row="2" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Coral"/>
+        <Label Content="Excavate Tile: E" Grid.Row="3" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Coral"/>
+        <Label Content="Picking up Part: P" Grid.Row="4" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Coral"/>
+        <Label Content="Dig Sand: R" Grid.Row="5" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Coral"/>
+        <Label Content="Dig Sand Upward: 4" Grid.Row="6" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Coral"/>
+        <Label Content="Dig Sand Downward: 3" Grid.Row="7" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Coral"/>
+        <Label Content="Dig Sand Left: 1" Grid.Row="8" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Coral"/>
+        <Label Content="Dig Sand Right: 6" Grid.Row="9" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Coral"/>
+        <Label Content="Use Tunnel: T" Grid.Row="10" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Coral"/>
+        <Label Content="Water Sharing with Players on your tile: S" Grid.Row="11" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Coral"/>
+        <Label Content="Water Carrier Water Refill: C" Grid.Row="12" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Coral"/>
+        <Button Content="Go Back" Grid.Row="12" Grid.Column="2"  FontFamily="{StaticResource Steamwreck}" FontSize="25" Click="Button_Click" HorizontalAlignment="Center" Width="181"/>
     </Grid>
 </Window>

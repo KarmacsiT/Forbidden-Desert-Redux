@@ -20,6 +20,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         public ObservableCollection<ITile> UndiscoveredTiles { get; set; }
         public BoardWindow boardWindow { get; set; }
         TerrascopeWindow window;
+        Sound sound = new Sound();
         TerrascopeSelectorWindow selectorWindow;
         private ITile selectedTile;
         public ITile SelectedTile
@@ -44,7 +45,8 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             {
                 Logic.SetPeekTile(SelectedTile);
                 selectorWindow.Close();
-                window = new TerrascopeWindow(Renderer,Logic);
+                window = new TerrascopeWindow(Renderer, Logic);
+                sound.PlaySound("Terrascope.wav");
                 window.Show();
             }
             catch (Exception ex)

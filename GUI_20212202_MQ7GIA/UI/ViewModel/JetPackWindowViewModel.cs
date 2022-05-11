@@ -22,6 +22,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         public BoardWindow boardWindow { get; set; }
         JetPackWindow window;
         public int TurnOrder { get; set; }
+        private Sound sound = new Sound();
         private Tile selectedTile;
         public Tile SelectedTile
         {
@@ -54,7 +55,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             // implement water change
             try
             {
-                Logic.Teleport(Logic.Players, selectedTile,selectedPlayer, TurnOrder);
+                Logic.Teleport(Logic.Players, selectedTile, selectedPlayer, TurnOrder);
                 Display.InvalidateVisual();
             }
             catch (Exception ex)
@@ -63,6 +64,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             }
             finally
             {
+                sound.PlaySound("jetpack.wav");
                 window.Close(); //this should always run since even if an error this window should go away.
             }
 

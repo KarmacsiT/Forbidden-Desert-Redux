@@ -65,7 +65,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 {
                     //this has to be implemented here, otherwise the window would open unnecessarily
                     throw new Exception("There is no sand around you in 1 radius.");
-                    
+
                 }
             }
             catch (Exception ex)

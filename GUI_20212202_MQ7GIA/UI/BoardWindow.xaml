@@ -117,7 +117,7 @@
             <Image x:Name="ItemDiscardDisplay" Grid.Row="0" Stretch="Fill"/>
             <Image x:Name="StormDiscardDisplay" Grid.Row="1" Stretch="Fill"/>
         </Grid>
-        <Button Content="Controls" FontFamily="{StaticResource Steamwreck}" FontSize="20" HorizontalAlignment="Left" Height="50" Width="100"  Grid.Row="1" VerticalAlignment="Bottom" Click="Controls_Click"/>
+        <Button Content="Controls" FontFamily="{StaticResource Steamwreck}" FontSize="20" HorizontalAlignment="Left" Height="44" Width="86"  Grid.Row="1" VerticalAlignment="Bottom" Click="Controls_Click" Margin="10,0,0,10"/>
 
     </Grid>
 </Window>

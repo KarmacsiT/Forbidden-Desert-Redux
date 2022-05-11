@@ -983,7 +983,7 @@ namespace GUI_20212202_MQ7GIA.Logic
             if (sand && players.Where(p => p.TurnOrder == 1).FirstOrDefault().NumberOfActions >= 0) //Even if we have 0 actions, we can use this card:)
             {
                 board.SandTiles[x, y] = 0; //we excavate ALL sand according to Dune Blaster card
-                Sound.PlaySound("441824__jjdg__shovel-digging-sound.mp3");
+                Sound.PlaySound("DuneBlaster.wav");
                 return "validMove";
             }
             else if (!sand)
@@ -1590,7 +1590,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 XElement xplayercarddefault = new XElement("PlayerCards");
                 xplayercarddefault.SetAttributeValue("WhichPlayer", player.TurnOrder);       // needed for reading XML
                 xplayer.Add(xplayercarddefault);
-                
+
                 foreach (ItemCard card in player.Cards)
                 {
 
@@ -1824,7 +1824,8 @@ namespace GUI_20212202_MQ7GIA.Logic
                     checkPlayer.WaterLevel--;
                 }
             }
-            if (logic.playersHavingNoEffectOnSunBeatsDown.Count > 0){
+            if (logic.playersHavingNoEffectOnSunBeatsDown.Count > 0)
+            {
                 logic.Players.Where(p => playersHavingNoEffectOnSunBeatsDown.Contains(p)).ToList().ForEach(x => x.WaterLevel += 1);
             }
             logic.playersHavingNoEffectOnSunBeatsDown.Clear();

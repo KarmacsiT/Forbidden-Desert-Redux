@@ -193,12 +193,17 @@
     <None Remove="Sounds\422709__niamhd00145229__inspect-item.wav" />
     <None Remove="Sounds\441824__jjdg__shovel-digging-sound.mp3" />
     <None Remove="Sounds\Desert sound Sound effect.mp3" />
+    <None Remove="Sounds\DuneBlaster.wav" />
     <None Remove="Sounds\GameLostSound.mp3" />
     <None Remove="Sounds\GameWonSound.mp3" />
     <None Remove="Sounds\game_monopoly_game_metal_playing_piece_drop_onto_playing_board.mp3" />
+    <None Remove="Sounds\jetpack.wav" />
     <None Remove="Sounds\nature_thunder_clap_close.mp3" />
     <None Remove="Sounds\RPG DD Ambience Windy Desert Immersive Realistic Relaxing Heat Sand Calm.mp3" />
     <None Remove="Sounds\Scarface - Bolivia Theme.mp3" />
+    <None Remove="Sounds\SolarShield.mp3" />
+    <None Remove="Sounds\StormTracker.mp3" />
+    <None Remove="Sounds\Terrascope.wav" />
     <None Remove="Sounds\zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3" />
     <None Remove="Sounds\zapsplat_multimedia_game_sound_negative_big_lose_buzz_with_descending_fail_tone_78340.mp3" />
     <None Remove="Sounds\zapsplat_multimedia_game_sound_win_complete_game_congratulations_harp_glissando_with_fanfare_and_fireworks_79053.mp3" />
@@ -649,10 +654,16 @@
     <Content Include="Sounds\441824__jjdg__shovel-digging-sound.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sounds\DuneBlaster.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\GameWonSound.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\game_monopoly_game_metal_playing_piece_drop_onto_playing_board.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\jetpack.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\nature_thunder_clap_close.mp3">
@@ -662,6 +673,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\Scarface - Bolivia Theme.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\SolarShield.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\StormTracker.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\Terrascope.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\zapsplat_leisure_trading_card_or_playing_card_single_turn_over_on_table_001_68328.mp3">

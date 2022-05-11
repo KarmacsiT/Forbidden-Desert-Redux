@@ -194,7 +194,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         private BitmapImage FindProperImage(StormCard stormCard)
         {
             BitmapImage brush = null;
-            if (stormCard.Name =="oneLeft")
+            if (stormCard.Name == "oneLeft")
             {
                 brush = new BitmapImage(new Uri("/ImageAssets/Storm Cards/oneLeft.png", UriKind.RelativeOrAbsolute));
             }

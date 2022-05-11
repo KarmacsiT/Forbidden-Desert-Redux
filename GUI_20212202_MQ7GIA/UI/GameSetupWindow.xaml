@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI_20212202_MQ7GIA.UI"
         mc:Ignorable="d"
-        Title="GameSetupWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True">
+        Title="GameSetupWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Topmost="True" Background="BurlyWood">
     <Window.Resources>
         <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
         <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
@@ -32,11 +32,12 @@
         </Style>
     </Window.Resources>
     <Grid>
-
-
         <TabControl>
             <TabItem Header="2 Player Mode">
                 <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/ImageAssets/desert-sand-texture.jpg"/>
+                    </Grid.Background>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
@@ -51,23 +52,26 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Label Content="Player 1 Name:" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Label Content="Player 1 Name:" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White"/>
                     <TextBox x:Name="TwoPlayerModePlayerOneTextBox" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15" />
-                    <Label Content="Player 2 Name:" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Label Content="Player 2 Name:" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White"/>
                     <TextBox x:Name="TwoPlayerModePlayerTwoTextBox" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
-                    <Label Content="Difficulty:" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <ComboBox x:Name="TwoPlayerDiffLevel"  Grid.Row="4" Grid.Column="1" Margin="15,15,15,15">
-                        <ComboBoxItem>Novice</ComboBoxItem>
-                        <ComboBoxItem>Normal</ComboBoxItem>
-                        <ComboBoxItem>Elite</ComboBoxItem>
-                        <ComboBoxItem>Legendary</ComboBoxItem>
+                    <Label Content="Difficulty:" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+                    <ComboBox x:Name="TwoPlayerDiffLevel"  Grid.Row="4" Grid.Column="1" Margin="15,15,15,15" FontFamily="{StaticResource Steamwreck}" FontSize="20" VerticalContentAlignment="Center">
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" FontSize="20">Novice</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" FontSize="20">Normal</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" FontSize="20">Elite</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" FontSize="20">Legendary</ComboBoxItem>
                     </ComboBox>
                     <Button Content="Back" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0" Click="TwoPlayerBackButtonClick"/>
-                    <Button Content="Game on!" Grid.Row="7" Grid.Column="1" Margin="15,10,15,10" Click="TwoPlayerStartButtonClick"/>
+                    <Button Content="Game on!" Grid.Row="7" Grid.Column="1" Margin="15,10,15,10" Click="TwoPlayerStartButtonClick" Style="{StaticResource TransparentStyle}" FontSize="15" Foreground="White"/>
                 </Grid>
             </TabItem>
             <TabItem Header="3 Player Mode">
                 <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="pack://application:,,,/ImageAssets/desert-sand-texture.jpg"/>
+                    </Grid.Background>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
@@ -83,21 +87,21 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <Label Content="Player 1 Name:" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Label Content="Player 1 Name:" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White"/>
                     <TextBox x:Name="ThreePlayerModePlayerOneTextBox" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
-                    <Label Content="Player 2 Name:"  Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Label Content="Player 2 Name:"  Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White"/>
                     <TextBox x:Name="ThreePlayerModePlayerTwoTextBox" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
-                    <Label Content="Player 3 Name:" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <Label Content="Player 3 Name:" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White"/>
                     <TextBox x:Name="ThreePlayerModePlayerThreeTextBox" Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="15,15,15,15"/>
-                    <Label Content="Difficulty:" Grid.Row="5" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
-                    <ComboBox x:Name="ThreePlayerDiffLevel" Grid.Row="5" Grid.Column="1" Margin="15,15,15,15">
-                        <ComboBoxItem>Novice</ComboBoxItem>
-                        <ComboBoxItem>Normal</ComboBoxItem>
-                        <ComboBoxItem>Elite</ComboBoxItem>
-                        <ComboBoxItem>Legendary</ComboBoxItem>
+                    <Label Content="Difficulty:" Grid.Row="5" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+                    <ComboBox x:Name="ThreePlayerDiffLevel" Grid.Row="5" Grid.Column="1" Margin="15,15,15,15" FontFamily="{StaticResource Steamwreck}" FontSize="20" VerticalContentAlignment="Center">
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" FontSize="20">Novice</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" FontSize="20">Normal</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" FontSize="20">Elite</ComboBoxItem>
+                        <ComboBoxItem FontFamily="{StaticResource Steamwreck}" FontSize="20">Legendary</ComboBoxItem>
                     </ComboBox>
                     <Button Content="Back" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0" Click="ThreePlayerBackButtonClick"/>
-                    <Button Content="Game on!" Grid.Row="7" Grid.Column="1" Margin="15,10,15,10" Click="ThreePlayerStartButtonClick"/>
+                    <Button Content="Game on!" Foreground="White" Grid.Row="7" Grid.Column="1" Margin="15,10,15,10" Click="ThreePlayerStartButtonClick" Style="{StaticResource TransparentStyle}" FontSize="15"/>
                 </Grid>
             </TabItem>
         </TabControl>
