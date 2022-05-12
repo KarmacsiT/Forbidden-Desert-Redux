@@ -39,7 +39,6 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
         public ICommand TeleportCommand { get; set; }
         public void ConfirmTeleport()
         {
-            // implement water change
             try
             {
                 Logic.TunnelTeleport(Logic.Players, selectedTunnel);
@@ -61,7 +60,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             {
                 int playerX = Logic.Players.Where(x => x.TurnOrder == 1).SingleOrDefault().X;
                 int playerY = Logic.Players.Where(x => x.TurnOrder == 1).SingleOrDefault().Y;
-                if (Logic.PlayerOnTunnelTile(playerX,playerY))
+                if (Logic.PlayerOnTunnelTile(playerX, playerY))
                 {
                     window = new TunnelTeleportWindow(this);
                     window.ShowDialog();
@@ -71,7 +70,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 {
                     //this has to be implemented here, otherwise the window would open unnecessarily
                     throw new Exception("You're not on a Tunnel tile.");
-                    
+
                 }
             }
             catch (Exception ex)

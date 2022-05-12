@@ -256,28 +256,6 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             //StormProgressNumberOfCards 
             logic.StormProgressNumberOfCards = int.Parse(xdocument.Root.Element("StormProgressNumberOfCards").Attribute("value").Value);
 
-            //CurrentPlayerCardDisplays
-            //if (xdocument.Root.Element("CurrentPlayerCard1Display").Attribute("value").ToString() != "null")
-            //{
-            //    logic.CurrentPlayerCard1Display = new BitmapImage(new Uri(xdocument.Root.Element("CurrentPlayerCard1Display").Attribute("value").ToString(), UriKind.RelativeOrAbsolute));
-            //}
-            //if (xdocument.Root.Element("CurrentPlayerCard2Display").Attribute("value").ToString() != "null")
-            //{
-            //    logic.CurrentPlayerCard2Display = new BitmapImage(new Uri(xdocument.Root.Element("CurrentPlayerCard2Display").Attribute("value").ToString(), UriKind.RelativeOrAbsolute));
-            //}
-            //if (xdocument.Root.Element("CurrentPlayerCard3Display").Attribute("value").ToString() != "null")
-            //{
-            //    logic.CurrentPlayerCard3Display = new BitmapImage(new Uri(xdocument.Root.Element("CurrentPlayerCard3Display").Attribute("value").ToString(), UriKind.RelativeOrAbsolute));
-            //}
-            //if (xdocument.Root.Element("CurrentPlayerCard4Display").Attribute("value").ToString() != "null")
-            //{
-            //    logic.CurrentPlayerCard4Display = new BitmapImage(new Uri(xdocument.Root.Element("CurrentPlayerCard4Display").Attribute("value").ToString(), UriKind.RelativeOrAbsolute));
-            //}
-            //if (xdocument.Root.Element("CurrentPlayerCard5Display").Attribute("value").ToString() != "null")
-            //{
-            //    logic.CurrentPlayerCard5Display = new BitmapImage(new Uri(xdocument.Root.Element("CurrentPlayerCard5Display").Attribute("value").ToString(), UriKind.RelativeOrAbsolute));
-            //}
-
             return logic;
         }
         public MainWindowViewModel()

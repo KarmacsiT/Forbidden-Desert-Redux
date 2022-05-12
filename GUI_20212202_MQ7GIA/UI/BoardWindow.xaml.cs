@@ -55,7 +55,7 @@ namespace GUI_20212202_MQ7GIA
             {
                 logic.Players.Add(logic.PlayerInit(setupWindow.PlayerOneName, 1, logic.Players));
                 logic.Players.Add(logic.PlayerInit(setupWindow.PlayerTwoName, 2, logic.Players));
-                PlayerThreeHand.Visibility = Visibility.Hidden; //We don't need the third players hand to be visible since there are only two players
+                PlayerThreeHand.Visibility = Visibility.Hidden; //We don't need the third players deck to be visible since there are only two players
             }
 
             else if (logic.Players.Count == 0)
@@ -65,8 +65,6 @@ namespace GUI_20212202_MQ7GIA
                 logic.Players.Add(logic.PlayerInit(setupWindow.PlayerThreeName, 3, logic.Players));
                 PlayerThreeHand.Visibility = Visibility.Visible;
             }
-
-            //Create some logic that matches the role to the piece color
 
             foreach (Player player in logic.Players)
             {
@@ -372,7 +370,7 @@ namespace GUI_20212202_MQ7GIA
                         MessageBox.Show("You're out of actions.");
                     }
                 }
-                
+
             }
             else if (e.Key == Key.T)
             {
@@ -563,7 +561,7 @@ namespace GUI_20212202_MQ7GIA
                 }
                 else
                 {
-                    stormCardDisplay.Hide(); //Just in case to cover a rare corner 
+                    stormCardDisplay.Hide();
 
                     switch (random.Next(1, 4))
                     {
@@ -583,7 +581,7 @@ namespace GUI_20212202_MQ7GIA
         }
         private void NextPlayer(object sender, EventArgs e)
         {
-            stormCardDisplay.Hide(); //Just in case to cover a rare corner case
+            stormCardDisplay.Hide();
             switch (random.Next(1, 4))
             {
                 case 1:
@@ -656,36 +654,8 @@ namespace GUI_20212202_MQ7GIA
                 ImageSource imagesourcefive = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 2).FirstOrDefault().Cards[4].Display, UriKind.RelativeOrAbsolute));
                 P2Card4.Source = imagesourcefive;
             }
-            ////player 3
-            //if(logic.Players.Count() == 3)
-            //{
-            //    if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 1)
-            //    {
-            //        ImageSource imagesourceone = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[0].Display, UriKind.RelativeOrAbsolute));
-            //        P3Card1.Source = imagesourceone;
-            //    }
-            //    if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 2)
-            //    {
-            //        ImageSource imagesourcetwo = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[1].Display, UriKind.RelativeOrAbsolute));
-            //        P3Card2.Source = imagesourcetwo;
-            //    }
-            //    if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 3)
-            //    {
-            //        ImageSource imagesourcethree = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[2].Display, UriKind.RelativeOrAbsolute));
-            //        P3Card3.Source = imagesourcethree;
-            //    }
-            //    if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 4)
-            //    {
-            //        ImageSource imagesourcefour = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[3].Display, UriKind.RelativeOrAbsolute));
-            //        P3Card4.Source = imagesourcefour;
-            //    }
-            //    if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 5)
-            //    {
-            //        ImageSource imagesourcefive = new BitmapImage(new Uri(logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards[4].Display, UriKind.RelativeOrAbsolute));
-            //        P3Card4.Source = imagesourcefive;
-            //    }
-            //}
-            //Player3 (made by Tomi)
+
+            //Player3
             if (logic.Players.Count is 3)
             {
                 if (logic.Players.Where(p => p.TurnOrder == 3).FirstOrDefault().Cards.Count() is 1)
