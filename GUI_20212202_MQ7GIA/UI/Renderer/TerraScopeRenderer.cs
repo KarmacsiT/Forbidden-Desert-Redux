@@ -40,6 +40,9 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             ImageBrush brush = null;
             string typeOfCard = logic.TileNames[tileUnderPeek.X, tileUnderPeek.Y];
             int pos = -1;
+            // these are variables to check where the cards will render
+            double LocationX = tileUnderPeek.X * tileWidth;
+            double LocationY = tileUnderPeek.Y * tileHeight;
 
             switch (typeOfCard)
             {
@@ -57,6 +60,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                             {
                                 brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Crystal Clue Tile Row.png"), UriKind.RelativeOrAbsolute)));
                             }
+
                             break;
                         case "Engine":
                             if (logic.board.AirShipClueTiles[pos].Direction == 'X')
@@ -131,7 +135,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
             }
             if (brush is not null)
             {
-                drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(tileUnderPeek.X * tileWidth, tileUnderPeek.Y * tileHeight, tileWidth, tileHeight));
+                drawingContext.DrawRectangle(brush, new Pen(Brushes.Black, 1), new Rect(LocationX,LocationY, tileWidth, tileHeight));
             }
         }
     }

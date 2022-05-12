@@ -2065,7 +2065,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             tiles.Add(new NamedTile
                             {
                                 Name = $"Left {x}",
-                                X = x,
+                                X = playerX-x,
                                 Y = playerY
                             });
                         }
@@ -2088,7 +2088,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             tiles.Add(new NamedTile
                             {
                                 Name = $"Right {x}",
-                                X = x,
+                                X = playerX+x,
                                 Y = playerY
                             });
                         }
@@ -2112,7 +2112,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             {
                                 Name = $"North {y}",
                                 X = playerX,
-                                Y = y
+                                Y = playerY-y
                             });
                         }
                         else
@@ -2135,7 +2135,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                             {
                                 Name = $"South {y}",
                                 X = playerX,
-                                Y = y
+                                Y = playerY+y
                             });
                         }
                         else
