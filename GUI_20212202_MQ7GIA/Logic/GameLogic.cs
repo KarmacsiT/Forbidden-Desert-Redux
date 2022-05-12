@@ -586,7 +586,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             }
             return changed;
         }
-
         public bool MeteorologistStormTracker(StormTrackerWindowViewModel stormTrackerWVM)
         {
             List<StormCard> stormcards = CollectStormCardsForTracking();
@@ -596,7 +595,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             players.Where(p => p.TurnOrder == 1).SingleOrDefault().NumberOfActions -= 1;
             return true;
         }
-
         public bool StormCardAction(StormCard currentCard)          //only 1 card is played in the Logic, this is the function, that is called muliple times if needed   
         {
             return MoveStorm(currentCard.XMove, currentCard.YMove, Players);
@@ -1972,53 +1970,7 @@ namespace GUI_20212202_MQ7GIA.Logic
         public List<StormCard> CollectStormCardsForTracking()
         {
             List<StormCard> stormTrackingCards = new List<StormCard>();
-            int cardsToTake = 0;
-            if (players.Count == 2)
-            {
-                if (StormProgress < 0.13)
-                {
-                    cardsToTake = 2;
-                }
-                else if (StormProgress < 0.33)
-                {
-                    cardsToTake = 3;
-                }
-                else if (StormProgress < 0.65)
-                {
-                    cardsToTake = 4;
-                }
-                else if (StormProgress < 0.85)
-                {
-                    cardsToTake = 5;
-                }
-                else
-                {
-                    cardsToTake = 6;
-                }
-            }
-            else if (players.Count == 2)
-            {
-                if (StormProgress < 0.06)
-                {
-                    cardsToTake = 2;
-                }
-                else if (StormProgress < 0.40)
-                {
-                    cardsToTake = 3;
-                }
-                else if (StormProgress < 0.65)
-                {
-                    cardsToTake = 4;
-                }
-                else if (StormProgress < 0.85)
-                {
-                    cardsToTake = 5;
-                }
-                else
-                {
-                    cardsToTake = 6;
-                }
-            }
+            int cardsToTake = CalculateNumberOfStormCards();
             for (int i = 0; i < cardsToTake; i++)
             {
                 if (Deck.AvailableStormCards.Count >= cardsToTake)

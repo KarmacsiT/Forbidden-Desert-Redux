@@ -114,7 +114,6 @@ namespace GUI_20212202_MQ7GIA
             terrascopeSelectWVM.SetupLogic(logic, this);
 
             stormTrackerWVM = new StormTrackerWindowViewModel();
-            stormTrackerWVM.SetupLogic(logic, this);
 
             climberTakingPlayerViewModel = new ClimberTakingPlayerViewModel();
             climberTakingPlayerViewModel.SetupLogic(logic, display, this);
@@ -173,7 +172,6 @@ namespace GUI_20212202_MQ7GIA
             terrascopeSelectWVM.SetupLogic(logic, this);
 
             stormTrackerWVM = new StormTrackerWindowViewModel();
-            stormTrackerWVM.SetupLogic(logic, this);
 
             climberTakingPlayerViewModel = new ClimberTakingPlayerViewModel();
             climberTakingPlayerViewModel.SetupLogic(logic, display, this);
@@ -366,6 +364,7 @@ namespace GUI_20212202_MQ7GIA
                     bool hasFreeActions = logic.players.Where(p => p.TurnOrder == 1).SingleOrDefault().NumberOfActions > 0;
                     if (hasFreeActions)
                     {
+                        stormTrackerWVM.SetupLogic(logic, this);
                         invalidate = logic.MeteorologistStormTracker(stormTrackerWVM);
                     }
                     else
@@ -582,8 +581,6 @@ namespace GUI_20212202_MQ7GIA
                 }
             }
         }
-
-
         private void NextPlayer(object sender, EventArgs e)
         {
             stormCardDisplay.Hide(); //Just in case to cover a rare corner case
@@ -602,7 +599,6 @@ namespace GUI_20212202_MQ7GIA
             timer.Stop();
             timer.Tick -= NextPlayer;
         }
-
         public void UpdateBoardViewModel()
         {
             GameLogic logic = display.GetLogic();
@@ -1184,6 +1180,7 @@ namespace GUI_20212202_MQ7GIA
                     case "Storm Tracker":
                         logic = display.GetLogic();
                         List<StormCard> stormcards = logic.CollectStormCardsForTracking();
+                        stormTrackerWVM.SetupLogic(logic, this);
                         stormTrackerWVM.ConvertListToObservable(stormcards);
                         Sound.PlaySound("StormTracker.mp3");
                         stormTrackerWVM.ShowWindow();
