@@ -100,7 +100,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
                 else
                 {
                     //this has to be implemented here, otherwise the window would open unnecessarily
-                    throw new Exception("There are no available players around you in 3 radius.");
+                    throw new Exception("There are no other players than you on the same tile.");
 
                 }
             }

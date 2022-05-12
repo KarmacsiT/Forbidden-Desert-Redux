@@ -67,7 +67,7 @@
         <Label Content="Dig Sand Right: 6" Grid.Row="9" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="PeachPuff"/>
         <Label Content="Use Tunnel: T" Grid.Row="10" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="PeachPuff"/>
         <Label Content="Water Sharing with Players on your tile: S" Grid.Row="11" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="PeachPuff"/>
-        <Label Content="Water Carrier Water Refill: C" Grid.Row="12" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="PeachPuff"/>
+        <Label Content="Use Ability(Water Refill, Storm Tracking, Moving Player): F" Grid.Row="12" Grid.Column="1" Foreground="Black" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="PeachPuff"/>
         <Button Content="Go Back" Grid.Row="12" Grid.Column="2"  FontFamily="{StaticResource Steamwreck}" FontSize="25" Click="Button_Click" HorizontalAlignment="Center" Width="181"/>
     </Grid>
 </Window>
