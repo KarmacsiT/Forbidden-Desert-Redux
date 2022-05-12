@@ -95,7 +95,7 @@ namespace GUI_20212202_MQ7GIA
 
 
             }
-            display.SetupLogic(logic, colors);            
+            display.SetupLogic(logic, colors);
             Sound = sound;
             Sound.PlayMusic("RPG DD Ambience Windy Desert Immersive Realistic Relaxing Heat Sand Calm.mp3");
 
@@ -249,7 +249,7 @@ namespace GUI_20212202_MQ7GIA
                     climberTakingPlayerViewModel.ConvertListToObservable(availablePlayers);
                     climberTakingPlayerViewModel.X = 0;
                     climberTakingPlayerViewModel.Y = -1;
-                    if (availablePlayers.Count >0)
+                    if (availablePlayers.Count > 0)
                     {
                         climberTakingPlayerViewModel.ShowWindow();
                     }
@@ -880,7 +880,7 @@ namespace GUI_20212202_MQ7GIA
                 P3Card4.Source = temp4;
                 P3Card5.Source = temp5;
             }
-            else //2Player Mode Card Switch
+            else if (logic.Players.Count is 2) //2Player Mode Card Switch
             {
                 ImageSource temp1 = P2Card1.Source;
                 ImageSource temp2 = P2Card2.Source;
@@ -888,18 +888,17 @@ namespace GUI_20212202_MQ7GIA
                 ImageSource temp4 = P2Card4.Source;
                 ImageSource temp5 = P2Card5.Source;
 
-                Card1.Source = temp1;
-                Card2.Source = temp2;
-                Card3.Source = temp3;
-                Card4.Source = temp4;
-                Card5.Source = temp5;
-
-
                 P2Card1.Source = Card1.Source;
                 P2Card2.Source = Card2.Source;
                 P2Card3.Source = Card3.Source;
                 P2Card4.Source = Card4.Source;
                 P2Card5.Source = Card5.Source;
+
+                Card1.Source = temp1;
+                Card2.Source = temp2;
+                Card3.Source = temp3;
+                Card4.Source = temp4;
+                Card5.Source = temp5;
             }
 
         }
