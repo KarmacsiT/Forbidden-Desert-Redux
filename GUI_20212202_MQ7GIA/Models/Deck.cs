@@ -23,9 +23,7 @@ namespace GUI_20212202_MQ7GIA.Models
 
         public string Name { get; set; }
         public bool IsDiscarded { get; set; }
-        public bool InPlayerHand { get; set; }
-        //public string Description { get; set; } dont think it is necessary given that the UI will show its description 
-        //public Action Ability { get; set; }
+        public bool InPlayerHand { get; set; }        
         public string Display { get; set; }
     }
 

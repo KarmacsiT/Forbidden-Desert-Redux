@@ -255,12 +255,7 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                     if (discovered == false)
                     {
                         switch (logic.TileNames[x, y])
-                        {
-                            //case "Storm":
-                            //    {
-                            //        brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "storm.gif"), UriKind.RelativeOrAbsolute)));
-                            //    }
-                            //    break;
+                        {                           
                             case "AirShipClueTile":
                                 {
                                     brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("ImageAssets/Tiles", "Tile Backside.png"), UriKind.RelativeOrAbsolute)));
@@ -336,7 +331,6 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
 
 
                     //Piece draw for when only one player is standing on the starting tile or any tile
-                    //drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", "white_piece.png"), UriKind.RelativeOrAbsolute)), new Rect(startX * tileWidth + 43, startY * tileHeight + 25, tileWidth / 3.5, tileHeight / 2));
 
                     //Piece draw when two players are on the same tile
                     if (logic.Players.Count == 2)
@@ -349,22 +343,8 @@ namespace GUI_20212202_MQ7GIA.UI.Renderer
                         drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[0]), UriKind.RelativeOrAbsolute)), new Rect(logic.Players[0].X * tileWidth + 10, logic.Players[0].Y * tileHeight + 5, tileWidth / 3.5, tileHeight / 2));
                         drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[1]), UriKind.RelativeOrAbsolute)), new Rect(logic.Players[1].X * tileWidth + 75, logic.Players[1].Y * tileHeight + 5, tileWidth / 3.5, tileHeight / 2));
                         drawingContext.DrawImage(new BitmapImage(new Uri(Path.Combine("ImageAssets/Pieces", colors[2]), UriKind.RelativeOrAbsolute)), new Rect(logic.Players[2].X * tileWidth + 43, logic.Players[2].Y * tileHeight + 50, tileWidth / 3.5, tileHeight / 2));
-                    }
-                    //
-
-
-                    //Piece draw when three players are on the same tile
-
-
-                    //if (x == logic.board.storm.X && y == logic.board.storm.Y) //Storm Render
-                    //{
-                    //    drawingContext.DrawRectangle(Brushes.Coral, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
-                    //}
-
-                    //else
-                    //{
-                    //    drawingContext.DrawRectangle(Brushes.Yellow, new Pen(Brushes.Black, 1), new Rect(y * tileWidth, x * tileHeight, tileWidth, tileHeight));
-                    //}
+                    }                  
+                    //Piece draw when three players are on the same tile                 
                     discovered = false;
                 }
 

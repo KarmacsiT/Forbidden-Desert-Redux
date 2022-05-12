@@ -395,7 +395,6 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                             }
                             board.storm.X += 1;
-                            //StormProgress += 1.0 / 15.0;
                             Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
                     }
@@ -453,14 +452,13 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                             }
                             board.storm.X -= 1;
-                            //StormProgress += 1.0 / 15.0;
                             Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
                     }
                     PartTileCoordinateGiver();
                 }
             }
-            else      //StormProgress < 0.93
+            else      
             {
                 for (int i = 0; i < Math.Abs(y); i++)
                 {
@@ -520,7 +518,6 @@ namespace GUI_20212202_MQ7GIA.Logic
                                     break;
                             }
                             board.storm.Y += 1;
-                            //StormProgress += 1.0 / 15.0;
                             Sound.PlaySound("360372__chancemedia__20160724-loud-cloud.mp3");
                         }
                     }
@@ -754,7 +751,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 X = board.CrashStartTile.X,
                 Y = board.CrashStartTile.Y, //The launchpad tile would be the finishing tile, so we need the CrashStartTile as starting position
                 NumberOfActions = 4,
-                ActionDescription = "ActionDescriptionLongString",    //needs to be finished
+                ActionDescription = "ActionDescriptionLongString",
                 Cards = new List<ItemCard>(),
                 PlayerName = playerName,
                 TurnOrder = turnOrder,
@@ -765,7 +762,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                 roleNumber = rng.Next(0, 6);
             }
 
-            switch (roleNumber)     //Abilitylist not finished
+            switch (roleNumber)     
             {
                 case 0:
                     {
@@ -1671,16 +1668,7 @@ namespace GUI_20212202_MQ7GIA.Logic
 
             elementroot.Add(xdeck);
 
-            //
-            //Game Status ---- apperently not used anywhere
-            //XElement xgamestatus = new XElement("Status");
-            //xgamestatus.SetAttributeValue("NumberOfSandTiles", Status.NumberOfSandTiles);
-            //xgamestatus.SetAttributeValue("NumberOfStormCardsDrawn", Status.NumberOfStormCardsDrawn);
-            //xgamestatus.SetAttributeValue("StormMeter", Status.StormMeter);
-            //xgamestatus.SetAttributeValue("GameDifficulty", Status.GameDifficulty);
-
-            //elementroot.Add(xgamestatus);
-
+            
             //
             //Players
             XElement xplayers = new XElement("Players");
@@ -1806,30 +1794,6 @@ namespace GUI_20212202_MQ7GIA.Logic
             XElement xstormprogressnumberofcards = new XElement("StormProgressNumberOfCards");
             xstormprogressnumberofcards.SetAttributeValue("value", StormProgressNumberOfCards);
             elementroot.Add(xstormprogressnumberofcards);
-
-            ////
-            ////CurrentPlayerCard1Display 
-            //XElement xcurrentplayercard1display = new XElement("CurrentPlayerCard1Display");
-            //xcurrentplayercard1display.SetAttributeValue("value", CurrentPlayerCard1Display == null ? "null" : CurrentPlayerCard1Display.ToString());
-            //elementroot.Add(xcurrentplayercard1display);
-            ////CurrentPlayerCard2Display 
-            //XElement xcurrentplayercard2display = new XElement("CurrentPlayerCard2Display");
-            //xcurrentplayercard2display.SetAttributeValue("value", CurrentPlayerCard2Display == null ? "null" : CurrentPlayerCard2Display.ToString());
-            //elementroot.Add(xcurrentplayercard2display);
-            ////CurrentPlayerCard3Display 
-            //XElement xcurrentplayercard3display = new XElement("CurrentPlayerCard3Display");
-            //xcurrentplayercard3display.SetAttributeValue("value", CurrentPlayerCard3Display == null ? "null" : CurrentPlayerCard3Display.ToString());
-            //elementroot.Add(xcurrentplayercard3display);
-            ////CurrentPlayerCard4Display 
-            //XElement xcurrentplayercard4display = new XElement("CurrentPlayerCard4Display");
-            //xcurrentplayercard4display.SetAttributeValue("value", CurrentPlayerCard4Display == null ? "null" : CurrentPlayerCard4Display.ToString());
-            //elementroot.Add(xcurrentplayercard4display);
-            ////CurrentPlayerCard5Display 
-            //XElement xcurrentplayercard5display = new XElement("CurrentPlayerCard5Display");
-            //xcurrentplayercard5display.SetAttributeValue("value", CurrentPlayerCard5Display == null ? "null" : CurrentPlayerCard5Display.ToString());
-            //elementroot.Add(xcurrentplayercard5display);
-
-
             xdocument.Add(elementroot);
             xdocument.Save("savegame.xml");
 

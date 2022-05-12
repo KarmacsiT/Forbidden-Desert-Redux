@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUI_20212202_MQ7GIA.Models
 {
-    public interface IItem // To be continued
+    public interface IItem
     {
         //This is a Gadget which you can use anytime (jetpack)
         string Name { get; set; }
