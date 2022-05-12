@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:renderer="clr-namespace:GUI_20212202_MQ7GIA.UI.Renderer"
         mc:Ignorable="d"
-        Title="TerrascopeWindow" Height="800" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+        Title="TerrascopeWindow" Height="1080" Width="1920" WindowStartupLocation="CenterScreen" WindowState="Maximized" Topmost="True" WindowStyle="None" ResizeMode="NoResize" Loaded="WindowLoaded" AllowsTransparency="True">
     <Window.Background>
-        <ImageBrush ImageSource="pack://application:,,,/ImageAssets/PauseMenu.png" Opacity="0.3"/>
+        <ImageBrush ImageSource="pack://application:,,,/ImageAssets/PauseMenu.png" Opacity="0.2"/>
     </Window.Background>
     <Window.Resources>
         <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
@@ -35,9 +35,19 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="8*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid x:Name="boardDisplay" AllowDrop="True" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="600" Grid.ColumnSpan="3" Grid.RowSpan="2">
             <renderer:TerraScopeRenderer x:Name="terraScopeRenderer" />
         </Grid>
-        <Button Style="{StaticResource TransparentStyle}" Grid.Column="1" Grid.Row="1" Content="Go back" HorizontalAlignment="center" VerticalAlignment="Bottom"  FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Close"/>
+        <Button Style="{StaticResource TransparentStyle}" Content="Go back" HorizontalAlignment="Center" VerticalAlignment="Top"  FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Close" Margin="0,319,0,0" Grid.Column="1" Grid.Row="1"/>
     </Grid>
 </Window>
