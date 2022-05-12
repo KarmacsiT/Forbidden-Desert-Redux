@@ -40,6 +40,7 @@ namespace GUI_20212202_MQ7GIA.UI.ViewModel
             try
             {
                 Logic.WaterSharing(Logic.Players, selectedPlayer);
+                boardWindow.UpdateBoardViewModel();
                 window.Close();
             }
             catch (Exception ex)
