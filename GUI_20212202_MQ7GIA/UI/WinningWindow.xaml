@@ -47,6 +47,6 @@
         </Grid.ColumnDefinitions>
         <Label HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" FontSize="110" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black">Victory!</Label>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top"  Grid.Row="0" Grid.Column="1" FontSize="40" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Margin="0,154,0,0">You and your team found all the parts of the Flying Machine and managed to escape with it, despite the challenging condions of the desert!</Label>
-        <Button Style="{StaticResource TransparentStyle}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" Content="Exit to Menu" Width="350" Height="105" FontSize="80" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Exit"/>
+        <Button Style="{StaticResource TransparentStyle}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Exit to Main Menu" Height="105" FontSize="80" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Exit"/>
     </Grid>
 </Window>

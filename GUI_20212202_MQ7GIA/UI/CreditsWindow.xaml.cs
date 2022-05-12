@@ -28,5 +28,6 @@ namespace GUI_20212202_MQ7GIA
         {
             this.DialogResult = true;
         }
+
     }
 }

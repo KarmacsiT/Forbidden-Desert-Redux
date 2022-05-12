@@ -47,6 +47,6 @@
         </Grid.ColumnDefinitions>
         <Label HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" FontSize="110" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black">Game Lost!</Label>
         <Label HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" FontSize="50" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Black" Margin="0,154,0,0">The desert shows no mercy for the weak or the foul hearthy alike!</Label>
-        <Button Style="{StaticResource TransparentStyle}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" Content="Exit to Menu" Width="350" Height="105" FontSize="80" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Exit"/>
+        <Button Style="{StaticResource TransparentStyle}" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Exit to Main Menu" Height="105" FontSize="80" FontWeight="Bold" FontStretch="Normal" FontFamily="{StaticResource Steamwreck}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Exit"/>
     </Grid>
 </Window>

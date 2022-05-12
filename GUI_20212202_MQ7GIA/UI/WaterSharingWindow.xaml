@@ -6,8 +6,33 @@
         xmlns:local="clr-namespace:GUI_20212202_MQ7GIA"
         mc:Ignorable="d"
         Title="WaterSharingWindow" Height="120" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True">
+    <Window.Resources>
+        <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
+        <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Coral"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Label Content="Who do you want to share water with?" HorizontalAlignment="Left" Margin="47,36,0,0" VerticalAlignment="Top"/>
+        <Label Content="Who do you want to share water with?" HorizontalAlignment="Left" FontFamily="{StaticResource Steamwreck}" FontSize="20" Margin="45,32,0,0" VerticalAlignment="Top"/>
         <ComboBox HorizontalAlignment="Left" Margin="330,38,0,0" VerticalAlignment="Top" Width="200" ItemsSource="{Binding PlayersWithoutFirst}" SelectedItem="{Binding SelectedPlayer}" SelectedIndex="1">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -15,8 +40,8 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Content="Share" HorizontalAlignment="Left" Margin="251,77,0,0" VerticalAlignment="Top" Command="{Binding ShareCommand}"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="309,77,0,0" VerticalAlignment="Top" Click="Exit"/>
+        <Button Content="Share" HorizontalAlignment="Left" Margin="205,80,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="20" Style="{StaticResource TransparentStyle}" Command="{Binding ShareCommand}"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="308,80,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="20" Style="{StaticResource TransparentStyle}" Click="Exit"/>
 
     </Grid>
 </Window>

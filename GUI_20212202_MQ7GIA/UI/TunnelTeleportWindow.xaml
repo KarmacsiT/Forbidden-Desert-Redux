@@ -6,8 +6,33 @@
         xmlns:local="clr-namespace:GUI_20212202_MQ7GIA"
         mc:Ignorable="d"
 Title="TunnelTeleportWindow" Height="120" Width="600" WindowStartupLocation="CenterScreen" WindowStyle="None" Topmost="True">
+    <Window.Resources>
+        <FontFamily x:Key="Steamwreck" >/Font/#Steamwreck</FontFamily>
+        <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Coral"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Label Content="Which tunnel do you want to exit at?" HorizontalAlignment="Left" Margin="47,36,0,0" VerticalAlignment="Top"/>
+        <Label Content="Which tunnel do you want to exit at?" HorizontalAlignment="Left" Margin="25,32,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="{StaticResource Steamwreck}"/>
         <ComboBox HorizontalAlignment="Left" Margin="330,38,0,0" VerticalAlignment="Top" Width="200" ItemsSource="{Binding TunnelsWithoutFirst}" SelectedItem="{Binding SelectedTunnel}" SelectedIndex="1">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -24,8 +49,8 @@ Title="TunnelTeleportWindow" Height="120" Width="600" WindowStartupLocation="Cen
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Content="Go Underground" HorizontalAlignment="Left" Margin="206,77,0,0" VerticalAlignment="Top" Command="{Binding TeleportCommand}"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="309,77,0,0" VerticalAlignment="Top" Click="Exit"/>
+        <Button Content="Go Underground" HorizontalAlignment="Left" Margin="190,87,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="20" Style="{StaticResource TransparentStyle}" Command="{Binding TeleportCommand}"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="346,87,0,0" VerticalAlignment="Top" FontFamily="{StaticResource Steamwreck}" FontSize="20" Style="{StaticResource TransparentStyle}" Click="Exit"/>
 
     </Grid>
 </Window>
