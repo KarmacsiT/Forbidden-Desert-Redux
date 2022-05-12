@@ -1023,7 +1023,7 @@ namespace GUI_20212202_MQ7GIA.Logic
                     {
                         adjacentSandedTilesFromPlayer.Add(new NamedTile
                         {
-                            Name = "South of you",
+                            Name = "Southeast of you",
                             X = x,
                             Y = y
                         });
